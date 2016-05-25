@@ -1,0 +1,9 @@
+.mdl-layout {
+	align-items: center;
+  justify-content: center;
+}
+
+.mdl-layout__content {
+	padding: 150px;
+	flex: none;
+}
