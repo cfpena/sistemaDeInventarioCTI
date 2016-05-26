@@ -7,3 +7,11 @@
 	padding: 150px;
 	flex: none;
 }
+
+.mdl-layout, .mdl-js-layout{
+	background-image: url("../images/fondo_login.png");
+  background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
