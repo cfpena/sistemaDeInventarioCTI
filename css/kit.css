@@ -1,0 +1,188 @@
+
+table{
+  font-family: 'roboto', sans-serif;
+      /*width: 460px;*/
+      margin: 100px auto 0;
+      box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+      padding: 0 0 40px;
+      border-radius: 3px;
+      color: #555;
+      /*display:block;*/
+}
+
+.opciones_new_edit_del{
+  background: #F5F5F5;
+  padding-top: 10px;
+}
+
+/*********css modal Registar Item*/
+.mdl-dialog__title{
+  background:E0E0E0;
+  border-radius: 3px;
+  padding-bottom: : 100px;
+
+}
+.mdl-dialog{
+border-radius: 15px;
+}
+
+.demo-list-item {
+  width: 300px;
+}
+
+.mdl-select {
+position: relative;
+font-size: 16px;
+display: inline-block;
+box-sizing: border-box;
+width: 300px;
+max-width: 100%;
+margin: 0;
+padding: 20px 0;
+}
+
+.mdl-select__input {
+border: none;
+border-bottom: 1px solid rgba(0,0,0, 0.12);
+display: inline-block;
+font-size: 16px;
+margin: 0;
+padding: 4px 0;
+width: 100%;
+background: 16px;
+text-align: left;
+color: inherit;
+}
+
+.mdl-select.is-focused .mdl-select__input {	outline: none; }
+.mdl-select.is-invalid .mdl-select__input {
+border-color: rgb(222, 50, 38);
+box-shadow: none;
+}
+
+.mdl-select.is-disabled .mdl-select__input {
+background-color: transparent;
+border-bottom: 1px dotted rgba(0,0,0, 0.12);
+}
+
+.mdl-select__label {
+bottom: 0;
+color: rgba(0,0,0, 0.26);
+font-size: 16px;
+left: 0;
+right: 0;
+pointer-events: none;
+position: absolute;
+top: 24px;
+width: 100%;
+overflow: hidden;
+white-space: nowrap;
+text-align: left;
+}
+
+.mdl-select.is-dirty .mdl-select__label { visibility: hidden; }
+
+.mdl-select--floating-label .mdl-textfield__label {
+-webkit-transition-duration: 0.2s;
+transition-duration: 0.2s;
+-webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mdl-select--floating-label.is-focused .mdl-select__label,
+.mdl-select--floating-label.is-dirty .mdl-select__label {
+color: rgb(63,81,181);
+font-size: 12px;
+top: 4px;
+visibility: visible;
+}
+
+.mdl-select--floating-label.is-focused .mdl-select__expandable-holder .mdl-select__label,
+.mdl-select--floating-label.is-dirty .mdl-select__expandable-holder .mdl-select__label {
+top: -16px;
+}
+
+.mdl-select--floating-label.is-invalid .mdl-select__label {
+color: rgb(222, 50, 38);
+font-size: 12px;
+}
+
+.mdl-select__label:after {
+background-color: rgb(63,81,181);
+bottom: 20px;
+content: '';
+height: 2px;
+left: 45%;
+position: absolute;
+-webkit-transition-duration: 0.2s;
+transition-duration: 0.2s;
+-webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+visibility: hidden;
+width: 10px;
+}
+
+.mdl-select.is-focused .mdl-select__label:after {
+left: 0;
+visibility: visible;
+width: 100%;
+}
+
+.mdl-select.is-invalid .mdl-select__label:after {
+background-color: rgb(222, 50, 38);
+}
+
+.mdl-select__error {
+color: rgb(222, 50, 38);
+position: absolute;
+font-size: 12px;
+margin-top: 3px;
+visibility: hidden;
+}
+
+.mdl-select.is-invalid .mdl-select__error {
+visibility: visible;
+}
+
+.mdl-select__expandable-holder {
+display: inline-block;
+position: relative;
+margin-left: 32px;
+-webkit-transition-duration: 0.2s;
+transition-duration: 0.2s;
+-webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+display: inline-block;
+max-width: 0.1px;
+}
+
+.mdl-select.is-focused .mdl-select__expandable-holder, .mdl-select.is-dirty .mdl-select__expandable-holder {
+max-width: 600px;
+}
+
+.mdl-select__expandable-holder .mdl-select__label:after {
+bottom: 0;
+}
+
+
+
+.checkboxdemoBasicUsage div.flex-xs {
+  min-height: 40px; }
+.checkboxdemoBasicUsage .checkboxDemo1 div {
+  clear: both; }
+.checkboxdemoBasicUsage .checkboxDemo1 md-checkbox {
+  float: left; }
+.checkboxdemoBasicUsage p {
+  padding-left: 8px; }
+.checkboxdemoBasicUsage fieldset.standard {
+  border-style: solid;
+  border-width: 1px; }
+.checkboxdemoBasicUsage legend {
+  color: #3F51B5; }
+.checkboxdemoBasicUsage legend code {
+  color: #3F51B5;
+  font-weight: normal; }
+.checkboxdemoBasicUsage .ipsum {
+  color: saddlebrown; }
+
+  .getmdl-select .mdl-icon-toggle__label{float:right;margin-top:-30px;color:rgba(0,0,0,0.4)}.getmdl-select.is-focused .mdl-icon-toggle__label{color:#3f51b5}.getmdl-select .mdl-menu__container{width:100% !important}.getmdl-select .mdl-menu__container .mdl-menu .mdl-menu__item{font-size:16px}
