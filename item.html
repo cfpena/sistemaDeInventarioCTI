@@ -1,20 +1,24 @@
-
+<!--**********************************************************************+
+Nombre: login.html
+Descripción: layout de Item - Se usa material design lite
+Creado por: Janina Costa
+Fecha de Creación: 29/06/2016
+**************************************************************************-->
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8"></meta>
   <title>inventario</title>
-
+  <!--Opciones para adaptarse a la aplicación móvil  -->
   <meta name="viewport" content="width=device-width, maximum-scale=2, user-scalable=no">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-
+  <!--Librerias de material design lite -->
   <link href="css/item.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="material/material.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script src="material/material.min.js"></script>
-  <script src="js/jquery-1.12.4.min.js" type="text/javascript"></script> 
 </head>
 <body>
   <!-- Botones para crear, eliminar, modificar ïtem , buscar item-->
@@ -45,7 +49,7 @@
     </div>
   </div>
 
-
+  <!--Formulario de datos para crear un nuevo ítem-->
   <dialog class="mdl-dialog  mdl-color--grey-200">
     <!--<h4 class="mdl-dialog__title mdl-color-text--indigo-600">Nuevo Ítem</h4>-->
     <div class="mdl-dialog__title mdl-color-text--cyan-900">
@@ -88,76 +92,27 @@
     </div>
   </dialog>
 
-  <!--
-  <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp responsive-table">
-  <thead>
-  <tr>
-  <th class="mdl-data-table__cell--non-numeric">Código</th>
-  <th>Nombre</th>
-  <th>Modelo</th>
-  <th>Marca</th>
-  <th>Descripción</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
-<td>25</td>
-<td>$2.90</td>
-<td>serty</td>
-<td>serty</td>
-</tr>
-<tr>
-<td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
-<td>50</td>
-<td>$1.25</td>
-<td>serty</td>
-<td>serty</td>
-</tr>
-<tr>
-<td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
-<td>10</td>
-<td>$2.35</td>
-<td>serty</td>
-<td>serty</td>
-</tr>
-<tr>
-<td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
-<td>10</td>
-<td>$2.35</td>
-<td>serty</td>
-<td>serty</td>
-</tr>
-<tr>
-<td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
-<td>10</td>
-<td>$2.35</td>
-<td>serty</td>
-<td>serty</td>
-</tr>
-</tbody>
-</table>
--->
-
-<!--Script del modal-->
-<script type="text/javascript">
-var button = document.querySelector('#show-dialog');
-var dialog = document.querySelector('dialog');
-button.addEventListener('click', function() {
-  //dialog.showModal();
-  dialog.show();});
+  <!--Script del modal de crear Ítem-->
+  <script type="text/javascript">
+    var button = document.querySelector('#show-dialog');
+    var dialog = document.querySelector('dialog');
+    button.addEventListener('click', function() {
+    //dialog.showModal();
+    dialog.show();});
   </script>
 
   <script>
-  var dialog = document.querySelector('dialog');
-  var showDialogButton = document.querySelector('#show-dialog');
-  if (! dialog.show) {
-    dialogPolyfill.registerDialog(dialog);
-  }
-  showDialogButton.addEventListener('click', function() {
-    dialog.show();});
-    dialog.querySelector('.close').addEventListener('click', function() {
-      dialog.close();});
-      </script>
-    </body>
-    </html>
+      var dialog = document.querySelector('dialog');
+      var showDialogButton = document.querySelector('#show-dialog');
+      if (! dialog.show) {
+        dialogPolyfill.registerDialog(dialog);
+      }
+      showDialogButton.addEventListener('click', function() {
+        dialog.show();
+      });
+      dialog.querySelector('.close').addEventListener('click', function() {
+          dialog.close();
+        });
+  </script>
+  </body>
+</html>

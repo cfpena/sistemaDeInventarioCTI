@@ -1,16 +1,27 @@
+<!--**********************************************************************+
+Nombre: login.html
+Descripción: layout de login - Se usa material design lite
+Creado por: Janina Costa
+Fecha de Creación: 29/06/2016
+**************************************************************************-->
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8"></meta>
   <title> inventario  </title>
+  <!--Archivo de login.css -->
   <link href="css/login.css" rel="stylesheet" type="text/css">
+  <!--Librerias de material design lite -->
   <link rel="stylesheet" href="material/material.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!--Libreria js de material design lite -->
   <script src="material/material.min.js"></script>
 </head>
-
 <body>
+  <!--Inicio de la estructura de la ventana para iniciar seion -->
+  <!--Layout principal -->
   <div  class="mdl-layout mdl-js-layout  mdl-color--grey-100">
+    <!--Layout contenedor -->
     <main class="mdl-layout__content" >
       <div class="mdl-card mdl-shadow--24dp">
         <div class="mdl-card__title  mdl-color-text--white mdl-color--blue-900">
@@ -29,12 +40,13 @@
           </form>
         </div>
         <div class="mdl-card__actions mdl-card--border" >
-          <!-- Accent-colored raised button with ripple -->
+          <!-- Componente button de MDL > Accent-colored raised button with ripple -->
           <button  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-color--blue-900" onclick="login()">Log in</button>
         </div>
       </div>
     </main>
   </div>
+  <!--Script de login -->
   <script>
   function login(){
     window.location="principal.html";
