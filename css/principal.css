@@ -20,6 +20,10 @@ body{
   overflow-x:hidden;
 }
 
+.txtform{
+  padding: 7px 0;
+
+}
 html, body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
 

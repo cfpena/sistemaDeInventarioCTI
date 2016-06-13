@@ -3,6 +3,7 @@ Nombre: login.html
 Descripción: layout de Item - Se usa material design lite
 Creado por: Janina Costa
 Fecha de Creación: 29/06/2016
+Última modificación> 13/06/2016
 **************************************************************************-->
 <!DOCTYPE html>
 <html>
@@ -47,45 +48,42 @@ Fecha de Creación: 29/06/2016
       </form>
     </div>
   </div>
-
   <!--Formulario de datos para crear un nuevo ítem-->
-  <dialog class="mdl-dialog  mdl-color--grey-200">
+  <dialog id="modal" class="mdl-dialog mdl-color--grey-200">
     <!--<h4 class="mdl-dialog__title mdl-color-text--indigo-600">Nuevo Ítem</h4>-->
-    <div class="mdl-dialog__title mdl-color-text--cyan-900">
-      <h3 >Nuevo ítem</h3>
+    <div id= "title_modal" class="mdl-dialog__title mdl-color--cyan-900 mdl-color-text--white mdl-typography--text-center .mdl-typography--display-2">
+      <span >Nuevo Ítem</span>
     </div>
-    <div class="mdl-dialog__content">
+    <div  class="mdl-dialog__content" id="contenido_modal">
       <!--Contenido del modal -> formulario para agregar un nuevo ítem-->
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--12-col">
           <form action="#">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="sample3">
-              <label class="mdl-textfield__label" for="sample3">Código</label>
+            <div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="sample1">
+              <label class="mdl-textfield__label" for="sample1" id="sample1">Código</label>
             </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="sample3">
-              <label class="mdl-textfield__label" for="sample3">Nombre</label>
+            <div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="sample2">
+              <label class="mdl-textfield__label" for="sample2" id="sample2">Nombre</label>
             </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="text" id="sample3">
               <label class="mdl-textfield__label" for="sample3">Modelo</label>
             </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="sample3">
-              <label class="mdl-textfield__label" for="sample3">marca</label>
+            <div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="sample4">
+              <label class="mdl-textfield__label" for="sample4">marca</label>
             </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <textarea class="mdl-textfield__input" type="text" rows= "2" id="sample5" ></textarea>
               <label class="mdl-textfield__label" for="sample5">Descripción</label>
             </div>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-typography--text-lowercase">Guardar</button>
+            <button class="mdl-button mdl-js-button mdl-button--raised close mdl-typography--text-lowercase">Cancelar</button>
           </form>
         </div>
       </div>
-    </div>
-    <div class="mdl-dialog__actions">
-      <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent close mdl-button--colored mdl-color--cyan-900 mdl-color-text--white ">Cancelar</button>
-      <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-button--colored mdl-color--cyan-900  mdl- mdl-color-text--white ">Guardar</button>
     </div>
   </dialog>
 
