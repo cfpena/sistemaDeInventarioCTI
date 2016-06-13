@@ -2,7 +2,7 @@
 Nombre: login.html
 Descripción: layout de Item - Se usa material design lite
 Creado por: Janina Costa
-Fecha de Creación: 29/06/2016 
+Fecha de Creación: 29/06/2016
 **************************************************************************-->
 <!DOCTYPE html>
 <html>
@@ -17,14 +17,13 @@ Fecha de Creación: 29/06/2016
   <link href="css/item.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="material/material.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script src="material/material.min.js"></script>
 </head>
 <body>
   <!-- Botones para crear, eliminar, modificar ïtem , buscar item-->
-  <div class="mdl-grid opciones_new_edit_del">
+  <div class="mdl-grid demo-content opciones_new_edit_del">
     <div class="mdl-cell mdl-cell--10-col">
-      <button id="show-dialog" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color-text--cyan-900">
+      <button id="show-dialog" class=" mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color-text--cyan-900">
         <i class="material-icons" >add</i>
       </button>
       <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color-text--cyan-900">
@@ -80,11 +79,10 @@ Fecha de Creación: 29/06/2016
               <textarea class="mdl-textfield__input" type="text" rows= "2" id="sample5" ></textarea>
               <label class="mdl-textfield__label" for="sample5">Descripción</label>
             </div>
-
           </form>
         </div>
       </div>
-      </div>
+    </div>
     <div class="mdl-dialog__actions">
       <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent close mdl-button--colored mdl-color--cyan-900 mdl-color-text--white ">Cancelar</button>
       <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-button--colored mdl-color--cyan-900  mdl- mdl-color-text--white ">Guardar</button>
@@ -93,25 +91,25 @@ Fecha de Creación: 29/06/2016
 
   <!--Script del modal de crear Ítem-->
   <script type="text/javascript">
-    var button = document.querySelector('#show-dialog');
-    var dialog = document.querySelector('dialog');
-    button.addEventListener('click', function() {
+  var button = document.querySelector('#show-dialog');
+  var dialog = document.querySelector('dialog');
+  button.addEventListener('click', function() {
     //dialog.showModal();
     dialog.show();});
-  </script>
+    </script>
 
-  <script>
-      var dialog = document.querySelector('dialog');
-      var showDialogButton = document.querySelector('#show-dialog');
-      if (! dialog.show) {
-        dialogPolyfill.registerDialog(dialog);
-      }
-      showDialogButton.addEventListener('click', function() {
-        dialog.show();
-      });
-      dialog.querySelector('.close').addEventListener('click', function() {
-          dialog.close();
-        });
-  </script>
+    <script>
+    var dialog = document.querySelector('dialog');
+    var showDialogButton = document.querySelector('#show-dialog');
+    if (! dialog.show) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    showDialogButton.addEventListener('click', function() {
+      dialog.show();
+    });
+    dialog.querySelector('.close').addEventListener('click', function() {
+      dialog.close();
+    });
+    </script>
   </body>
-</html>
+  </html>

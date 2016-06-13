@@ -33,28 +33,21 @@ Fecha de Creación: 29/06/2016
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="material/material.min.css">
-  <script src="material/material.min.js"></script>
   <!--Referencia al archivo principal.css-->
   <link rel="stylesheet" href="css/principal.css">
+  <!--Referencia a los archivos js-->
+  <script src="material/material.min.js"></script>
+  <script src="js/principal.js"></script>
 </head>
 <body>
+
   <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">Sistema de Inventario</span>
         <div class="mdl-layout-spacer"></div>
-        <!--
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-          <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
-            <i class="material-icons">search</i>
-          </label>
-          <div class="mdl-textfield__expandable-holder">
-            <input class="mdl-textfield__input" type="text" id="search">
-            <label class="mdl-textfield__label" for="search">Enter your query...</label>
-          </div>
-        </div>
-      -->
-      <!--Opciones de Ajuste de cuenta del user y cerrar sesión-->
+
+        <!--Opciones de Ajuste de cuenta del user y cerrar sesión-->
         <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
           <i class="material-icons">more_vert</i>
         </button>
@@ -69,7 +62,7 @@ Fecha de Creación: 29/06/2016
         <img src="images/avatar.png" class="demo-avatar">
         <div class="demo-avatar-dropdown">
           <span>user@espol.edu.ec</span>
-          <div class="mdl-layout-spacer"></div>
+          <!--<div class="mdl-layout-spacer"></div>
           <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
             <i class="material-icons" role="presentation">arrow_drop_down</i>
             <span class="visuallyhidden">Accounts</span>
@@ -78,12 +71,12 @@ Fecha de Creación: 29/06/2016
             <li class="mdl-menu__item">hello@example.com</li>
             <li class="mdl-menu__item">info@example.com</li>
             <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
-          </ul>
+          </ul>-->
         </div>
       </header>
       <!--Opciones del Menú principal-->
       <nav class="demo-navigation mdl-navigation ">
-        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>Persona</a>
+        <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>Persona</a>
         <a class="mdl-navigation__link" href="#"  onclick="load_home()"><i class="mdl-color-text--blue-grey-400 material-icons">local_offer</i>Ítem</a>
         <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Kit</a>
         <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">import_contacts</i>Inventario</a>
@@ -95,14 +88,8 @@ Fecha de Creación: 29/06/2016
     </div>
     <main class="mdl-layout__content mdl-color--grey-100">
       <!--div para cargar el contenido de la página-->
-      <div id="contenido">
-      </div>
+      <div id="contenido" ></div>
     </main>
   </div>
-  <script type="text/javascript">
-  function load_home(){
-    document.getElementById("contenido").innerHTML='<object type="text/html" data="prueba.html" ></object>';
-  }
-  </script>
 </body>
 </html>
