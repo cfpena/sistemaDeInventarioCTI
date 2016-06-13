@@ -17,7 +17,6 @@ Fecha de Creación: 29/06/2016
   <!-- Add to homescreen for Chrome on Android -->
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="icon" sizes="192x192" href="images/android-desktop.png">
-
   <!-- Add to homescreen for Safari on iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -35,10 +34,6 @@ Fecha de Creación: 29/06/2016
   <script src="material/material.min.js"></script>
   <!--Referencia al archivo principal.css-->
   <link rel="stylesheet" href="css/principal.css">
-
-  <!--
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-  <script src="js/jquery-1.12.4.min.js" type="text/javascript"></script>-->
 </head>
 <body>
   <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -46,6 +41,7 @@ Fecha de Creación: 29/06/2016
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">Sistema de Inventario</span>
         <div class="mdl-layout-spacer"></div>
+        <!--
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
           <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
             <i class="material-icons">search</i>
@@ -55,21 +51,21 @@ Fecha de Creación: 29/06/2016
             <label class="mdl-textfield__label" for="search">Enter your query...</label>
           </div>
         </div>
+      -->
         <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
           <i class="material-icons">more_vert</i>
         </button>
         <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-          <li class="mdl-menu__item">About</li>
-          <li class="mdl-menu__item">Contact</li>
-          <li class="mdl-menu__item">Legal information</li>
+          <li class="mdl-menu__item">Ajustes</li>
+          <li class="mdl-menu__item">Cerrar Sesión</li>
         </ul>
       </div>
     </header>
     <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
       <header class="demo-drawer-header">
-        <img src="images/user.jpg" class="demo-avatar">
+        <img src="images/avatar.png" class="demo-avatar">
         <div class="demo-avatar-dropdown">
-          <span>hello@example.com</span>
+          <span>user@espol.edu.ec</span>
           <div class="mdl-layout-spacer"></div>
           <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
             <i class="material-icons" role="presentation">arrow_drop_down</i>
@@ -82,11 +78,15 @@ Fecha de Creación: 29/06/2016
           </ul>
         </div>
       </header>
+      <!--Menú principal-->
       <nav class="demo-navigation mdl-navigation ">
-        <!--<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>-->
-        <a id="persona" class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>Persona</a>
-        <a id="item" class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons">local_offer</i>Ítem</a>
-        <a id="kit"class=" kit mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Kit</a>
+        <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">person</i>Persona</a>
+        <a class="mdl-navigation__link" href="#"  onclick="load_home()"><i class="mdl-color-text--blue-grey-400 material-icons">local_offer</i>Ítem</a>
+        <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>Kit</a>
+        <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">import_contacts</i>Inventario</a>
+        <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">library_books</i>Reportes</a>
+        <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">swap_horiz</i>Préstamos</a>
+        <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">today</i>Planificación</a>
         <div class="mdl-layout-spacer"></div>
       </nav>
     </div>
@@ -96,15 +96,10 @@ Fecha de Creación: 29/06/2016
       </div>
     </main>
   </div>
-  <!--Script para llamar un html externo en un div-->
-  <!--
-  <script>
-  $(document).ready(function(){
-    $(".kit").click(function(){
-      $("#contenido").load("item.html");
-    });
-  });
+  <script type="text/javascript">
+  function load_home(){
+    document.getElementById("contenido").innerHTML='<object type="text/html" data="prueba.html" ></object>';
+  }
   </script>
-  -->
 </body>
 </html>
