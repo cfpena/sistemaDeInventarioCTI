@@ -1,14 +1,13 @@
 
 
 .opciones_new_edit_del{
-  background: #F5F5F5;
   padding-top: 10px;
 }
 
 /*********css modal Registar Item*/
 
 #modal{
-border-radius: 15px;
+border-radius: 10px;
 background: red;
 width: 300px;
 height: 500px;
@@ -29,7 +28,8 @@ padding-top: 0px;
 
 #title_modal{
   border-top: 15px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
   height: 30px;
-
   font-size: 25px;
 }
