@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Nuevo item</title>
+  <!--Opciones para adaptarse a la aplicación móvil  -->
+  <meta name="viewport" content="width=device-width, maximum-scale=2, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!--Librerias de material design lite -->
+  <link rel="stylesheet" href="material/material.min.css">
+  <link rel="stylesheet" href="css/crear_item.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="material/material.min.js"></script>
+  <script src="js/crear_item.js"></script>
+</head>
+<body>
+  <main id="contenido_crear_item">
+    <div id="modal" class="mdl-dialog mdl-color--grey-200  mdl-shadow--4dp">
+      <!--<h4 class="mdl-dialog__title mdl-color-text--indigo-600">Nuevo Ítem</h4>-->
+      <div id= "title_modal" class="mdl-dialog__title mdl-color--white mdl-color-text--cyan-900 mdl-typography--text-center .mdl-typography--display-2">
+        <span >Nuevo Ítem</span>
+      </div>
+      <div  class="mdl-dialog__content" id="contenido_modal">
+        <!--Contenido del modal -> formulario para agregar un nuevo ítem-->
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col">
+            <form action="#">
+              <div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="sample1">
+                <label class="mdl-textfield__label" for="sample1" id="sample1">Código</label>
+              </div>
+              <div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="sample2">
+                <label class="mdl-textfield__label" for="sample2" id="sample2">Nombre</label>
+              </div>
+              <div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="sample3">
+                <label class="mdl-textfield__label" for="sample3">Modelo</label>
+              </div>
+              <div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="sample4">
+                <label class="mdl-textfield__label" for="sample4">marca</label>
+              </div>
+              <div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <textarea class="mdl-textfield__input" type="text" rows= "2" id="sample5" ></textarea>
+                <label class="mdl-textfield__label" for="sample5">Descripción</label>
+              </div>
+              <!-- Colored raised button -->
+              <div class="mdl-dialog__actions">
+                <button class="mdl-button mdl-js-button mdl-button--primary">
+                  Guardar
+                </button>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--12-col">
+        <button id="salir" onclick="load_items();"  class=" mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-shadow--16dp mdl-color--blue-600 mdl-color-text--white">
+          <i class="material-icons">clear</i>
+        </button>
+      </div>
+    </div>
+
+  </main>
+</body>
+</html>
