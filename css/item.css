@@ -4,6 +4,24 @@
   padding-top: 10px;
 }
 
+table{
+  font-family: 'roboto', sans-serif;
+  padding: inherit;
+  margin: 20px auto 0;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  padding: 0 0 3px;
+  border-radius: 4px;
+  color: #555;
+
+
+  /*display:block;*/
+}
+
+#tabla{
+
+  border-spacing: 15px;
+  border-style: none solid;
+}
 /*********css modal Registar Item*/
 
 #modal{
@@ -23,7 +41,6 @@ padding-top: 0px;
 
 #sample4, #sample2, #sample3, #sample1, #sample5{
   padding: 7px 0;
-
 }
 
 #title_modal{

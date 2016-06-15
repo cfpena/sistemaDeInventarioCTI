@@ -3,7 +3,7 @@ Nombre: login.html
 Descripción: layout de Item - Se usa material design lite
 Creado por: Janina Costa
 Fecha de Creación: 29/06/2016
-Última modificación> 13/06/2016
+Última modificación> 14/06/2016
 **************************************************************************-->
 <!DOCTYPE html>
 <html>
@@ -19,19 +19,15 @@ Fecha de Creación: 29/06/2016
   <link rel="stylesheet" href="material/material.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="material/material.min.js"></script>
+  <script src="js/item.js"></script>
 </head>
 <body>
   <!-- Botones para crear, eliminar, modificar ïtem , buscar item-->
+  <div id="contenido">
   <div class="mdl-grid demo-content opciones_new_edit_del">
     <div class="mdl-cell mdl-cell--10-col">
-      <button id="show-dialog" class=" mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color-text--cyan-900">
+      <button id="show-dialog" onclick="load_crear_item();"  class=" mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color-text--cyan-900">
         <i class="material-icons" >add</i>
-      </button>
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color-text--cyan-900">
-        <i class="material-icons" >edit</i>
-      </button>
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color-text--cyan-900">
-        <i class="material-icons" >delete</i>
       </button>
     </div>
     <div class="mdl-cell mdl-cell--2-col">
@@ -86,8 +82,59 @@ Fecha de Creación: 29/06/2016
       </div>
     </div>
   </dialog>
+  <!--Tabla con datos quemados para visualización-->
+  <table id="tabla" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp responsive-table">
+    <thead class="mdl-color--blue-grey-100 ">
+      <tr>
+        <th class="mdl-data-table__cell--non-numeric">Código</th>
+        <th>Nombre</th>
+        <th>Modelo</th>
+        <th>Marca</th>
+        <th>Descripción</th>
+      </tr>
+    </thead>
+  <tbody>
+    <tr>
+      <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
+      <td>25</td>
+      <td>$2.90</td>
+      <td>serty</td>
+      <td>serty</td>
+    </tr>
+    <tr>
+      <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
+      <td>50</td>
+      <td>$1.25</td>
+      <td>serty</td>
+      <td>serty</td>
+    </tr>
+    <tr>
+      <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+      <td>10</td>
+      <td>$2.35</td>
+      <td>serty</td>
+      <td>serty</td>
+    </tr>
+    <tr>
+      <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+      <td>10</td>
+      <td>$2.35</td>
+      <td>serty</td>
+      <td>serty</td>
+    </tr>
+    <tr>
+      <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+      <td>10</td>
+      <td>$2.35</td>
+      <td>serty</td>
+      <td>serty</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
   <!--Script del modal de crear Ítem-->
+  <!--
   <script type="text/javascript">
   var button = document.querySelector('#show-dialog');
   var dialog = document.querySelector('dialog');
@@ -108,6 +155,8 @@ Fecha de Creación: 29/06/2016
     dialog.querySelector('.close').addEventListener('click', function() {
       dialog.close();
     });
-    </script>
+    </script
+  -->
+
   </body>
   </html>
