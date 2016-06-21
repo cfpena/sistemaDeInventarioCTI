@@ -5,11 +5,9 @@ function load_item(){
 
 function load_user(){
   document.getElementById("contenido").innerHTML='<object type="text/html" data="crear_user.html" ></object>';
-
 }
 
 function limpiar()
 {
   document.getElementById("contenido").innerHTML="";
-
 }
