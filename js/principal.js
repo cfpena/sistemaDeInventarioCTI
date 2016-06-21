@@ -7,6 +7,10 @@ function load_user(){
   document.getElementById("contenido").innerHTML='<object type="text/html" data="crear_user.html" ></object>';
 }
 
+function load_kit(){
+  document.getElementById("contenido").innerHTML='<object type="text/html" data="kit_final.html" ></object>';
+}
+
 function limpiar()
 {
   document.getElementById("contenido").innerHTML="";
