@@ -40,46 +40,7 @@ Fecha de Creación: 29/06/2016
         </form>
       </div>
     </div>
-    <!--Formulario de datos para crear un nuevo ítem-->
-    <!--
-    <dialog id="modal" class="mdl-dialog mdl-color--grey-200 ">
 
-    <div id= "title_modal" class="mdl-dialog__title mdl-color--cyan-900 mdl-color-text--white mdl-typography--text-center .mdl-typography--display-2">
-    <span >Nuevo Ítem</span>
-  </div>
-  <div  class="mdl-dialog__content" id="contenido_modal">
-  Contenido del modal -> formulario para agregar un nuevo ítem
-  <div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--12-col">
-  <form action="#">
-  <div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-  <input class="mdl-textfield__input" type="text" id="sample1">
-  <label class="mdl-textfield__label" for="sample1" id="sample1">Código</label>
-</div>
-<div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-<input class="mdl-textfield__input" type="text" id="sample2">
-<label class="mdl-textfield__label" for="sample2" id="sample2">Nombre</label>
-</div>
-<div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-<input class="mdl-textfield__input" type="text" id="sample3">
-<label class="mdl-textfield__label" for="sample3">Modelo</label>
-</div>
-<div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-<input class="mdl-textfield__input" type="text" id="sample4">
-<label class="mdl-textfield__label" for="sample4">marca</label>
-</div>
-<div class="txtform mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-<textarea class="mdl-textfield__input" type="text" rows= "2" id="sample5" ></textarea>
-<label class="mdl-textfield__label" for="sample5">Descripción</label>
-</div>
-<button class="mdl-button mdl-js-button mdl-button--raised mdl-typography--text-lowercase">Guardar</button>
-<button class="mdl-button mdl-js-button mdl-button--raised close mdl-typography--text-lowercase">Cancelar</button>
-</form>
-</div>
-</div>
-</div>
-</dialog>
--->
 <!--Tabla con datos quemados para visualización-->
 <table id="tabla" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp responsive-table">
   <thead class="mdl-color--blue-grey-100 ">
@@ -138,31 +99,6 @@ Fecha de Creación: 29/06/2016
   </div>
 </div>
 </main>
-
-<!--Script del modal de crear Ítem-->
-<!--
-<script type="text/javascript">
-var button = document.querySelector('#show-dialog');
-var dialog = document.querySelector('dialog');
-button.addEventListener('click', function() {
-//dialog.showModal();
-dialog.show();});
-</script>
-
-<script>
-var dialog = document.querySelector('dialog');
-var showDialogButton = document.querySelector('#show-dialog');
-if (! dialog.show) {
-dialogPolyfill.registerDialog(dialog);
-}
-showDialogButton.addEventListener('click', function() {
-dialog.show();
-});
-dialog.querySelector('.close').addEventListener('click', function() {
-dialog.close();
-});
-</script
--->
 
 </body>
 </html>

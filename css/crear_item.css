@@ -1,6 +1,7 @@
 body{
   overflow-y:hidden;
-  overflow-x:hidden;
+
+  margin: 5px auto 0;
 }
 
 object{
@@ -13,7 +14,6 @@ object{
     position: fixed;
     display: block;
     right: 0;
-    bottom: 40;
     margin-right: 40px;
     margin-bottom: 40px;
     z-index: 900;
@@ -21,18 +21,20 @@ object{
 
 }
 
+
+
 #guardar_item{
   margin: 20px auto 0;
 }
 #modal{
-    margin: 20px auto 0;
+    margin: 50px auto 0;
 }
 
 #modal{
 border-radius:4px;
 background: red;
-width: 300px;
-height: 500px;
+width: 700px;
+height: 450px;
 padding-left: 0px;
 padding-right: 0px;
 padding-top: 0px;
