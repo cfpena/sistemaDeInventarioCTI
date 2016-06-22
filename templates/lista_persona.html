@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8"></meta>
+      <title>Personas</title>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+      <!--Import materialize.css-->
+      <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+      <!--Importar estilos personalizados-->
+      <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link rel="stylesheet" href="../css/listas.css">
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="../js/materialize.min.js"></script>
+      <script type="text/javascript" src="../js/listas.js"></script>
+
+      <div id ="item" class = "container">
+      <table class="highlight responsive-table">
+        <thead>
+          <tr>
+            <th data-field="seleccionarTodos" class="center-align">
+              <input type="checkbox" class="filled-in checkbox-blue" id="chbSeleccionarTodos" >
+      <label for="chbSeleccionarTodos"></label>
+      </th>
+              <th data-field="id">Identificación</th>
+              <th data-field="nombre">Nombre</th>
+              <th data-field="apellido">Apellido</th>
+              <th data-field="correo">Correo</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td class="center-align" id="checkboxes">
+              <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
+            <label for="chbItem1"></label>
+          </td>
+            <td>0920181234</td>
+            <td>Adrian</td>
+            <td>Pincay</td>
+            <td>adri@asd.com</td>
+          </tr>
+          <tr>
+            <td class="center-align" id="checkboxes">
+              <input type="checkbox" class="filled-in checkbox-blue" id="chbItem2"   />
+          <label for="chbItem2"></label>
+        </td>
+            <td>0978945611</td>
+            <td>Alan</td>
+            <td>Jellybean</td>
+            <td>alan@asd.com</td>
+          </tr>
+          <tr>
+            <td class="center-align">
+              <input type="checkbox" class="filled-in checkbox-blue" id="chbItem3" ng-model="item.Selected" />
+          <label for="chbItem3"></label>
+        </td>
+            <td>0925123123</td>
+            <td>Jonathan</td>
+            <td>Lollipop</td>
+            <td>jona@asd.com</td>
+          </tr>
+        </tbody>
+      </table>
+ <!--botones de creacion, modificacion, eliminacion-->
+      <div class="section">
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+          <a class="btn-floating btn-large orange darken-1">
+            <i class="large material-icons">settings</i>
+          </a>
+          <ul>
+            <li><a class="btn-floating red"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green"><i class="material-icons">mode_edit</i></a></li>
+            <li><a class="btn-floating blue"><i class="material-icons">add</i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    </body>
+  </html>

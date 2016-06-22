@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!--Import materialize.css-->
+  <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+  <!--Importar estilos personalizados-->
+  <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" href="../css/listas.css">
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="../js/materialize.js"></script>
+
+
+  <div id ="item" class = "container">
+    
+    <h3>Con lista</h3>
+    <ul class="kits collapsible" data-collapsible="accordion" >
+      <li>
+        <div class="row collapsible-header">
+          <div class="col s1">
+            <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
+            <label class ="label-vertical-align" for="chbItem1"></label>
+          </div>
+          <div class="col s2">COD001</div>
+          <div class="col s2">Kit 1</div>
+          <div class="col s2">Kit tipo 1</div>
+          <div class="col s2">Marca 1</div>
+          <div class="col s2">Modelo 1</div>
+          <div class="col s1 center-align">200</div>
+        </div>
+        <div class ="collapsible-body container">
+        <table class="bordered highlight responsive-table">
+          <thead>
+            <tr>
+              <th data-field="id">Codigo</th>
+              <th data-field="nombre">Nombre</th>
+              <th data-field="clasificacion">Clasificación</th>
+              <th data-field="marca">Marca</th>
+              <th data-field="modelo">Modelo</th>
+              <th data-field="cantidad">Cantidad-Stock</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>COD001</td>
+              <td>Item 1</td>
+              <td>Resistencia </td>
+              <td>Marca 1</td>
+              <td>Modelo 1</td>
+              <td class="center-align">5</td>
+            </tr>
+            <tr>
+              <td>COD002</td>
+              <td>Item 2</td>
+              <td>Capacitores</td>
+              <td>Marca 1</td>
+              <td>Modelo 2</td>
+              <td class="center-align">10</td>
+            </tr>
+            <tr>
+              <td>COD004</td>
+              <td>Item 4</td>
+              <td>Resistencia </td>
+              <td>Marca 1</td>
+              <td>Modelo 3</td>
+              <td class="center-align">6</td>
+            </tr>
+            <tr>
+              <td>COD005</td>
+              <td>Item 5</td>
+              <td>Capacitor</td>
+              <td>Marca 1</td>
+              <td>Modelo 4</td>
+              <td class="center-align">3</td>
+            </tr>
+
+          </tbody>
+        </table>
+
+        </div>
+
+
+      </li>
+    </ul>
+
+    <h3><br>Con tabla</h3>
+    <table class="bordered highlight responsive-table">
+      <thead>
+        <tr>
+          <th data-field="seleccionarTodos" class="center-align">
+            <input type="checkbox" class="filled-in checkbox-blue" id="chbSeleccionarTodos" >
+            <label for="chbSeleccionarTodos"></label>
+          </th>
+          <th data-field="id">Codigo</th>
+          <th data-field="nombre">Nombre</th>
+          <th data-field="clasificacion">Clasificación</th>
+          <th data-field="marca">Marca</th>
+          <th data-field="modelo">Modelo</th>
+          <th data-field="cantidad">Cantidad-Stock</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="center-align" id="checkboxes">
+            <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
+            <label for="chbItem1"></label>
+          </td>
+          <td>COD001</td>
+          <td>Item 1</td>
+          <td>Resistencia </td>
+          <td>Marca 1</td>
+          <td>Modelo 1</td>
+          <td class="center-align">200</td>
+        </tr>
+        <tr>
+          <td class="center-align" id="checkboxes">
+            <input type="checkbox" class="filled-in checkbox-blue" id="chbItem2"  />
+            <label for="chbItem2"></label>
+          </td>
+          <td>COD002</td>
+          <td>Item 2</td>
+          <td>Capacitores</td>
+          <td>Marca 1</td>
+          <td>Modelo 2</td>
+          <td class="center-align">180</td>
+        </tr>
+        <tr>
+          <td class="center-align" id="checkboxes">
+            <input type="checkbox" class="filled-in checkbox-blue" id="chbItem3"  />
+            <label for="chbItem3"></label>
+          </td>
+          <td>COD003</td>
+          <td>Item 3</td>
+          <td>Resistencia </td>
+          <td>Marca 2</td>
+          <td>Modelo 1</td>
+          <td class="center-align">50</td>
+        </tr>
+        <tr>
+          <td class="center-align" id="checkboxes">
+            <input type="checkbox" class="filled-in checkbox-blue" id="chbItem4"  />
+            <label for="chbItem4"></label>
+          </td>
+          <td>COD004</td>
+          <td>Item 4</td>
+          <td>Resistencia </td>
+          <td>Marca 1</td>
+          <td>Modelo 3</td>
+          <td class="center-align">166</td>
+        </tr>
+        <tr>
+          <td class="center-align" id="checkboxes">
+            <input type="checkbox" class="filled-in checkbox-blue" id="chbItem5"  />
+            <label for="chbItem5"></label>
+          </td>
+          <td>COD005</td>
+          <td>Item 5</td>
+          <td>Capacitor</td>
+          <td>Marca 1</td>
+          <td>Modelo 4</td>
+          <td class="center-align">80</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+
+
+</body>
+</html>
