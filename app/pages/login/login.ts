@@ -1,22 +1,18 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { PrincipalPage} from '../principal/principal';
-/*
-  Generated class for the LoginPage page.
+import {Component} from '@angular/core';
+import {NavController} from 'ionic-angular';
+import {PrincipalPage} from '../principal/principal';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
-  templateUrl: 'build/pages/login/login.html',
-
+  templateUrl: 'build/pages/login/login.html'
 })
 export class LoginPage {
-  constructor(private nav: NavController) {}
+
+  constructor(private _navController:NavController) {
+  }
 
   goPrincipal() {
 
-        this.nav.push(PrincipalPage,{});
-        this.nav.setRoot(PrincipalPage);
+        this._navController.push(PrincipalPage,{});
+        this._navController.setRoot(PrincipalPage);
 }
 }
