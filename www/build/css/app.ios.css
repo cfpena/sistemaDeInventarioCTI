@@ -8730,3 +8730,6 @@ body {
   font-family: -apple-system, "Helvetica Neue", "Roboto", sans-serif;
   font-size: 1.4rem;
   background-color: #fff; }
+
+scroll-content {
+  overflow-y: auto; }

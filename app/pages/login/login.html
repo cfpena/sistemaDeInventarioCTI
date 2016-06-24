@@ -47,17 +47,17 @@
 						<div class='col s12'>
 						</div>
 					</div>
-
+					{{errores.auth}}
 					<div class='row'>
 						<div class='input-field col s12'>
-							<input class='validate' type='email' name='email' id='email' />
+							<input class='validate' type='email' name='email' id='email' [(ngModel)]="usuario.usuario" />
 							<label for='email'>Ingresa tu email</label>
 						</div>
 					</div>
 
 					<div class='row'>
 						<div class='input-field col s12'>
-							<input class='validate' type='password' name='password' id='password' />
+							<input class='validate' type='password' name='password' id='password' [(ngModel)]="usuario.clave"/>
 							<label for='password'>Ingresa tu clave</label>
 						</div>
 						<label style='float: right;'>
@@ -68,7 +68,7 @@
 					<br />
 					<center>
 						<div class='row'>
-							<button (click)="goPrincipal()"  name='btn_login' class='col s12 btn btn-large waves-effect indigo'>Ingresar</button>
+							<button (click)="login()"  name='btn_login' class='col s12 btn btn-large waves-effect indigo'>Ingresar</button>
 						</div>
 					</center>
 				</form>

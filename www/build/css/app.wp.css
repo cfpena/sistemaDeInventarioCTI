@@ -9225,3 +9225,6 @@ body {
   font-family: "Segoe UI", "Noto Sans", sans-serif;
   font-size: 1.4rem;
   background-color: #fff; }
+
+scroll-content {
+  overflow-y: auto; }

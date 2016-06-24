@@ -10,11 +10,14 @@ import {KitPage} from './pages/kit/kit';
 import {PrestamoPage} from './pages/prestamo/prestamo';
 import {ReportesPage} from './pages/reportes/reportes';
 import {UsuarioPage} from './pages/usuario/usuario';
+import {UsuarioService} from './pages/usuario/usuario.auth.service';
+
 
 
 
 @Component({
-  templateUrl: 'build/app.html'
+  templateUrl: 'build/app.html',
+  providers: [UsuarioService],
 })
 class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -22,7 +25,8 @@ class MyApp {
   rootPage: any = LoginPage;
   pages: Array<{title: string, icon: string,component: any}>
 
-  constructor(private platform: Platform) {
+  constructor(private platform: Platform,
+              private usuarioService: UsuarioService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -33,7 +37,8 @@ class MyApp {
       { title: 'Kits',icon: 'shopping_cart', component: KitPage },
       { title: 'Prestamos',icon: 'swap_horiz', component: PrestamoPage },
       { title: 'Reportes',icon: 'library_books', component: ReportesPage },
-      { title: 'login',icon: 'person', component: LoginPage },
+      { title: 'Cerrar Sesion',icon: 'library_books', component: LoginPage },
+
 
 
     ];
@@ -51,7 +56,7 @@ class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    
+    if(page.component == LoginPage) this.usuarioService.logout();
     this.nav.setRoot(page.component);
   }
 }
