@@ -14,13 +14,52 @@
     <li><a href="#!">Ajustes</a></li>
     <li><a href="#!">Cerrar Sesión</a></li>
   </ul>
-<!--
+  <!--Tabla de ítems-->
+  <table class="bordered highlight responsive-table">
+    <thead>
+      <tr>
+        <th data-field="seleccionarTodos" class="center-align">
+          <input type="checkbox" class="filled-in checkbox-blue" id="chbSeleccionarTodos" >
+          <label for="chbSeleccionarTodos"></label>
+        </th>
+        <th data-field="id">Codigo</th>
+        <th data-field="nombre">Nombre</th>
+        <th data-field="clasificacion">Clasificación</th>
+        <th data-field="marca">Marca</th>
+        <th data-field="modelo">Modelo</th>
+        <th data-field="cantidad">Cantidad-Stock</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr *ngFor = "let item of items">
+        <td class="center-align" id="checkboxes">
+          <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
+          <label for="chbItem1"></label>
+        </td>
+        <td>{{item.codigo}}</td>
+        <td>{{item.nombre}}</td>
+        <td>{{item.descripcion}}</td>
+        <td>{{item.marca}}</td>
+        <td>{{item.modelo}}</td>
+        <td class="center-align">{{item.cantidad}}</td>
+      </tr>
+    </tbody>
+  </table>
 
 
-Tabla de ítems
 
-
+  <!--Lista de items con angular
+  <ul class="collection">
+    <li class="collection-item avatar" *ngFor="let item of items" [class.selected]="item === selectedItem"  (click)="onSelect(item)">
+      <img src="images/yuna.jpg" alt="" class="circle">
+      <span class="title">{{item.codigo}} {{item.nombre}}</span>
+      <p> {{item.marca}} - {{item.modelo}} <br>
+        Stock: {{item.cantidad}}
+      </p>
+    </li>
+  </ul>
 -->
+
 
   <!--formulario para crear nuevo ítem-->
   <div id="nuevo_item" class="section">
@@ -42,17 +81,17 @@ Tabla de ítems
                 <span>Elemento</span>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_codigo" type="text" class="validate">
+                  <input id="icon_codigo" type="text" class="validate" [(ngModel)]="selectedItem.codigo">
                   <label for="icon_codigo">Código</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_nombre" type="tel" class="validate">
+                  <input id="icon_nombre" type="text" class="validate" [(ngModel)]="selectedItem.nombre" >
                   <label for="icon_nombre">Nombre</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_descripcion" type="tel" class="validate">
+                  <input id="icon_descripcion" type="text" class="validate" [(ngModel)]="selectedItem.descripcion">
                   <label for="icon_descripcion">Descripción</label>
                 </div>
               </div>
@@ -61,24 +100,27 @@ Tabla de ítems
                 <span>Dispositivo</span>
                 <div class="input-field ">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_marca" type="text" class="validate" disabled="disabled">
+                  <input id="icon_marca" type="tel" class="validate" disabled="disabled" [(ngModel)]="selectedItem.marca">
                   <label for="icon_marca">Marca</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_modelo" type="tel" class="validate" disabled="disabled">
+                  <input id="icon_modelo" type="tel" class="validate" disabled="disabled" [(ngModel)]="selectedItem.modelo">
                   <label for="icon_modelo">Modelo</label>
                 </div>
+                <!--nik: no es necesario
                 <div class="input-field ">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_mac" type="tel" class="validate" disabled="disabled">
+                  <input id="icon_mac" type="tel" class="validate" disabled="disabled" [(ngModel)]="selectedItem.descripcion">
                   <label for="icon_mac">Mac</label>
                 </div>
+
                 <div class="center">
                   <h6>¿Tiene Serie?</h6>
-                  <input type="checkbox" class="filled-in" id="filled-in-box" disabled="disabled" />
+                  <input type="checkbox" class="filled-in" id="filled-in-box" disabled="disabled" [(ngModel)]="selectedItem.descripcion"/>
                   <label for="filled-in-box">Si</label>
                 </div>
+              -->
               </div>
             </div>
             <button class="btn waves-effect waves-light center" type="submit" name="action">Guardar
@@ -91,16 +133,16 @@ Tabla de ítems
   </div>
 
   <!--Boton flotante de opciones add, edit, delete-->
-<div class="section">
-  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large orange darken-1">
-      <i class="large material-icons">settings</i>
-    </a>
-    <ul>
-      <li><a class="btn-floating red"><i class="material-icons">delete</i></a></li>
-      <li><a class="btn-floating green"><i class="material-icons">mode_edit</i></a></li>
-      <li><a class="btn-floating blue"><i class="material-icons">add</i></a></li>
-    </ul>
+  <div class="section">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a class="btn-floating btn-large orange darken-1">
+        <i class="large material-icons">settings</i>
+      </a>
+      <ul>
+        <li><a class="btn-floating red"><i class="material-icons">delete</i></a></li>
+        <li><a class="btn-floating green"><i class="material-icons">mode_edit</i></a></li>
+        <li><a class="btn-floating blue"><i class="material-icons">add</i></a></li>
+      </ul>
+    </div>
   </div>
-</div>
 </main>
