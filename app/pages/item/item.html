@@ -14,17 +14,79 @@
     <li><a href="#!">Ajustes</a></li>
     <li><a href="#!">Cerrar Sesión</a></li>
   </ul>
+<!--
 
 
-  <div id="contenedor_principal" class="">
-    <div class="section">
+Tabla de ítems
 
 
-      PRUEBAS PRUEBAS PRUEBAS PRUEBAS
+-->
 
-
-
-
+  <!--formulario para crear nuevo ítem-->
+  <div id="nuevo_item" class="section">
+    <div class="container">
+      <div class="card-panel hoverable card-action white">
+        <div class="row">
+          <form class="col s12 m12 l12 ">
+            <!--RadioButton para elemento y dispositivo-->
+            <p class="center">
+              <input class="with-gap" name="group1" type="radio" id="test1" checked="checked"/>
+              <label for="test1">Elemento</label>
+              <input class="with-gap" name="group1" type="radio" id="test2"  />
+              <label for="test2">Dispositivo</label>
+            </p>
+            <div class="row">
+              <hr>
+              <div class="col s12 m6 l6">
+                <!--primera columna-->
+                <span>Elemento</span>
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_codigo" type="text" class="validate">
+                  <label for="icon_codigo">Código</label>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_nombre" type="tel" class="validate">
+                  <label for="icon_nombre">Nombre</label>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_descripcion" type="tel" class="validate">
+                  <label for="icon_descripcion">Descripción</label>
+                </div>
+              </div>
+              <div class="col s12 m6 l6">
+                <!--segunda columna-->
+                <span>Dispositivo</span>
+                <div class="input-field ">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_marca" type="text" class="validate" disabled="disabled">
+                  <label for="icon_marca">Marca</label>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_modelo" type="tel" class="validate" disabled="disabled">
+                  <label for="icon_modelo">Modelo</label>
+                </div>
+                <div class="input-field ">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_mac" type="tel" class="validate" disabled="disabled">
+                  <label for="icon_mac">Mac</label>
+                </div>
+                <div class="center">
+                  <h6>¿Tiene Serie?</h6>
+                  <input type="checkbox" class="filled-in" id="filled-in-box" disabled="disabled" />
+                  <label for="filled-in-box">Si</label>
+                </div>
+              </div>
+            </div>
+            <button class="btn waves-effect waves-light center" type="submit" name="action">Guardar
+              <i class="material-icons right">send</i>
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 </main>
