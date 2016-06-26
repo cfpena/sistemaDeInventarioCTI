@@ -12,6 +12,8 @@ import {ReportesPage} from './pages/reportes/reportes';
 import {UsuarioPage} from './pages/usuario/usuario';
 import {UsuarioService} from './pages/usuario/usuario.auth.service';
 import {MaterializeDirective} from "./materialize-directive";
+import {Storage, LocalStorage} from 'ionic-angular';
+
 
 
 
@@ -22,7 +24,7 @@ import {MaterializeDirective} from "./materialize-directive";
 })
 class MyApp {
   @ViewChild(Nav) nav: Nav;
-
+  local: Storage = new Storage(LocalStorage);
   rootPage: any = LoginPage;
   pages: Array<{title: string, icon: string,component: any}>
 
@@ -38,6 +40,7 @@ class MyApp {
       { title: 'Kits',icon: 'shopping_cart', component: KitPage },
       { title: 'Prestamos',icon: 'swap_horiz', component: PrestamoPage },
       { title: 'Reportes',icon: 'library_books', component: ReportesPage },
+      { title: 'Usuarios',icon: 'library_books', component: UsuarioPage },
       { title: 'Cerrar Sesion',icon: 'library_books', component: LoginPage },
 
 
@@ -52,13 +55,20 @@ class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
     });
+
   }
 
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+    this.local.get('auth').then(auth => {
+      if(auth=='true') this.nav.setRoot(page.component);
+    }).catch(error => {
+      this.nav.setRoot(LoginPage);
+    });
+
+
     if(page.component == LoginPage) this.usuarioService.logout();
-    this.nav.setRoot(page.component);
   }
 }
 
