@@ -1,12 +1,14 @@
 import {Component} from '@angular/core';
 import {NavController,MenuController} from 'ionic-angular';
 import {ITEM} from '../item/item.model';
+import {MaterializeDirective} from "../../materialize-directive";
 
 import {Kit} from '../kit/kit.model';
 
 
 @Component({
-  templateUrl: 'build/pages/kit/kit.html'
+  templateUrl: 'build/pages/kit/kit.html',
+  directives: [MaterializeDirective],
 })
 export class KitPage {
   items = ITEMS;

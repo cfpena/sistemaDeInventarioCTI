@@ -20,51 +20,9 @@
   <div id="contenedor_principal" class="">
     <div class="section">
 
-<!--Lista kits-->
-<ul class="kits collapsible" data-collapsible="accordion" >
-      <li *ngFor="let kit of kits">
-        <div class="row collapsible-header">
-          <div class="col s1">
-            <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
-            <label class ="label-vertical-align" for="chbItem1"></label>
-          </div>
-          <div class="col s2">{{kit.codigo}}</div>
-          <div class="col s4">{{kit.nombre}}</div>
-          <div class="col s2">{{kit.marca}}</div>
-          <div class="col s2">{{kit.modelo}}</div>
-          <div class="col s1 center-align">{{kit.cantidad}}</div>
-        </div>
-        <div class ="collapsible-body container">
-        <table class="bordered highlight responsive-table">
-          <thead>
-            <tr >
-              <th data-field="id">Codigo</th>
-              <th data-field="nombre">Nombre</th>
-              <th data-field="marca">Marca</th>
-              <th data-field="modelo">Modelo</th>
-              <th data-field="cantidad">Cantidad</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor = "let item of kit.items">
-              <td>{{item.codigo}}</td>
-              <td>{{item.nombre}}</td>
-              <td>{{item.marca}}</td>
-              <td>{{item.modelo}}</td>
-              <td class="center-align">{{item.cantidad}}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        </div>
-
-
-      </li>
-    </ul>
-    <br>
-    <h2>LISTA sin angular</h2>
 <!--lista sin angular-->
-<ul class="kits collapsible" data-collapsible="accordion" >
+<div materialize>
+<ul materialize="collapsible" lass="kits collapsible" data-collapsible="accordion" >
       <li>
         <div class="row collapsible-header">
           <div class="col s1">
@@ -132,7 +90,7 @@
 
       </li>
     </ul>
-
+</div>
 <!--Nuevo kit-->
       <div id="nuevo_kit" class="section">
         <div class="container">

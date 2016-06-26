@@ -11,13 +11,14 @@ import {PrestamoPage} from './pages/prestamo/prestamo';
 import {ReportesPage} from './pages/reportes/reportes';
 import {UsuarioPage} from './pages/usuario/usuario';
 import {UsuarioService} from './pages/usuario/usuario.auth.service';
-
+import {MaterializeDirective} from "./materialize-directive";
 
 
 
 @Component({
   templateUrl: 'build/app.html',
   providers: [UsuarioService],
+  directives: [MaterializeDirective],
 })
 class MyApp {
   @ViewChild(Nav) nav: Nav;
