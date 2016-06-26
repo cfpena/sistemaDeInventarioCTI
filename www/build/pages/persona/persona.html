@@ -1,13 +1,171 @@
 <!--
-  Generated template for the PersonaPage page.
+Generated template for the PersonaPage page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
+See http://ionicframework.com/docs/v2/components/#navigation for more info on
+Ionic pages and navigation.
+
 <ion-navbar *navbar>
-  <ion-title>persona</ion-title>
+<ion-title>persona</ion-title>
 </ion-navbar>
 
 <ion-content padding class="persona">
-  
-</ion-content>
+
+</ion-content>-->
+
+<main>
+
+  <nav  class="light-blue darken-4"  role="navigation">
+    <div class="nav-wrapper container"><span >Sistema de Inventario</span>
+      <ul class="right">
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Opciones<i class="material-icons right">arrow_drop_down</i></a></li>
+      </ul>
+
+
+
+      <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="#!">Ajustes</a></li>
+    <li><a href="#!">Cerrar Sesión</a></li>
+  </ul>
+
+
+  <div id="contenedor_principal" class="">
+    <div class="section">
+
+      <!--Tabla de personas-->
+      <div class="container">
+        <table class="highlight responsive-table">
+          <thead>
+            <tr>
+              <th data-field="seleccionarTodos" class="center-align">
+                <input type="checkbox" class="filled-in checkbox-blue" id="chbSeleccionarTodos" >
+                <label for="chbSeleccionarTodos"></label>
+              </th>
+              <th data-field="id">Identificación</th>
+              <th data-field="nombre">Nombre</th>
+              <th data-field="apellido">Apellido</th>
+              <th data-field="correo">Correo</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor = "let persona of personas">
+              <td class="center-align" id="checkboxes">
+                <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
+                <label for="chbItem1"></label>
+              </td>
+              <td>{{persona.cedula}}</td>
+              <td>{{persona.nombre}}</td>
+              <td>{{persona.apellido}}</td>
+              <td>{{persona.correo}}</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <!--fin de tabla de personas-->
+
+      <!--Nueva persona-->
+      <div id="nuevo_persona" class="section">
+        <div class="container">
+          <div class="card-panel hoverable card-action white">
+            <div class="row">
+              <form class="col s12 m12 l12 ">
+
+                <div class="row">
+                  <hr>
+                  <div class="col s12 m6 l6">
+                    <!--primera columna-->
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_codigo" type="text" class="validate" ><!--[(ngModel)]="selectedItem.codigo">-->
+                      <label for="icon_codigo">Cedula</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">account_box</i>
+                      <input id="icon_nombre" type="text" class="validate" ><!--[(ngModel)]="selectedItem.nombre" >-->
+                      <label for="icon_nombre">Nombre</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">account_box</i>
+                      <input id="icon_descripcion" type="text" class="validate" ><!--[(ngModel)]="selectedItem.descripcion">-->
+                      <label for="icon_descripcion">Apellidos</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">email</i>
+                      <input id="icon_descripcion" type="text" class="validate" ><!--[(ngModel)]="selectedItem.descripcion">-->
+                      <label for="icon_descripcion">Correo</label>
+                    </div>
+                  </div>
+                  <div class="col s12 m6 l6">
+                    <!--segunda columna-->
+                    <div class="input-field ">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_marca" type="tel" class="validate"  ><!--[(ngModel)]="selectedItem.marca">-->
+                      <label for="icon_marca">Funcion</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">call</i>
+                      <input id="icon_modelo" type="tel" class="validate" ><!--[(ngModel)]="selectedItem.modelo">-->
+                      <label for="icon_modelo">Telefono</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_observaciones" type="tel" class="validate" ><!--[(ngModel)]="selectedItem.modelo">-->
+                      <label for="icon_observaciones">stay_current_portrait</label>
+                    </div><div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_observaciones" type="tel" class="validate" ><!--[(ngModel)]="selectedItem.modelo">-->
+                      <label for="icon_observaciones">Genero</label>
+                    </div>
+                  </div>
+                  <div class="col s12">
+                    <!--Tabla de ítems-->
+                    <table class="bordered highlight responsive-table">
+                      <thead>
+                        <tr>
+                          <th data-field="seleccionarTodos" class="center-align">
+                            <input type="checkbox" class="filled-in checkbox-blue" id="chbSeleccionarTodos" >
+                            <label for="chbSeleccionarTodos"></label>
+                          </th>
+                          <th data-field="id">Codigo</th>
+                          <th data-field="nombre">Nombre</th>
+                          <th data-field="marca">Marca</th>
+                          <th data-field="modelo">Modelo</th>
+                          <th data-field="cantidad">Cantidad</th>
+                        </tr>
+                      </thead>
+                      <tbody >
+                        <tr *ngFor = "let item of items">
+                          <td class="center-align" id="checkboxes">
+                            <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
+                            <label for="chbItem1"></label>
+                          </td>
+                          <td>{{item.codigo}}</td>
+                          <td>{{item.nombre}}</td>
+                          <td>{{item.marca}}</td>
+                          <td>{{item.modelo}}</td>
+                          <td class="center-align">
+                            <input class="mdl-textfield__input" type="text" id="cantidad">
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <button class="btn waves-effect waves-light center" type="submit" name="action">Guardar
+                  <i class="material-icons right">send</i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- fin de nueva persona-->
+    </div>
+  </div>
+
+</main>
