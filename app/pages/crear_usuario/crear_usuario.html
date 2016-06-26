@@ -1,0 +1,64 @@
+<main>
+  <nav  class="light-blue darken-4"  role="navigation">
+    <div class="nav-wrapper container"><span >Sistema de Inventario</span>
+      <ul class="right">
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Opciones<i class="material-icons right">arrow_drop_down</i></a></li>
+      </ul>
+
+
+
+      <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="#!">Ajustes</a></li>
+    <li><a href="#!">Cerrar Sesión</a></li>
+  </ul>
+
+
+  <!--nuevo user-->
+  <div id="nuevo_item" class="section">
+    <div class="container">
+      <div class="row">
+        <form class="col s12 m6 l12 ">
+          <div class="row">
+            <!--primera ventana-->
+            <div class="col s12 m6 l6 offset-l3 offset-m3">
+              <div class="card-panel hoverable card-action white">
+                <div class="card-content black-text">
+                  <span class="card-title">Nuevo Usuario</span>
+                  <div class="input-field">
+                    <i class="material-icons prefix">label_outline</i>
+                    <input id="icon_codigo" type="text" class="validate" >
+                    <label for="icon_codigo">Nombre</label>
+                  </div>
+                  <div class="input-field">
+                    <i class="material-icons prefix">label_outline</i>
+                    <input id="icon_codigo" type="text" class="validate" >
+                    <label for="icon_codigo">Usuario</label>
+                  </div>
+                  <div class="input-field">
+                    <i class="material-icons prefix">label_outline</i>
+                    <input id="icon_codigo" type="text" class="validate" >
+                    <label for="icon_codigo">Contraseña</label>
+                  </div>
+                </div>
+                <div class="card-action">
+                  <a href="#">Guardar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--boton para cancelar-->
+  <div class="section">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+        <i class="material-icons">clear</i>
+      </a>
+    </div>
+  </div>
+</main>

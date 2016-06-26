@@ -5,9 +5,6 @@
       <ul class="right">
         <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Opciones<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
-
-
-
       <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons">menu</i></a>
     </div>
   </nav>
@@ -17,168 +14,89 @@
   </ul>
 
 
-  <div id="contenedor_principal" class="">
+  <div id="contenedor_principal" class=""  style="padding-top: 75px">
     <div class="section">
 
-<!--lista sin angular-->
-<div materialize>
-<ul materialize="collapsible" class="kits collapsible" data-collapsible="accordion" >
-      <li>
-        <div class="row collapsible-header">
-          <div class="col s1">
-            <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
-            <label class ="label-vertical-align" for="chbItem1"></label>
-          </div>
-          <div class="col s2">COD001</div>
-          <div class="col s2">Kit 1</div>
-          <div class="col s2">Kit tipo 1</div>
-          <div class="col s2">Marca 1</div>
-          <div class="col s2">Modelo 1</div>
-          <div class="col s1 center-align">200</div>
-        </div>
-        <div class ="collapsible-body container">
-        <table class="bordered highlight responsive-table">
-          <thead>
-            <tr>
-              <th data-field="id">Codigo</th>
-              <th data-field="nombre">Nombre</th>
-              <th data-field="clasificacion">Clasificación</th>
-              <th data-field="marca">Marca</th>
-              <th data-field="modelo">Modelo</th>
-              <th data-field="cantidad">Cantidad-Stock</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>COD001</td>
-              <td>Item 1</td>
-              <td>Resistencia </td>
-              <td>Marca 1</td>
-              <td>Modelo 1</td>
-              <td class="center-align">5</td>
-            </tr>
-            <tr>
-              <td>COD002</td>
-              <td>Item 2</td>
-              <td>Capacitores</td>
-              <td>Marca 1</td>
-              <td>Modelo 2</td>
-              <td class="center-align">10</td>
-            </tr>
-            <tr>
-              <td>COD004</td>
-              <td>Item 4</td>
-              <td>Resistencia </td>
-              <td>Marca 1</td>
-              <td>Modelo 3</td>
-              <td class="center-align">6</td>
-            </tr>
-            <tr>
-              <td>COD005</td>
-              <td>Item 5</td>
-              <td>Capacitor</td>
-              <td>Marca 1</td>
-              <td>Modelo 4</td>
-              <td class="center-align">3</td>
-            </tr>
-
-          </tbody>
-        </table>
-
-        </div>
-
-
-      </li>
-    </ul>
-</div>
-<!--Nuevo kit-->
-      <div id="nuevo_kit" class="section">
-        <div class="container">
-          <div class="card-panel hoverable card-action white">
-            <div class="row">
-              <form class="col s12 m12 l12 ">
-
-                <div class="row">
-                  <hr>
-                  <div class="col s12 m6 l6">
-                    <!--primera columna-->
-                    <div class="input-field">
-                      <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" ><!--[(ngModel)]="selectedItem.codigo">-->
-                      <label for="icon_codigo">Código</label>
-                    </div>
-                    <div class="input-field">
-                      <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_nombre" type="text" class="validate" ><!--[(ngModel)]="selectedItem.nombre" >-->
-                      <label for="icon_nombre">Nombre</label>
-                    </div>
-                    <div class="input-field">
-                      <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_descripcion" type="text" class="validate" ><!--[(ngModel)]="selectedItem.descripcion">-->
-                      <label for="icon_descripcion">Descripción</label>
-                    </div>
-                  </div>
-                  <div class="col s12 m6 l6">
-                    <!--segunda columna-->
-                    <div class="input-field ">
-                      <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_marca" type="tel" class="validate"  ><!--[(ngModel)]="selectedItem.marca">-->
-                      <label for="icon_marca">Marca</label>
-                    </div>
-                    <div class="input-field">
-                      <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_modelo" type="tel" class="validate" ><!--[(ngModel)]="selectedItem.modelo">-->
-                      <label for="icon_modelo">Modelo</label>
-                    </div>
-                    <div class="input-field">
-                      <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_observaciones" type="tel" class="validate" ><!--[(ngModel)]="selectedItem.modelo">-->
-                      <label for="icon_observaciones">Observaciones</label>
-                    </div>
-                  </div>
-                  <div class="col s12">
-                    <!--Tabla de ítems-->
-                    <table class="bordered highlight responsive-table">
-                      <thead>
-                        <tr>
-                          <th data-field="seleccionarTodos" class="center-align">
-                            <input type="checkbox" class="filled-in checkbox-blue" id="chbSeleccionarTodos" >
-                            <label for="chbSeleccionarTodos"></label>
-                          </th>
-                          <th data-field="id">Codigo</th>
-                          <th data-field="nombre">Nombre</th>
-                          <th data-field="marca">Marca</th>
-                          <th data-field="modelo">Modelo</th>
-                          <th data-field="cantidad">Cantidad</th>
-                        </tr>
-                      </thead>
-                      <tbody >
-                        <tr *ngFor = "let item of items">
-                          <td class="center-align" id="checkboxes">
-                            <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
-                            <label for="chbItem1"></label>
-                          </td>
-                          <td>{{item.codigo}}</td>
-                          <td>{{item.nombre}}</td>
-                          <td>{{item.marca}}</td>
-                          <td>{{item.modelo}}</td>
-                          <td class="center-align">
-                            <input class="mdl-textfield__input" type="text" id="cantidad">
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <button class="btn waves-effect waves-light center" type="submit" name="action">Guardar
-                  <i class="material-icons right">send</i>
-                </button>
-              </form>
+      <!--lista sin angular-->
+      <div materialize>
+        <ul materialize="collapsible" class="kits collapsible" data-collapsible="accordion" >
+          <li>
+            <div class="row collapsible-header">
+              <div class="col s1">
+                <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
+                <label class ="label-vertical-align" for="chbItem1"></label>
+              </div>
+              <div class="col s2">COD001</div>
+              <div class="col s2">Kit 1</div>
+              <div class="col s2">Kit tipo 1</div>
+              <div class="col s2">Marca 1</div>
+              <div class="col s2">Modelo 1</div>
+              <div class="col s1 center-align">200</div>
             </div>
-          </div>
-        </div>
+            <div class ="collapsible-body ">
+              <table class="bordered highlight responsive-table centered striped">
+                <thead>
+                  <tr>
+                    <th data-field="id">Codigo</th>
+                    <th data-field="nombre">Nombre</th>
+                    <th data-field="clasificacion">Clasificación</th>
+                    <th data-field="marca">Marca</th>
+                    <th data-field="modelo">Modelo</th>
+                    <th data-field="cantidad">Cantidad-Stock</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>COD001</td>
+                    <td>Item 1</td>
+                    <td>Resistencia </td>
+                    <td>Marca 1</td>
+                    <td>Modelo 1</td>
+                    <td class="center-align">5</td>
+                  </tr>
+                  <tr>
+                    <td>COD002</td>
+                    <td>Item 2</td>
+                    <td>Capacitores</td>
+                    <td>Marca 1</td>
+                    <td>Modelo 2</td>
+                    <td class="center-align">10</td>
+                  </tr>
+                  <tr>
+                    <td>COD004</td>
+                    <td>Item 4</td>
+                    <td>Resistencia </td>
+                    <td>Marca 1</td>
+                    <td>Modelo 3</td>
+                    <td class="center-align">6</td>
+                  </tr>
+                  <tr>
+                    <td>COD005</td>
+                    <td>Item 5</td>
+                    <td>Capacitor</td>
+                    <td>Marca 1</td>
+                    <td>Modelo 4</td>
+                    <td class="center-align">3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </li>
+        </ul>
       </div>
-
     </div>
-</div>
+  </div>
+  <!--Boton flotante de opciones add, edit, delete-->
+  <div class="section">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a class="btn-floating btn-large orange darken-1">
+        <i class="large material-icons">settings</i>
+      </a>
+      <ul>
+        <li><a class="btn-floating red"><i class="material-icons">delete</i></a></li>
+        <li><a class="btn-floating green"><i class="material-icons">mode_edit</i></a></li>
+        <li><a (click)="goCrearKit()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
+      </ul>
+    </div>
+  </div>
 </main>
