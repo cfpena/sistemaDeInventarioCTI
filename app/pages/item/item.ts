@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController,MenuController} from 'ionic-angular';
 import {ITEM} from '../item/item.model';
+import {CrearItemPage} from '../crear_item/crear_item';
 
 
 @Component({
@@ -16,6 +17,10 @@ export class ItemPage {
     this.menu.open();
   }
 
+  goCrearItem(){
+      this._navController.push(CrearItemPage,{});
+      this._navController.setRoot(CrearItemPage);
+    }
 
 }
 
