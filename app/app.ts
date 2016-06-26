@@ -3,6 +3,7 @@ import {App, ionicBootstrap, Platform, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {ListPage} from './pages/list/list';
 import {LoginPage} from './pages/login/login';
+import {PrincipalPage} from './pages/principal/principal';
 import {PersonaPage} from './pages/persona/persona';
 import {ItemPage} from './pages/item/item';
 import {InventarioPage} from './pages/inventario/inventario';
@@ -17,6 +18,7 @@ import {Storage, LocalStorage} from 'ionic-angular';
 
 
 
+
 @Component({
   templateUrl: 'build/app.html',
   providers: [UsuarioService],
@@ -26,13 +28,13 @@ class MyApp {
   @ViewChild(Nav) nav: Nav;
   local: Storage = new Storage(LocalStorage);
   rootPage: any = LoginPage;
+
   pages: Array<{title: string, icon: string,component: any}>
 
   constructor(private platform: Platform,
               private usuarioService: UsuarioService) {
     this.initializeApp();
-
-    // used for an example of ngFor and navigation
+        // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Inventario',icon: 'import_contacts', component: InventarioPage },
       { title: 'Personas',icon: 'person', component: PersonaPage },
@@ -46,6 +48,8 @@ class MyApp {
 
 
     ];
+
+    
 
   }
 
@@ -63,10 +67,11 @@ class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.local.get('auth').then(auth => {
       if(auth=='true') this.nav.setRoot(page.component);
-    }).catch(error => {
-      this.nav.setRoot(LoginPage);
-    });
+      else this.nav.setRoot(LoginPage);
 
+    }).catch(error => {
+      console.log(error);
+    }) ;
 
     if(page.component == LoginPage) this.usuarioService.logout();
   }

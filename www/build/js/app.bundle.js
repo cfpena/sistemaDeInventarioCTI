@@ -56,8 +56,10 @@ var MyApp = (function () {
         this.local.get('auth').then(function (auth) {
             if (auth == 'true')
                 _this.nav.setRoot(page.component);
+            else
+                _this.nav.setRoot(login_1.LoginPage);
         }).catch(function (error) {
-            _this.nav.setRoot(login_1.LoginPage);
+            console.log(error);
         });
         if (page.component == login_1.LoginPage)
             this.usuarioService.logout();
@@ -443,6 +445,7 @@ var usuario_auth_service_1 = require('../usuario/usuario.auth.service');
 var ionic_angular_2 = require('ionic-angular');
 var LoginPage = (function () {
     function LoginPage(_navController, usuarioService) {
+        var _this = this;
         this._navController = _navController;
         this.usuarioService = usuarioService;
         this.usuario = {
@@ -455,16 +458,24 @@ var LoginPage = (function () {
             auth: '',
         };
         this.local = new ionic_angular_2.Storage(ionic_angular_2.LocalStorage);
+        this.local.get('auth').then(function (auth) {
+            if (auth == 'true')
+                _this._navController.setRoot(principal_1.PrincipalPage);
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
     LoginPage.prototype.login = function () {
+        var _this = this;
         this.usuarioService.login(this.usuario.usuario, this.usuario.clave);
-        this.goPrincipal();
-    };
-    LoginPage.prototype.goPrincipal = function () {
-        if (this.usuarioService.isLoggedIn())
-            this._navController.setRoot(principal_1.PrincipalPage);
-        else
-            this.errores.auth = 'Usuario o clave incorrectos';
+        this.local.get('auth').then(function (auth) {
+            if (auth == 'true')
+                _this._navController.setRoot(principal_1.PrincipalPage);
+            else
+                _this.errores.auth = 'Usuario o clave incorrectos';
+        }).catch(function (error) {
+            console.log(error);
+        });
     };
     __decorate([
         core_1.Input(), 
@@ -542,6 +553,8 @@ var ionic_angular_1 = require('ionic-angular');
 var PrestamoPage = (function () {
     function PrestamoPage(nav) {
         this.nav = nav;
+        this.items = ITEMS;
+        this.kits = KITS;
     }
     PrestamoPage = __decorate([
         core_1.Component({
@@ -552,6 +565,22 @@ var PrestamoPage = (function () {
     return PrestamoPage;
 }());
 exports.PrestamoPage = PrestamoPage;
+var listaItems1 = [
+    { id: 1, codigo: 'Item001', nombre: 'Item 1', marca: 'Marca 1', modelo: 'Modelo 1', descripcion: ' ', cantidad: 20, esDispositivo: true },
+    { id: 2, codigo: 'Item002', nombre: 'Item 2', marca: 'Marca 1', modelo: 'Modelo 2', descripcion: ' ', cantidad: 10, esDispositivo: true }
+];
+var listaItems2 = [
+    { id: 3, codigo: 'Item003', nombre: 'Item 3', marca: 'Marca 2', modelo: 'Modelo 3', descripcion: ' ', cantidad: 15, esDispositivo: false }
+];
+var KITS = [
+    { id: 1, codigo: 'Kit001', nombre: 'Kit 1', marca: 'Marca 1', modelo: 'Modelo 1', descripcion: ' ', cantidad: 20, items: listaItems1, observaciones: '' },
+    { id: 2, codigo: 'Kit002', nombre: 'Kit 2', marca: 'Marca 1', modelo: 'Modelo 2', descripcion: ' ', cantidad: 10, items: listaItems2, observaciones: '' }
+];
+var ITEMS = [
+    { id: 1, codigo: 'Item001', nombre: 'Item 1', marca: 'Marca 1', modelo: 'Modelo 1', descripcion: ' ', cantidad: 20, esDispositivo: true },
+    { id: 2, codigo: 'Item002', nombre: 'Item 2', marca: 'Marca 1', modelo: 'Modelo 2', descripcion: ' ', cantidad: 10, esDispositivo: true },
+    { id: 3, codigo: 'Item003', nombre: 'Item 3', marca: 'Marca 2', modelo: 'Modelo 3', descripcion: ' ', cantidad: 15, esDispositivo: false }
+];
 
 },{"@angular/core":147,"ionic-angular":376}],10:[function(require,module,exports){
 "use strict";
@@ -634,29 +663,26 @@ var UsuarioService = (function () {
     function UsuarioService() {
         this.loggedIn = false;
         this.local = new ionic_angular_1.Storage(ionic_angular_1.LocalStorage);
+        this.test = 'a';
     }
     UsuarioService.prototype.login = function (usuario, clave) {
-        if (usuario == 'admin' && clave == 'admin')
+        if (usuario == 'admin' && clave == 'admin') {
             this.loggedIn = true;
-        this.authSuccess();
+            this.local.set('auth', true);
+        }
         return this.loggedIn;
     };
     UsuarioService.prototype.logout = function () {
         this.loggedIn = false;
-        this.authSuccess();
+        this.local.set('auth', false);
     };
     UsuarioService.prototype.isLoggedIn = function () {
         var _this = this;
-        this.local.get('auth').then(function (auth) {
-            _this.loggedIn = auth;
-        }).catch(function (error) {
-            _this.loggedIn = false,
-                console.log(error);
+        this.local.get('auth').then(function (auth) { _this.test = "hola"; }).catch(function (error) {
+            console.log(error);
         });
+        console.log(this.test);
         return this.loggedIn;
-    };
-    UsuarioService.prototype.authSuccess = function () {
-        this.local.set('auth', this.loggedIn);
     };
     UsuarioService = __decorate([
         core_1.Injectable(), 
