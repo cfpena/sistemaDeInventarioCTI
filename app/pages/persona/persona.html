@@ -112,9 +112,9 @@ Ionic pages and navigation.
                       <label for="icon_modelo">Telefono</label>
                     </div>
                     <div class="input-field">
-                      <i class="material-icons prefix">label_outline</i>
+                      <i class="material-icons prefix">stay_current_portrait</i>
                       <input id="icon_observaciones" type="tel" class="validate" ><!--[(ngModel)]="selectedItem.modelo">-->
-                      <label for="icon_observaciones">stay_current_portrait</label>
+                      <label for="icon_observaciones">Celular</label>
                     </div><div class="input-field">
                       <i class="material-icons prefix">label_outline</i>
                       <input id="icon_observaciones" type="tel" class="validate" ><!--[(ngModel)]="selectedItem.modelo">-->
@@ -122,37 +122,7 @@ Ionic pages and navigation.
                     </div>
                   </div>
                   <div class="col s12">
-                    <!--Tabla de ítems-->
-                    <table class="bordered highlight responsive-table">
-                      <thead>
-                        <tr>
-                          <th data-field="seleccionarTodos" class="center-align">
-                            <input type="checkbox" class="filled-in checkbox-blue" id="chbSeleccionarTodos" >
-                            <label for="chbSeleccionarTodos"></label>
-                          </th>
-                          <th data-field="id">Codigo</th>
-                          <th data-field="nombre">Nombre</th>
-                          <th data-field="marca">Marca</th>
-                          <th data-field="modelo">Modelo</th>
-                          <th data-field="cantidad">Cantidad</th>
-                        </tr>
-                      </thead>
-                      <tbody >
-                        <tr *ngFor = "let item of items">
-                          <td class="center-align" id="checkboxes">
-                            <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
-                            <label for="chbItem1"></label>
-                          </td>
-                          <td>{{item.codigo}}</td>
-                          <td>{{item.nombre}}</td>
-                          <td>{{item.marca}}</td>
-                          <td>{{item.modelo}}</td>
-                          <td class="center-align">
-                            <input class="mdl-textfield__input" type="text" id="cantidad">
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+
                   </div>
                 </div>
                 <button class="btn waves-effect waves-light center" type="submit" name="action">Guardar
