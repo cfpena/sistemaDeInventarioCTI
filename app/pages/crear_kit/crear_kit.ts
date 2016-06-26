@@ -1,20 +1,21 @@
 import {Component} from '@angular/core';
 import {NavController,MenuController} from 'ionic-angular';
-import {ItemPage} from '../item/item';
+import {KitPage} from '../kit/kit';
+
+
 
 @Component({
-  templateUrl: 'build/pages/crear_item/crear_item.html'
+  templateUrl: 'build/pages/crear_kit/crear_kit.html'
 })
-export class CrearItemPage {
+export class CrearKitPage {
 
   constructor(private _navController:NavController,private menu: MenuController) {}
   openMenu(){
     this.menu.open();
   }
-
   cancelar(){
-    this._navController.push(ItemPage,{});
-    this._navController.setRoot(ItemPage);
+    this._navController.push(KitPage,{});
+    this._navController.setRoot(KitPage);
   }
 
 }

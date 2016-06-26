@@ -4,7 +4,7 @@ import {ITEM} from '../item/item.model';
 import {MaterializeDirective} from "../../materialize-directive";
 
 import {Kit} from '../kit/kit.model';
-
+import {CrearKitPage} from '../crear_kit/crear_kit';
 
 @Component({
   templateUrl: 'build/pages/kit/kit.html',
@@ -18,6 +18,11 @@ export class KitPage {
   openMenu(){
     this.menu.open();
   }
+
+  goCrearKit(){
+      this._navController.push(CrearKitPage,{});
+      this._navController.setRoot(CrearKitPage);
+    }
 
 
 }
