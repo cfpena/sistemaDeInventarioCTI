@@ -24,25 +24,14 @@ export class LoginPage {
   constructor(private _navController:NavController,
               private usuarioService: UsuarioService) {
 
-                this.local.get('auth').then(auth => {
-                  if(auth=='true')  this._navController.setRoot(PrincipalPage);
-                  
-
-                }).catch(error => {
-                  console.log(error);
-                }) ;
-
   }
   login(){
-        this.usuarioService.login(this.usuario.usuario,this.usuario.clave);
-        this.local.get('auth').then(auth => {
-          if(auth=='true')  this._navController.setRoot(PrincipalPage);
-          else this.errores.auth='Usuario o clave incorrectos';
-
-        }).catch(error => {
-          console.log(error);
-        }) ;
-
+      this.usuarioService.login(this.usuario.usuario,this.usuario.clave)
+        .then(res => {
+          if(res.uid!=null) this._navController.setRoot(PrincipalPage);
+          else this.errores.auth = 'Usuario o contraseña incorrectos';
+        }).catch(
+          error => error);
   }
 
 }

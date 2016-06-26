@@ -19,6 +19,7 @@ import {Storage, LocalStorage} from 'ionic-angular';
 
 
 
+
 @Component({
   templateUrl: 'build/app.html',
   providers: [UsuarioService],
@@ -49,7 +50,7 @@ class MyApp {
 
     ];
 
-    
+
 
   }
 
@@ -65,14 +66,15 @@ class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+/*
     this.local.get('auth').then(auth => {
       if(auth=='true') this.nav.setRoot(page.component);
       else this.nav.setRoot(LoginPage);
 
     }).catch(error => {
       console.log(error);
-    }) ;
-
+    }) ;*/
+    this.nav.setRoot(page.component);
     if(page.component == LoginPage) this.usuarioService.logout();
   }
 }
