@@ -1,6 +1,9 @@
-export class USUARIO {
-  id: number;
-  nombre: string;
-  usuario: string;
-  clave: string;
+export class Usuario {
+    "id": number;
+    "email": string;
+    "provider": string;
+    "uid": string;
+    "name": string;
+    "nickname": string;
+    "image": string;
 }
