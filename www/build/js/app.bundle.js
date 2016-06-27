@@ -50,17 +50,17 @@ var MyApp = (function () {
         });
     };
     MyApp.prototype.openPage = function (page) {
-        var _this = this;
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
-        this.local.get('auth').then(function (auth) {
-            if (auth == 'true')
-                _this.nav.setRoot(page.component);
-            else
-                _this.nav.setRoot(login_1.LoginPage);
-        }).catch(function (error) {
-            console.log(error);
-        });
+        /*
+            this.local.get('auth').then(auth => {
+              if(auth=='true') this.nav.setRoot(page.component);
+              else this.nav.setRoot(LoginPage);
+        
+            }).catch(error => {
+              console.log(error);
+            }) ;*/
+        this.nav.setRoot(page.component);
         if (page.component == login_1.LoginPage)
             this.usuarioService.logout();
     };
@@ -555,7 +555,6 @@ var usuario_auth_service_1 = require('../usuario/usuario.auth.service');
 var ionic_angular_2 = require('ionic-angular');
 var LoginPage = (function () {
     function LoginPage(_navController, usuarioService) {
-        var _this = this;
         this._navController = _navController;
         this.usuarioService = usuarioService;
         this.usuario = {
@@ -568,24 +567,16 @@ var LoginPage = (function () {
             auth: '',
         };
         this.local = new ionic_angular_2.Storage(ionic_angular_2.LocalStorage);
-        this.local.get('auth').then(function (auth) {
-            if (auth == 'true')
-                _this._navController.setRoot(principal_1.PrincipalPage);
-        }).catch(function (error) {
-            console.log(error);
-        });
     }
     LoginPage.prototype.login = function () {
         var _this = this;
-        this.usuarioService.login(this.usuario.usuario, this.usuario.clave);
-        this.local.get('auth').then(function (auth) {
-            if (auth == 'true')
+        this.usuarioService.login(this.usuario.usuario, this.usuario.clave)
+            .then(function (res) {
+            if (res.uid != null)
                 _this._navController.setRoot(principal_1.PrincipalPage);
             else
-                _this.errores.auth = 'Usuario o clave incorrectos';
-        }).catch(function (error) {
-            console.log(error);
-        });
+                _this.errores.auth = 'Usuario o contraseña incorrectos';
+        }).catch(function (error) { return error; });
     };
     __decorate([
         core_1.Input(), 
@@ -776,23 +767,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
 var ionic_angular_1 = require('ionic-angular');
+require('rxjs/add/operator/toPromise');
 var UsuarioService = (function () {
-    function UsuarioService() {
+    function UsuarioService(http) {
+        this.http = http;
         this.loggedIn = false;
         this.local = new ionic_angular_1.Storage(ionic_angular_1.LocalStorage);
         this.test = 'a';
+        this.url = 'http://162.243.83.72:8080';
     }
     UsuarioService.prototype.login = function (usuario, clave) {
-        if (usuario == 'admin' && clave == 'admin') {
-            this.loggedIn = true;
-            this.local.set('auth', true);
-        }
-        return this.loggedIn;
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(this.url + '/auth/sign_in', JSON.stringify({ 'email': usuario, 'password': clave }), { headers: headers })
+            .toPromise()
+            .then(function (res) { return res.json().data; })
+            .catch(function (error) { return error; });
     };
     UsuarioService.prototype.logout = function () {
         this.loggedIn = false;
-        this.local.set('auth', false);
+        this.local.remove('auth');
     };
     UsuarioService.prototype.isLoggedIn = function () {
         var _this = this;
@@ -804,12 +800,12 @@ var UsuarioService = (function () {
     };
     UsuarioService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], UsuarioService);
     return UsuarioService;
 }());
 exports.UsuarioService = UsuarioService;
-},{"@angular/core":150,"ionic-angular":379}],16:[function(require,module,exports){
+},{"@angular/core":150,"@angular/http":226,"ionic-angular":379,"rxjs/add/operator/toPromise":570}],16:[function(require,module,exports){
 "use strict";
 var USUARIO = (function () {
     function USUARIO() {
