@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {PrincipalPage} from '../principal/principal';
 import {Usuario} from '../usuario/usuario.model';
@@ -9,13 +9,14 @@ import {Storage, LocalStorage} from 'ionic-angular';
   templateUrl: 'build/pages/login/login.html',
   providers: [UsuarioService],
 })
-export class LoginPage {
+export class LoginPage implements OnInit{
   @Input()
   usuario = {
     usuario: '',
     clave: ''
   };
   usuarios: Usuario[];
+  logged=false;
   errores={
     auth: '',
   };
@@ -24,8 +25,17 @@ export class LoginPage {
               private usuarioService: UsuarioService) {
 
   }
-  login(){
+  ngOnInit() {
+    this.local.get('auth')
+      .then(auth => {
+        if(auth!=null)
+        this._navController.setRoot(PrincipalPage)})
+      .catch(error => {
+      console.log(error);
+    }) ;
 
+}
+  login(){
       this.usuarioService.getUsuario()
       .then(usuario => {this.usuarios=usuario})
       .catch(error => error);
@@ -33,11 +43,20 @@ export class LoginPage {
 
       this.usuarioService.login(this.usuario.usuario,this.usuario.clave)
         .then(res => {
-          if(res.uid!=null) this._navController.setRoot(PrincipalPage);
+          if(res.uid!=null) {
+            this._navController.setRoot(PrincipalPage);
+            this.local.setJson('auth',res);
+          }
           else this.errores.auth = 'Usuario o contraseña incorrectos';
         }).catch(
           error => error);
+  }
+
+  isLoggedIn(){
+    this.usuarioService.isLoggedIn().then(res=> {this.logged=true}).catch(error => error);
 
   }
+
+
 
 }

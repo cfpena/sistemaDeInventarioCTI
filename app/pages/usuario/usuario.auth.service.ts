@@ -12,7 +12,6 @@ import 'rxjs/add/operator/toPromise';
 export class UsuarioService {
   loggedIn: Boolean= false;
   local: Storage = new Storage(LocalStorage);
-  test: string = 'a';
   url: string = 'http://162.243.83.72:8080'
 
   constructor(private http: Http) { }
@@ -35,20 +34,18 @@ export class UsuarioService {
              .toPromise()
              .then(response => response.json().data)
              .catch(error => console.log('error'));
-}
+    }
   logout(){
     this.loggedIn=false;
     this.local.remove('auth');
   }
+
   isLoggedIn(){
-    this.local.get('auth').then(auth => {this.test="hola"}).catch(error => {
+    return this.local.get('auth')
+      .then(auth => auth)
+      .catch(error => {
       console.log(error);
     }) ;
-    console.log(this.test);
-    return this.loggedIn;
-
-
-
   }
 
 }
