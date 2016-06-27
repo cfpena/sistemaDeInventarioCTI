@@ -1,11 +1,9 @@
 <main>
   <nav  class="light-blue darken-4"  role="navigation">
     <div class="nav-wrapper container"><span >Sistema de Inventario</span>
-      <ul class="right">
+      <!--<ul class="right">
         <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Opciones<i class="material-icons right">arrow_drop_down</i></a></li>
-      </ul>
-
-
+      </ul>-->
 
       <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons">menu</i></a>
     </div>
@@ -25,7 +23,7 @@
         </th>
         <th data-field="id">Codigo</th>
         <th data-field="nombre">Nombre</th>
-        <th data-field="clasificacion">Clasificación</th>
+        <th data-field="clasificacion">Descripción</th>
         <th data-field="marca">Marca</th>
         <th data-field="modelo">Modelo</th>
         <th data-field="cantidad">Cantidad-Stock</th>
@@ -65,7 +63,8 @@
   <!--Boton flotante de opciones add, edit, delete-->
   <div class="section">
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a class="btn-floating btn-large orange darken-1">
+      <a class="btn-floating btn-large orange darken-1 btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">
+
         <i class="large material-icons">settings</i>
       </a>
       <ul>
