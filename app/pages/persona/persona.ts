@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,MenuController } from 'ionic-angular';
 import {Persona} from '../persona/persona.model';
-
+import {CrearPersonaPage} from '../crear_persona/crear_persona';
 /*
   Generated class for the PersonaPage page.
 
@@ -13,7 +13,16 @@ import {Persona} from '../persona/persona.model';
 })
 export class PersonaPage {
   personas=PERSONAS;
-  constructor(private nav: NavController) {}
+
+  constructor(private _navController:NavController,private menu: MenuController) {}
+  openMenu(){
+    this.menu.open();
+  }
+
+  goCrearPersona(){
+      this._navController.push(CrearPersonaPage,{});
+      this._navController.setRoot(CrearPersonaPage);
+    }
 }
 
 

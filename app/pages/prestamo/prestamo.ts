@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, MenuController} from 'ionic-angular';
 import {ITEM} from '../item/item.model';
 import {Kit} from '../kit/kit.model';
 
@@ -17,7 +17,10 @@ import {Kit} from '../kit/kit.model';
 export class PrestamoPage {
   items = ITEMS;
   kits = KITS;
-  constructor(private nav: NavController) {}
+  constructor(private _navController:NavController,private menu: MenuController) {}
+  openMenu(){
+    this.menu.open();
+  }
 }
 
 const listaItems1: ITEM[]=[
