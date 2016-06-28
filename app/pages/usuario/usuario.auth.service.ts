@@ -23,7 +23,7 @@ export class UsuarioService {
 
     return this.http.post(this.url + '/auth/sign_in', JSON.stringify({'email':usuario,'password':clave}), { headers: headers })
     .toPromise()
-               .then(res => res.json().data)
+               .then(res => res)
                .catch(error => error);
   }
   getUsuario(): Promise<Usuario[]> {

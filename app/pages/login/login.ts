@@ -43,10 +43,10 @@ export class LoginPage implements OnInit{
 
       this.usuarioService.login(this.usuario.usuario,this.usuario.clave)
         .then(res => {
-          if(res.uid!=null) {
+          if(res.json().data.uid!=null) {
             this._navController.setRoot(PrincipalPage);
-            this.local.setJson('auth',res);
-            console.log(JSON.stringify(res));
+            this.local.setJson('auth',res.json().data);
+            console.log(res.headers.toJSON()['access-token'][0]);
           }
           else this.errores.auth = 'Usuario o contraseña incorrectos';
         }).catch(

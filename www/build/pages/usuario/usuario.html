@@ -1,12 +1,12 @@
 <!--
-Generated template for the UsuarioPage page.
+  Generated template for the UsuarioPage page.
 
-See http://ionicframework.com/docs/v2/components/#navigation for more info on
-Ionic pages and navigation.
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
 -->
 
 <!--<ion-navbar *navbar>
-<ion-title>usuario</ion-title>
+  <ion-title>usuario</ion-title>
 </ion-navbar>
 
 <ion-content padding class="usuario">
@@ -16,56 +16,60 @@ Ionic pages and navigation.
 <main>
   <nav  class="light-blue darken-4"  role="navigation">
     <div class="nav-wrapper container"><span >Sistema de Inventario</span>
-      <!--<ul class="right">
-      <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Opciones<i class="material-icons right">arrow_drop_down</i></a></li>
-    </ul>-->
-    <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons">menu</i></a>
-  </div>
-</nav>
-<ul id="dropdown1" class="dropdown-content">
-  <li><a href="#!">Ajustes</a></li>
-  <li><a href="#!">Cerrar Sesión</a></li>
-</ul>
-<!--tabla de usuarios-->
-<div id="usuarios" class="container"  style="padding-top: 75px">
-  <div  class=" section" >
-    <div class="card-panel teal white-text">Usuarios</div>
-    <table class="centered responsive-table centered striped" style="font-size: 17px">
-      <thead>
-        <tr>
-          <th data-field="id">Usuario</th>
-          <th data-field="name">Nombre</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>lcnivelo</td>
-          <td>Carolina Nivelo</td>
-        </tr>
-        <tr>
-          <td>jmora</td>
-          <td>José Morán</td>
-        </tr>
-        <tr>
-          <td>classo</td>
-          <td>Carlos Lasso</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+      <ul class="right">
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Opciones<i class="material-icons right">arrow_drop_down</i></a></li>
+      </ul>
 
-<!--Boton flotante de opciones add, edit, delete-->
-<div class="section">
-  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large orange darken-1">
-      <i class="large material-icons">settings</i>
-    </a>
-    <ul>
-      <li><a class="btn-floating red"><i class="material-icons">delete</i></a></li>
-      <li><a class="btn-floating green"><i class="material-icons">mode_edit</i></a></li>
-      <li><a (click)="goCrearUsuario()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
-    </ul>
+      <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="#!">Ajustes</a></li>
+    <li><a href="#!">Cerrar Sesión</a></li>
+  </ul>
+  <!--tabla de usuarios-->
+  <div id="usuarios" class="container">
+    <div  class="container section">
+      <table class="centered responsive-table">
+        <thead>
+          <tr>
+            <th data-field="id">Usuario</th>
+            <th data-field="name">Nombre</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>lcnivelo</td>
+            <td>Carolina Nivelo</td>
+          </tr>
+          <tr>
+
+            <td>jmora</td>
+            <td>José Morán</td>
+          </tr>
+          <tr>
+            <td>classo</td>
+            <td>Carlos Lasso</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
   </div>
-</div>
+
+  <!--Boton flotante de opciones add, edit, delete-->
+  <div class="section">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a class="btn-floating btn-large orange darken-1">
+        <i class="large material-icons">settings</i>
+      </a>
+      <ul>
+        <li><a class="btn-floating red"><i class="material-icons">delete</i></a></li>
+        <li><a class="btn-floating green"><i class="material-icons">mode_edit</i></a></li>
+        <li><a (click)="goCrearUsuario()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
+      </ul>
+    </div>
+  </div>
 </main>
