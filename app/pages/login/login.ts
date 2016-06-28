@@ -46,6 +46,7 @@ export class LoginPage implements OnInit{
           if(res.uid!=null) {
             this._navController.setRoot(PrincipalPage);
             this.local.setJson('auth',res);
+            console.log(JSON.stringify(res));
           }
           else this.errores.auth = 'Usuario o contraseña incorrectos';
         }).catch(
