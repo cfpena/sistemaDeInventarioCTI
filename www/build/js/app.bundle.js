@@ -428,6 +428,7 @@ var ItemPage = (function () {
         this._navController = _navController;
         this.menu = menu;
         this.items = ITEMS;
+        this.title = 'Ítems';
     }
     ItemPage.prototype.onSelect = function (item) { this.selectedItem = item; };
     ItemPage.prototype.openMenu = function () {
@@ -473,6 +474,7 @@ var KitPage = (function () {
         this.menu = menu;
         this.items = ITEMS;
         this.kits = KITS;
+        this.title = 'Kits';
     }
     KitPage.prototype.openMenu = function () {
         this.menu.open();
@@ -609,6 +611,7 @@ var PersonaPage = (function () {
         this._navController = _navController;
         this.menu = menu;
         this.personas = PERSONAS;
+        this.title = 'Personas';
     }
     PersonaPage.prototype.openMenu = function () {
         this.menu.open();

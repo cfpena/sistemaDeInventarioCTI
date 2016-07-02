@@ -10,6 +10,7 @@ import {CrearItemPage} from '../crear_item/crear_item';
 export class ItemPage {
   items = ITEMS;
   selectedItem : ITEM;
+  title: string ='Ítems';
 
   onSelect (item : ITEM) {this.selectedItem = item;}
   constructor(private _navController:NavController,private menu: MenuController) {}

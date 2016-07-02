@@ -1,11 +1,8 @@
 
-  <nav  class="light-blue darken-4"  role="navigation">
-    <div class="nav-wrapper container"><span >Sistema de Inventario</span>
-      <!--<ul class="right">
-      <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Opciones<i class="material-icons right">arrow_drop_down</i></a></li>
-    </ul>-->
-
+  <nav  class="light-blue darken-4">
+    <div class="nav-wrapper navbar-fixed">
     <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons">menu</i></a>
+    <a href="#!" class="brand-logo">{{title}}</a>
   </div>
 </nav>
 <ul id="dropdown1" class="dropdown-content">
@@ -14,39 +11,37 @@
 </ul>
 <!--Tabla de ítems-->
 <ion-content >
-<div class="container" style="padding-top: 70px">
-  <div class="card-panel teal white-text">Ítems</div>
-  <table class="bordered highlight responsive-table centered striped">
-    <thead>
-      <tr style="font-size: 17px">
-        <th data-field="seleccionarTodos">
-          <input type="checkbox" class="filled-in checkbox-blue" id="chbSeleccionarTodos" >
-          <label for="chbSeleccionarTodos"></label>
-        </th>
-        <th data-field="id">Código</th>
-        <th data-field="nombre">Nombre</th>
-        <th data-field="clasificacion">Descripción</th>
-        <th data-field="marca">Marca</th>
-        <th data-field="modelo">Modelo</th>
-        <th data-field="cantidad">Stock</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor = "let item of items" style="font-size: 17px">
-        <td class="center-align" id="checkboxes">
-          <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
-          <label for="chbItem1 + "></label>
-        </td>
-        <td >{{item.codigo}}</td>
-        <td>{{item.nombre}}</td>
-        <td>{{item.descripcion}}</td>
-        <td>{{item.marca}}</td>
-        <td>{{item.modelo}}</td>
-        <td class="center-align">{{item.cantidad}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div >
+    <table class="centered table centered striped" style="font-size: 17px">
+      <thead>
+        <tr>
+          <th data-field="seleccionarTodos">
+            <input type="checkbox" class="filled-in checkbox-blue" id="chbSeleccionarTodos" >
+            <label for="chbSeleccionarTodos"></label>
+          </th>
+          <th data-field="id">Código</th>
+          <th data-field="nombre">Nombre</th>
+          <th data-field="clasificacion">Descripción</th>
+          <th data-field="marca">Marca</th>
+          <th data-field="modelo">Modelo</th>
+          <th data-field="cantidad">Stock</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let item of items" style="font-size: 17px">
+          <td class="cen ter-align" id="checkboxes">
+            <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
+            <label for="chbItem1 + "></label>
+          </td>
+          <td >{{item.codigo}}</td>
+          <td>{{item.nombre}}</td>
+          <td>{{item.descripcion}}</td>
+          <td>{{item.marca}}</td>
+          <td>{{item.modelo}}</td>
+          <td class="center-align">{{item.cantidad}}</td>
+        </tr>
+      </tbody>
+    </table>
 <ion-content >
 
 
