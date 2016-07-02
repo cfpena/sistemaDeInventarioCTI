@@ -13,6 +13,7 @@ import {CrearKitPage} from '../crear_kit/crear_kit';
 export class KitPage {
   items = ITEMS;
   kits = KITS;
+    title: string ='Kits';
 
   constructor(private _navController:NavController,private menu: MenuController) {}
   openMenu(){

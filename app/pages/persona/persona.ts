@@ -13,7 +13,7 @@ import {CrearPersonaPage} from '../crear_persona/crear_persona';
 })
 export class PersonaPage {
   personas=PERSONAS;
-
+  title: string ='Personas';
   constructor(private _navController:NavController,private menu: MenuController) {}
   openMenu(){
     this.menu.open();
