@@ -6,4 +6,5 @@ export class Usuario {
     "name": string;
     "nickname": string; //no va
     "image": string;    //no va
+    "type": string;
 }
