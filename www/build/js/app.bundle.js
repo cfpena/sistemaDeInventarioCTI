@@ -79,6 +79,7 @@ var MyApp = (function () {
     return MyApp;
 }());
 ionic_angular_1.ionicBootstrap(MyApp);
+
 },{"./materialize-directive":2,"./pages/inventario/inventario":7,"./pages/item/item":8,"./pages/kit/kit":9,"./pages/login/login":10,"./pages/persona/persona":11,"./pages/prestamo/prestamo":12,"./pages/reportes/reportes":14,"./pages/usuario/usuario":16,"./pages/usuario/usuario.auth.service":15,"@angular/core":149,"ionic-angular":378,"ionic-native":402}],2:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -302,6 +303,7 @@ var CrearItemPage = (function () {
     return CrearItemPage;
 }());
 exports.CrearItemPage = CrearItemPage;
+
 },{"../item/item":8,"@angular/core":149,"ionic-angular":378}],4:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -337,6 +339,7 @@ var CrearKitPage = (function () {
     return CrearKitPage;
 }());
 exports.CrearKitPage = CrearKitPage;
+
 },{"../kit/kit":9,"@angular/core":149,"ionic-angular":378}],5:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -372,6 +375,7 @@ var CrearPersonaPage = (function () {
     return CrearPersonaPage;
 }());
 exports.CrearPersonaPage = CrearPersonaPage;
+
 },{"../persona/persona":11,"@angular/core":149,"ionic-angular":378}],6:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -407,6 +411,7 @@ var CrearUsuarioPage = (function () {
     return CrearUsuarioPage;
 }());
 exports.CrearUsuarioPage = CrearUsuarioPage;
+
 },{"../usuario/usuario":16,"@angular/core":149,"ionic-angular":378}],7:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -439,6 +444,7 @@ var InventarioPage = (function () {
     return InventarioPage;
 }());
 exports.InventarioPage = InventarioPage;
+
 },{"@angular/core":149,"ionic-angular":378}],8:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -481,6 +487,7 @@ var ITEMS = [
     { id: 2, codigo: 'Item002', nombre: 'Item 2', marca: 'Marca 1', modelo: 'Modelo 2', descripcion: ' ', cantidad: 10, esDispositivo: true },
     { id: 3, codigo: 'Item003', nombre: 'Item 3', marca: 'Marca 2', modelo: 'Modelo 3', descripcion: ' ', cantidad: 15, esDispositivo: false }
 ];
+
 },{"../crear_item/crear_item":3,"@angular/core":149,"ionic-angular":378}],9:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -536,6 +543,7 @@ var ITEMS = [
     { id: 2, codigo: 'Item002', nombre: 'Item 2', marca: 'Marca 1', modelo: 'Modelo 2', descripcion: ' ', cantidad: 10, esDispositivo: true },
     { id: 3, codigo: 'Item003', nombre: 'Item 3', marca: 'Marca 2', modelo: 'Modelo 3', descripcion: ' ', cantidad: 15, esDispositivo: false }
 ];
+
 },{"../../materialize-directive":2,"../crear_kit/crear_kit":4,"@angular/core":149,"ionic-angular":378}],10:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -611,6 +619,7 @@ var LoginPage = (function () {
     return LoginPage;
 }());
 exports.LoginPage = LoginPage;
+
 },{"../principal/principal":13,"../usuario/usuario.auth.service":15,"@angular/core":149,"ionic-angular":378}],11:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -658,6 +667,7 @@ var PERSONAS = [
     { id: 2, cedula: '0912345674', nombre: 'Nombre 2', apellido: 'Apellidos 2', correo: 'na2@asd.com', funcion: 'ayudante', telefono: '04-6025888', celular: ' ', genero: 'M' },
     { id: 3, cedula: '0912345675', nombre: 'Nombre 3', apellido: 'Apellidos 3', correo: 'na3@asd.com', funcion: 'estudiante', telefono: '04-6025888', celular: ' ', genero: 'F' }
 ];
+
 },{"../crear_persona/crear_persona":5,"@angular/core":149,"ionic-angular":378}],12:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -712,6 +722,7 @@ var ITEMS = [
     { id: 2, codigo: 'Item002', nombre: 'Item 2', marca: 'Marca 1', modelo: 'Modelo 2', descripcion: ' ', cantidad: 10, esDispositivo: true },
     { id: 3, codigo: 'Item003', nombre: 'Item 3', marca: 'Marca 2', modelo: 'Modelo 3', descripcion: ' ', cantidad: 15, esDispositivo: false }
 ];
+
 },{"@angular/core":149,"ionic-angular":378}],13:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -742,6 +753,7 @@ var PrincipalPage = (function () {
     return PrincipalPage;
 }());
 exports.PrincipalPage = PrincipalPage;
+
 },{"@angular/core":149,"ionic-angular":378}],14:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -774,6 +786,7 @@ var ReportesPage = (function () {
     return ReportesPage;
 }());
 exports.ReportesPage = ReportesPage;
+
 },{"@angular/core":149,"ionic-angular":378}],15:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -830,6 +843,7 @@ var UsuarioService = (function () {
     return UsuarioService;
 }());
 exports.UsuarioService = UsuarioService;
+
 },{"@angular/core":149,"@angular/http":225,"ionic-angular":378,"rxjs/add/operator/toPromise":569}],16:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -854,6 +868,7 @@ var UsuarioPage = (function () {
     function UsuarioPage(_navController, menu) {
         this._navController = _navController;
         this.menu = menu;
+        this.title = 'Usuarios';
     }
     UsuarioPage.prototype.openMenu = function () {
         this.menu.open();
@@ -871,6 +886,7 @@ var UsuarioPage = (function () {
     return UsuarioPage;
 }());
 exports.UsuarioPage = UsuarioPage;
+
 },{"../crear_usuario/crear_usuario":6,"@angular/core":149,"ionic-angular":378}],17:[function(require,module,exports){
 "use strict";
 function __export(m) {

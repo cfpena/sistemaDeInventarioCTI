@@ -11,6 +11,7 @@ import {CrearUsuarioPage} from '../crear_usuario/crear_usuario';
   templateUrl: 'build/pages/usuario/usuario.html',
 })
 export class UsuarioPage {
+  title: string ='Usuarios';
   constructor(private _navController:NavController,private menu: MenuController) {}
 openMenu(){
   this.menu.open();

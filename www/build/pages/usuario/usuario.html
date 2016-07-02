@@ -13,27 +13,20 @@
 
 </ion-content>
 -->
-<main>
-  <nav  class="light-blue darken-4"  role="navigation">
-    <div class="nav-wrapper container"><span >Sistema de Inventario</span>
-      <!--<ul class="right">
-      <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Opciones<i class="material-icons right">arrow_drop_down</i></a></li>
-    </ul>-->
-    <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons">menu</i></a>
+<nav class="light-blue darken-4" >
+  <div class="nav-wrapper navbar-fixed" >
+    <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons left">menu</i></a>
+    <a href="#!" class="brand-logo">{{title}}</a>
   </div>
 </nav>
-<ul id="dropdown1" class="dropdown-content">
-  <li><a href="#!">Ajustes</a></li>
-  <li><a href="#!">Cerrar Sesión</a></li>
-</ul>
+
+
 <!--tabla de usuarios-->
-<div id="usuarios" class="container"  style="padding-top: 75px">
-  <div  class=" section" >
-    <div class="card-panel teal white-text">Usuarios</div>
-    <table class="centered responsive-table centered striped" style="font-size: 17px">
+<ion-content>
+    <table class="centered table centered striped" style="font-size: 17px">
       <thead>
         <tr>
-          <th >Seleccionar</th>
+          <th ></th>
           <th data-field="id">Usuario</th>
           <th data-field="name">Nombre</th>
           <th data-field="lastname">Apellido</th>
@@ -69,11 +62,9 @@
         </tr>
       </tbody>
     </table>
-
-  </div>
-  </div>
+</ion-content>
   <!--Boton flotante de opciones add, edit, delete-->
-  <div class="section">
+
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
       <a class="btn-floating btn-large orange darken-1">
         <i class="large material-icons">settings</i>
@@ -84,5 +75,3 @@
         <li><a (click)="goCrearUsuario()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
       </ul>
     </div>
-  </div>
-</main>
