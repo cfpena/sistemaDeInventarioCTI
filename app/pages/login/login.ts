@@ -4,10 +4,15 @@ import {PrincipalPage} from '../principal/principal';
 import {Usuario} from '../usuario/usuario.model';
 import {UsuarioService} from '../usuario/usuario.auth.service';
 import {Storage, LocalStorage} from 'ionic-angular';
+import {Http, Headers} from '@angular/http';
+import {FORM_DIRECTIVES} from '@angular/common';
+import {JwtHelper} from 'angular2-jwt';
+import 'rxjs/add/operator/map';
 
 @Component({
   templateUrl: 'build/pages/login/login.html',
   providers: [UsuarioService],
+  directives: [FORM_DIRECTIVES]
 })
 export class LoginPage implements OnInit{
   @Input()
@@ -15,48 +20,74 @@ export class LoginPage implements OnInit{
     usuario: '',
     clave: ''
   };
+  //constantes para http
+  URL: string = "http://162.243.83.72:8080";
+  LOGIN_URL: string = "/auth/sign_in";
+  SIGNUP_URL: string = "/auth/sign_up";
+  authType: string = "login";
+  contentHeader: Headers = new Headers({"Content-Type": "application/json"});
+  jwtHelper: JwtHelper = new JwtHelper();
+  user: string;
+
   usuarios: Usuario[];
   logged=false;
   errores={
     auth: '',
   };
   local: Storage = new Storage(LocalStorage);
-  constructor(private _navController:NavController,
+  constructor(private http: Http,
+              private nav:NavController,
               private usuarioService: UsuarioService) {
 
+
+        this.local.get('profile').then(profile => {
+          this.user =profile;
+        }).catch(error => {
+          console.log(error);
+        });
+
+  }
+
+  login() {
+    this.http.post(this.URL + this.LOGIN_URL, JSON.stringify({'email': this.usuario.usuario,'password': this.usuario.clave}), { headers: this.contentHeader })
+      .map(res => res)
+      .subscribe(
+        data => this.authSuccess(data),
+        err => this.errores.auth = 'Usuario o clave incorrectos'
+      );
+  }
+  signup() {
+    this.http.post(this.SIGNUP_URL, JSON.stringify(JSON.stringify({'username': this.usuario.usuario,'password': this.usuario.clave})), { headers: this.contentHeader })
+      .map(res => res.json())
+      .subscribe(
+        data => this.authSuccess(data.id_token),
+        err => this.errores.auth = err
+      );
+  }
+
+  authSuccess(data) {
+    console.log("token: ",data.json().data);
+    this.errores.auth = null;
+    this.local.setJson('token',
+            {'access-token': data.headers.toJSON()['access-token'][0],
+              'client': data.headers.toJSON()['client'][0],
+              'uid': data.headers.toJSON()['uid'][0]
+            }
+          );
+    this.local.setJson('profile', data.json().data);
+    this.user = data.json().data;
+    this.nav.setRoot(PrincipalPage);
   }
   ngOnInit() {
-    this.local.get('auth')
-      .then(auth => {
-        if(auth!=null)
-        this._navController.setRoot(PrincipalPage)})
-      .catch(error => {
-      console.log(error);
-    }) ;
+
+    this.local.getJson('profile').then(profile => {
+      if(profile!=null)
+        this.nav.setRoot(PrincipalPage);
+    }).catch(error => {
+        console.log(error);
+      });
 
 }
-  login(){
-      this.usuarioService.getUsuario()
-      .then(usuario => {this.usuarios=usuario})
-      .catch(error => error);
-
-
-      this.usuarioService.login(this.usuario.usuario,this.usuario.clave)
-        .then(res => {
-          if(res.json().data.uid!=null) {
-            this._navController.setRoot(PrincipalPage);
-            this.local.setJson('auth',res.json().data);
-            console.log(res.headers.toJSON()['access-token'][0]);
-          }
-          else this.errores.auth = 'Usuario o contraseña incorrectos';
-        }).catch(
-          error => error);
-  }
-
-  isLoggedIn(){
-    this.usuarioService.isLoggedIn().then(res=> {this.logged=true}).catch(error => error);
-
-  }
 
 
 
