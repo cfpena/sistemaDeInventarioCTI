@@ -8,6 +8,7 @@ import {Http, Headers} from '@angular/http';
 import {NavController,MenuController} from 'ionic-angular';
 import {LoginPage} from './pages/login/login';
 import {UsuarioPage} from './pages/usuario/usuario';
+import {PersonaPage} from './pages/persona/persona';
 
 // this needs doing _once_ for the entire test suite, hence it's here
 setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS);
@@ -24,12 +25,14 @@ class MockClass {
 let myApp = null;
 let loginPage = null
 let usuarioPage = null;
+let personaPage = null;
 
 describe('Aplicacion principal', () => {
 
   beforeEach(function() {
     let platform = (<any>new MockClass());
     let usuarioServ: UsuarioService;
+
     myApp = new MyApp(platform,usuarioServ);
   });
 
@@ -100,5 +103,55 @@ describe('Usuarios', () => {
     usuarioPage.id=10;
     usuarioPage.usuarioModificar.name = 'Jose';
     expect(usuarioPage.usuarioModificar.name).toBe('Jose');
+  });
+});
+
+
+
+describe('Personas', () => {
+
+  beforeEach(function() {
+
+    var http: Http;
+    var nav: NavController;
+    var menu: MenuController;
+    personaPage = new PersonaPage(nav,menu);
+  });
+
+  it('listar personas', () => {
+    expect(personaPage.personas).toBeTruthy();
+  });
+
+  it('crear personas', () => {
+    let personas = personaPage.personas;
+    let personaNueva = personaPage.personaNueva;
+    personaNueva =
+        {
+            id: 10,  cedula:'0924268915',
+            nombre: 'Xavier',  apellido: 'Vera',
+            correo: 'x@prueba.com', funcion:'estudiante',
+            telefono: '0986009274', celular: '0987654321',
+            genero: 'M'
+          };
+    personas.push(personaNueva);
+    let index = personas.length -1;
+    let persona= personas[index];
+
+    expect(persona.id).toBe(10);
+  });
+
+  it('eliminar personas', () => {
+    let personas = personaPage.personas;
+    for (var index in personas){
+      personaPage.selected.push(index);
+    }
+    personaPage.eliminar();
+    expect(personas.length).toBe(0);
+  });
+  it('modificar personas', () => {
+    let personas = personaPage.personas;
+    personaPage.id=10;
+    personaPage.personaModificar.nombre = 'Adriano';
+    expect(personaPage.personaModificar.nombre).toBe('Adriano');
   });
 });
