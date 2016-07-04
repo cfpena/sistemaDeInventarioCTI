@@ -11,10 +11,14 @@ node_js:
   - "0.6"
   - "iojs"
 before_install:
+    - wget -qO- https://raw.githubusercontent.com/xtuple/nvm/master/install.sh | sudo bash
+    - npm install n
+    - sudo ./node_modules/.bin/n stable
+    - rm -rf ~/.nvm
 
 install:
-    - npm install -g typescript
-    - sudo npm install
+    - sudo npm install -g typescript
+    - npm install
     - typings install --save --global registry:dt/jasmine registry:dt/node
 script:
     - npm test
