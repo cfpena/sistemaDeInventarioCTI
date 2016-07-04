@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 import {Storage, LocalStorage} from 'ionic-angular';
 import {PrincipalPage} from '../principal/principal';
 import {Usuario} from '../usuario/usuario.model';
+import {Observable} from 'rxjs/Observable';
 
 
 
@@ -10,7 +11,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class UsuarioService{
-  loggedIn: Boolean;
+  loggedIn: Boolean=false;
   local: Storage = new Storage(LocalStorage);
   url: string = 'http://162.243.83.72:8080'
 
@@ -31,14 +32,14 @@ export class UsuarioService{
     }
 
   isLoggedIn(){
-    this.local.getJson('profile').then(profile => {
-        return true ;
-      }).catch(error => {
-        console.log(error);
-      });
 
 
-
+                return this.local.get('profile').then(profile =>
+                  {console.log(profile);
+                    if(profile==null){return false;}
+                  else {return true;}
+                }).catch(error => error
+              );
 
   }
 
