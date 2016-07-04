@@ -11,10 +11,11 @@ import {CrearKitPage} from '../crear_kit/crear_kit';
   directives: [MaterializeDirective],
 })
 export class KitPage {
+  /*
   items = ITEMS;
   kits = KITS;
     title: string ='Kits';
-
+*/
   constructor(private _navController:NavController,private menu: MenuController) {}
   openMenu(){
     this.menu.open();
@@ -27,7 +28,7 @@ export class KitPage {
 
 
 }
-
+/*
 const listaItems1: ITEM[]=[
   {id: 1,  codigo: 'Item001',  nombre: 'Item 1',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, esDispositivo: true},
   {id: 2,  codigo: 'Item002',  nombre: 'Item 2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, esDispositivo: true}
@@ -48,3 +49,4 @@ const ITEMS: ITEM[]=[
   {id: 2,  codigo: 'Item002',  nombre: 'Item 2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, esDispositivo: true},
   {id: 3,  codigo: 'Item003',  nombre: 'Item 3',  marca: 'Marca 2',  modelo: 'Modelo 3',  descripcion: ' ', cantidad:15,esDispositivo: false}
 ]
+*/
