@@ -436,11 +436,15 @@ var ItemPage = (function () {
         this.selected = [];
     };
     ItemPage.prototype.select = function (id) {
-        /*  let index: number;
-          index = this.selected.findIndex(num => num == parseInt(id));
-          if(index==-1){
-          this.selected.push(parseInt(id));}
-          else{this.selected.splice(index,1)};*/
+        var index;
+        index = this.selected.findIndex(function (num) { return num == parseInt(id); });
+        if (index == -1) {
+            this.selected.push(parseInt(id));
+        }
+        else {
+            this.selected.splice(index, 1);
+        }
+        ;
     };
     ItemPage.prototype.goCrearItem = function () {
         this.template = 'crear';

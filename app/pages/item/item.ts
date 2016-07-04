@@ -55,7 +55,6 @@ this.template='null';
 }
 
 eliminar(){
-
   for(var i in this.selected){
     console.log(this.selected[i]);
     let index =this.items.findIndex(item => item.id==this.selected[i]);
@@ -66,11 +65,11 @@ eliminar(){
 }
 
 select(id: any){
-/*  let index: number;
+  let index: number;
   index = this.selected.findIndex(num => num == parseInt(id));
   if(index==-1){
   this.selected.push(parseInt(id));}
-  else{this.selected.splice(index,1)};*/
+  else{this.selected.splice(index,1)};
 }
 
   goCrearItem(){
