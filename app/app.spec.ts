@@ -4,9 +4,10 @@ import {
 import { setBaseTestProviders , describe, beforeEach, it,expect,inject} from '@angular/core/testing';
 import { MyApp } from './app';
 import {UsuarioService} from './pages/usuario/usuario.auth.service';
-import {LoginPage} from './pages/login/login';
 import {Http, Headers} from '@angular/http';
-import {NavController} from 'ionic-angular';
+import {NavController,MenuController} from 'ionic-angular';
+import {LoginPage} from './pages/login/login';
+import {UsuarioPage} from './pages/usuario/usuario';
 
 // this needs doing _once_ for the entire test suite, hence it's here
 setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS);
@@ -21,9 +22,10 @@ class MockClass {
 }
 
 let myApp = null;
-let login = null
+let loginPage = null
+let usuarioPage = null;
 
-describe('MyApp', () => {
+describe('Aplicacion principal', () => {
 
   beforeEach(function() {
     let platform = (<any>new MockClass());
@@ -31,25 +33,72 @@ describe('MyApp', () => {
     myApp = new MyApp(platform,usuarioServ);
   });
 
-  it('initialise app', () => {
+  it('inicializacion de app', () => {
     expect(myApp).not.toBeNull();
   });
 });
 
 
-describe('Login', () => {
+describe('logg in', () => {
 
   beforeEach(function() {
     var usuarioServ: UsuarioService;
     var http: Http;
     var nav: NavController;
-    login = new LoginPage(http,nav,usuarioServ);
+
+    loginPage = new LoginPage(http,nav,usuarioServ);
   });
 
   it('iniciar sesion', () => {
-    login.setUsuario('prueba@prueba.com','prueba1234');
+    loginPage.setUsuario('prueba@prueba.com','prueba1234');
   //  login.login();
-    let isLogin = login.isLoggedIn();
-    expect(login.isLoggedIn()).toBe(false);
+    let isLogin = loginPage.isLoggedIn();
+    expect(loginPage.isLoggedIn()).toBe(false);
+  });
+});
+
+
+describe('Usuarios', () => {
+
+  beforeEach(function() {
+    var usuarioServ: UsuarioService;
+    var http: Http;
+    var nav: NavController;
+    var menu: MenuController;
+    usuarioPage = new UsuarioPage(nav,menu);
+  });
+
+  it('listar usuarios', () => {
+    expect(usuarioPage.usuarios).toBeTruthy();
+  });
+
+  it('crear usuarios', () => {
+    let usuarios = usuarioPage.usuarios;
+    let usuarioNuevo = usuarioPage.usuarioNuevo;
+    usuarioNuevo =
+        {id: 10, email: 'mail@info.com',
+        provider:"", uid:'mail@info.com',
+        name:'mail',nickname:"",image:'',
+        type:'admin'};
+    usuarios.push(usuarioNuevo);
+    let index = usuarios.length -1;
+    let usuario= usuarios[index];
+
+    expect(usuario.id).toBe(10);
+  });
+
+  it('eliminar usuarios', () => {
+    let usuarios = usuarioPage.usuarios;
+    for (var index in usuarios){
+      usuarioPage.selected.push(index);
+    }
+    usuarioPage.eliminar();
+    expect(usuarios.length).toBe(0);
+  });
+  it('modificar usuarios', () => {
+    let usuarios = usuarioPage.usuarios;
+    usuarioPage.id=10;
+    usuarioPage.usuarioModificar.name = 'Jose';
+    expect(usuarioPage.usuarioModificar.name).toBe('Jose');
   });
 });

@@ -45,6 +45,7 @@ openMenu(){
     }
   }
   goModificar(id: string){
+
     this.template='modificar'
     this.id=parseInt(id);
     this.usuarioModificar = JSON.parse(JSON.stringify(this.usuarios.find(usuario => usuario.id == this.id)));
@@ -53,6 +54,7 @@ openMenu(){
   let index =this.usuarios.findIndex(usuario => usuario.id == this.id);
   this.usuarios[index] =JSON.parse(JSON.stringify(this.usuarioModificar));
   this.template='null';
+  return this.usuarios[index];
   }
   eliminar(){
 
@@ -72,7 +74,6 @@ openMenu(){
     if(index==-1){
     this.selected.push(parseInt(id));}
     else{this.selected.splice(index,1)};
-
     console.log(this.selected);
 
   }
