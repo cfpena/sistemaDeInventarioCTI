@@ -50,6 +50,6 @@ describe('Login', () => {
     login.setUsuario('prueba@prueba.com','prueba1234');
   //  login.login();
     let isLogin = login.isLoggedIn();
-    expect(login.isLoggedIn()).toBe(true);
+    expect(login.isLoggedIn()).toBe(false);
   });
 });
