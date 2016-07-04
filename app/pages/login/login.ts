@@ -47,14 +47,28 @@ export class LoginPage implements OnInit{
         });
 
   }
+  se(){
+    console.log(this.URL);
+  }
+  setUsuario(usuario:string,clave:string){
+    this.usuario.usuario=usuario;
+    this.usuario.clave=clave;
+  }
 
   login() {
+
     this.http.post(this.URL + this.LOGIN_URL, JSON.stringify({'email': this.usuario.usuario,'password': this.usuario.clave}), { headers: this.contentHeader })
       .map(res => res)
       .subscribe(
         data => this.authSuccess(data),
         err => this.errores.auth = 'Usuario o clave incorrectos'
       );
+
+
+  }
+  isLoggedIn(){
+    return this.logged;
+
   }
   signup() {
     this.http.post(this.SIGNUP_URL, JSON.stringify(JSON.stringify({'username': this.usuario.usuario,'password': this.usuario.clave})), { headers: this.contentHeader })
@@ -66,7 +80,7 @@ export class LoginPage implements OnInit{
   }
 
   authSuccess(data) {
-    console.log("token: ",data.json().data);
+    this.logged=true;
     this.errores.auth = null;
     this.local.setJson('token',
             {'access-token': data.headers.toJSON()['access-token'][0],
@@ -77,6 +91,7 @@ export class LoginPage implements OnInit{
     this.local.setJson('profile', data.json().data);
     this.user = data.json().data;
     this.nav.setRoot(PrincipalPage);
+
   }
   ngOnInit() {
 

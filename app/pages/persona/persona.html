@@ -14,6 +14,7 @@ Ionic pages and navigation.
 
 
 
+<!-- Menu principal -->
 <nav  class="light-blue darken-4">
 <div class="nav-wrapper navbar-fixed ">
   <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons">menu</i></a>
@@ -21,55 +22,184 @@ Ionic pages and navigation.
 </div>
 </nav>
 
-<ion-content >
-  <div id="contenedor_principal" >
-    <div class="section">
-      <!--Tabla de personas-->
-      <!--  <span class="left-align; font-weight: bold;">personas registradas</span>-->
-        <table class="highlight responsive-table  centered striped" style="font-size: 17px">
-          <thead>
-            <tr>
-              <th data-field="seleccionarTodos" class="center-align">
-                <input type="checkbox" class="filled-in checkbox-blue" id="chbSeleccionarTodos" >
-                <label for="chbSeleccionarTodos"></label>
-              </th>
-              <th data-field="id">Identificación</th>
-              <th data-field="nombre">Nombre</th>
-              <th data-field="apellido">Apellido</th>
-              <th data-field="correo">Correo</th>
-            </tr>
-          </thead>
+<!--tabla de personas-->
+<ion-content>
+    <table materialize class="centered table centered striped" style="font-size: 17px">
+      <thead>
+        <tr>
+          <th ></th>
+          <th data-field="id">Identificacion</th>
+          <th data-field="nombre">Nombre</th>
+          <th data-field="apellido">Apellido</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- angular 2 for -->
+        <tr *ngFor="let persona of personas">
 
-          <tbody>
-            <tr *ngFor = "let persona of personas">
-              <td class="center-align" id="checkboxes">
-                <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
-                <label for="chbItem1"></label>
-              </td>
-              <td>{{persona.cedula}}</td>
-              <td>{{persona.nombre}}</td>
-              <td>{{persona.apellido}}</td>
-              <td>{{persona.correo}}</td>
-            </tr>
-          </tbody>
-        </table>
+          <td>
 
-      <!--fin de tabla de personas-->
-      <!-- fin de nueva persona-->
-    </div>
-  </div>
-<ion-content >
+            <!-- evento change y atributo por defecto checked false, se agrega como id el id de la persona
+          para luego saber que checkbox le pertenece a cada persona-->
+            <input  [checked]="false" (change)="select(persona.id)" id="{{persona.id}}" type="checkbox" class="filled-in"/>
 
+            <label  attr.for="{{persona.id}}"></label>
+
+
+          </td>
+          <td>{{persona.id}}</td>
+          <td>{{persona.nombre}}</td>
+          <td>{{persona.apellido}}</td>
+          <td>
+              <a class="button-collapse" (click)="goModificar(persona.id)"><i class="material-icons left">mode_edit</i></a>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+</ion-content>
   <!--Boton flotante de opciones add, edit, delete-->
-  <div class="section">
+<!-- if de angular, valida si se debe mostrar o no segun la variable template -->
+<div *ngIf="template=='null'">
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
       <a class="btn-floating btn-large orange darken-1">
         <i class="large material-icons">settings</i>
       </a>
       <ul>
-        <li><a class="btn-floating red"><i class="material-icons">delete</i></a></li>
-        <li><a class="btn-floating green"><i class="material-icons">mode_edit</i></a></li>
+        <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
         <li><a (click)="goCrearPersona()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
       </ul>
     </div>
-  </div>
+</div>
+<div *ngIf="template=='crear'">
+    <!--nueva persona-->
+    <div id="nuevo_item" class="section">
+      <div class="container" style="padding-top: 50px">
+        <div class="row">
+          <form class="col s12 m6 l12 ">
+            <div class="row">
+              <!--primera ventana-->
+              <div class="col s12 m6 l6 offset-l3 offset-m3">
+                <div class="card-panel hoverable card-action white">
+                  <div class="card-content black-text">
+                    <span class="card-title">Nueva Persona</span>
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaNueva.cedula">
+                      <label for="icon_codigo">Cedula</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaNueva.nombre">
+                      <label for="icon_codigo">Nombre</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaNueva.apellido">
+                      <label for="icon_codigo">Apellido</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaNueva.correo">
+                      <label for="icon_codigo">Email</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaNueva.funcion">
+                      <label for="icon_codigo">Funcion</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaNueva.tipo">
+                      <label for="icon_codigo">Tipo</label>
+                    </div>
+                  </div>
+                  <div class="card-action">
+                    <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
+                      <i class="material-icons right">send</i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!--boton para cancelar-->
+    <div class="section">
+      <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+          <i class="material-icons">clear</i>
+        </a>
+      </div>
+    </div>
+</div>
+
+
+<div *ngIf="template=='modificar'">
+    <!--modificar persona-->
+    <div id="nuevo_item" class="section">
+      <div class="container" style="padding-top: 50px">
+        <div class="row">
+          <form class="col s12 m6 l12 ">
+            <div class="row">
+              <!--primera ventana-->
+              <div class="col s12 m6 l6 offset-l3 offset-m3">
+                <div class="card-panel hoverable card-action white">
+                  <div class="card-content black-text">
+                    <span class="card-title">Modificar Persona</span>
+
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaModificar.cedula">
+                      <label for="icon_codigo">Cedula</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaModificar.nombre">
+                      <label for="icon_codigo">Nombre</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaModificar.apellido">
+                      <label for="icon_codigo">Apellido</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaModificar.correo">
+                      <label for="icon_codigo">Email</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaModificar.funcion">
+                      <label for="icon_codigo">Funcion</label>
+                    </div>
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaModificar.tipo">
+                      <label for="icon_codigo">Tipo</label>
+                    </div>
+                  </div>
+                  <div class="card-action">
+                    <a (click)="modificar()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
+                      <i class="material-icons right">send</i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!--boton para cancelar-->
+    <div class="section">
+      <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+          <i class="material-icons">clear</i>
+        </a>
+      </div>
+    </div>
+</div>

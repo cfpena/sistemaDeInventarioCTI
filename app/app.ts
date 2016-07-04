@@ -25,7 +25,7 @@ import {Storage, LocalStorage} from 'ionic-angular';
   providers: [UsuarioService],
   directives: [MaterializeDirective],
 })
-class MyApp {
+export class MyApp {
   @ViewChild(Nav) nav: Nav;
   local: Storage = new Storage(LocalStorage);
   rootPage: any = LoginPage;
