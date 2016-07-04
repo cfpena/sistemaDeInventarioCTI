@@ -1,7 +1,7 @@
 import {Component,  OnInit, Input, ViewChild } from '@angular/core';
 import {NavController, MenuController} from 'ionic-angular';
 import {ITEM} from './item.model';
-import {CrearItemPage} from '../crear_item/crear_item';
+
 @Component({
   templateUrl: 'build/pages/item/item.html'
 })
@@ -28,10 +28,10 @@ export class ItemPage implements OnInit {
   constructor( _navController:NavController,private menu: MenuController) {
 
   }
+
   openMenu(){
     this.menu.open();
   }
-
   //crea un item
   crear(){
     this.items.push(this.itemNuevo);
@@ -70,9 +70,11 @@ select(id: any){
   if(index==-1){
   this.selected.push(parseInt(id));}
   else{this.selected.splice(index,1)};
+    console.log(this.selected);
 }
 
   goCrearItem(){
+
     this.template='crear';
   }
 

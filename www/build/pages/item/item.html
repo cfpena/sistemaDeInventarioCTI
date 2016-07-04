@@ -1,15 +1,15 @@
 
 
-<!-- Menu principal -->
-<nav  class="light-blue darken-4">
-  <div class="nav-wrapper navbar-fixed ">
-    <a href="#" (click)="openMenu()" data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons">menu</i></a>
+<nav class="light-blue darken-4" >
+  <div class="nav-wrapper navbar-fixed" >
+    <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons left">menu</i></a>
     <a href="#!" class="brand-logo">{{title}}</a>
   </div>
 </nav>
 
 <!--Tabla de ítems-->
 <ion-content>
+
   <table materialize class="centered table centered striped" style="font-size: 17px">
     <thead>
       <tr>
@@ -25,9 +25,15 @@
     </thead>
     <tbody>
       <tr *ngFor = "let item of items">
-        <td >
+
+
+        <td>
+
+
           <input  [checked]="false" (change)="select(item.id)" id="{{item.id}}" type="checkbox" class="filled-in"/>
           <label  attr.for="{{item.id}}"></label>
+
+
         </td>
         <td >{{item.codigo}}</td>
         <td>{{item.nombre}}</td>
@@ -41,33 +47,32 @@
       </tr>
     </tbody>
   </table>
+
 </ion-content>
 
 <!--Boton flotante de opciones add, edit, delete-->
 <!-- if de angular, valida si se debe mostrar o no segun la variable template -->
 
 <div *ngIf="template=='null'">
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a class="btn-floating btn-large orange darken-1">
-        <i class="large material-icons">settings</i>
-      </a>
-      <ul>
-        <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
-        <li><a (click)="goCrearItem()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
-      </ul>
-    </div>
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large orange darken-1">
+      <i class="large material-icons">settings</i>
+    </a>
+    <ul>
+      <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
+      <li><a (click)="goCrearItem()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
+    </ul>
+  </div>
 </div>
 
+
 <div *ngIf="template=='crear'">
-  <!--nuevo user-->
+
   <div id="nuevo_item" class="section">
     <div class="container" style="padding-top: 50px">
-
-        <div class="row">
-          <form class="col s12 m12 l12 ">
-
-            <!--RadioButton para elemento y dispositivo-->
-            <div class="card-panel hoverable card-action white">
+      <div class="row">
+        <!--<form class="col s12 m12 l12 ">-->
+          <div class="card-panel hoverable card-action white">
             <div class="card-content black-text">
               <span class="card-title">Nuevo Ítem</span>
               <p class="center">
@@ -77,10 +82,9 @@
                 <label for="test2">Dispositivo</label>
               </p>
               <div class="row">
-                <hr>
+
                 <div class="col s12 m6 l6">
-                  <!--primera columna-->
-                  <!--<span>Elemento</span>-->
+
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
                     <input id="icon_codigo" type="text" class="validate" [(ngModel)]="itemNuevo.codigo" >
@@ -98,8 +102,7 @@
                   </div>
                 </div>
                 <div class="col s12 m6 l6">
-                  <!--segunda columna-->
-                  <!--<span>Dispositivo</span>-->
+
                   <div class="input-field ">
                     <i class="material-icons prefix">label_outline</i>
                     <input id="icon_marca" type="tel" class="validate" disabled="disabled" [(ngModel)]="itemNuevo.marca" >
@@ -123,14 +126,14 @@
                 <i class="material-icons right">send</i>
               </a>
             </div>
-            </div>
-          </form>
-        </div>
+          </div>
+        <!--</form>-->
+      </div>
 
     </div>
   </div>
 
-  <!--boton para cancelar-->
+
   <div class="section">
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
       <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
@@ -140,16 +143,20 @@
   </div>
 </div>
 
+
+
+
+
 <div *ngIf="template=='modificar'">
   <!--modificar item-->
   <div id="nuevo_item" class="section">
     <div class="container" style="padding-top: 50px">
 
-        <div class="row">
-          <form class="col s12 m12 l12 ">
+      <div class="row">
+        <form class="col s12 m12 l12 ">
 
-            <!--RadioButton para elemento y dispositivo-->
-            <div class="card-panel hoverable card-action white">
+          <!--RadioButton para elemento y dispositivo-->
+          <div class="card-panel hoverable card-action white">
             <div class="card-content black-text">
               <span class="card-title">Nuevo Ítem</span>
               <p class="center">
@@ -159,24 +166,24 @@
                 <label for="test2">Dispositivo</label>
               </p>
               <div class="row">
-                <hr>
                 <div class="col s12 m6 l6">
                   <!--primera columna-->
                   <!--<span>Elemento</span>-->
+
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_codigo" type="text" class="validate" [(ngModel)]="itemModificar.codigo" >
-                    <label for="icon_codigo">Código</label>
+                    <input  id="icon_codigo" type="text" class="validate" [(ngModel)]="itemModificar.codigo">
+                    <label for="icon_codigo" class="active">Cód</label>
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
                     <input id="icon_nombre" type="text" class="validate" [(ngModel)]="itemModificar.nombre">
-                    <label for="icon_nombre">Nombre</label>
+                    <label for="icon_nombre" class="active">Nombre</label>
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
                     <input id="icon_descripcion" type="text" class="validate" [(ngModel)]="itemModificar.descripcion">
-                    <label for="icon_descripcion">Descripción</label>
+                    <label for="icon_descripcion" class="active" >Descripción</label>
                   </div>
                 </div>
                 <div class="col s12 m6 l6">
@@ -185,17 +192,17 @@
                   <div class="input-field ">
                     <i class="material-icons prefix">label_outline</i>
                     <input id="icon_marca" type="tel" class="validate" disabled="disabled" [(ngModel)]="itemModificar.marca" >
-                    <label for="icon_marca">Marca</label>
+                    <label for="icon_marca" class="active">Marca</label>
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
                     <input id="icon_modelo" type="tel" class="validate" disabled="disabled" [(ngModel)]="itemModificar.modelo">
-                    <label for="icon_modelo">Modelo</label>
+                    <label for="icon_modelo" class="active">Modelo</label>
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
                     <input id="icon_cantidad" type="tel" class="validate" disabled="disabled" [(ngModel)]="itemModificar.cantidad">
-                    <label for="icon_cantidad">Cantidad</label>
+                    <label for="icon_cantidad" class="active">Cantidad</label>
                   </div>
                 </div>
               </div>
@@ -205,9 +212,9 @@
                 <i class="material-icons right">send</i>
               </a>
             </div>
-            </div>
-          </form>
-        </div>
+          </div>
+        </form>
+      </div>
 
     </div>
   </div>

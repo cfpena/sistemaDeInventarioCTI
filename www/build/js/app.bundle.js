@@ -445,6 +445,7 @@ var ItemPage = (function () {
             this.selected.splice(index, 1);
         }
         ;
+        console.log(this.selected);
     };
     ItemPage.prototype.goCrearItem = function () {
         this.template = 'crear';
