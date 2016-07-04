@@ -33,4 +33,4 @@ dist
 
 # Coverage directory used by tools like istanbul
 coverage/
-www/build/*
+www/build/
