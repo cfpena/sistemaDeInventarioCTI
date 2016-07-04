@@ -1,6 +1,7 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {NavController,MenuController} from 'ionic-angular';
+import {Component,  OnInit, Input, ViewChild } from '@angular/core';
+import {NavController, MenuController} from 'ionic-angular';
 import {ITEM} from './item.model';
+import {CrearItemPage} from '../crear_item/crear_item';
 @Component({
   templateUrl: 'build/pages/item/item.html'
 })
@@ -24,7 +25,9 @@ export class ItemPage implements OnInit {
   id=0;
   selected: number[]=[];
 
-  constructor( private _navController:NavController,private menu: MenuController) {}
+  constructor( _navController:NavController,private menu: MenuController) {
+
+  }
   openMenu(){
     this.menu.open();
   }

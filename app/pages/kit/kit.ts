@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {NavController,MenuController} from 'ionic-angular';
 import {ITEM} from '../item/item.model';
 import {MaterializeDirective} from "../../materialize-directive";
@@ -10,12 +10,14 @@ import {CrearKitPage} from '../crear_kit/crear_kit';
   templateUrl: 'build/pages/kit/kit.html',
   directives: [MaterializeDirective],
 })
-export class KitPage {
+export class KitPage implements OnInit{
   /*
   items = ITEMS;
   kits = KITS;
     title: string ='Kits';
 */
+title: string ='Kits';
+
   constructor(private _navController:NavController,private menu: MenuController) {}
   openMenu(){
     this.menu.open();
@@ -25,7 +27,11 @@ export class KitPage {
       this._navController.push(CrearKitPage,{});
       this._navController.setRoot(CrearKitPage);
     }
-
+    //retrasa la carga de la pagina 100 ms
+    public ngOnInit() {
+      window.setTimeout(()=>{
+      },100);
+  }
 
 }
 /*
