@@ -22,6 +22,9 @@ branches:
 before_install:
   - nvm use 4.1.2
   - npm install -g cordova ionic
+  - npm install -g typings
+  - typings install --save --global registry:dt/jasmine registry:dt/node
+
 
 install: npm install
 
