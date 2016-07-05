@@ -1,96 +1,249 @@
 
-
-
-<nav  class="light-blue darken-4">
-<div class="nav-wrapper navbar-fixed ">
-  <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons">menu</i></a>
-  <a href="#!" class="brand-logo">{{title}}</a>
-</div>
+<nav class="light-blue darken-4" >
+  <div class="nav-wrapper navbar-fixed" >
+    <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons left">menu</i></a>
+    <a href="#!" class="brand-logo">{{title}}</a>
+  </div>
 </nav>
 
-<ion-content >
-  <div id="contenedor_principal" class="kit" >
-    <div class="section ">
-      <!--lista sin angular-->
-      <div materialize >
-        <ul materialize="collapsible" class="kits collapsible" data-collapsible="accordion" >
-          <li>
-            <div class="row collapsible-header" style="font-size: 16px">
-              <div class="col s1">
-                <input type="checkbox" class="filled-in checkbox-blue" id="chbItem1"  />
-                <label class ="label-vertical-align" for="chbItem1"></label>
-              </div>
-              <div class="col s2">COD001</div>
-              <div class="col s2">Kit1</div>
-              <div class="col s2">KitTipo1</div>
-              <div class="col s2">Marca1</div>
-              <div class="col s2">Modelo1</div>
-              <div class="col s1 center-align">200</div>
-            </div>
-            <div class ="collapsible-body ">
-              <table class="bordered highlight responsive-table centered striped" style="font-size: 16px">
-                <thead>
-                  <tr>
-                    <th data-field="id">Código</th>
-                    <th data-field="nombre">Nombre</th>
-                    <th data-field="clasificacion">Clasificación</th>
-                    <th data-field="marca">Marca</th>
-                    <th data-field="modelo">Modelo</th>
-                    <th data-field="cantidad">Stock</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>COD001</td>
-                    <td>Item 1</td>
-                    <td>Resistencia </td>
-                    <td>Marca 1</td>
-                    <td>Modelo 1</td>
-                    <td class="center-align">5</td>
-                  </tr>
-                  <tr>
-                    <td>COD002</td>
-                    <td>Item 2</td>
-                    <td>Capacitores</td>
-                    <td>Marca 1</td>
-                    <td>Modelo 2</td>
-                    <td class="center-align">10</td>
-                  </tr>
-                  <tr>
-                    <td>COD004</td>
-                    <td>Item 4</td>
-                    <td>Resistencia </td>
-                    <td>Marca 1</td>
-                    <td>Modelo 3</td>
-                    <td class="center-align">6</td>
-                  </tr>
-                  <tr>
-                    <td>COD005</td>
-                    <td>Item 5</td>
-                    <td>Capacitor</td>
-                    <td>Marca 1</td>
-                    <td>Modelo 4</td>
-                    <td class="center-align">3</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-<ion-content >
+<!--Tabla de kits-->
+<ion-content>
+  <table  materialize class="centered table centered striped" style="font-size: 15px">
+    <thead>
+      <tr>
+        <th></th>
+        <th data-field="id">Código</th>
+        <th data-field="nombre">Nombre</th>
+        <!--<th data-field="marca">Marca</th>
+        <th data-field="modelo">Modelo</th>
+        <th data-field="descripcion">Descripción</th>-->
+        <th data-field="cantidad">Cantidad</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let kit of KITS">
+        <td>
+          <input  [checked]="false" (change)="select(kit.id)" id="{{kit.id}}" type="checkbox" class="filled-in"/>
+          <label  attr.for="{{kit.id}}"></label>
+        </td>
+        <td >{{kit.codigo}}</td>
+        <td>{{kit.nombre}}</td>
+        <!--<td>{{item.marca}}</td>
+        <td>{{item.modelo}}</td>
+        <td>{{item.descripcion}}</td>-->
+        <td>{{kit.cantidad}}</td>
+        <td>
+          <a class="button-collapse" (click)="goModificar(kit.id)"><i class="material-icons left">mode_edit</i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ion-content>
+
+
 <!--Boton flotante de opciones add, edit, delete-->
-<div class="section">
+<!-- if de angular, valida si se debe mostrar o no segun la variable template -->
+
+<div *ngIf="template=='null'">
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
     <a class="btn-floating btn-large orange darken-1">
       <i class="large material-icons">settings</i>
     </a>
     <ul>
-      <li><a class="btn-floating red"><i class="material-icons">delete</i></a></li>
-      <li><a class="btn-floating green"><i class="material-icons">mode_edit</i></a></li>
+      <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
       <li><a (click)="goCrearKit()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
     </ul>
+  </div>
+</div>
+
+
+<!--crear kit-->
+<div *ngIf="template=='crear'" style="overflow: scroll;">
+  <div id="crear_kit" class="section" >
+    <div class="container" style="padding-top: 50px">
+      <div class="row">
+        <!--<form class="col s12 m12 l12 ">-->
+        <div class="card-panel hoverable card-action white">
+          <div class="card-content black-text">
+            <span class="card-title">Crear Kit</span>
+            <div class="row">
+              <hr>
+              <div class="col s12 m6 l6">
+                <!--primera columna-->
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*"  [(ngModel)]="kitNuevo.codigo">
+                  <label for="icon_codigo" >Código</label>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitNuevo.nombre" >
+                  <label for="icon_nombre" >Nombre</label>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_descripcion" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitNuevo.descripcion">
+                  <label for="icon_descripcion">Descripción</label>
+                </div>
+              </div>
+              <div class="col s12 m6 l6">
+                <!--segunda columna-->
+                <div class="input-field ">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_marca" type="text" class="validate" minlength="2" maxlength="15"  [(ngModel)]="kitNuevo.marca">
+                  <label for="icon_marca" >Marca</label>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_modelo" type="text" class="validate" minlength="2" maxlength="15"  [(ngModel)]="kitNuevo.modelo">
+                  <label for="icon_modelo" >Modelo</label>
+                </div>
+                <!--<div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_observaciones" type="tel" class="validate" >
+                  <label for="icon_observaciones">Observaciones</label>
+                </div>-->
+              </div>
+              <div class="col s12">
+                <!--Tabla de ítems-->
+                <table  materialize class="centered table centered striped" style="font-size: 15px">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th data-field="id">Codigo</th>
+                      <th data-field="nombre">Nombre</th>
+                      <th data-field="cantidad">Cantidad</th>
+                    </tr>
+                  </thead>
+                  <tbody >
+                    <tr *ngFor = "let itemNuevo of ITEMS">
+                      <td>
+                        <input  [checked]="false" (change)="select(itemNuevo.id)" id="nuevo{{itemNuevo.id}}" type="checkbox" class="filled-in"/>
+                        <label  attr.for="nuevo{{itemNuevo.id}}"></label>
+                      </td>
+                      <td>{{itemNuevo.codigo}}</td>
+                      <td>{{itemNuevo.nombre}}</td>
+                      <td class="center-align">
+                        <input class="mdl-textfield__input" type="text" id="cantidadItemNuevo">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="card-action">
+            <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
+              <i class="material-icons right">send</i>
+            </a>
+          </div>
+        </div>
+        <!--</form>-->
+      </div>
+    </div>
+  </div>
+  <!--boton para cancelar-->
+  <div class="section">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+        <i class="material-icons">clear</i>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!--modificar kit-->
+<div *ngIf="template=='modificar'" style="overflow: scroll;">
+  <div id="modificar_kit" class="section" >
+    <div class="container" style="padding-top: 50px">
+      <div class="row">
+        <!--<form class="col s12 m12 l12 ">-->
+        <div class="card-panel hoverable card-action white">
+          <div class="card-content black-text">
+            <span class="card-title">Modificar Kit</span>
+            <div class="row">
+              <hr>
+              <div class="col s12 m6 l6">
+                <!--primera columna-->
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="kitModificar.codigo" disabled>
+                  <label for="icon_codigo" class="active">Código</label>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitModificar.nombre" >
+                  <label for="icon_nombre" class="active">Nombre</label>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitModificar.descripcion"><!--[(ngModel)]="selectedItem.descripcion">-->
+                  <label for="icon_descripcion" class="active">Descripción</label>
+                </div>
+              </div>
+              <div class="col s12 m6 l6">
+                <!--segunda columna-->
+                <div class="input-field ">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15"  [(ngModel)]="kitModificar.marca">
+                  <label for="icon_marca" class="active">Marca</label>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15"  [(ngModel)]="kitModificar.modelo">
+                  <label for="icon_modelo" class="active">Modelo</label>
+                </div>
+                <!--<div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_observaciones" type="tel" class="validate" >
+                  <label for="icon_observaciones">Observaciones</label>
+                </div>-->
+              </div>
+              <div class="col s12">
+                <!--Tabla de ítems-->
+                <!--<table class="bordered highlight responsive-table">-->
+                <table  materialize class="centered table centered striped" style="font-size: 15px">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th data-field="id">Codigo</th>
+                      <th data-field="nombre">Nombre</th>
+                      <th data-field="cantidad">Cantidad</th>
+                    </tr>
+                  </thead>
+                  <tbody >
+                    <tr *ngFor = "let item of kitModificar.items">
+                      <td>
+                        <input  [checked]="true" (change)="select(item.id)" id="{{item.id}}" type="checkbox" class="filled-in"/>
+                        <label  attr.for="{{item.id}}"></label>
+                      </td>
+                      <td>{{item.codigo}}</td>
+                      <td>{{item.nombre}}</td>
+                      <td>{{item.cantidad}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="card-action">
+            <a (click)="modificar()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
+              <i class="material-icons right">send</i>
+            </a>
+          </div>
+        </div>
+        <!--</form>-->
+      </div>
+    </div>
+  </div>
+  <!--boton para cancelar-->
+  <div class="section">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+        <i class="material-icons">clear</i>
+      </a>
+    </div>
   </div>
 </div>
