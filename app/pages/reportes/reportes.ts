@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {Component,  OnInit, Input, ViewChild } from '@angular/core';
+import {NavController, MenuController, Toast} from 'ionic-angular';
+import {MaterializeDirective} from "../../materialize-directive";
 
 /*
   Generated class for the ReportesPage page.
@@ -11,5 +12,10 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'build/pages/reportes/reportes.html',
 })
 export class ReportesPage {
-  constructor(private nav: NavController) {}
+  title: string ='Reportes';
+  constructor( private navController:NavController,private menu: MenuController){
+  }
+  openMenu(){
+    this.menu.open();
+  }
 }

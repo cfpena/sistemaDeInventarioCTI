@@ -9,15 +9,15 @@
 
 <!--Tabla de ítems-->
 <ion-content>
-  <table  materialize class="centered table centered striped" style="font-size: 17px">
+  <table  materialize class="centered table centered striped" style="font-size: 15px">
     <thead>
       <tr>
         <th></th>
         <th data-field="id">Código</th>
         <th data-field="nombre">Nombre</th>
-        <th data-field="marca">Marca</th>
+        <!--<th data-field="marca">Marca</th>
         <th data-field="modelo">Modelo</th>
-        <th data-field="descripcion">Descripción</th>
+        <th data-field="descripcion">Descripción</th>-->
         <th data-field="cantidad">Cantidad</th>
         <th></th>
       </tr>
@@ -30,12 +30,14 @@
         </td>
         <td >{{item.codigo}}</td>
         <td>{{item.nombre}}</td>
-        <td>{{item.marca}}</td>
+        <!--<td>{{item.marca}}</td>
         <td>{{item.modelo}}</td>
-        <td>{{item.descripcion}}</td>
+        <td>{{item.descripcion}}</td>-->
         <td>{{item.cantidad}}</td>
         <td>
           <a class="button-collapse" (click)="goModificar(item.id)"><i class="material-icons left">mode_edit</i></a>
+          <!--<img src="yuna.jpg" alt="" class="circle responsive-img">-->
+
         </td>
       </tr>
     </tbody>
@@ -68,26 +70,26 @@
             <div class="card-content black-text">
               <span class="card-title">Nuevo Ítem</span>
               <p class="center">
-                <input class="with-gap" name="group1" type="radio" id="test1" checked="checked" onclick="icon_marca.disabled = true; icon_modelo.disabled = true; icon_cantidad.disabled = true;"/>
+                <input class="with-gap" name="group1" type="radio" id="test1"  onclick="icon_marca.disabled = true; icon_modelo.disabled = true;"/>
                 <label for="test1">Elemento</label>
-                <input class="with-gap" name="group1" type="radio" id="test2" onclick="icon_marca.disabled = false; icon_modelo.disabled = false; icon_cantidad.disabled = false; "/>
+                <input class="with-gap" name="group1" type="radio" id="test2" checked="checked" onclick="icon_marca.disabled = false; icon_modelo.disabled = false;"/>
                 <label for="test2">Dispositivo</label>
               </p>
               <div class="row">
                 <div class="col s12 m6 l6">
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_codigo" type="text" class="validate" [(ngModel)]="itemNuevo.codigo" >
+                    <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="itemNuevo.codigo" >
                     <label for="icon_codigo">Código</label>
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_nombre" type="text" class="validate" [(ngModel)]="itemNuevo.nombre">
+                    <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="itemNuevo.nombre">
                     <label for="icon_nombre">Nombre</label>
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_descripcion" type="text" class="validate" [(ngModel)]="itemNuevo.descripcion">
+                    <input id="icon_descripcion" type="text" class="validate" minlength="5" maxlength="30"  [(ngModel)]="itemNuevo.descripcion">
                     <label for="icon_descripcion">Descripción</label>
                   </div>
                 </div>
@@ -95,17 +97,17 @@
 
                   <div class="input-field ">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_marca" type="tel" class="validate" disabled="disabled" [(ngModel)]="itemNuevo.marca" >
+                    <input id="icon_marca" type="tel" class="validate"  minlength="5" maxlength="10"  [(ngModel)]="itemNuevo.marca" >
                     <label for="icon_marca">Marca</label>
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_modelo" type="tel" class="validate" disabled="disabled" [(ngModel)]="itemNuevo.modelo">
+                    <input id="icon_modelo" type="tel" class="validate"  minlength="5" maxlength="10"  [(ngModel)]="itemNuevo.modelo">
                     <label for="icon_modelo">Modelo</label>
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_cantidad" type="tel" class="validate" disabled="disabled" [(ngModel)]="itemNuevo.cantidad">
+                    <input id="icon_cantidad" type="tel" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" [(ngModel)]="itemNuevo.cantidad">
                     <label for="icon_cantidad">Cantidad</label>
                   </div>
                 </div>
@@ -132,7 +134,6 @@
 
 
 
-
 <div *ngIf="template=='modificar'" style="overflow: scroll;">
   <!--modificar item-->
   <div id="nuevo_item" class="section" >
@@ -141,53 +142,53 @@
         <!--<form class="col s12 m12 l12 ">-->
           <div class="card-panel hoverable card-action white">
             <div class="card-content black-text">
-              <span class="card-title">Nuevo Ítem</span>
+              <span class="card-title">Modificar Ítem</span>
               <p class="center">
-                <input class="with-gap" name="group1" type="radio" id="test1" checked="checked" onclick="icon_marca.disabled = true; icon_modelo.disabled = true; icon_cantidad.disabled = true;"/>
+                <input class="with-gap" name="group1" type="radio" id="test1"  onclick="icon_marca.disabled = true; icon_modelo.disabled = true;"/>
                 <label for="test1">Elemento</label>
-                <input class="with-gap" name="group1" type="radio" id="test2" onclick="icon_marca.disabled = false; icon_modelo.disabled = false; icon_cantidad.disabled = false; "/>
+                <input class="with-gap" name="group1" type="radio" id="test2" checked="checked" onclick="icon_marca.disabled = false; icon_modelo.disabled = false;"/>
                 <label for="test2">Dispositivo</label>
               </p>
               <div class="row">
                 <div class="col s12 m6 l6">
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_codigo" type="text" class="validate" [(ngModel)]="itemModificar.codigo" >
-                    <label for="icon_codigo">Código</label>
+                    <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="itemModificar.codigo" >
+                    <label for="icon_codigo" class="active" >Código</label>
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_nombre" type="text" class="validate" [(ngModel)]="itemModificar.nombre">
-                    <label for="icon_nombre">Nombre</label>
+                    <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="itemModificar.nombre">
+                    <label for="icon_nombre" class="active">Nombre</label>
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_descripcion" type="text" class="validate" [(ngModel)]="itemModificar.descripcion">
-                    <label for="icon_descripcion">Descripción</label>
+                    <input id="icon_descripcion" type="text" class="validate" minlength="5" maxlength="30"  [(ngModel)]="itemModificar.descripcion">
+                    <label for="icon_descripcion" class="active">Descripción</label>
                   </div>
                 </div>
                 <div class="col s12 m6 l6">
 
                   <div class="input-field ">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_marca" type="tel" class="validate" disabled="disabled" [(ngModel)]="itemModificar.marca" >
-                    <label for="icon_marca">Marca</label>
+                    <input id="icon_marca" type="tel" class="validate"  minlength="5" maxlength="10"  [(ngModel)]="itemModificar.marca" >
+                    <label for="icon_marca" class="active">Marca</label>
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_modelo" type="tel" class="validate" disabled="disabled" [(ngModel)]="itemModificar.modelo">
-                    <label for="icon_modelo">Modelo</label>
+                    <input id="icon_modelo" type="tel" class="validate"  minlength="5" maxlength="10"  [(ngModel)]="itemModificar.modelo">
+                    <label for="icon_modelo" class="active">Modelo</label>
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_cantidad" type="tel" class="validate" disabled="disabled" [(ngModel)]="itemModificar.cantidad">
-                    <label for="icon_cantidad">Cantidad</label>
+                    <input id="icon_cantidad" type="tel" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" [(ngModel)]="itemModificar.cantidad">
+                    <label for="icon_cantidad" class="active">Cantidad</label>
                   </div>
                 </div>
               </div>
             </div>
             <div class="card-action">
-              <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
+              <a (click)="modificar()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
                 <i class="material-icons right">send</i>
               </a>
             </div>
@@ -205,3 +206,14 @@
     </div>
   </div>
 </div>
+
+<!--MODAL QUE EXPANDE IMAGEN AL TOCAR-->
+<!--<div materialize *ngIf="template=='modal'" id="modal1" class="modal">
+    <div materialize="modal" class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>-->
