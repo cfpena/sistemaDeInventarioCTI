@@ -1,6 +1,7 @@
 import {Component,  OnInit, Input, ViewChild } from '@angular/core';
-import {NavController, MenuController} from 'ionic-angular';
+import {NavController, MenuController, Toast} from 'ionic-angular';
 import {ITEM} from './item.model';
+import {MaterializeDirective} from "../../materialize-directive";
 
 @Component({
   templateUrl: 'build/pages/item/item.html'
@@ -8,7 +9,7 @@ import {ITEM} from './item.model';
 export class ItemPage implements OnInit {
   title: string ='Ítems';
   items: ITEM[]=[
-    {id: 1,  codigo: 'Item001',  nombre: 'uuu',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:'20'}
+    {id: 1,  codigo: '1234567890',  nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:'20'}
   ];
   template: string = 'null';
 
@@ -25,15 +26,35 @@ export class ItemPage implements OnInit {
   id=0;
   selected: number[]=[];
 
-  constructor( _navController:NavController,private menu: MenuController) {
-
+  constructor( private navController:NavController,private menu: MenuController){
   }
 
   openMenu(){
     this.menu.open();
   }
+
+  presentToast(text: string) {
+  let toast = Toast.create({
+    message: text,
+    duration: 3000
+  });
+
+  toast.onDismiss(() => {
+    console.log('Dismissed toast');
+  });
+    this.navController.present(toast);
+  }
+
+
   //crea un item
   crear(){
+    if (this.itemNuevo.codigo=='' || this.itemNuevo.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
+   else if(this.itemNuevo.nombre=='') this.presentToast('Nombre vacio');
+   else if(this.itemNuevo.descripcion=='') this.presentToast('Descripción vacio');
+   else if(this.itemNuevo.marca=='') this.presentToast('Marca vacio');
+   else if(this.itemNuevo.modelo=='') this.presentToast('Modelo vacio');
+   else if(this.itemNuevo.cantidad.length < 1 || this.itemNuevo.cantidad.length > 2 || this.itemNuevo.cantidad=='0') this.presentToast('Cantidad mínima 1 máximo 99');
+   else{
     this.items.push(this.itemNuevo);
     this.template='null';
     this.count++;
@@ -41,6 +62,8 @@ export class ItemPage implements OnInit {
       id:this.count, codigo: '', nombre: "", marca:'', modelo:'', descripcion:"" ,cantidad:''
     }
   }
+  }
+
 goModificar(id: string){
   this.template='modificar'
   this.id=parseInt(id);
@@ -49,9 +72,17 @@ goModificar(id: string){
 
 //modifica el usario
 modificar(){
+if (this.itemModificar.codigo=='' || this.itemModificar.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
+ else if(this.itemModificar.nombre=='') this.presentToast('Nombre vacio');
+ else if(this.itemModificar.descripcion=='') this.presentToast('Descripción vacio');
+ else if(this.itemModificar.marca=='') this.presentToast('Marca vacio');
+ else if(this.itemModificar.modelo=='') this.presentToast('Modelo vacio');
+ else if(this.itemModificar.cantidad.length < 1 || this.itemModificar.cantidad.length > 2 || this.itemModificar.cantidad=='0') this.presentToast('Cantidad mínima 1 máximo 99');
+ else{
 let index =this.items.findIndex(item => item.id == this.id);
 this.items[index] =JSON.parse(JSON.stringify(this.itemModificar));
 this.template='null';
+}
 }
 
 eliminar(){
@@ -74,7 +105,6 @@ select(id: any){
 }
 
   goCrearItem(){
-
     this.template='crear';
   }
 
