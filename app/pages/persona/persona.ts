@@ -69,7 +69,7 @@ toast.onDismiss(() => {
 //cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",celular:'',genero:''
 //crea persona
   crear(){
-     if (this.personaNueva.cedula=='') this.presentToast('Cedula vacia');
+     if (this.personaNueva.cedula=='' || this.personaNueva.cedula.length < 10) this.presentToast('Cedula vacia');
     else if(this.personaNueva.nombre=='') this.presentToast('Nombre vacio');
     else if(this.personaNueva.apellido=='') this.presentToast('Apellido vacio');
     else if(this.personaNueva.correo=='') this.presentToast('Email vacio');
@@ -95,7 +95,7 @@ toast.onDismiss(() => {
   //modifica la persona
   modificar(){
   let index =this.personas.findIndex(persona => persona.id == this.id);
-  if(this.personaModificar.nombre=='') this.presentToast('Nombre vacio');
+  if(this.personaModificar.nombre=='' || this.personaNueva.cedula.length < 10) this.presentToast('Nombre vacio');
   else if(this.personaModificar.apellido=='') this.presentToast('Apellido vacio');
   else if(this.personaModificar.correo=='') this.presentToast('Email vacio');
   else if(this.personaModificar.funcion=='' || this.personaModificar.funcion==this.funcions[0])this.presentToast('Roll no definido');
