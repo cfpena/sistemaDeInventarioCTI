@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
-import { NavController, MenuController} from 'ionic-angular';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { NavController, MenuController , Toast } from 'ionic-angular';
 import {ITEM} from '../item/item.model';
 import {Kit} from '../kit/kit.model';
+import {Persona} from '../persona/persona.model';
+import {MaterializeDirective} from "../../materialize-directive";
+
 
 
 
@@ -13,15 +16,36 @@ import {Kit} from '../kit/kit.model';
 */
 @Component({
   templateUrl: 'build/pages/prestamo/prestamo.html',
+  directives: [MaterializeDirective],
 })
 export class PrestamoPage {
   /*
   items = ITEMS;
   kits = KITS;*/
+title: string ='Prestamos';
+  generos = ['Elija un genero...','Femenino','Masculino'];
+  funcions = ['Elija una funcion...','Natural','Profesor','Estudiante','Ayudante'];
+  template: string = 'null';
+
+  @Input()
+  persona = {
+    id:10, cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",celular:'',genero:''
+  }
   constructor(private _navController:NavController,private menu: MenuController) {}
   openMenu(){
     this.menu.open();
   }
+  goCrear(){
+    this.template='crear';
+  }
+  goModificar(id: string){
+    this.template='modificar'
+  }
+  
+  cancelar(){
+    this.template='null';
+  }
+
 }
 /*
 const listaItems1: ITEM[]=[
