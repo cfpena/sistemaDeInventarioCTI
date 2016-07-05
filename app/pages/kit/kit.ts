@@ -1,37 +1,135 @@
 import {Component, OnInit, Input, ViewChild} from '@angular/core';
-import {NavController,MenuController} from 'ionic-angular';
+import {NavController, MenuController, Toast} from 'ionic-angular';
 import {ITEM} from '../item/item.model';
 import {MaterializeDirective} from "../../materialize-directive";
 
 import {Kit} from '../kit/kit.model';
-import {CrearKitPage} from '../crear_kit/crear_kit';
+
+
 
 @Component({
-  templateUrl: 'build/pages/kit/kit.html',
-  directives: [MaterializeDirective],
+  templateUrl: 'build/pages/kit/kit.html'
 })
 export class KitPage implements OnInit{
-  /*
-  items = ITEMS;
-  kits = KITS;
-    title: string ='Kits';
-*/
-title: string ='Kits';
 
-  constructor(private _navController:NavController,private menu: MenuController) {}
+title: string ='Kits';
+ITEMS: ITEM[]=[
+  {id: 1,  codigo: '1234567890',  nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:'20'},
+  {id: 2,  codigo: '1234456891',  nombre: 'Capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:'70'},
+  {id: 3,  codigo: '0956787892',  nombre: 'Ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:'16'}
+
+];
+KITS: Kit[]=[
+  {id: 1,  codigo: 'Kit001',  nombre: 'Kit 1',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, items: this.ITEMS},
+  {id: 2,  codigo: 'Kit002',  nombre: 'Kit 2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, items: this.ITEMS}
+  ]
+
+template: string = 'null';
+
+@Input()
+kitNuevo = {
+  id:10, codigo: '', nombre: "", marca:'', modelo:'',descripcion:"",cantidad:0, items: null
+}
+
+@Input()
+kitModificar= {
+  id:10, codigo: '', nombre: "", marca:'', modelo:'',descripcion:"",cantidad:0, items: null
+}
+count=10;
+id=0;
+selected: number[]=[];
+
+  constructor(private navController:NavController,private menu: MenuController) {}
+
   openMenu(){
     this.menu.open();
   }
 
-  goCrearKit(){
-      this._navController.push(CrearKitPage,{});
-      this._navController.setRoot(CrearKitPage);
+  presentToast(text: string) {
+  let toast = Toast.create({
+    message: text,
+    duration: 3000
+  });
+
+  toast.onDismiss(() => {
+    console.log('Dismissed toast');
+  });
+    this.navController.present(toast);
+  }
+
+  //crea un kit
+  crear(){
+    if (this.kitNuevo.codigo=='' || this.kitNuevo.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
+   else if(this.kitNuevo.nombre=='') this.presentToast('Nombre vacio');
+   else if(this.kitNuevo.descripcion=='') this.presentToast('Descripción vacio');
+   else if(this.kitNuevo.marca=='') this.presentToast('Marca vacio');
+   else if(this.kitNuevo.modelo=='') this.presentToast('Modelo vacio');
+   else{
+     this.kitNuevo.items = this.ITEMS;
+    this.KITS.push(this.kitNuevo);
+    this.template='null';
+    this.count++;
+    this.kitNuevo = {
+      id:this.count, codigo: '', nombre: "", marca:'', modelo:'', descripcion:"" ,cantidad:0, items: ''
     }
+  }
+  }
+
+  goModificar(id: string){
+  this.template='modificar'
+  this.id=parseInt(id);
+  this.kitModificar = JSON.parse(JSON.stringify(this.KITS.find(kit => kit.id == this.id)));
+  }
+
+  //modifica el usario
+  modificar(){
+  if (this.kitModificar.codigo=='' || this.kitModificar.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
+  else if(this.kitModificar.nombre=='') this.presentToast('Nombre vacio');
+  else if(this.kitModificar.descripcion=='') this.presentToast('Descripción vacio');
+  else if(this.kitModificar.marca=='') this.presentToast('Marca vacio');
+  else if(this.kitModificar.modelo=='') this.presentToast('Modelo vacio');
+  else{
+  let index =this.KITS.findIndex(kit => kit.id == this.id);
+  this.KITS[index] =JSON.parse(JSON.stringify(this.kitModificar));
+  this.template='null';
+  }
+  }
+
+  eliminar(){
+  for(var i in this.selected){
+    console.log(this.selected[i]);
+    let index =this.KITS.findIndex(kit => kit.id==this.selected[i]);
+    console.log(index);
+    this.KITS.splice(index,1);
+  }
+  this.selected=[];
+  }
+
+  select(id: any){
+  let index: number;
+  index = this.selected.findIndex(num => num == parseInt(id));
+  if(index==-1){
+  this.selected.push(parseInt(id));}
+  else{this.selected.splice(index,1)};
+    console.log(this.selected);
+  }
+
+  goCrearKit(){
+    this.template='crear';
+  }
+
+  cancelar(){
+    this.template='null';
+  }
+
+
     //retrasa la carga de la pagina 100 ms
     public ngOnInit() {
       window.setTimeout(()=>{
       },100);
   }
+
+
 
 }
 /*

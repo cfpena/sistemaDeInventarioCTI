@@ -9,5 +9,4 @@ export class Kit {
   descripcion: string;
   cantidad: number;
   items : ITEM[];
-  observaciones: string;
 }
