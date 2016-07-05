@@ -92,12 +92,12 @@
                     </div>
                     <div class="input-field">
                       <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" maxlength="15"[(ngModel)]="usuarioNuevo.name">
+                      <input pattern="[A-Za-z]" id="icon_codigo" type="text" class="validate" maxlength="15"[(ngModel)]="usuarioNuevo.name">
                       <label for="icon_codigo">Nombre</label>
                     </div>
                     <div class="input-field">
                       <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" maxlength="15">
+                      <input pattern="[A-Za-z]{15}" id="icon_codigo" type="text" class="validate" maxlength="15">
                       <label for="icon_codigo">Apellido</label>
                     </div>
                     <div class="input-field">
