@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { NavController,MenuController } from 'ionic-angular';
+import { NavController, MenuController , Toast } from 'ionic-angular';
 import {Persona} from '../persona/persona.model';
 import {CrearPersonaPage} from '../crear_persona/crear_persona';
+import {MaterializeDirective} from "../../materialize-directive";
+
 /*
   Generated class for the PersonaPage page.
 
@@ -10,6 +12,7 @@ import {CrearPersonaPage} from '../crear_persona/crear_persona';
 */
 @Component({
   templateUrl: 'build/pages/persona/persona.html',
+  directives: [MaterializeDirective],
 })
 
 export class PersonaPage implements OnInit {
@@ -40,7 +43,10 @@ export class PersonaPage implements OnInit {
   //lista de ids seleccionados por el checkbox
   selected: number[]=[];
 
-  constructor( _navController:NavController,private menu: MenuController) {
+  generos = ['Elija un genero...','Femenino','Masculino'];
+  funcions = ['Elija una funcion...','Natural','Profesor','Estudiante','Ayudante'];
+
+  constructor( private navController:NavController,private menu: MenuController) {
 
   }
   //abre el menu
@@ -48,11 +54,30 @@ openMenu(){
   this.menu.open();
 }
 
+presentToast(text: string) {
+let toast = Toast.create({
+  message: text,
+  duration: 3000
+});
 
+toast.onDismiss(() => {
+  console.log('Dismissed toast');
+});
+  this.navController.present(toast);
+}
 
-
+//cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",celular:'',genero:''
 //crea persona
   crear(){
+     if (this.personaNueva.cedula=='') this.presentToast('Cedula vacia');
+    else if(this.personaNueva.nombre=='') this.presentToast('Nombre vacio');
+    else if(this.personaNueva.apellido=='') this.presentToast('Apellido vacio');
+    else if(this.personaNueva.correo=='') this.presentToast('Email vacio');
+    else if(this.personaNueva.funcion=='' || this.personaNueva.funcion==this.funcions[0])this.presentToast('Roll no definido');
+    else if(this.personaNueva.telefono.length!= 7) this.presentToast('Convencional de 7 numeros');
+    else if(this.personaNueva.celular.length!= 10) this.presentToast('Celular de 10 numeros');
+    else if(this.personaNueva.genero=='' || this.personaNueva.genero==this.generos[0])this.presentToast('Elija genero');
+    else{
     this.personas.push(this.personaNueva);
     this.template='null';
     this.count++;
@@ -60,6 +85,7 @@ openMenu(){
       id:this.count,  cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",celular:'',genero:''
     }
   }
+}
   //abre el html de modificar
   goModificar(id: string){
     this.template='modificar'
@@ -69,6 +95,14 @@ openMenu(){
   //modifica la persona
   modificar(){
   let index =this.personas.findIndex(persona => persona.id == this.id);
+  if(this.personaModificar.nombre=='') this.presentToast('Nombre vacio');
+  else if(this.personaModificar.apellido=='') this.presentToast('Apellido vacio');
+  else if(this.personaModificar.correo=='') this.presentToast('Email vacio');
+  else if(this.personaModificar.funcion=='' || this.personaModificar.funcion==this.funcions[0])this.presentToast('Roll no definido');
+  else if(this.personaModificar.telefono.length!= 7) this.presentToast('Convencional de 7 numeros');
+  else if(this.personaModificar.celular.length!= 10) this.presentToast('Celular de 10 numeros');
+  else if(this.personaModificar.genero=='' || this.personaModificar.genero==this.generos[0])this.presentToast('Elija genero');
+
   this.personas[index] =JSON.parse(JSON.stringify(this.personaModificar));
   this.template='null';
   }
