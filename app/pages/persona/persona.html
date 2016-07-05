@@ -74,59 +74,74 @@ Ionic pages and navigation.
 </div>
 <div *ngIf="template=='crear'">
     <!--nueva persona-->
-    <div id="nuevo_item" class="section">
-      <div class="container" style="padding-top: 50px">
-        <div class="row">
-          <form class="col s12 m6 l12 ">
-            <div class="row">
-              <!--primera ventana-->
-              <div class="col s12 m6 l6 offset-l3 offset-m3">
-                <div class="card-panel hoverable card-action white">
-                  <div class="card-content black-text">
-                    <span class="card-title">Nueva Persona</span>
-                    <div class="input-field">
-                      <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaNueva.cedula">
-                      <label for="icon_codigo">Cedula</label>
-                    </div>
-                    <div class="input-field">
-                      <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaNueva.nombre">
-                      <label for="icon_codigo">Nombre</label>
-                    </div>
-                    <div class="input-field">
-                      <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaNueva.apellido">
-                      <label for="icon_codigo">Apellido</label>
-                    </div>
-                    <div class="input-field">
-                      <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaNueva.correo">
-                      <label for="icon_codigo">Email</label>
-                    </div>
-                    <div class="input-field">
-                      <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaNueva.funcion">
-                      <label for="icon_codigo">Funcion</label>
-                    </div>
-                    <div class="input-field">
-                      <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaNueva.tipo">
-                      <label for="icon_codigo">Tipo</label>
-                    </div>
+    <div id="nuevo_persona" class="section">
+      <div class="container">
+        <div class="card-panel hoverable card-action white">
+          <div class="row">
+            <form class="col s12 m12 l12 ">
+              <span>Nueva Persona</span>
+              <div class="row">
+                <hr>
+                <div class="col s12 m6 l6">
+                  <!--primera columna-->
+                  <div class="input-field">
+                    <i class="material-icons prefix">label_outline</i>
+                    <input id="icon_descripcion" type="tel" class="validate" [(ngModel)]="personaNueva.cedula">
+                    <label for="icon_descripcion">Cedula</label>
                   </div>
-                  <div class="card-action">
-                    <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
-                      <i class="material-icons right">send</i>
-                    </a>
+                  <div class="input-field">
+                    <i class="material-icons prefix">account_box</i>
+                    <input id="icon_descripcion" type="tel" class="validate" [(ngModel)]="personaNueva.nombre">
+                    <label for="icon_descripcion">Nombre</label>
+                  </div>
+                  <div class="input-field">
+                    <i class="material-icons prefix">account_box</i>
+                    <input id="icon_descripcion" type="tel" class="validate" [(ngModel)]="personaNueva.apellido">
+                    <label for="icon_descripcion">Apellido</label>
+                  </div>
+                  <div class="input-field">
+                    <i class="material-icons prefix">email</i>
+                    <input id="icon_descripcion" type="tel" class="validate"  [(ngModel)]="personaNueva.correo">
+                    <label for="icon_descripcion">Correo</label>
                   </div>
                 </div>
+                <div class="col s12 m6 l6">
+                  <!--segunda columna-->
+                  <div class="input-field ">
+                    <i class="material-icons prefix">label_outline</i>
+                    <input id="icon_marca" type="tel" class="validate"   [(ngModel)]="personaNueva.funcion">
+                    <label for="icon_marca">Función</label>
+                  </div>
+                  <div class="input-field">
+                    <i class="material-icons prefix">call</i>
+                    <input id="icon_modelo" type="tel" class="validate"  [(ngModel)]="personaNueva.telefono">
+                    <label for="icon_modelo">Teléfono</label>
+                  </div>
+                  <div class="input-field">
+                    <i class="material-icons prefix">stay_current_portrait</i>
+                    <input id="icon_observaciones" type="tel" class="validate"  [(ngModel)]="personaNueva.celular">
+                    <label for="icon_observaciones">Celular</label>
+                  </div><div class="input-field">
+                    <i class="material-icons prefix">label_outline</i>
+                    <input id="icon_observaciones" type="tel" class="validate"  [(ngModel)]="personaNueva.genero">
+                    <label for="icon_observaciones">Género</label>
+                  </div>
+                </div>
+                <div class="col s12">
+                </div>
+                </div>
+              <div class="card-action">
+                <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
+                  <i class="material-icons right">send</i>
+                </a>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
+
+
     <!--boton para cancelar-->
     <div class="section">
       <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
@@ -153,33 +168,33 @@ Ionic pages and navigation.
 
                     <div class="input-field">
                       <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaModificar.cedula">
-                      <label for="icon_codigo">Cedula</label>
+                      <input id="icon_descripcion" type="text" class="validate"   [(ngModel)]="personaModificar.cedula">
+                      <label for="icon_descripcion" class="active">Cedula</label>
                     </div>
                     <div class="input-field">
                       <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaModificar.nombre">
-                      <label for="icon_codigo">Nombre</label>
+                      <input id="icon_descripcion" type="text" class="validate"   [(ngModel)]="personaModificar.nombre">
+                      <label for="icon_descripcion" class="active">Nombre</label>
                     </div>
                     <div class="input-field">
                       <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaModificar.apellido">
-                      <label for="icon_codigo">Apellido</label>
+                      <input id="icon_descripcion" type="text" class="validate"   [(ngModel)]="personaModificar.apellido">
+                      <label for="icon_descripcion" class="active">Apellido</label>
                     </div>
                     <div class="input-field">
                       <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaModificar.correo">
-                      <label for="icon_codigo">Email</label>
+                      <input id="icon_descripcion" type="text" class="validate" [(ngModel)]="personaModificar.correo">
+                      <label for="icon_descripcion" class="active">Email</label>
                     </div>
                     <div class="input-field">
                       <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaModificar.funcion">
-                      <label for="icon_codigo">Funcion</label>
+                      <input id="icon_descripcion" type="text" class="validate"  [(ngModel)]="personaModificar.funcion">
+                      <label for="icon_descripcion" class="active">Funcion</label>
                     </div>
                     <div class="input-field">
                       <i class="material-icons prefix">label_outline</i>
-                      <input id="icon_codigo" type="text" class="validate" [(ngModel)]="personaModificar.tipo">
-                      <label for="icon_codigo">Tipo</label>
+                      <input id="icon_descripcion" type="text" class="validate"  [(ngModel)]="personaModificar.tipo">
+                      <label for="icon_descripcion" class="active">Tipo</label>
                     </div>
                   </div>
                   <div class="card-action">
