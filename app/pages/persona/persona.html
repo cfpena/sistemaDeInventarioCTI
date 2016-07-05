@@ -16,222 +16,226 @@ Ionic pages and navigation.
 
 <!-- Menu principal -->
 <nav  class="light-blue darken-4">
-<div class="nav-wrapper navbar-fixed ">
-  <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons">menu</i></a>
-  <a href="#!" class="brand-logo">{{title}}</a>
-</div>
+  <div class="nav-wrapper navbar-fixed ">
+    <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons">menu</i></a>
+    <a href="#!" class="brand-logo">{{title}}</a>
+  </div>
 </nav>
 
 <!--tabla de personas-->
 <ion-content>
-    <table materialize class="centered table centered striped" style="font-size: 15px">
-      <thead>
-        <tr>
-          <th ></th>
-          <th data-field="id">Identificacion</th>
-          <th data-field="nombre">Nombre</th>
-          <th data-field="apellido">Apellido</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- angular 2 for -->
-        <tr *ngFor="let persona of personas">
+  <table materialize class="centered table centered striped" style="font-size: 15px">
+    <thead>
+      <tr>
+        <th ></th>
+        <th data-field="id">Identificacion</th>
+        <th data-field="nombre">Nombre</th>
+        <th data-field="apellido">Apellido</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- angular 2 for -->
+      <tr *ngFor="let persona of personas">
 
-          <td>
+        <td>
 
-            <!-- evento change y atributo por defecto checked false, se agrega como id el id de la persona
+          <!-- evento change y atributo por defecto checked false, se agrega como id el id de la persona
           para luego saber que checkbox le pertenece a cada persona-->
-            <input  [checked]="false" (change)="select(persona.id)" id="{{persona.id}}" type="checkbox" class="filled-in"/>
+          <input  [checked]="false" (change)="select(persona.id)" id="{{persona.id}}" type="checkbox" class="filled-in"/>
 
-            <label  attr.for="{{persona.id}}"></label>
+          <label  attr.for="{{persona.id}}"></label>
 
 
-          </td>
-          <td>{{persona.id}}</td>
-          <td>{{persona.nombre}}</td>
-          <td>{{persona.apellido}}</td>
-          <td>
-              <a class="button-collapse" (click)="goModificar(persona.id)"><i class="material-icons left">mode_edit</i></a>
-          </td>
-        </tr>
+        </td>
+        <td>{{persona.id}}</td>
+        <td>{{persona.nombre}}</td>
+        <td>{{persona.apellido}}</td>
+        <td>
+          <a class="button-collapse" (click)="goModificar(persona.id)"><i class="material-icons left">mode_edit</i></a>
+        </td>
+      </tr>
 
-      </tbody>
-    </table>
+    </tbody>
+  </table>
 </ion-content>
-  <!--Boton flotante de opciones add, edit, delete-->
+<!--Boton flotante de opciones add, edit, delete-->
 <!-- if de angular, valida si se debe mostrar o no segun la variable template -->
 <div *ngIf="template=='null'">
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large orange darken-1">
+      <i class="large material-icons">settings</i>
+    </a>
+    <ul>
+      <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
+      <li><a (click)="goCrearPersona()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
+    </ul>
+  </div>
+</div>
+
+<div *ngIf="template=='crear'" style="overflow: scroll;">
+  <!--nueva persona-->
+  <div id="nuevo_persona" class="section">
+    <div class="container" style="padding-top: 50px">
+      <div class="row">
+        <!--<form class="col s12 m12 l12 ">-->
+        <div class="card-panel hoverable card-action white">
+          <span>Nueva Persona</span>
+          <div class="row">
+
+            <div class="col s12 m6 l6">
+              <!--primera columna-->
+              <div class="input-field">
+                <i class="material-icons prefix">label_outline</i>
+                <input id="icon_descripcion" type="tel" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaNueva.cedula">
+                <label for="icon_descripcion">Cedula</label>
+              </div>
+              <div class="input-field">
+                <i class="material-icons prefix">account_box</i>
+                <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.nombre">
+                <label for="icon_descripcion">Nombre</label>
+              </div>
+              <div class="input-field">
+                <i class="material-icons prefix">account_box</i>
+                <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.apellido">
+                <label for="icon_descripcion">Apellido</label>
+              </div>
+              <div class="input-field">
+                <i class="material-icons prefix">email</i>
+                <input id="icon_descripcion" type="tel" class="validate"  [(ngModel)]="personaNueva.correo">
+                <label for="icon_descripcion">Correo</label>
+              </div>
+            </div>
+            <div class="col s12 m6 l6">
+              <!--segunda columna-->
+              <div class="input-field ">
+                <i class="material-icons prefix">label_outline</i>
+                <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaNueva.funcion">
+                  <option *ngFor="let funcion of funcions" [value]="funcion">{{funcion}}</option>
+                </select>
+              </div>
+              <div class="input-field">
+                <i class="material-icons prefix">call</i>
+                <input id="icon_modelo" type="tel" class="validate" minlength="7" maxlength="7" pattern = "[0-9]*" [(ngModel)]="personaNueva.telefono">
+                <label for="icon_modelo">Teléfono</label>
+              </div>
+              <div class="input-field">
+                <i class="material-icons prefix">stay_current_portrait</i>
+                <input id="icon_observaciones" type="tel" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*" [(ngModel)]="personaNueva.celular">
+                <label for="icon_observaciones">Celular</label>
+              </div><div class="input-field">
+                <i class="material-icons prefix">label_outline</i>
+                <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaNueva.genero">
+                  <option *ngFor="let genero of generos" [value]="genero">{{genero}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col s12">
+            </div>
+          </div>
+          <div class="card-action">
+            <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
+              <i class="material-icons right">send</i>
+            </a>
+          </div>
+        </div>
+        <!--</form>-->
+      </div>
+    </div>
+  </div>
+
+
+
+  <!--boton para cancelar-->
+  <div class="section">
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a class="btn-floating btn-large orange darken-1">
-        <i class="large material-icons">settings</i>
+      <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+        <i class="material-icons">clear</i>
       </a>
-      <ul>
-        <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
-        <li><a (click)="goCrearPersona()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
-      </ul>
     </div>
-</div>
-<div *ngIf="template=='crear'">
-    <!--nueva persona-->
-    <div id="nuevo_persona" class="section">
-      <div class="container">
-        <div class="card-panel hoverable card-action white">
-          <div class="row">
-            <form class="col s12 m12 l12 ">
-              <span>Nueva Persona</span>
-              <div class="row">
-                <hr>
-                <div class="col s12 m6 l6">
-                  <!--primera columna-->
-                  <div class="input-field">
-                    <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_descripcion" type="tel" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaNueva.cedula">
-                    <label for="icon_descripcion">Cedula</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">account_box</i>
-                    <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.nombre">
-                    <label for="icon_descripcion">Nombre</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">account_box</i>
-                    <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.apellido">
-                    <label for="icon_descripcion">Apellido</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">email</i>
-                    <input id="icon_descripcion" type="tel" class="validate"  [(ngModel)]="personaNueva.correo">
-                    <label for="icon_descripcion">Correo</label>
-                  </div>
-                </div>
-                <div class="col s12 m6 l6">
-                  <!--segunda columna-->
-                  <div class="input-field ">
-                    <i class="material-icons prefix">label_outline</i>
-                    <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaNueva.funcion">
-                        <option *ngFor="let funcion of funcions" [value]="funcion">{{funcion}}</option>
-                    </select>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">call</i>
-                    <input id="icon_modelo" type="tel" class="validate" minlength="7" maxlength="7" pattern = "[0-9]*" [(ngModel)]="personaNueva.telefono">
-                    <label for="icon_modelo">Teléfono</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">stay_current_portrait</i>
-                    <input id="icon_observaciones" type="tel" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*" [(ngModel)]="personaNueva.celular">
-                    <label for="icon_observaciones">Celular</label>
-                  </div><div class="input-field">
-                    <i class="material-icons prefix">label_outline</i>
-                    <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaNueva.genero">
-                        <option *ngFor="let genero of generos" [value]="genero">{{genero}}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col s12">
-                </div>
-                </div>
-              <div class="card-action">
-                <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
-                  <i class="material-icons right">send</i>
-                </a>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <!--boton para cancelar-->
-    <div class="section">
-      <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
-          <i class="material-icons">clear</i>
-        </a>
-      </div>
-    </div>
+  </div>
 </div>
 
 
-<div *ngIf="template=='modificar'">
-    <!--modificar persona-->
-    <div id="nuevo_item" class="section">
-      <div class="container">
+<div *ngIf="template=='modificar'" style="overflow: scroll;">
+  <!--modificar persona-->
+  <div id="nuevo_persona" class="section">
+    <div class="container" style="padding-top: 50px">
+
+      <div class="row">
+        <!--<form class="col s12 m12 l12 ">-->
         <div class="card-panel hoverable card-action white">
+          <span class="card-title">Modificar Persona</span>
           <div class="row">
-            <form class="col s12 m12 l12 ">
-              <span class="card-title">Modificar Persona</span>
-              <div class="row">
-                <hr>
-                <div class="col s12 m6 l6">
-                  <!--primera columna-->
-                  <div class="input-field">
-                    <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_descripcion" type="tel" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaModificar.cedula">
-                    <label for="icon_descripcion">Cedula</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">account_box</i>
-                    <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.nombre">
-                    <label for="icon_descripcion">Nombre</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">account_box</i>
-                    <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.apellido">
-                    <label for="icon_descripcion">Apellido</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">email</i>
-                    <input id="icon_descripcion" type="tel" class="validate"  [(ngModel)]="personaModificar.correo">
-                    <label for="icon_descripcion">Correo</label>
-                  </div>
-                </div>
-                <div class="col s12 m6 l6">
-                  <!--segunda columna-->
-                  <div class="input-field ">
-                    <i class="material-icons prefix">label_outline</i>
-                    <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaModificar.funcion">
-                        <option *ngFor="let funcion of funcions" [value]="funcion">{{funcion}}</option>
-                    </select>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">call</i>
-                    <input id="icon_modelo" type="tel" class="validate" minlength="7" maxlength="7" pattern = "[0-9]*" [(ngModel)]="personaModificar.telefono">
-                    <label for="icon_modelo">Teléfono</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">stay_current_portrait</i>
-                    <input id="icon_observaciones" type="tel" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*" [(ngModel)]="personaModificar.celular">
-                    <label for="icon_observaciones">Celular</label>
-                  </div><div class="input-field">
-                    <i class="material-icons prefix">label_outline</i>
-                    <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaModificar.genero">
-                        <option *ngFor="let genero of generos" [value]="genero">{{genero}}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col s12">
-                </div>
-                </div>
-              <div class="card-action">
-                <a (click)="modificar()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
-                  <i class="material-icons right">send</i>
-                </a>
+
+            <div class="col s12 m6 l6">
+              <!--primera columna-->
+              <div class="input-field">
+                <i class="material-icons prefix">label_outline</i>
+                <input id="icon_descripcion" type="tel" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaModificar.cedula">
+                <label for="icon_descripcion">Cedula</label>
               </div>
-            </form>
+              <div class="input-field">
+                <i class="material-icons prefix">account_box</i>
+                <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.nombre">
+                <label for="icon_descripcion">Nombre</label>
+              </div>
+              <div class="input-field">
+                <i class="material-icons prefix">account_box</i>
+                <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.apellido">
+                <label for="icon_descripcion">Apellido</label>
+              </div>
+              <div class="input-field">
+                <i class="material-icons prefix">email</i>
+                <input id="icon_descripcion" type="tel" class="validate"  [(ngModel)]="personaModificar.correo">
+                <label for="icon_descripcion">Correo</label>
+              </div>
+            </div>
+            <div class="col s12 m6 l6">
+              <!--segunda columna-->
+              <div class="input-field ">
+                <i class="material-icons prefix">label_outline</i>
+                <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaModificar.funcion">
+                  <option *ngFor="let funcion of funcions" [value]="funcion">{{funcion}}</option>
+                </select>
+              </div>
+              <div class="input-field">
+                <i class="material-icons prefix">call</i>
+                <input id="icon_modelo" type="tel" class="validate" minlength="7" maxlength="7" pattern = "[0-9]*" [(ngModel)]="personaModificar.telefono">
+                <label for="icon_modelo">Teléfono</label>
+              </div>
+              <div class="input-field">
+                <i class="material-icons prefix">stay_current_portrait</i>
+                <input id="icon_observaciones" type="tel" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*" [(ngModel)]="personaModificar.celular">
+                <label for="icon_observaciones">Celular</label>
+              </div><div class="input-field">
+                <i class="material-icons prefix">label_outline</i>
+                <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaModificar.genero">
+                  <option *ngFor="let genero of generos" [value]="genero">{{genero}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col s12">
+            </div>
+          </div>
+          <div class="card-action">
+            <a (click)="modificar()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
+              <i class="material-icons right">send</i>
+            </a>
           </div>
         </div>
+        <!--</form>-->
       </div>
     </div>
+  </div>
 
-    <!--boton para cancelar-->
-    <div class="section">
-      <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
-          <i class="material-icons">clear</i>
-        </a>
-      </div>
+
+  <!--boton para cancelar-->
+  <div class="section">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+        <i class="material-icons">clear</i>
+      </a>
     </div>
+  </div>
 </div>
