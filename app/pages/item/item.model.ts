@@ -5,6 +5,6 @@ export class ITEM {
   marca: string;
   modelo: string;
   descripcion: string;
-  cantidad: number;
-  esDispositivo: boolean;
+  cantidad: string;
+  //esDispositivo: boolean;
 }
