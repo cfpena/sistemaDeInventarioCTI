@@ -65,6 +65,7 @@ export class LoginPage implements OnInit{
       );
 
 
+
   }
   isLoggedIn(){
     return this.logged;
