@@ -2,18 +2,15 @@ import { Component, OnInit, Input, ViewChild} from '@angular/core';
 import {NavController, MenuController , Toast} from 'ionic-angular';
 import {Usuario} from './usuario.model';
 import {MaterializeDirective} from "../../materialize-directive";
+import {Validator} from "validator.ts/Validator";
 
-
-/*
-  Generated class for the UsuarioPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   templateUrl: 'build/pages/usuario/usuario.html',
   directives: [MaterializeDirective],
 })
+
+
+
 export class UsuarioPage implements OnInit {
   title: string ='Usuarios';
   usuarios: Usuario[] = [
@@ -22,17 +19,14 @@ export class UsuarioPage implements OnInit {
   ];
   template: string = 'null';
   @Input()
-  usuarioNuevo = {
-    id:10, email: '', provider: "", uid:'', name:'',nickname:"",image:'',type:''
-  }
+  usuarioNuevo = new Usuario();
+
   @Input()
   credenciales = {
     clave: '', clave2:''
   }
   @Input()
-  usuarioModificar= {
-    id:10, email: '', provider: "", uid:'', name:'',nickname:"",image:'',type:''
-  }
+  usuarioModificar= new Usuario();
   count=10;
   id=0;
   selected: number[]=[];
@@ -41,66 +35,78 @@ export class UsuarioPage implements OnInit {
   constructor( private navController:NavController,private menu: MenuController) {
 
   }
-openMenu(){
-  this.menu.open();
-}
-
-presentToast(text: string) {
-let toast = Toast.create({
-  message: text,
-  duration: 3000
-});
-
-toast.onDismiss(() => {
-  console.log('Dismissed toast');
-});
-  this.navController.present(toast);
-}
-  crear(){
-    if(this.usuarioNuevo.name=='') this.presentToast('Nombre vacio');
-    else if(this.usuarioNuevo.email=='') this.presentToast('Email vacio');
-    else if(this.credenciales.clave=='') this.presentToast('Clave vacia');
-    else if(this.credenciales.clave.length< 6) this.presentToast('Clave menor a 6 caracteres');
-    else if(this.credenciales.clave!=this.credenciales.clave2) this.presentToast('Claves no coinciden');
-    else if(this.usuarioNuevo.type=='' || this.usuarioNuevo.type==this.tipos[0])this.presentToast('Tipo no definido');
-    else{
-    this.usuarios.push(this.usuarioNuevo);
-    this.template='null';
-    this.count++;
-    this.usuarioNuevo = {
-      id:this.count, email: '', provider: "", uid:'', name:'',nickname:"",image:'',type:''
-    }
-    this.credenciales.clave='';
-    this.credenciales.clave2='';
+  openMenu(){
+        this.menu.open();
   }
+
+  presentToast(text: string) {
+        let toast = Toast.create({
+          message: text,
+          duration: 3000
+        });
+
+        toast.onDismiss(() => {
+          console.log('Dismissed toast');
+        });
+          this.navController.present(toast);
+  }
+  crear(){
+        let validator = new Validator();
+        this.usuarioNuevo.uid=this.usuarioNuevo.email;
+        console.log(JSON.stringify(validator.validate(this.usuarioNuevo)));
+          console.log(this.usuarioNuevo.type);
+        if(!validator.isValid(this.usuarioNuevo)) this.presentToast('Corrija el formulario');
+        else if(this.credenciales.clave=='') this.presentToast('Clave vacia');
+        else if(this.credenciales.clave.length< 6) this.presentToast('Clave menor a 6 caracteres');
+        else if(this.credenciales.clave!=this.credenciales.clave2) this.presentToast('Claves no coinciden');
+        else if(this.usuarioNuevo.type=='' || this.usuarioNuevo.type==this.tipos[0])this.presentToast('Tipo no definido');
+        else{
+
+        this.usuarios.push(this.usuarioNuevo);
+        this.template='null';
+        this.count++;
+        this.usuarioNuevo = new Usuario();
+        this.credenciales.clave='';
+        this.credenciales.clave2='';
+      }
   }
   goModificar(id: string){
 
-    this.template='modificar'
-    this.id=parseInt(id);
-    this.usuarioModificar = JSON.parse(JSON.stringify(this.usuarios.find(usuario => usuario.id == this.id)));
+        this.template='modificar'
+        this.id=parseInt(id);
+        let user = this.usuarios.find(usuario => usuario.id == this.id);
+        for(var i in this.usuarioModificar){
+          this.usuarioModificar[i]=user[i];
+        }
   }
   modificar(){
-    let index =this.usuarios.findIndex(usuario => usuario.id == this.id);
-    if(this.usuarioModificar.name=='') this.presentToast('Nombre vacio');
-    else if(this.usuarioModificar.email=='') this.presentToast('Email vacio');
-    else if(this.usuarioModificar.type=='' || this.usuarioModificar.type==this.tipos[0])this.presentToast('Tipo no definido');
-    else{
 
-  this.usuarios[index] =JSON.parse(JSON.stringify(this.usuarioModificar));
-  this.template='null';
-  }
-  return this.usuarios[index];
-  }
-  eliminar(){
+        let index =this.usuarios.findIndex(usuario => usuario.id == this.id);
+        this.usuarioModificar.uid=this.usuarioModificar.email;
+        let validator = new Validator();
 
-    for(var i in this.selected){
-      console.log(this.selected[i]);
-      let index =this.usuarios.findIndex(usuario => usuario.id==this.selected[i]);
-      console.log(index);
-      this.usuarios.splice(index,1);
-    }
-    this.selected=[];
+        if(validator.isValid(this.usuarioModificar)
+          && this.usuarioModificar.type!=''
+          && this.usuarioModificar.type!=this.tipos[0]){
+              let user = this.usuarios[index];
+              for(var i in this.usuarioModificar){
+                user[i]=this.usuarioModificar[i]
+              }
+              this.template='null';
+        }else{
+              this.presentToast('Corrija errores en formulario');
+            }
+    return this.usuarios[index];
+  }
+eliminar(){
+
+      for(var i in this.selected){
+        console.log(this.selected[i]);
+        let index =this.usuarios.findIndex(usuario => usuario.id==this.selected[i]);
+        console.log(index);
+        this.usuarios.splice(index,1);
+      }
+      this.selected=[];
   }
 
   select(id: any){
@@ -121,7 +127,5 @@ toast.onDismiss(() => {
     this.template='null';
   }
   public ngOnInit() {
-    window.setTimeout(()=>{
-    },100);
-}
+  }
 }

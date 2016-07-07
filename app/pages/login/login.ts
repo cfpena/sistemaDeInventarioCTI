@@ -47,23 +47,20 @@ export class LoginPage implements OnInit{
         });
 
   }
-  se(){
-    console.log(this.URL);
-  }
+
   setUsuario(usuario:string,clave:string){
     this.usuario.usuario=usuario;
     this.usuario.clave=clave;
   }
 
   login() {
-    this.nav.setRoot(PrincipalPage);
-/*
+
     this.http.post(this.URL + this.LOGIN_URL, JSON.stringify({'email': this.usuario.usuario,'password': this.usuario.clave}), { headers: this.contentHeader })
       .map(res => res)
       .subscribe(
         data => this.authSuccess(data),
         err => this.errores.auth = 'Usuario o clave incorrectos'
-      );*/
+      );
 
 
 
