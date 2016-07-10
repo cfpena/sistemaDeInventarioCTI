@@ -72,9 +72,19 @@ export class InventarioPage implements OnInit{
     }
 
 
+
+    select(id: any){
+      let index: number;
+      index = this.selected.findIndex(num => num == parseInt(id));
+
+      if(index==-1){
+      this.selected.push(parseInt(id));}
+      else{this.selected.splice(index,1)};
+      console.log(this.selected);
+
+    }
     //retrasa la carga de la pagina 100 ms
     public ngOnInit() {
-      window.setTimeout(()=>{
-      },100);
+
     }
 }
