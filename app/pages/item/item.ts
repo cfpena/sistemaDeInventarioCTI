@@ -2,29 +2,27 @@ import {Component,  OnInit, Input, ViewChild } from '@angular/core';
 import {NavController, MenuController, Toast} from 'ionic-angular';
 import {ITEM} from './item.model';
 import {MaterializeDirective} from "../../materialize-directive";
+import {Validator} from "validator.ts/Validator";
 
 @Component({
-  templateUrl: 'build/pages/item/item.html'
+  templateUrl: 'build/pages/item/item.html',
+  directives: [MaterializeDirective],
 })
 export class ItemPage implements OnInit {
   title: string ='Ítems';
   items: ITEM[]=[
-    {id: 1,  codigo: '1234567890',  nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:'20'},
-    {id: 2,  codigo: '1234456891',  nombre: 'Capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:'70'},
-    {id: 3,  codigo: '0956787892',  nombre: 'Ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:'16'}
-
+    {id: 1,  codigo: '1234567890',  nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:20, esDispositivo:true},
+    {id: 2,  codigo: '1234456891',  nombre: 'Capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:70, esDispositivo:true},
+    {id: 3,  codigo: '0956787892',  nombre: 'Ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:16, esDispositivo:true}
   ];
   template: string = 'null';
 
   @Input()
-  itemNuevo = {
-    id:10, codigo: '', nombre: "", marca:'', modelo:'',descripcion:"",cantidad:''
-  }
+  itemNuevo = new ITEM();
 
   @Input()
-  itemModificar= {
-    id:10, codigo: '', nombre: "", marca:'', modelo:'',descripcion:"",cantidad:''
-  }
+  itemModificar=new ITEM();
+
   count=10;
   id=0;
   selected: number[]=[];
@@ -51,20 +49,22 @@ export class ItemPage implements OnInit {
 
   //crea un item
   crear(){
-    if (this.itemNuevo.codigo=='' || this.itemNuevo.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
+    let validator = new Validator();
+    console.log(JSON.stringify(validator.validate(this.itemNuevo)));
+    if(!validator.isValid(this.itemNuevo)) this.presentToast('Corrija el formulario');
+   else if (this.itemNuevo.codigo=='' || this.itemNuevo.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
    else if(this.itemNuevo.nombre=='') this.presentToast('Nombre vacio');
    else if(this.itemNuevo.descripcion=='') this.presentToast('Descripción vacio');
    else if(this.itemNuevo.marca=='') this.presentToast('Marca vacio');
    else if(this.itemNuevo.modelo=='') this.presentToast('Modelo vacio');
-   else if(this.itemNuevo.cantidad.length < 1 || this.itemNuevo.cantidad.length > 2 || this.itemNuevo.cantidad=='0') this.presentToast('Cantidad mínima 1 máximo 99');
+   else if(this.itemNuevo.cantidad < 1 || this.itemNuevo.cantidad > 50 || this.itemNuevo.cantidad==0) this.presentToast('Cantidad mínima 1 máximo 50');
+
    else{
     this.items.push(this.itemNuevo);
     this.template='null';
     this.count++;
-    this.itemNuevo = {
-      id:this.count, codigo: '', nombre: "", marca:'', modelo:'', descripcion:"" ,cantidad:''
+    this.itemNuevo = new ITEM();
     }
-  }
   }
 
 goModificar(id: string){
@@ -75,12 +75,15 @@ goModificar(id: string){
 
 //modifica el usario
 modificar(){
-if (this.itemModificar.codigo=='' || this.itemModificar.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
+  let validator = new Validator();
+  console.log(JSON.stringify(validator.validate(this.itemModificar)));
+  if(!validator.isValid(this.itemModificar)) this.presentToast('Corrija el formulario');
+ else if (this.itemModificar.codigo=='' || this.itemModificar.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
  else if(this.itemModificar.nombre=='') this.presentToast('Nombre vacio');
  else if(this.itemModificar.descripcion=='') this.presentToast('Descripción vacio');
  else if(this.itemModificar.marca=='') this.presentToast('Marca vacio');
  else if(this.itemModificar.modelo=='') this.presentToast('Modelo vacio');
- else if(this.itemModificar.cantidad.length < 1 || this.itemModificar.cantidad.length > 2 || this.itemModificar.cantidad=='0') this.presentToast('Cantidad mínima 1 máximo 99');
+ else if(this.itemModificar.cantidad < 1 || this.itemModificar.cantidad > 50 || this.itemModificar.cantidad==0) this.presentToast('Cantidad mínima 1 máximo 50');
  else{
 let index =this.items.findIndex(item => item.id == this.id);
 this.items[index] =JSON.parse(JSON.stringify(this.itemModificar));

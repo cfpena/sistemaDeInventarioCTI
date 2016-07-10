@@ -70,9 +70,9 @@
             <div class="card-content black-text">
               <span class="card-title">Nuevo Ítem</span>
               <p class="center">
-                <input class="with-gap" name="group1" type="radio" id="test1"  onclick="icon_marca.disabled = true; icon_modelo.disabled = true;"/>
+                <input class="with-gap" name="group1" type="radio" id="test1"  onclick="icon_marca.disabled = true; icon_modelo.disabled = true;" />
                 <label for="test1">Elemento</label>
-                <input class="with-gap" name="group1" type="radio" id="test2" checked="checked" onclick="icon_marca.disabled = false; icon_modelo.disabled = false;"/>
+                <input class="with-gap" name="group1" type="radio" id="test2" checked="checked" onclick="icon_marca.disabled = false; icon_modelo.disabled = false;" [(ngModel)]="itemNuevo.esDispositivo"/>
                 <label for="test2">Dispositivo</label>
               </p>
               <div class="row">
@@ -146,7 +146,7 @@
               <p class="center">
                 <input class="with-gap" name="group1" type="radio" id="test1"  onclick="icon_marca.disabled = true; icon_modelo.disabled = true;"/>
                 <label for="test1">Elemento</label>
-                <input class="with-gap" name="group1" type="radio" id="test2" checked="checked" onclick="icon_marca.disabled = false; icon_modelo.disabled = false;"/>
+                <input class="with-gap" name="group1" type="radio" id="test2" checked="checked" onclick="icon_marca.disabled = false; icon_modelo.disabled = false;" [(ngModel)]="itemModificar.esDispositivo"/>
                 <label for="test2">Dispositivo</label>
               </p>
               <div class="row">
