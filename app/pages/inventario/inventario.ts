@@ -52,7 +52,7 @@ export class InventarioPage implements OnInit{
       this.navController.present(toast);
     }
 
-    //crea un item
+    //ingreso a inventario
     crear(){
       let validator = new Validator();
       console.log(JSON.stringify(validator.validate(this.inventarioNuevo)));
@@ -78,6 +78,33 @@ export class InventarioPage implements OnInit{
     goIngresoInventario(){
       this.template='ingresar';
     }
+
+    //crea un item
+    modificar(){
+      let validator = new Validator();
+      console.log(JSON.stringify(validator.validate(this.inventarioModificar)));
+        console.log(this.inventarioModificar.estado);
+      if(!validator.isValid(this.inventarioModificar)) this.presentToast('Corrija el formulario');
+     else if(this.inventarioModificar.cantidad < 1 || this.inventarioModificar.cantidad > 50 || this.inventarioModificar.cantidad==0) this.presentToast('Cantidad mínima 1 máximo 50');
+     else if(this.inventarioModificar.estado=='' || this.inventarioModificar.estado==this.estados[0])this.presentToast('Estado no definido');
+     else{
+       let index =this.inventarios.findIndex(inventario => inventario.id == this.id);
+       this.inventarios[index] =JSON.parse(JSON.stringify(this.inventarioModificar));
+       this.template='null';
+
+     }
+
+    }
+
+    goModificar(id: string){
+          this.template='modificar'
+      this.id=parseInt(id);
+      let inv = this.inventarios.find(inventario => inventario.id == this.id);
+      for(var i in this.inventarioModificar){
+        this.inventarioModificar[i]=inv[i];
+      }
+    }
+
     cancelar(){
       this.template='null';
     }
