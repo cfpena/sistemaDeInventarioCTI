@@ -30,7 +30,8 @@ export class InventarioPage implements OnInit{
     count=10;
     id=0;
     selected: number[]=[];
-    estado = ['Elija un estado...','disponible','no disponible'];
+    tipos = ['Elija tipo','ítem','kit'];
+    estados = ['Elija un estado...','disponible','no disponible'];
 
     constructor( private navController:NavController,private menu: MenuController){
     }
@@ -55,20 +56,30 @@ export class InventarioPage implements OnInit{
     crear(){
       let validator = new Validator();
       console.log(JSON.stringify(validator.validate(this.inventarioNuevo)));
+        console.log(this.inventarioNuevo.tipo);
+        console.log(this.inventarioNuevo.estado);
       if(!validator.isValid(this.inventarioNuevo)) this.presentToast('Corrija el formulario');
      else if (this.inventarioNuevo.codigo=='' || this.inventarioNuevo.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
-     else if(this.inventarioNuevo.nombre=='') this.presentToast('Nombre vacio');
-     else if(this.inventarioNuevo.descripcion=='') this.presentToast('Descripción vacio');
-     else if(this.inventarioNuevo.marca=='') this.presentToast('Marca vacio');
-     else if(this.inventarioNuevo.modelo=='') this.presentToast('Modelo vacio');
+     //else if(this.inventarioNuevo.nombre=='') this.presentToast('Nombre vacio');
+     else if(this.inventarioNuevo.estado=='') this.presentToast('Elija un estado');
+     //else if(this.inventarioNuevo.descripcion=='') this.presentToast('Detalle vacio');
      else if(this.inventarioNuevo.cantidad < 1 || this.inventarioNuevo.cantidad > 50 || this.inventarioNuevo.cantidad==0) this.presentToast('Cantidad mínima 1 máximo 50');
+     else if(this.inventarioNuevo.estado=='' || this.inventarioNuevo.estado==this.estados[0])this.presentToast('Estado no definido');
+     else if(this.inventarioNuevo.tipo=='' || this.inventarioNuevo.tipo==this.tipos[0])this.presentToast('Tipo no definido');
 
      else{
-      this.inventarios.push(this.inventarioNuevo);
-      this.template='null';
-      this.count++;
-      this.inventarioNuevo = new Inventario();
+       this.inventarios.push(this.inventarioNuevo);
+       this.template='null';
+       this.count++;
+       this.inventarioNuevo = new Inventario();
       }
+    }
+
+    goIngresoInventario(){
+      this.template='ingresar';
+    }
+    cancelar(){
+      this.template='null';
     }
 
 

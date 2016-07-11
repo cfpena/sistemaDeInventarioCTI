@@ -25,6 +25,7 @@ export class Inventario {
     this.modelo='';
     this.descripcion='';
     this.cantidad=0;
+    this.estado='';
     //this.esDispositivo=true;
   }
 }
