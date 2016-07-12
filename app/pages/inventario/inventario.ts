@@ -14,9 +14,9 @@ export class InventarioPage implements OnInit{
     title: string ='Inventario';
 
     inventarios: Inventario[]=[
-      {id: 1, fecha:'05/07/16', codigo: '1234567890', tipo:'item', nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: '', estado:'disponible' ,cantidad:20},
-      {id: 2, fecha:'08/07/16', codigo: '1234456891', tipo:'kit', nombre: 'Arduino',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: '',estado:'disponible' ,  cantidad:40},
-      {id: 3, fecha:'10/07/16', codigo: '0956787892', tipo:'item',  nombre: 'Capacitor',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: '', estado:'no disponible' , cantidad:20}
+      {id: 1, fecha:'05/07/16', codigo: '1234567890', tipo:'item', nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  detalle: 'Ingreso nuevo', estado:'disponible' ,cantidad:20},
+      {id: 2, fecha:'08/07/16', codigo: '1234456891', tipo:'kit', nombre: 'Arduino',  marca: 'Marca 2',  modelo: 'Modelo 2',  detalle: 'Ingreso nuevo',estado:'disponible' ,  cantidad:40},
+      {id: 3, fecha:'10/07/16', codigo: '0956787892', tipo:'item',  nombre: 'Capacitor',  marca: 'Marca 3',  modelo: 'Modelo 3',  detalle: 'Ingreso nuevo', estado:'no disponible' , cantidad:20}
     ];
 
     template: string = 'null';
@@ -25,7 +25,7 @@ export class InventarioPage implements OnInit{
     inventarioNuevo = new Inventario();
 
     @Input()
-    inventarioModificar = new Inventario();
+    inventarioSalida = new Inventario();
 
     count=10;
     id=0;
@@ -62,7 +62,7 @@ export class InventarioPage implements OnInit{
      else if (this.inventarioNuevo.codigo=='' || this.inventarioNuevo.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
      //else if(this.inventarioNuevo.nombre=='') this.presentToast('Nombre vacio');
      else if(this.inventarioNuevo.estado=='') this.presentToast('Elija un estado');
-     //else if(this.inventarioNuevo.descripcion=='') this.presentToast('Detalle vacio');
+     else if(this.inventarioNuevo.detalle=='') this.presentToast('Detalle vacio');
      else if(this.inventarioNuevo.cantidad < 1 || this.inventarioNuevo.cantidad > 50 || this.inventarioNuevo.cantidad==0) this.presentToast('Cantidad mínima 1 máximo 50');
      else if(this.inventarioNuevo.estado=='' || this.inventarioNuevo.estado==this.estados[0])this.presentToast('Estado no definido');
      else if(this.inventarioNuevo.tipo=='' || this.inventarioNuevo.tipo==this.tipos[0])this.presentToast('Tipo no definido');
@@ -80,30 +80,43 @@ export class InventarioPage implements OnInit{
     }
 
     //crea un item
-    modificar(){
+    salida(){
       let validator = new Validator();
-      console.log(JSON.stringify(validator.validate(this.inventarioModificar)));
-        console.log(this.inventarioModificar.estado);
-      if(!validator.isValid(this.inventarioModificar)) this.presentToast('Corrija el formulario');
-     else if(this.inventarioModificar.cantidad < 1 || this.inventarioModificar.cantidad > 50 || this.inventarioModificar.cantidad==0) this.presentToast('Cantidad mínima 1 máximo 50');
-     else if(this.inventarioModificar.estado=='' || this.inventarioModificar.estado==this.estados[0])this.presentToast('Estado no definido');
+      console.log(JSON.stringify(validator.validate(this.inventarioSalida)));
+        console.log(this.inventarioSalida.estado);
+      if(!validator.isValid(this.inventarioSalida)) this.presentToast('Corrija el formulario');
+     else if(this.inventarioSalida.cantidad < 1 || this.inventarioSalida.cantidad > 50 || this.inventarioSalida.cantidad==0) this.presentToast('Cantidad mínima 1 máximo 50');
+     //else if(this.inventarioSalida.estado=='' || this.inventarioSalida.estado==this.estados[0])this.presentToast('Estado no definido');
+     //else if(this.inventarioSalida.tipo=='' || this.inventarioSalida.tipo==this.tipos[0])this.presentToast('Tipo no definido');
      else{
        let index =this.inventarios.findIndex(inventario => inventario.id == this.id);
-       this.inventarios[index] =JSON.parse(JSON.stringify(this.inventarioModificar));
+       this.inventarios[index] =JSON.parse(JSON.stringify(this.inventarioSalida));
        this.template='null';
+       //this.eliminar();
 
      }
 
     }
 
-    goModificar(id: string){
-          this.template='modificar'
+    goSalida(id: string){
+          this.template='salida_inventario'
       this.id=parseInt(id);
       let inv = this.inventarios.find(inventario => inventario.id == this.id);
-      for(var i in this.inventarioModificar){
-        this.inventarioModificar[i]=inv[i];
+      for(var i in this.inventarioSalida){
+        this.inventarioSalida[i]=inv[i];
       }
     }
+
+    eliminar(){
+          for(var i in this.selected){
+            console.log(this.selected[i]);
+            let index =this.inventarios.findIndex(inventario => inventario.id==this.selected[i]);
+            console.log(index);
+            this.inventarios.splice(index,1);
+          }
+          this.selected=[];
+      }
+
 
     cancelar(){
       this.template='null';

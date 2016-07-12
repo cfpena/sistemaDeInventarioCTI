@@ -10,7 +10,7 @@ export class Inventario {
   nombre: string;
   marca: string;
   modelo: string;
-  descripcion: string;
+  detalle: string;
   @IsInt() cantidad: number;
   estado: string;
   //esDispositivo: boolean;
@@ -23,7 +23,7 @@ export class Inventario {
     this.nombre='';
     this.marca='';
     this.modelo='';
-    this.descripcion='';
+    this.detalle='';
     this.cantidad=0;
     this.estado='';
     //this.esDispositivo=true;

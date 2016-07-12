@@ -14,13 +14,38 @@ Ionic pages and navigation.
 <!--Tabla de ínventario-->
 <ion-content>
   <div *ngIf="template=='null'">
+
+    <!--Boton de busqueda por codigo o nombre-->
+    <div class="container row">
+      <div class="col s12 m6 l6 offset-m3 offset-l3">
+        <p class="center">
+          <input class="with-gap" name="group1" type="radio" id="test1"  />
+          <label for="test1"> Nombre</label>
+          <input class="with-gap" name="group1" type="radio" id="test2" checked="checked"/>
+          <label for="test2">Código</label>
+        </p>
+        </div>
+        <div class="row">
+          <div class="col s10 m2 l2 offset-l5 offset-m5">
+            <div class=" input-field">
+              <input id="buscar" type="text" class="center validate" >
+            </div>
+          </div>
+          <div class="col s2 m4 l4" >
+            <a class="btn-floating"><i class="material-icons">search</i></a>
+          </div>
+        </div>
+    </div>
+
+    <!--Tabla de inventario-->
     <table  materialize class="centered table centered striped" style="font-size: 15px">
       <thead>
         <tr>
-          <th></th>
+
           <th data-field="fecha">Fecha</th>
           <th data-field="id">Código</th>
           <th data-field="tipo">Tipo</th>
+          <th data-field="tipo">Detalle</th>
           <th data-field="nombre">Nombre</th>
           <th data-field="marca">Marca</th>
           <th data-field="modelo">Modelo</th>
@@ -32,21 +57,22 @@ Ionic pages and navigation.
       <tbody>
 
         <tr *ngFor = "let inventario of inventarios">
-          <td>
+          <!--<td>
             <input  [checked]="false" (change)="select(inventario.id)" id="{{inventario.id}}" type="checkbox" class="filled-in"/>
             <label  attr.for="{{inventario.id}}"></label>
-          </td>
+          </td>-->
 
           <td >{{inventario.fecha}}</td>
           <td >{{inventario.codigo}}</td>
           <td>{{inventario.tipo}}</td>
+          <td>{{inventario.detalle}}</td>
           <td>{{inventario.nombre}}</td>
           <td>{{inventario.marca}}</td>
           <td>{{inventario.modelo}}</td>
           <td>{{inventario.estado}}</td>
           <td>{{inventario.cantidad}}</td>
           <td>
-            <a (click)="goModificar(inventario.id)" class="button-collapse"><i class="material-icons left">mode_edit</i></a>
+            <a (click)="goSalida(inventario.id)" class="button-collapse "><i class="material-icons left ">unarchive</i></a>
           </td>
         </tr>
       </tbody>
@@ -55,30 +81,26 @@ Ionic pages and navigation.
 </ion-content>
 
 
-<!--Boton flotante de opciones add, edit, delete-->
-<!-- if de angular, valida si se debe mostrar o no segun la variable template -->
-
+<!--Boton flotante para ingresar en el inventario-->
 <div *ngIf="template=='null'">
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large orange darken-1">
-      <i class="large material-icons">settings</i>
+    <a (click)="goIngresoInventario()" class="btn-floating btn-large waves-effect waves-light teal">
+      <i class="material-icons">archive</i>
     </a>
-    <ul>
-      <li><a  class="btn-floating red"><i class="material-icons">delete</i></a></li>
-      <li><a (click)="goIngresoInventario()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
-    </ul>
   </div>
 </div>
 
 
+<!--layout de ingreso al inventario-->
 <div *ngIf="template=='ingresar'" style="overflow: scroll;">
-  <div id="nuevo_item" class="section" >
+  <div id="ingreso_inventario" class="section" >
     <div class="container" style="padding-bottom: 60px">
       <div class="row">
         <!--<form class="col s12 m12 l12 ">-->
         <div class="card-panel hoverable card-action white">
           <div class="card-content black-text">
-            <span class="card-title">Ingreso Nuevo</span>
+            <span class="card-title">Ingreso de Inventario</span>
+            <div style="padding-top: 15px"></div>
             <div class="row">
               <div class="col s12 m6 l6">
                 <div class="input-field">
@@ -119,7 +141,7 @@ Ionic pages and navigation.
             </div>
           </div>
           <div class="card-action">
-            <a  (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Ingresar
+            <a  (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Aceptar
               <i class="material-icons right">send</i>
             </a>
           </div>
@@ -138,40 +160,63 @@ Ionic pages and navigation.
 </div>
 
 
-
-<div *ngIf="template=='modificar'" style="overflow: scroll;">
-  <!--modificar inventario-->
-  <div  class="section" >
-    <div class="container" style="padding-bottom: 70px">
+<!--Boton flotante para ingresar en el inventario-->
+<div *ngIf="template=='salida_inventario'" style="overflow: scroll;">
+  <!--salida inventario-->
+  <div id="egreso_inventario" class="section" >
+    <div class="container" style="padding-bottom: 60px">
       <div class="row">
         <!--<form class="col s12 m12 l12 ">-->
-        <div class="col s12 m6 l6 offset-l3 offset-m3">
         <div class="card-panel hoverable card-action white">
           <div class="card-content black-text">
-            <span class="card-title">Modificar Inventario</span>
-            <div style="padding-top: 10px"></div>
+            <span class="card-title">Salida de Inventario</span>
+            <div style="padding-top: 15px"></div>
+            <div class="row">
+              <div class="col s12 m6 l6">
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="inventarioModificar.estado">
+                  <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="inventarioSalida.tipo">
+                    <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
+                  </select>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="inventarioSalida.codigo" >
+                  <label for="icon_codigo">Código</label>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_descripcion" type="text" class="validate" minlength="5" maxlength="30" [(ngModel)]="inventarioSalida.nombre">
+                  <label for="icon_descripcion">Nombre</label>
+                </div>
+              </div>
+              <div class="col s12 m6 l6">
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="inventarioSalida.estado">
                     <option *ngFor="let estado of estados" [value]="estado">{{estado}}</option>
                   </select>
                 </div>
-
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_cantidad" type="tel" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" [(ngModel)]="inventarioModificar.cantidad">
+                  <input id="icon_descripcion" type="text" class="validate" minlength="5" maxlength="30" >
+                  <label for="icon_descripcion">Detalle</label>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_cantidad" type="tel" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" [(ngModel)]="inventarioSalida.cantidad">
                   <label for="icon_cantidad">Cantidad</label>
                 </div>
+              </div>
+            </div>
           </div>
-          <div style="padding-top: 20px"></div>
           <div class="card-action">
-            <a  (click)="modificar()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
+            <a  (click)="salida()" class="btn waves-effect waves-light center"  style="font-size: 17px">Aceptar
               <i class="material-icons right">send</i>
             </a>
           </div>
         </div>
         <!--</form>-->
-        </div>
       </div>
     </div>
   </div>
