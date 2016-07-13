@@ -28,7 +28,7 @@ Ionic pages and navigation.
         <div class="row">
           <div class="col s10 m2 l2 offset-l5 offset-m5">
             <div class=" input-field">
-              <input id="buscar" type="text" class="center validate" >
+              <input id="buscar" type="text" class="center validate" minlength="10" maxlength="15" >
             </div>
           </div>
           <div class="col s2 m4 l4" >
@@ -111,7 +111,7 @@ Ionic pages and navigation.
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="inventarioNuevo.codigo" >
+                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"  [(ngModel)]="inventarioNuevo.codigo" >
                   <label for="icon_codigo">Código</label>
                 </div>
                 <div class="input-field">
@@ -181,7 +181,7 @@ Ionic pages and navigation.
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="inventarioSalida.codigo" >
+                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"  [(ngModel)]="inventarioSalida.codigo" >
                   <label for="icon_codigo">Código</label>
                 </div>
                 <div class="input-field">
