@@ -13,7 +13,7 @@ export class CrearItemPage {
   }
 
   cancelar(){
-    this._navController.push(Item,{});
+    this._navController.push(ItemPage,{});
     this._navController.setRoot(ItemPage);
   }
 
