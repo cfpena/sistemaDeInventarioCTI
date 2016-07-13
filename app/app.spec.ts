@@ -9,6 +9,7 @@ import {NavController,MenuController} from 'ionic-angular';
 import {LoginPage} from './pages/login/login';
 import {UsuarioPage} from './pages/usuario/usuario';
 import {PersonaPage} from './pages/persona/persona';
+import {InventarioPage} from './pages/inventario/inventario';
 
 // this needs doing _once_ for the entire test suite, hence it's here
 setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS);
@@ -26,6 +27,7 @@ let myApp = null;
 let loginPage = null
 let usuarioPage = null;
 let personaPage = null;
+let inventarioPage = null;
 
 describe('Aplicacion principal', () => {
 
@@ -155,3 +157,21 @@ describe('Personas', () => {
     expect(personaPage.personaModificar.nombre).toBe('Adriano');
   });
 });
+
+
+describe('Inventarios', () => {
+
+  beforeEach(function() {
+
+    var http: Http;
+    var nav: NavController;
+    var menu: MenuController;
+    inventarioPage = new InventarioPage(nav,menu);
+  });
+
+  it('listar inventarios', () => {
+    expect(inventarioPage.inventarios).toBeTruthy();
+  });
+
+});
+
