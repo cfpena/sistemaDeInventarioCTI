@@ -10,6 +10,7 @@ import {LoginPage} from './pages/login/login';
 import {UsuarioPage} from './pages/usuario/usuario';
 import {PersonaPage} from './pages/persona/persona';
 import {InventarioPage} from './pages/inventario/inventario';
+import {KitPage} from './pages/kit/kit';
 
 // this needs doing _once_ for the entire test suite, hence it's here
 setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS);
