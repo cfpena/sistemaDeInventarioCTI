@@ -175,6 +175,25 @@ describe('Inventarios', () => {
     expect(inventarioPage.inventarios).toBeTruthy();
   });
 
+  it('ingresar inventario', () => {
+    let inventarios = inventarioPage.inventarios;
+    let inventarioNuevo = inventarioPage.inventarioNuevo;
+    inventarioNuevo =
+        {
+            id: 5,  fecha: '15/07/2016',
+            codigo:'0924268915', tipo:'Kit',
+            nombre: 'Arduino',  marca: 'Marca1',
+            modelo: 'Modelo1', detalle:'Ingreso por compra',
+            cantidad: 20, estado: 'disponible'
+
+          };
+    inventarios.push(inventarioNuevo);
+    let index = inventarios.length -1;
+    let inventario= inventarios[index];
+
+    expect(inventario.id).toBe(10);
+  });
+
 });
 
 describe('Kits', () => {
