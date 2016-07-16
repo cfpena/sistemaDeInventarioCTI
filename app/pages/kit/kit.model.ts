@@ -1,5 +1,4 @@
 import {ITEM} from '../item/item.model';
-
 import {Validator} from "validator.ts/Validator";
 import {Contains, IsInt, IsLength, IsEmail, IsAlpha} from "validator.ts/decorator/Validation";
 
@@ -8,8 +7,7 @@ export class Kit {
   @IsAlpha() nombre: string;
   @IsAlpha() marca: string;
   @IsAlpha() modelo: string;
-
-   codigo: string;
+  codigo: string;
   descripcion: string;
   @IsInt() cantidad: number;
   items : ITEM[];
