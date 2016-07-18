@@ -24,8 +24,8 @@
 
 
 <!--tabla de usuarios-->
+<ion-content>
 <div *ngIf="template=='null'">
-
     <table materialize class="centered table centered striped" style="font-size: 15px">
       <thead>
         <tr>
@@ -60,6 +60,8 @@
 
       </tbody>
     </table>
+  </div>
+  </ion-content>
 
   <!--Boton flotante de opciones add, edit, delete-->
 <!-- if de angular, valida si se debe mostrar o no segun la variable template -->
@@ -72,7 +74,8 @@
         <li><a (click)="goCrearUsuario()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
       </ul>
     </div>
-</div>
+
+
 <div *ngIf="template=='crear'" >
     <!--nuevo user-->
     <div materialize id="nuevo_item" class="section">
