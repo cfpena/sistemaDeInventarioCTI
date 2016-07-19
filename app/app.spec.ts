@@ -180,7 +180,7 @@ describe('Inventarios', () => {
     let inventarioNuevo = inventarioPage.inventarioNuevo;
     inventarioNuevo =
         {
-            id: 5,  fecha: '15/07/2016',
+            id: 10,  fecha: '15/07/2016',
             codigo:'0924268915', tipo:'Kit',
             nombre: 'Arduino',  marca: 'Marca1',
             modelo: 'Modelo1', detalle:'Ingreso por compra',
@@ -203,15 +203,16 @@ describe('Kits', () => {
     var http: Http;
     var nav: NavController;
     var menu: MenuController;
-    kitPage = new kitPage(nav,menu);
+    kitPage = new KitPage(nav,menu);
   });
 
   it('listar kits', () => {
-    expect(kitPage.kits).toBeTruthy();
+
+      expect(kitPage.KITS).toBeTruthy();
   });
 
   it('crear kits', () => {
-    let kits = kitPage.kits;
+    let kits = kitPage.KITS;
     let kitNuevo = kitPage.kitNuevo;
     kitNuevo =
         {id: 10,  codigo: 'Kit0000004',
@@ -232,7 +233,7 @@ describe('Kits', () => {
   });
 
   it('eliminar kits', () => {
-    let kits = kitPage.kits;
+    let kits = kitPage.KITS;
     for (var index in kits){
       kitPage.selected.push(index);
     }
@@ -240,9 +241,10 @@ describe('Kits', () => {
     expect(kits.length).toBe(0);
   });
   it('modificar kits', () => {
-    let personas = kitPage.kits;
+    let kits = kitPage.KITS;
     kitPage.id=10;
-    kitPage.kitModificar.codigo = 'Kit0000001';
+    kitPage.kitModificar.codigo = 'Kit0000003';
     expect(kitPage.kitModificar.codigo).toBe('Kit0000003');
   });
+
 });
