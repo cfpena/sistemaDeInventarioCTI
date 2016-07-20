@@ -3,6 +3,8 @@ import {NavController, MenuController , Toast} from 'ionic-angular';
 import {Usuario} from './usuario.model';
 import {MaterializeDirective} from "../../materialize-directive";
 import {Validator} from "validator.ts/Validator";
+import { Http, Headers } from '@angular/http';
+import {UsuarioService} from '../usuario/usuario.auth.service';
 
 @Component({
   templateUrl: 'build/pages/usuario/usuario.html',
@@ -32,7 +34,10 @@ export class UsuarioPage implements OnInit {
   selected: number[]=[];
   tipos = ['Elija un tipo...','ayudante','administrador'];
 
-  constructor( private navController:NavController,private menu: MenuController) {
+  constructor( private navController:NavController,
+    private menu: MenuController,
+  private usuarioService: UsuarioService,
+private http: Http) {
 
   }
   openMenu(){
@@ -127,5 +132,14 @@ eliminar(){
     this.template='null';
   }
   public ngOnInit() {
+    this.usuarioService.getHeaders().then(headers => {
+    return this.http.get('http://162.243.83.72:8080/items',{headers: headers}).toPromise();
+
+}).then(result => {
+  console.log(JSON.stringify(result.json()));
+  // handle result
+});
+
+
   }
 }

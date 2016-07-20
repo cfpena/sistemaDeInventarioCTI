@@ -61,9 +61,6 @@ export class LoginPage implements OnInit{
         data => this.authSuccess(data),
         err => this.errores.auth = 'Usuario o clave incorrectos'
       );
-
-
-
   }
   isLoggedIn(){
     return this.logged;
@@ -90,6 +87,7 @@ export class LoginPage implements OnInit{
     this.local.setJson('profile', data.json().data);
     this.user = data.json().data;
     this.nav.setRoot(PrincipalPage);
+    this.usuarioService.loggedIn = true;
 
   }
   ngOnInit() {

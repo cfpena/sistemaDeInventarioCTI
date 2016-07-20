@@ -7,6 +7,7 @@ import {Observable} from 'rxjs/Observable';
 
 
 
+
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -42,5 +43,20 @@ export class UsuarioService{
               );
 
   }
+  getHeaders() {
+  let headers = new Headers({
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  });
+  return this.local.get('token').then(res=>{
+    headers.append('access-token', JSON.parse(res)['access-token']);
+    headers.append('client', JSON.parse(res)['client']);
+    headers.append('uid', JSON.parse(res)['uid']);
+    return headers;
+  }, err=>{
+    headers.append('Authorization', '');
+    return headers;
+  });
+}
 
 }

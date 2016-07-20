@@ -56,27 +56,16 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
     });
 
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-/*
-    this.local.get('auth').then(auth => {
-      if(auth=='true') this.nav.setRoot(page.component);
-      else this.nav.setRoot(LoginPage);
 
-    }).catch(error => {
-      console.log(error);
-    }) ;*/
     this.nav.setRoot(page.component);
     if(page.component == LoginPage) this.usuarioService.logout();
   }
 }
 
-ionicBootstrap(MyApp);
+ionicBootstrap(MyApp,[UsuarioService]);
