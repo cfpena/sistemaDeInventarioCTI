@@ -11,6 +11,7 @@ export class ITEM {
   descripcion: string;
   @IsInt() cantidad: number;
   esDispositivo: boolean;
+  image: string;
 
   constructor( ) {
     this.id=0;
@@ -21,5 +22,6 @@ export class ITEM {
     this.descripcion='';
     this.cantidad=0;
     this.esDispositivo=true;
+    this.image='';
   }
 }

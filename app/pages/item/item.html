@@ -6,9 +6,9 @@
     <a href="#!" class="brand-logo">{{title}}</a>
   </div>
 </nav>
-
 <!--Tabla de ítems-->
 <ion-content>
+  <div *ngIf="template=='null'">
   <table  materialize class="centered table centered striped" style="font-size: 15px">
     <thead>
       <tr>
@@ -42,6 +42,7 @@
       </tr>
     </tbody>
   </table>
+</div>
 </ion-content>
 
 

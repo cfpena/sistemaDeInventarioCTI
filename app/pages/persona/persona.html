@@ -24,6 +24,7 @@ Ionic pages and navigation.
 
 <!--tabla de personas-->
 <ion-content>
+<div *ngIf="template=='null'">
   <table materialize class="centered table centered striped" style="font-size: 15px">
     <thead>
       <tr>
@@ -37,16 +38,11 @@ Ionic pages and navigation.
     <tbody>
       <!-- angular 2 for -->
       <tr *ngFor="let persona of personas">
-
         <td>
-
           <!-- evento change y atributo por defecto checked false, se agrega como id el id de la persona
           para luego saber que checkbox le pertenece a cada persona-->
           <input  [checked]="false" (change)="select(persona.id)" id="{{persona.id}}" type="checkbox" class="filled-in"/>
-
           <label  attr.for="{{persona.id}}"></label>
-
-
         </td>
         <td>{{persona.id}}</td>
         <td>{{persona.nombre}}</td>
@@ -55,9 +51,9 @@ Ionic pages and navigation.
           <a class="button-collapse" (click)="goModificar(persona.id)"><i class="material-icons left">mode_edit</i></a>
         </td>
       </tr>
-
     </tbody>
   </table>
+</div>
 </ion-content>
 <!--Boton flotante de opciones add, edit, delete-->
 <!-- if de angular, valida si se debe mostrar o no segun la variable template -->

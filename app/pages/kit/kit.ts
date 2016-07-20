@@ -2,39 +2,37 @@ import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {NavController, MenuController, Toast} from 'ionic-angular';
 import {ITEM} from '../item/item.model';
 import {MaterializeDirective} from "../../materialize-directive";
-
+import {Validator} from "validator.ts/Validator";
 import {Kit} from '../kit/kit.model';
 
 
 
 @Component({
-  templateUrl: 'build/pages/kit/kit.html'
+  templateUrl: 'build/pages/kit/kit.html',
+    directives: [MaterializeDirective],
 })
 export class KitPage implements OnInit{
 
 title: string ='Kits';
 ITEMS: ITEM[]=[
-  {id: 1,  codigo: '1234567890',  nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:20, esDispositivo:true},
-  {id: 2,  codigo: '1234456891',  nombre: 'Capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:70, esDispositivo:true},
-  {id: 3,  codigo: '0956787892',  nombre: 'Ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:16, esDispositivo:true}
+  {id: 1,  codigo: '1234567890',  nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:20, esDispositivo:true, image:''},
+  {id: 2,  codigo: '1234456891',  nombre: 'Capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:70, esDispositivo:true, image:''},
+  {id: 3,  codigo: '0956787892',  nombre: 'Ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:16, esDispositivo:true, image:''}
 
 ];
 KITS: Kit[]=[
-  {id: 1,  codigo: 'Kit001',  nombre: 'Kit 1',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, items: this.ITEMS},
-  {id: 2,  codigo: 'Kit002',  nombre: 'Kit 2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, items: this.ITEMS}
+  {id: 1,  codigo: 'Kit0000001',  nombre: 'Kit 1',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, items: this.ITEMS},
+  {id: 2,  codigo: 'Kit0000002',  nombre: 'Kit 2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, items: this.ITEMS}
   ]
 
 template: string = 'null';
 
 @Input()
-kitNuevo = {
-  id:10, codigo: '', nombre: "", marca:'', modelo:'',descripcion:"",cantidad:0, items: null
-}
+kitNuevo = new Kit();
+
 
 @Input()
-kitModificar= {
-  id:10, codigo: '', nombre: "", marca:'', modelo:'',descripcion:"",cantidad:0, items: null
-}
+kitModificar= new Kit();
 count=10;
 id=0;
 selected: number[]=[];
@@ -59,7 +57,10 @@ selected: number[]=[];
 
   //crea un kit
   crear(){
-    if (this.kitNuevo.codigo=='' || this.kitNuevo.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
+    let validator = new Validator();
+    console.log(JSON.stringify(validator.validate(this.kitNuevo)));
+    if(!validator.isValid(this.kitNuevo)) this.presentToast('Corrija el formulario');
+    else if (this.kitNuevo.codigo=='' || this.kitNuevo.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
    else if(this.kitNuevo.nombre=='') this.presentToast('Nombre vacio');
    else if(this.kitNuevo.descripcion=='') this.presentToast('Descripción vacio');
    else if(this.kitNuevo.marca=='') this.presentToast('Marca vacio');
@@ -69,9 +70,7 @@ selected: number[]=[];
     this.KITS.push(this.kitNuevo);
     this.template='null';
     this.count++;
-    this.kitNuevo = {
-      id:this.count, codigo: '', nombre: "", marca:'', modelo:'', descripcion:"" ,cantidad:0, items: ''
-    }
+    this.kitNuevo = new Kit();
   }
   }
 
@@ -83,7 +82,12 @@ selected: number[]=[];
 
   //modifica el usario
   modificar(){
-  if (this.kitModificar.codigo=='' || this.kitModificar.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
+
+    let validator = new Validator();
+
+    console.log(JSON.stringify(validator.validate(this.kitModificar)));
+    if(!validator.isValid(this.kitModificar)) this.presentToast('Corrija el formulario');
+    else if (this.kitModificar.codigo=='' || this.kitModificar.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
   else if(this.kitModificar.nombre=='') this.presentToast('Nombre vacio');
   else if(this.kitModificar.descripcion=='') this.presentToast('Descripción vacio');
   else if(this.kitModificar.marca=='') this.presentToast('Marca vacio');

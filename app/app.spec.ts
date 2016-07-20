@@ -10,6 +10,7 @@ import {LoginPage} from './pages/login/login';
 import {UsuarioPage} from './pages/usuario/usuario';
 import {PersonaPage} from './pages/persona/persona';
 import {InventarioPage} from './pages/inventario/inventario';
+import {KitPage} from './pages/kit/kit';
 
 // this needs doing _once_ for the entire test suite, hence it's here
 setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS);
@@ -28,6 +29,7 @@ let loginPage = null
 let usuarioPage = null;
 let personaPage = null;
 let inventarioPage = null;
+let kitPage = null;
 
 describe('Aplicacion principal', () => {
 
@@ -173,5 +175,76 @@ describe('Inventarios', () => {
     expect(inventarioPage.inventarios).toBeTruthy();
   });
 
+  it('ingresar inventario', () => {
+    let inventarios = inventarioPage.inventarios;
+    let inventarioNuevo = inventarioPage.inventarioNuevo;
+    inventarioNuevo =
+        {
+            id: 10,  fecha: '15/07/2016',
+            codigo:'0924268915', tipo:'Kit',
+            nombre: 'Arduino',  marca: 'Marca1',
+            modelo: 'Modelo1', detalle:'Ingreso por compra',
+            cantidad: 20, estado: 'disponible'
+
+          };
+    inventarios.push(inventarioNuevo);
+    let index = inventarios.length -1;
+    let inventario= inventarios[index];
+
+    expect(inventario.id).toBe(10);
+  });
+
 });
 
+describe('Kits', () => {
+
+  beforeEach(function() {
+
+    var http: Http;
+    var nav: NavController;
+    var menu: MenuController;
+    kitPage = new KitPage(nav,menu);
+  });
+
+  it('listar kits', () => {
+
+      expect(kitPage.KITS).toBeTruthy();
+  });
+
+  it('crear kits', () => {
+    let kits = kitPage.KITS;
+    let kitNuevo = kitPage.kitNuevo;
+    kitNuevo =
+        {id: 10,  codigo: 'Kit0000004',
+        nombre: 'Kit 4',  marca: 'Marca 4',
+        modelo: 'Modelo 4',  descripcion: 'kit 4 de marca 4 modelo 4',
+        cantidad:10, items: this.ITEMS=[
+          {id: 1,  codigo: '1234567890',  nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:20, esDispositivo:true, image:''},
+          {id: 2,  codigo: '1234456891',  nombre: 'Capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:70, esDispositivo:true, image:''},
+          {id: 3,  codigo: '0956787892',  nombre: 'Ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:16, esDispositivo:true, image:''}
+
+        ]
+          };
+    kits.push(kitNuevo);
+    let index = kits.length -1;
+    let kit= kits[index];
+
+    expect(kit.id).toBe(10);
+  });
+
+  it('eliminar kits', () => {
+    let kits = kitPage.KITS;
+    for (var index in kits){
+      kitPage.selected.push(index);
+    }
+    kitPage.eliminar();
+    expect(kits.length).toBe(0);
+  });
+  it('modificar kits', () => {
+    let kits = kitPage.KITS;
+    kitPage.id=10;
+    kitPage.kitModificar.codigo = 'Kit0000003';
+    expect(kitPage.kitModificar.codigo).toBe('Kit0000003');
+  });
+
+});

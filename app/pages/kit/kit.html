@@ -73,7 +73,7 @@
                 <!--primera columna-->
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*"  [(ngModel)]="kitNuevo.codigo">
+                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*[a-zA-Z]*"  [(ngModel)]="kitNuevo.codigo">
                   <label for="icon_codigo" >Código</label>
                 </div>
                 <div class="input-field">
@@ -125,7 +125,7 @@
                       <td>{{itemNuevo.codigo}}</td>
                       <td>{{itemNuevo.nombre}}</td>
                       <td class="center-align">
-                        <input class="mdl-textfield__input" type="text" id="cantidadItemNuevo">
+                        <input class="mdl-textfield__input" type="text" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" id="cantidadItemNuevo">
                       </td>
                     </tr>
                   </tbody>
