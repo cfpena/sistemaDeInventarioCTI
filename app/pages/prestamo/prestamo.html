@@ -9,223 +9,141 @@
 
 <!--tabla de personas-->
 <ion-content>
-  <table materialize class="centered table centered striped" style="font-size: 15px">
-    <thead>
-      <tr>
-        <th data-field="id">Identificacion</th>
-        <th data-field="nombre">Nombre Completo</th>
-        <th data-field="apellido">Cant. Items</th>
-        <th data-field="apellido">Fecha Prestamo</th>
-        <th data-field="apellido">Fecha Devolucion</th>
-        <th data-field="apellido">Devuelto</th>
-        <th><th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- angular 2 for -->
-      <tr >
-        <td>0920188855</td>
-        <td>Maria Pozo</td>
-        <td>5</td>
-        <td>05/06/2016</td>
-        <td>15/06/2016</td>
-        <td>
-          <input  [checked]="true" id="prestamo1" type="checkbox" class="filled-in"/>
-          <label  attr.for="prestamo1"></label>
-        </td>
-        <td>
-            <a class="button-collapse" (click)="goModificar()"><i class="material-icons left">mode_edit</i></a>
-        </td>
-      </tr>
 
-      <tr >
-        <td>0920188855</td>
-        <td>Maria Pozo</td>
-        <td>3</td>
-        <td>02/07/2016</td>
-        <td>12/07/2016</td>
-        <td>
-          <input  [checked]="false" id="prestamo2" type="checkbox" class="filled-in"/>
-          <label  attr.for="prestamo2"></label>
-        </td>
-        <td>
-            <a class="button-collapse" (click)="goModificar()"><i class="material-icons left">mode_edit</i></a>
-        </td>
-      </tr>
+  <div *ngIf="template=='null'">
+    <table materialize class="centered table centered striped" style="font-size: 15px">
+      <thead>
+        <tr>
+          <th data-field="id">Identificacion</th>
+          <th data-field="nombre">Nombre Completo</th>
+          <th data-field="apellido">Cant. Items</th>
+          <th data-field="apellido">Fecha Prestamo</th>
+          <th data-field="apellido">Fecha Devolucion</th>
+          <th data-field="apellido">Devuelto</th>
+          <th><th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- angular 2 for -->
+          <tr >
+            <td>0920188855</td>
+            <td>Maria Pozo</td>
+            <td>5</td>
+            <td>05/06/2016</td>
+            <td>15/06/2016</td>
+            <td>
+              <input  [checked]="true" id="prestamo1" type="checkbox" class="filled-in"/>
+              <label  attr.for="prestamo1"></label>
+            </td>
+            <td>
+              <a class="button-collapse" (click)="goModificar()"><i class="material-icons left">mode_edit</i></a>
+            </td>
+          </tr>
+          <tr >
+            <td>0920188855</td>
+            <td>Maria Pozo</td>
+            <td>3</td>
+            <td>02/07/2016</td>
+            <td>12/07/2016</td>
+            <td>
+              <input  [checked]="false" id="prestamo2" type="checkbox" class="filled-in"/>
+              <label  attr.for="prestamo2"></label>
+            </td>
+            <td>
+              <a class="button-collapse" (click)="goModificar()"><i class="material-icons left">mode_edit</i></a>
+            </td>
+          </tr>
 
-      <tr >
-        <td>0956123456</td>
-        <td>Janina Costa</td>
-        <td>8</td>
-        <td>03/07/2016</td>
-        <td>10/07/2016</td>
-        <td>
-          <input  [checked]="false" id="prestamo3" type="checkbox" class="filled-in"/>
-          <label  attr.for="prestamo3"></label>
-        </td>
-        <td>
-            <a class="button-collapse" (click)="goModificar()"><i class="material-icons left">mode_edit</i></a>
-        </td>
-      </tr>
+          <tr >
+            <td>0956123456</td>
+            <td>Janina Costa</td>
+            <td>8</td>
+            <td>03/07/2016</td>
+            <td>10/07/2016</td>
+            <td>
+              <input  [checked]="false" id="prestamo3" type="checkbox" class="filled-in"/>
+              <label  attr.for="prestamo3"></label>
+            </td>
+            <td>
+              <a class="button-collapse" (click)="goModificar()"><i class="material-icons left">mode_edit</i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ion-content>
 
-    </tbody>
-  </table>
-</ion-content>
-
-<!--Botones-->
-<div *ngIf="template=='null'">
-  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large orange darken-1">
-      <i class="large material-icons">settings</i>
-    </a>
-    <ul>
-      <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
-      <li><a (click)="goCrear()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
-    </ul>
+  <!--Botones-->
+  <div *ngIf="template=='null'">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a class="btn-floating btn-large orange darken-1">
+        <i class="large material-icons">settings</i>
+      </a>
+      <ul>
+        <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
+        <li><a (click)="goCrear()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
+      </ul>
+    </div>
   </div>
-</div>
 
-<!--Nuevo prestamo-->
-<div *ngIf="template=='crear'" style="overflow: scroll;">
-    <div id="nuevo_prestamo" class="section">
-      <div class="container">
-        <div class="card-panel hoverable card-action white">
+  <!--Nuevo prestamo-->
+  <div *ngIf="template=='crear'" style="overflow: scroll;">
+    <div id="prestamo_nuevo" class="section" >
+      <div class="container" style="padding-top: 10px">
+        <!--contenedor-->
           <div class="row">
-            <form class="col s12 m12 l12 ">
-              <span>Nueva Prestamo</span>
-              <div class="row">
-                <hr>
-                <div class="col s12 m6 l6">
-                  <!--primera columna-->
-                  <div class="input-field">
-                    <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_descripcion" type="tel" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" >
-                    <label for="icon_descripcion">Cedula</label>
+            <div class="col s12 m5 l7 offset-l3">
+              <div class=" card-panel blue-grey darken-2">
+                <span class="white-text" style="font-size: 17px">Buscar Persona</span>
+                <p class="center">
+                  <input class="with-gap" name="group1" type="radio" id="test1" checked="checked"/>
+                  <label class="white-text" for="test1">Cédula</label>
+                  <input class=" with-gap while" name="group1" type="radio" id="test2" checked="checked"/>
+                  <label class="white-text while" for="test2">Nombre</label>
+                </p>
+                <div class="row">
+                  <div class="col l9">
+                      <input id="icon_nombre" type="text" class="input-field validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*">
                   </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">account_box</i>
-                    <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" >
-                    <label for="icon_descripcion">Nombre</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">account_box</i>
-                    <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" >
-                    <label for="icon_descripcion">Apellido</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">email</i>
-                    <input id="icon_descripcion" type="tel" class="validate"  >
-                    <label for="icon_descripcion">Correo</label>
+                  <div class="col l3">
+                    <div class="card-action">
+                      <a (click)="buscarxSerie()" class="btn waves-effect waves-light center"  style="font-size: 17px">
+                        <i class="material-icons right">search</i>
+                      </a>
+                    </div>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <div class="card-content black-text">
+              <!--<span class="card-title">Préstamo Nuevo</span>-->
+              <div class="row">
                 <div class="col s12 m6 l6">
-                  <!--segunda columna-->
                   <div class="input-field ">
                     <i class="material-icons prefix">label_outline</i>
-                    <select materialize="material_select" [materializeSelectOptions]="selectOptions">
-                        <option *ngFor="let funcion of funcions" [value]="funcion">{{funcion}}</option>
-                    </select>
+                    <input id="icon_marca" type="tel" class="validate"  minlength="5" maxlength="10"  >
+                    <label for="icon_marca">Marca</label>
                   </div>
                   <div class="input-field">
-                    <i class="material-icons prefix">call</i>
-                    <input id="icon_modelo" type="tel" class="validate" minlength="7" maxlength="7" pattern = "[0-9]*" >
-                    <label for="icon_modelo">Teléfono</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">stay_current_portrait</i>
-                    <input id="icon_observaciones" type="tel" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*" >
-                    <label for="icon_observaciones">Celular</label>
-                  </div><div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <select materialize="material_select" [materializeSelectOptions]="selectOptions" >
-                        <option *ngFor="let genero of generos" [value]="genero">{{genero}}</option>
-                    </select>
+                    <input id="icon_modelo" type="tel" class="validate"  minlength="5" maxlength="10"  >
+                    <label for="icon_modelo">Modelo</label>
+                  </div>
+                  <div class="input-field">
+                    <i class="material-icons prefix">label_outline</i>
+                    <input id="icon_cantidad" type="tel" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" >
+                    <label for="icon_cantidad">Cantidad</label>
                   </div>
                 </div>
-
-                <div class="col s12">
-                  <span class="card-title">Agregar items:</span>
-                  <div class="row">
-                    <hr>
-                    <div class="col s12 m6 l6">
-                      <div class="input-field">
-                        <i class="material-icons prefix">label_outline</i>
-                        <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" >
-                        <label for="icon_codigo" >Código</label>
-                      </div>
-                      <div class="input-field">
-                        <i class="material-icons prefix">label_outline</i>
-                        <input id="icon_serie" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-Z]*"  >
-                        <label for="icon_serie" >Serie</label>
-                      </div>
-                    </div>
-                    <div class="col  s12 m6 l6">
-
-                      <div class="card-action">
-                        <a (click)="buscarxSerie()" class="btn waves-effect waves-light center"  style="font-size: 17px">
-                          <i class="material-icons right">search</i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class= "col s12">
-                  <table  materialize class="centered table centered striped" style="font-size: 15px">
-                    <thead>
-                      <tr>
-                        <th data-field="id">Código</th>
-                        <th data-field="nombre">Nombre</th>
-                        <th data-field="marca">Marca</th>
-                        <th data-field="modelo">Modelo</th>
-                        <th data-field="cantidad">Cantidad</th>
-                        <th data-field="cantidad">Serie</th>
-
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td >0001221112</td>
-                        <td>Resistencia 1</td>
-                        <td>Marca 1</td>
-                        <td>Modelo 1</td>
-                        <td>
-                          <input id="icon_cantidad" type="text" class="validate" minlength="2" maxlength="30" pattern = "[0-9]*" value="50" >
-
-                        </td>
-                        <td>
-                            <input id="icon_seriea" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-Z]*" disabled >
-
-                        </td>
-                      </tr>
-                      <tr>
-                        <td >0001221112</td>
-                        <td>Tarjeta 1</td>
-                        <td>Marca 2</td>
-                        <td>Modelo 1</td>
-                        <td>
-                          <div class="input-field">
-                          <input id="icon_cantidad2" type="text" class="validate" minlength="2" maxlength="30" pattern = "[0-9]*" value="1" disabled>
-                        </div>
-                        </td>
-                        <td>
-                          <div class="input-field">
-                            <input id="icon_serie2" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-Z]*" value = "ASD123ASD123" >
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
               </div>
-              <div class="card-action">
-                <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
-                  <i class="material-icons right">send</i>
-                </a>
-              </div>
-            </form>
-          </div>
-        </div>
+            </div>
+            <div class="card-action">
+              <a class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
+                <i class="material-icons right">send</i>
+              </a>
+            </div>
+          </div> <!--fin contenedor-->
       </div>
       <div class="section">
         <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
@@ -235,3 +153,4 @@
         </div>
       </div>
     </div>
+      </div>

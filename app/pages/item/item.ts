@@ -1,8 +1,9 @@
 import {Component,  OnInit, Input, ViewChild } from '@angular/core';
-import {NavController, MenuController, Toast} from 'ionic-angular';
+import {NavController, MenuController, Toast, Modal } from 'ionic-angular';
 import {ITEM} from './item.model';
 import {MaterializeDirective} from "../../materialize-directive";
 import {Validator} from "validator.ts/Validator";
+
 
 @Component({
   templateUrl: 'build/pages/item/item.html',
@@ -45,6 +46,7 @@ export class ItemPage implements OnInit {
   });
     this.navController.present(toast);
   }
+
 
 
   //crea un item
