@@ -22,6 +22,5 @@ constructor( ) {
   this.modelo='';
   this.descripcion='';
   this.cantidad=0;
-  this.items=null;
 }
 }
