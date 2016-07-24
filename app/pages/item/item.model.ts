@@ -21,7 +21,7 @@ export class ITEM {
     this.modelo='';
     this.descripcion='';
     this.cantidad=0;
-    this.esDispositivo=true;
+    this.esDispositivo=false;
     this.image='';
   }
 }

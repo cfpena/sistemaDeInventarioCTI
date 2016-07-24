@@ -60,16 +60,15 @@
   </div>
 </div>
 <style>
-  #demoModal{
-    width:400px;
-    height:400px;
-  }
-  #img{
-    width:800;
-    margin:0 auto;
-  }
+#demoModal{
+  width:400px;
+  height:400px;
+}
+#img{
+  width:800;
+  margin:0 auto;
+}
 </style>
-
 <!--Botón flotante para eliminar y agregar nuevo ítem-->
 <div *ngIf="template=='null'">
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
@@ -82,55 +81,79 @@
     </ul>
   </div>
 </div>
+<!--Layout para crear un nuevo ítem-->
 <div *ngIf="template=='crear'" style="overflow: scroll;">
-  <div id="nuevo_item" class="section" >
-    <div class="container" style="padding-top: 50px">
+  <div id="nuevo_item" class="section">
+    <div class="container" style="padding-top: 90px">
       <div class="row">
-        <!--<form class="col s12 m12 l12 ">-->
         <div class="card-panel hoverable card-action white">
           <div class="card-content black-text">
-            <span class="card-title">Nuevo Ítem</span>
-            <p class="center">
-              <input class="with-gap" name="group1" type="radio" id="test1"  onclick="icon_marca.disabled = true; icon_modelo.disabled = true;" />
-              <label for="test1">Elemento</label>
-              <input class="with-gap" name="group1" type="radio" id="test2" checked="checked" onclick="icon_marca.disabled = false; icon_modelo.disabled = false;" [(ngModel)]="itemNuevo.esDispositivo"/>
-              <label for="test2">Dispositivo</label>
-            </p>
+            <span class="card-title " style="font-size: 30px">Nuevo Ítem</span>
+            <!--Botón para subir foto-->
+            <div class="row">
+              <div class="col l3 m3 s12 offset-l9 offset-m9">
+                <form action="#">
+                  <div class="file-field input-field">
+                    <div class="btn">
+                      <span>Foto</span>
+                      <input type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text" [(ngModel)]="itemNuevo.image">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!--campos de texto codigo , nombre, descripción, marca, modelo, cantidad-->
             <div class="row">
               <div class="col s12 m6 l6">
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
                   <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="itemNuevo.codigo" >
-                  <label for="icon_codigo">Código</label>
+                  <label for="icon_codigo"> *  Código</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
                   <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="itemNuevo.nombre">
-                  <label for="icon_nombre">Nombre</label>
+                  <label for="icon_nombre"> *  Nombre</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
                   <input id="icon_descripcion" type="text" class="validate" minlength="5" maxlength="30"  [(ngModel)]="itemNuevo.descripcion">
-                  <label for="icon_descripcion">Descripción</label>
+                  <label for="icon_descripcion"> *  Descripción</label>
                 </div>
               </div>
               <div class="col s12 m6 l6">
-
                 <div class="input-field ">
                   <i class="material-icons prefix">label_outline</i>
                   <input id="icon_marca" type="tel" class="validate"  minlength="5" maxlength="10"  [(ngModel)]="itemNuevo.marca" >
-                  <label for="icon_marca">Marca</label>
+                  <label for="icon_marca">   Marca</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
                   <input id="icon_modelo" type="tel" class="validate"  minlength="5" maxlength="10"  [(ngModel)]="itemNuevo.modelo">
-                  <label for="icon_modelo">Modelo</label>
+                  <label for="icon_modelo">   Modelo</label>
                 </div>
-                <div class="input-field">
-                  <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_cantidad" type="tel" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" [(ngModel)]="itemNuevo.cantidad">
-                  <label for="icon_cantidad">Cantidad</label>
+                <div class="row">
+                  <div class="col l5 m5 s12">
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_cantidad" type="tel" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" [(ngModel)]="itemNuevo.cantidad">
+                      <label for="icon_cantidad"> *  Cantidad</label>
+                    </div>
+                  </div>
+                  <div class="col l3 m6 s11 offset-l1 offset-m1 offset-s1">
+                    <form action="#">
+                      <p>
+                        <input type="checkbox" id="test5" [(ngModel)]="itemNuevo.esDispositivo" />
+                        <label for="test5">Dispositivo</label>
+                      </p>
+                    </form>
+                  </div>
+
                 </div>
+
               </div>
             </div>
           </div>
@@ -138,9 +161,9 @@
             <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
               <i class="material-icons right">send</i>
             </a>
+            <h6>(*) Campos obligatorios</h6>
           </div>
         </div>
-        <!--</form>-->
       </div>
     </div>
   </div>
@@ -153,41 +176,52 @@
   </div>
 </div>
 
+
 <div *ngIf="template=='modificar'" style="overflow: scroll;">
   <!--modificar item-->
-  <div id="nuevo_item" class="section" >
-    <div class="container" style="padding-top: 50px">
+  <div id="modificar_item" class="section" >
+    <div class="container" style="padding-top: 90px">
       <div class="row">
-        <!--<form class="col s12 m12 l12 ">-->
         <div class="card-panel hoverable card-action white">
           <div class="card-content black-text">
-            <span class="card-title">Modificar Ítem</span>
-            <p class="center">
-              <input class="with-gap" name="group1" type="radio" id="test1"  onclick="icon_marca.disabled = true; icon_modelo.disabled = true;"/>
-              <label for="test1">Elemento</label>
-              <input class="with-gap" name="group1" type="radio" id="test2" checked="checked" onclick="icon_marca.disabled = false; icon_modelo.disabled = false;" [(ngModel)]="itemModificar.esDispositivo"/>
-              <label for="test2">Dispositivo</label>
-            </p>
+            <span class="card-title" style="font-size: 30px">Modificar Ítem</span>
+            <div style="padding-top: 18px"></div> <!--para separar el titulo de los inputs"-->
+            <!--Botón para subir foto-->
+            <div class="row">
+              <div class="col l3 m3 s12 offset-l9 offset-m9">
+                <form action="#">
+                  <div class="file-field input-field">
+                    <div class="btn">
+                      <span>Foto</span>
+                      <input type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text" [(ngModel)]="itemModificar.image">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
             <div class="row">
               <div class="col s12 m6 l6">
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
                   <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="itemModificar.codigo" >
-                  <label for="icon_codigo" class="active" >Código</label>
+                  <label for="icon_codigo" class="active"> *  Código</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
                   <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="itemModificar.nombre">
-                  <label for="icon_nombre" class="active">Nombre</label>
+                  <label for="icon_nombre" class="active"> * Nombre</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
                   <input id="icon_descripcion" type="text" class="validate" minlength="5" maxlength="30"  [(ngModel)]="itemModificar.descripcion">
-                  <label for="icon_descripcion" class="active">Descripción</label>
+                  <label for="icon_descripcion" class="active"> *  Descripción</label>
                 </div>
               </div>
               <div class="col s12 m6 l6">
-
                 <div class="input-field ">
                   <i class="material-icons prefix">label_outline</i>
                   <input id="icon_marca" type="tel" class="validate"  minlength="5" maxlength="10"  [(ngModel)]="itemModificar.marca" >
@@ -198,10 +232,22 @@
                   <input id="icon_modelo" type="tel" class="validate"  minlength="5" maxlength="10"  [(ngModel)]="itemModificar.modelo">
                   <label for="icon_modelo" class="active">Modelo</label>
                 </div>
-                <div class="input-field">
-                  <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_cantidad" type="tel" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" [(ngModel)]="itemModificar.cantidad">
-                  <label for="icon_cantidad" class="active">Cantidad</label>
+                <div class="row">
+                  <div class="col l6 m6 s12">
+                    <div class="input-field">
+                      <i class="material-icons prefix">label_outline</i>
+                      <input id="icon_cantidad" type="tel" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" [(ngModel)]="itemModificar.cantidad">
+                      <label for="icon_cantidad" class="active"> *  Cantidad</label>
+                    </div>
+                  </div>
+                  <div class="col l6 m6 s11 offset-s1">
+                    <form action="#">
+                      <p>
+                        <input type="checkbox" id="test01" [(ngModel)]="itemModificar.esDispositivo"/>
+                        <label for="test01">Dispositivo</label>
+                      </p>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
@@ -210,6 +256,7 @@
             <a (click)="modificar()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
               <i class="material-icons right">send</i>
             </a>
+            <h6>(*) Campos obligatorios</h6>
           </div>
         </div>
         <!--</form>-->

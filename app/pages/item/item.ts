@@ -47,8 +47,6 @@ export class ItemPage implements OnInit {
     this.navController.present(toast);
   }
 
-
-
   //crea un item
   crear(){
     let validator = new Validator();
@@ -57,8 +55,8 @@ export class ItemPage implements OnInit {
    else if (this.itemNuevo.codigo=='' || this.itemNuevo.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
    else if(this.itemNuevo.nombre=='') this.presentToast('Nombre vacio');
    else if(this.itemNuevo.descripcion=='') this.presentToast('Descripción vacio');
-   else if(this.itemNuevo.marca=='') this.presentToast('Marca vacio');
-   else if(this.itemNuevo.modelo=='') this.presentToast('Modelo vacio');
+   //else if(this.itemNuevo.marca=='') this.presentToast('Marca vacio');
+   //else if(this.itemNuevo.modelo=='') this.presentToast('Modelo vacio');
    else if(this.itemNuevo.cantidad < 1 || this.itemNuevo.cantidad > 50 || this.itemNuevo.cantidad==0) this.presentToast('Cantidad mínima 1 máximo 50');
 
    else{
@@ -77,15 +75,16 @@ goModificar(id: string){
 
 //modifica el usario
 modificar(){
-  let validator = new Validator();
-  console.log(JSON.stringify(validator.validate(this.itemModificar)));
-  if(!validator.isValid(this.itemModificar)) this.presentToast('Corrija el formulario');
+ let validator = new Validator();
+ console.log(JSON.stringify(validator.validate(this.itemModificar)));
+ if(!validator.isValid(this.itemModificar)) this.presentToast('Corrija el formulario');
  else if (this.itemModificar.codigo=='' || this.itemModificar.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
  else if(this.itemModificar.nombre=='') this.presentToast('Nombre vacio');
  else if(this.itemModificar.descripcion=='') this.presentToast('Descripción vacio');
- else if(this.itemModificar.marca=='') this.presentToast('Marca vacio');
- else if(this.itemModificar.modelo=='') this.presentToast('Modelo vacio');
+ //else if(this.itemModificar.marca=='') this.presentToast('Marca vacio');
+ //else if(this.itemModificar.modelo=='') this.presentToast('Modelo vacio');
  else if(this.itemModificar.cantidad < 1 || this.itemModificar.cantidad > 50 || this.itemModificar.cantidad==0) this.presentToast('Cantidad mínima 1 máximo 50');
+
  else{
 let index =this.items.findIndex(item => item.id == this.id);
 this.items[index] =JSON.parse(JSON.stringify(this.itemModificar));
@@ -112,8 +111,8 @@ select(id: any){
     console.log(this.selected);
 }
 
-  goCrearItem(){
-    this.template='crear';
+goCrearItem(){
+  this.template='crear';
   }
 
 cancelar(){
