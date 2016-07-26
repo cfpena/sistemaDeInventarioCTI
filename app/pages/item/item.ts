@@ -26,6 +26,7 @@ export class ItemPage implements OnInit {
 
   count=10;
   id=0;
+  
   selected: number[]=[];
 
   constructor( private navController:NavController,private menu: MenuController){
