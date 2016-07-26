@@ -21,7 +21,31 @@ Ionic pages and navigation.
     <a href="#!" class="brand-logo">{{title}}</a>
   </div>
 </nav>
+<div class="row">
+  <div class="col l11 m12 s11">
+<div class="input-field">
 
+  <i class="material-icons prefix">account_box</i>
+  <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+    <option *ngFor="let tiposIdentificacion of tiposIdentificaciones" [value]="tiposIdentificacion">{{tiposIdentificacion}}</option>
+  </select>
+</div>
+
+</div>
+<div class="row">
+  <div class="col l8 m9 s8">
+    <div class="input-field">
+      <i class="material-icons prefix">account_box</i>
+      <input type="text" id="identificacion">
+      <label class="black-text" for="identificacion" class="active">Identificación</label>
+    </div>
+  </div>
+
+  <div class="col l3 m3 s3" style="padding-top: 22px">
+    <a class="waves-effect waves-light btn"><i class="material-icons center ">search</i></a>
+  </div>
+    </div>
+</div>
 <!--tabla de personas-->
 <ion-content>
 <div *ngIf="template=='null'">

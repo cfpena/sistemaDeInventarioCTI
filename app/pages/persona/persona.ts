@@ -42,7 +42,8 @@ export class PersonaPage implements OnInit {
   id=0;
   //lista de ids seleccionados por el checkbox
   selected: number[]=[];
-
+  tiposIdentificaciones = ['Tipo de Identificación...', 'cédula', 'nombre'];
+  tiposBusquedas = ['Buscar por...', 'cédula', 'nombre'];
   generos = ['Elija un genero...','Femenino','Masculino'];
   funcions = ['Elija una funcion...','Natural','Profesor','Estudiante','Ayudante'];
 
