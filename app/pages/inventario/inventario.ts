@@ -14,9 +14,9 @@ export class InventarioPage implements OnInit{
     title: string ='Inventario';
 
     inventarios: Inventario[]=[
-      {id: 1, fecha:'05/07/16', codigo: '1234567890', tipo:'item', nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  detalle: 'Ingreso nuevo', estado:'disponible' ,cantidad:20},
-      {id: 2, fecha:'08/07/16', codigo: '1234456891', tipo:'kit', nombre: 'Arduino',  marca: 'Marca 2',  modelo: 'Modelo 2',  detalle: 'Ingreso nuevo',estado:'disponible' ,  cantidad:40},
-      {id: 3, fecha:'10/07/16', codigo: '0956787892', tipo:'item',  nombre: 'Capacitor',  marca: 'Marca 3',  modelo: 'Modelo 3',  detalle: 'Ingreso nuevo', estado:'no disponible' , cantidad:20}
+      {id: 1, fecha:'05/07/16', codigo: '1234567890', tipo:'item', nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  detalle: 'Ingreso nuevo', estado:'disponible' ,cantidad:20, busqueda:'',inputbusqueda: '' },
+      {id: 2, fecha:'08/07/16', codigo: '1234456891', tipo:'kit', nombre: 'Arduino',  marca: 'Marca 2',  modelo: 'Modelo 2',  detalle: 'Ingreso nuevo',estado:'disponible' ,  cantidad:40, busqueda:'',inputbusqueda: ''},
+      {id: 3, fecha:'10/07/16', codigo: '0956787892', tipo:'item',  nombre: 'Capacitor',  marca: 'Marca 3',  modelo: 'Modelo 3',  detalle: 'Ingreso nuevo', estado:'no disponible' , cantidad:20,  busqueda:'',inputbusqueda: ''}
     ];
 
     template: string = 'null';
@@ -32,6 +32,7 @@ export class InventarioPage implements OnInit{
     selected: number[]=[];
     tipos = ['Elija tipo','ítem','kit'];
     estados = ['Elija un estado...','disponible','no disponible'];
+    tiposBusquedas = ['Buscar por...', 'código', 'nombre'];
 
     constructor( private navController:NavController,private menu: MenuController){
     }

@@ -11,73 +11,73 @@ Ionic pages and navigation.
   </div>
 </nav>
 
+
 <!--Tabla de ínventario-->
 <ion-content>
   <div *ngIf="template=='null'">
-
     <!--Boton de busqueda por codigo o nombre-->
-    <div class="container row">
-      <div class="col s12 m6 l6 offset-m3 offset-l3">
-        <p class="center">
-          <input class="with-gap" name="group1" type="radio" id="test1"  />
-          <label for="test1"> Nombre</label>
-          <input class="with-gap" name="group1" type="radio" id="test2" checked="checked"/>
-          <label for="test2">Código</label>
-        </p>
+    <div class="row">
+      <div class="col l4 m4 s12 offset-l4 offset-m4">
+        <div class="input-field">
+          <i class="material-icons prefix">account_box</i>
+          <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+            <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda">{{tiposBusqueda}}</option>
+          </select>
         </div>
-        <div class="row">
-          <div class="col s10 m2 l2 offset-l5 offset-m5">
-            <div class=" input-field">
-              <input id="buscar" type="text" class="center validate" minlength="10" maxlength="15" >
-            </div>
-          </div>
-          <div class="col s2 m4 l4" >
-            <a class="btn-floating"><i class="material-icons">search</i></a>
-          </div>
-        </div>
+      </div>
     </div>
+    <div class="row">
+      <div class="col l3 m3 s6 offset-l4 offset-m4">
+        <div class="input-field">
+          <i class="material-icons prefix">account_box</i>
+          <input type="text" id="identificacion">
+          <label class="black-text" for="identificacion" class="active">Identificación</label>
+        </div>
+      </div>
+      <div class="col l1 m1 s6" style="padding-top: 24px">
+        <a class="waves-effect waves-light btn"><i class="material-icons right ">search</i></a>
+      </div>
+    </div>
+  <!--Tabla de inventario-->
+  <table  materialize class="centered table centered striped" style="font-size: 15px">
+    <thead>
+      <tr>
+        <th data-field="fecha">Fecha</th>
+        <th data-field="id">Código</th>
+        <th data-field="tipo">Tipo</th>
+        <th data-field="tipo">Detalle</th>
+        <th data-field="nombre">Nombre</th>
+        <th data-field="marca">Marca</th>
+        <th data-field="modelo">Modelo</th>
+        <th data-field="descripcion">Estado</th>
+        <th data-field="cantidad">Cantidad</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
 
-    <!--Tabla de inventario-->
-    <table  materialize class="centered table centered striped" style="font-size: 15px">
-      <thead>
-        <tr>
+      <tr *ngFor = "let inventario of inventarios">
+        <!--<td>
+        <input  [checked]="false" (change)="select(inventario.id)" id="{{inventario.id}}" type="checkbox" class="filled-in"/>
+        <label  attr.for="{{inventario.id}}"></label>
+      </td>-->
 
-          <th data-field="fecha">Fecha</th>
-          <th data-field="id">Código</th>
-          <th data-field="tipo">Tipo</th>
-          <th data-field="tipo">Detalle</th>
-          <th data-field="nombre">Nombre</th>
-          <th data-field="marca">Marca</th>
-          <th data-field="modelo">Modelo</th>
-          <th data-field="descripcion">Estado</th>
-          <th data-field="cantidad">Cantidad</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-
-        <tr *ngFor = "let inventario of inventarios">
-          <!--<td>
-            <input  [checked]="false" (change)="select(inventario.id)" id="{{inventario.id}}" type="checkbox" class="filled-in"/>
-            <label  attr.for="{{inventario.id}}"></label>
-          </td>-->
-
-          <td >{{inventario.fecha}}</td>
-          <td >{{inventario.codigo}}</td>
-          <td>{{inventario.tipo}}</td>
-          <td>{{inventario.detalle}}</td>
-          <td>{{inventario.nombre}}</td>
-          <td>{{inventario.marca}}</td>
-          <td>{{inventario.modelo}}</td>
-          <td>{{inventario.estado}}</td>
-          <td>{{inventario.cantidad}}</td>
-          <td>
-            <a (click)="goSalida(inventario.id)" class="button-collapse "><i class="material-icons left ">unarchive</i></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+      <td >{{inventario.fecha}}</td>
+      <td >{{inventario.codigo}}</td>
+      <td>{{inventario.tipo}}</td>
+      <td>{{inventario.detalle}}</td>
+      <td>{{inventario.nombre}}</td>
+      <td>{{inventario.marca}}</td>
+      <td>{{inventario.modelo}}</td>
+      <td>{{inventario.estado}}</td>
+      <td>{{inventario.cantidad}}</td>
+      <td>
+        <a (click)="goSalida(inventario.id)" class="button-collapse "><i class="material-icons left ">unarchive</i></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
 </ion-content>
 
 

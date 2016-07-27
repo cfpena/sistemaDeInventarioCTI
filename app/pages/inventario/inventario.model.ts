@@ -13,6 +13,8 @@ export class Inventario {
   detalle: string;
   @IsInt() cantidad: number;
   estado: string;
+  busqueda: string; //busqueda por código o nombre
+  inputbusqueda: string;
   //esDispositivo: boolean;
 
   constructor( ) {
@@ -26,6 +28,8 @@ export class Inventario {
     this.detalle='';
     this.cantidad=0;
     this.estado='';
+    this.busqueda='';
+    this.inputbusqueda='';
     //this.esDispositivo=true;
   }
 }
