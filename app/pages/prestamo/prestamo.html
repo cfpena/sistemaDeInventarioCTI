@@ -7,6 +7,31 @@
   </div>
 </nav>
 
+<!--Búsqueda por codigo o nombre-->
+<div class="row"  *ngIf="template=='null'" >
+  <div class="col l11 m12 s11">
+    <div class="input-field">
+      <i class="material-icons prefix">account_box</i>
+      <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+        <option *ngFor="let busquedaTablaPrestamo of busquedaTablaPrestamos" [value]="busquedaTablaPrestamo">{{busquedaTablaPrestamo}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col l8 m9 s8">
+      <div class="input-field">
+        <i class="material-icons prefix">account_box</i>
+        <input type="text" id="identificacion">
+        <label class="black-text" for="identificacion" class="active">Búsqueda</label>
+      </div>
+    </div>
+    <div class="col l3 m3 s3" style="padding-top: 22px">
+      <a class="waves-effect waves-light btn"><i class="material-icons center ">search</i></a>
+    </div>
+  </div>
+</div>
+
+
 <!--tabla de personas-->
 <div *ngIf="template=='null'">
   <table materialize class="centered table centered striped" style="font-size: 15px">

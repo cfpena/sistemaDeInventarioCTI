@@ -52,6 +52,7 @@ export class PrestamoPage implements OnInit{
   selected: number[]=[];
   tiposIdentificaciones = ['Tipo de Identificación...', 'cédula', 'nombre'];
   tiposBusquedas = ['Buscar por...', 'código', 'nombre'];
+  busquedaTablaPrestamos = ['Buscar por...', 'nombre de persona', 'cédula de persona', 'nombre de item','código de item'];
 
 
 
