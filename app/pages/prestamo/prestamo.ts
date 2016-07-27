@@ -2,34 +2,32 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { NavController, MenuController , Toast } from 'ionic-angular';
 import {ITEM} from '../item/item.model';
 import {Kit} from '../kit/kit.model';
-import {Persona} from '../persona/persona.model';
+import {Prestamo} from '../prestamo/prestamo.model';
 import {MaterializeDirective} from "../../materialize-directive";
+import {DatePicker} from 'ionic-native';
 
-
-
-
-/*
-  Generated class for the PrestamoPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   templateUrl: 'build/pages/prestamo/prestamo.html',
   directives: [MaterializeDirective],
 })
-export class PrestamoPage {
+export class PrestamoPage implements OnInit{
   /*
   items = ITEMS;
   kits = KITS;*/
-title: string ='Prestamos';
-  generos = ['Elija un genero...','Femenino','Masculino'];
-  funcions = ['Elija una funcion...','Natural','Profesor','Estudiante','Ayudante'];
+  title: string ='Prestamos';
+
+  prestamos: Prestamo[] = [
+    {id: 1, typeIdentificacion: 'cedula', inputIdentificacion:"", busqueda:'código', inputbusqueda:''},
+    {id: 2, typeIdentificacion: 'nombre', inputIdentificacion:"", busqueda:'nombre', inputbusqueda:''},
+  ];
+
+
+
   template: string = 'null';
 
   @Input()
-  persona = {
-    id:10, cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",celular:'',genero:''
+  prestamoNuevo = {
+    id:10, typeIdentificacion: '',inputIdentificacion: '', busqueda: "", inputbusqueda:''
   }
   constructor(private _navController:NavController,private menu: MenuController) {}
   openMenu(){
@@ -41,32 +39,37 @@ title: string ='Prestamos';
   goModificar(id: string){
     this.template='modificar'
   }
-  
+
   cancelar(){
     this.template='null';
   }
 
-}
-/*
-const listaItems1: ITEM[]=[
-  {id: 1,  codigo: 'Item001',  nombre: 'Item 1',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, esDispositivo: true},
-  {id: 2,  codigo: 'Item002',  nombre: 'Item 2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, esDispositivo: true}
+  //variable para asignar id incremental para personas locales
+  count=10;
+  //usado para mantener el id del prestamo que se esta modificando o eliminando
+  id=0;
+  //lista de ids seleccionados por el checkbox
+  selected: number[]=[];
+  tiposIdentificaciones = ['Tipo de Identificación...', 'cédula', 'nombre'];
+  tiposBusquedas = ['Buscar por...', 'código', 'nombre'];
+  busquedaTablaPrestamos = ['Buscar por...', 'nombre de persona', 'cédula de persona', 'nombre de item','código de item'];
 
-]
 
-const listaItems2: ITEM[]=[
-  {id: 3,  codigo: 'Item003',  nombre: 'Item 3',  marca: 'Marca 2',  modelo: 'Modelo 3',  descripcion: ' ', cantidad:15,esDispositivo: false}
-]*/
 
-/*
-const KITS: Kit[]=[
-  {id: 1,  codigo: 'Kit001',  nombre: 'Kit 1',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, items: listaItems1, observaciones:''},
-  {id: 2,  codigo: 'Kit002',  nombre: 'Kit 2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, items: listaItems2, observaciones:''}
-  ]
 
-const ITEMS: ITEM[]=[
-  {id: 1,  codigo: 'Item001',  nombre: 'Item 1',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, esDispositivo: true},
-  {id: 2,  codigo: 'Item002',  nombre: 'Item 2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, esDispositivo: true},
-  {id: 3,  codigo: 'Item003',  nombre: 'Item 3',  marca: 'Marca 2',  modelo: 'Modelo 3',  descripcion: ' ', cantidad:15,esDispositivo: false}
-]
-*/
+  select(id: any){
+    let index: number;
+    index = this.selected.findIndex(num => num == parseInt(id));
+
+    if(index==-1){
+      this.selected.push(parseInt(id));}
+      else{this.selected.splice(index,1)};
+      console.log(this.selected);
+
+    }
+    public ngOnInit() {
+    }
+
+
+
+  }

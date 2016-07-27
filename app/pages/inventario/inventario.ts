@@ -4,12 +4,10 @@ import {Inventario} from './inventario.model';
 import {MaterializeDirective} from "../../materialize-directive";
 import {Validator} from "validator.ts/Validator";
 
-
 @Component({
   templateUrl: 'build/pages/inventario/inventario.html',
   directives: [MaterializeDirective],
 })
-
 export class InventarioPage implements OnInit{
     title: string ='Inventario';
 
@@ -32,6 +30,7 @@ export class InventarioPage implements OnInit{
     selected: number[]=[];
     tipos = ['Elija tipo','ítem','kit'];
     estados = ['Elija un estado...','disponible','no disponible'];
+    tiposBusquedas = ['Buscar por...', 'código', 'nombre'];
 
     constructor( private navController:NavController,private menu: MenuController){
     }

@@ -12,9 +12,7 @@ export class Kit {
   @IsInt() cantidad: number;
   items : ITEM[];
 
-
-
-constructor( ) {
+constructor() {
   this.id=0;
   this.codigo='';
   this.nombre='';

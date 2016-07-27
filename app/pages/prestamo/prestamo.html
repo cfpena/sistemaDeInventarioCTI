@@ -7,8 +7,33 @@
   </div>
 </nav>
 
+<!--Búsqueda por codigo o nombre-->
+<div class="row"  *ngIf="template=='null'" >
+  <div class="col l11 m12 s11">
+    <div class="input-field">
+      <i class="material-icons prefix">account_box</i>
+      <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+        <option *ngFor="let busquedaTablaPrestamo of busquedaTablaPrestamos" [value]="busquedaTablaPrestamo">{{busquedaTablaPrestamo}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col l8 m9 s8">
+      <div class="input-field">
+        <i class="material-icons prefix">account_box</i>
+        <input type="text" id="identificacion">
+        <label class="black-text" for="identificacion" class="active">Búsqueda</label>
+      </div>
+    </div>
+    <div class="col l3 m3 s3" style="padding-top: 22px">
+      <a class="waves-effect waves-light btn"><i class="material-icons center ">search</i></a>
+    </div>
+  </div>
+</div>
+
+
 <!--tabla de personas-->
-<ion-content>
+<div *ngIf="template=='null'">
   <table materialize class="centered table centered striped" style="font-size: 15px">
     <thead>
       <tr>
@@ -19,214 +44,176 @@
         <th data-field="apellido">Fecha Devolucion</th>
         <th data-field="apellido">Devuelto</th>
         <th><th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- angular 2 for -->
-      <tr >
-        <td>0920188855</td>
-        <td>Maria Pozo</td>
-        <td>5</td>
-        <td>05/06/2016</td>
-        <td>15/06/2016</td>
-        <td>
-          <input  [checked]="true" id="prestamo1" type="checkbox" class="filled-in"/>
-          <label  attr.for="prestamo1"></label>
-        </td>
-        <td>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- angular 2 for -->
+        <tr >
+          <td>0920188855</td>
+          <td>Maria Pozo</td>
+          <td>5</td>
+          <td>05/06/2016</td>
+          <td>15/06/2016</td>
+          <td>
+            <input  [checked]="true" id="prestamo1" type="checkbox" class="filled-in"/>
+            <label  attr.for="prestamo1"></label>
+          </td>
+          <td>
             <a class="button-collapse" (click)="goModificar()"><i class="material-icons left">mode_edit</i></a>
-        </td>
-      </tr>
-
-      <tr >
-        <td>0920188855</td>
-        <td>Maria Pozo</td>
-        <td>3</td>
-        <td>02/07/2016</td>
-        <td>12/07/2016</td>
-        <td>
-          <input  [checked]="false" id="prestamo2" type="checkbox" class="filled-in"/>
-          <label  attr.for="prestamo2"></label>
-        </td>
-        <td>
+          </td>
+        </tr>
+        <tr >
+          <td>0920188855</td>
+          <td>Maria Pozo</td>
+          <td>3</td>
+          <td>02/07/2016</td>
+          <td>12/07/2016</td>
+          <td>
+            <input  [checked]="false" id="prestamo2" type="checkbox" class="filled-in"/>
+            <label  attr.for="prestamo2"></label>
+          </td>
+          <td>
             <a class="button-collapse" (click)="goModificar()"><i class="material-icons left">mode_edit</i></a>
-        </td>
-      </tr>
-
-      <tr >
-        <td>0956123456</td>
-        <td>Janina Costa</td>
-        <td>8</td>
-        <td>03/07/2016</td>
-        <td>10/07/2016</td>
-        <td>
-          <input  [checked]="false" id="prestamo3" type="checkbox" class="filled-in"/>
-          <label  attr.for="prestamo3"></label>
-        </td>
-        <td>
+          </td>
+        </tr>
+        <tr >
+          <td>0956123456</td>
+          <td>Janina Costa</td>
+          <td>8</td>
+          <td>03/07/2016</td>
+          <td>10/07/2016</td>
+          <td>
+            <input  [checked]="false" id="prestamo3" type="checkbox" class="filled-in"/>
+            <label  attr.for="prestamo3"></label>
+          </td>
+          <td>
             <a class="button-collapse" (click)="goModificar()"><i class="material-icons left">mode_edit</i></a>
-        </td>
-      </tr>
-
-    </tbody>
-  </table>
-</ion-content>
-
-<!--Botones-->
-<div *ngIf="template=='null'">
-  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large orange darken-1">
-      <i class="large material-icons">settings</i>
-    </a>
-    <ul>
-      <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
-      <li><a (click)="goCrear()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
-    </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-</div>
+  <!--Botones-->
+  <div *ngIf="template=='null'">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a class="btn-floating btn-large orange darken-1">
+        <i class="large material-icons">settings</i>
+      </a>
+      <ul>
+        <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
+        <li><a (click)="goCrear()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
+      </ul>
+    </div>
+  </div>
 
-<!--Nuevo prestamo-->
-<div *ngIf="template=='crear'" style="overflow: scroll;">
-    <div id="nuevo_prestamo" class="section">
-      <div class="container">
-        <div class="card-panel hoverable card-action white">
+  <ion-content>
+    <!--Layout de nuevo préstamo-->
+    <div *ngIf="template=='crear'" >
+      <!--nuevo user-->
+      <div materialize id="nuevo_prestamo" class="section">
+        <div class="container" style="padding-top: 50px">
           <div class="row">
-            <form class="col s12 m12 l12 ">
-              <span>Nueva Prestamo</span>
-              <div class="row">
-                <hr>
-                <div class="col s12 m6 l6">
-                  <!--primera columna-->
-                  <div class="input-field">
-                    <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_descripcion" type="tel" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" >
-                    <label for="icon_descripcion">Cedula</label>
-                  </div>
+            <div class="col s12 m6">
+              <div class="card light-green lighten-5">
+                <div class="card-panel teal lighten-2 black-text ">Persona</div>
+                <div class="card-content black-text">
+                  <!--<span class="card-title ">Persona</span>-->
                   <div class="input-field">
                     <i class="material-icons prefix">account_box</i>
-                    <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" >
-                    <label for="icon_descripcion">Nombre</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">account_box</i>
-                    <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" >
-                    <label for="icon_descripcion">Apellido</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">email</i>
-                    <input id="icon_descripcion" type="tel" class="validate"  >
-                    <label for="icon_descripcion">Correo</label>
-                  </div>
-                </div>
-                <div class="col s12 m6 l6">
-                  <!--segunda columna-->
-                  <div class="input-field ">
-                    <i class="material-icons prefix">label_outline</i>
                     <select materialize="material_select" [materializeSelectOptions]="selectOptions">
-                        <option *ngFor="let funcion of funcions" [value]="funcion">{{funcion}}</option>
+                      <option *ngFor="let tiposIdentificacion of tiposIdentificaciones" [value]="tiposIdentificacion">{{tiposIdentificacion}}</option>
                     </select>
                   </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">call</i>
-                    <input id="icon_modelo" type="tel" class="validate" minlength="7" maxlength="7" pattern = "[0-9]*" >
-                    <label for="icon_modelo">Teléfono</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">stay_current_portrait</i>
-                    <input id="icon_observaciones" type="tel" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*" >
-                    <label for="icon_observaciones">Celular</label>
-                  </div><div class="input-field">
-                    <i class="material-icons prefix">label_outline</i>
-                    <select materialize="material_select" [materializeSelectOptions]="selectOptions" >
-                        <option *ngFor="let genero of generos" [value]="genero">{{genero}}</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col s12">
-                  <span class="card-title">Agregar items:</span>
                   <div class="row">
-                    <hr>
-                    <div class="col s12 m6 l6">
+                    <div class="col l9 m9 s8">
                       <div class="input-field">
-                        <i class="material-icons prefix">label_outline</i>
-                        <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" >
-                        <label for="icon_codigo" >Código</label>
-                      </div>
-                      <div class="input-field">
-                        <i class="material-icons prefix">label_outline</i>
-                        <input id="icon_serie" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-Z]*"  >
-                        <label for="icon_serie" >Serie</label>
+                        <i class="material-icons prefix">account_box</i>
+                        <input type="text" id="identificacion">
+                        <label class="black-text" for="identificacion" class="active">Identificación</label>
                       </div>
                     </div>
-                    <div class="col  s12 m6 l6">
-
-                      <div class="card-action">
-                        <a (click)="buscarxSerie()" class="btn waves-effect waves-light center"  style="font-size: 17px">
-                          <i class="material-icons right">search</i>
-                        </a>
-                      </div>
+                    <div class="col l3 m3 s3" style="padding-top: 22px">
+                      <a class="waves-effect waves-light btn"><i class="material-icons right ">search</i></a>
                     </div>
                   </div>
-                </div>
-                <div class= "col s12">
-                  <table  materialize class="centered table centered striped" style="font-size: 15px">
-                    <thead>
-                      <tr>
-                        <th data-field="id">Código</th>
-                        <th data-field="nombre">Nombre</th>
-                        <th data-field="marca">Marca</th>
-                        <th data-field="modelo">Modelo</th>
-                        <th data-field="cantidad">Cantidad</th>
-                        <th data-field="cantidad">Serie</th>
-
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td >0001221112</td>
-                        <td>Resistencia 1</td>
-                        <td>Marca 1</td>
-                        <td>Modelo 1</td>
-                        <td>
-                          <input id="icon_cantidad" type="text" class="validate" minlength="2" maxlength="30" pattern = "[0-9]*" value="50" >
-
-                        </td>
-                        <td>
-                            <input id="icon_seriea" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-Z]*" disabled >
-
-                        </td>
-                      </tr>
-                      <tr>
-                        <td >0001221112</td>
-                        <td>Tarjeta 1</td>
-                        <td>Marca 2</td>
-                        <td>Modelo 1</td>
-                        <td>
-                          <div class="input-field">
-                          <input id="icon_cantidad2" type="text" class="validate" minlength="2" maxlength="30" pattern = "[0-9]*" value="1" disabled>
-                        </div>
-                        </td>
-                        <td>
-                          <div class="input-field">
-                            <input id="icon_serie2" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-Z]*" value = "ASD123ASD123" >
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div class="row">
+                    <div class="col l11 s11 m11 offset-l1 offset-m1 offset-s1">
+                      <label style="font-size: 20px" >nombre persona - existe</label>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="card-action">
-                <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
-                  <i class="material-icons right">send</i>
-                </a>
+                <a href="#">Crear nueva persona</a>
               </div>
-            </form>
+            </div>
+            <div class="col s12 l6 m6">
+              <div class="card light-green lighten-5 "> <!--blue-grey darken-1-->
+                <div class="card-panel teal lighten-2">Préstamo</div>
+                <div class="card-content black-text">
+                  <!--<span class="card-title">Préstamo</span>-->
+                  <div class="input-field">
+                    <i class="material-icons prefix">local_offer</i>
+                    <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+                      <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda">{{tiposBusqueda}}</option>
+                    </select>
+                  </div>
+                  <div class="row">
+                    <div class="col l9 m9 s8 ">
+                      <div class="input-field">
+                        <i class="material-icons prefix">local_offer</i>
+                        <input class="black-text"  id="busqueda" type="text">
+                        <label class="black-text" for="busqueda" class="active">Búsqueda</label>
+                      </div>
+                    </div>
+                    <div class="col l3 m3 s3" style="padding-top: 22px">
+                      <a class="waves-effect waves-light btn"><i class="material-icons right">search</i></a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col l11 s11 m11 offset-l1 offset-m1 offset-s1">
+                      <label style="font-size: 20px">Kit Arduino disponible 10 unidades</label>
+                    </div>
+                  </div>
+
+                  <div class="row ">
+
+                    <div materialize class="col s4 m4 l4 offset-l1 offset-m1 offset-s1">
+                      <div class="input-field">
+                        <label for="fecha_desde" class="active">desde</label>
+                        <input  id="fecha_desde" type="date" class="datepicker" style="padding-top: 16px">
+                        <script>
+                        new Datepicker('.datepicker');
+                        </script>
+                      </div>
+                    </div>
+                    <div materialize class="col s4 m4 l4 offset-l1 offset-m1 offset-s1">
+                      <div class="input-field">
+                        <label for="fecha_hasta" class="active" >hasta</label>
+                        <input id="fecha_hasta" type="date" class="datepicker" style="padding-top: 16px">
+                        <script>
+                        new Datepicker('.datepicker');
+                        </script>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-action">
+                  <a class="waves-effect waves-light btn "><i class="material-icons right">swap_horiz</i>Prestar</a>
+                </div>
+              </div>
+
+            </div>
           </div>
+
         </div>
+
+
+
+
       </div>
+
+      <!--boton para cancelar-->
       <div class="section">
         <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
           <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
@@ -235,3 +222,5 @@
         </div>
       </div>
     </div>
+
+  </ion-content>

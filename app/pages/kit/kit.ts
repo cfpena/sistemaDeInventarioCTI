@@ -36,6 +36,7 @@ kitModificar= new Kit();
 count=10;
 id=0;
 selected: number[]=[];
+  tiposBusquedas = ['Buscar por...', 'código', 'nombre'];
 
   constructor(private navController:NavController,private menu: MenuController) {}
 

@@ -13,6 +13,7 @@ export class ITEM {
   esDispositivo: boolean;
   image: string;
 
+
   constructor( ) {
     this.id=0;
     this.codigo='';
@@ -21,7 +22,8 @@ export class ITEM {
     this.modelo='';
     this.descripcion='';
     this.cantidad=0;
-    this.esDispositivo=true;
+    this.esDispositivo=false;
     this.image='';
+
   }
 }
