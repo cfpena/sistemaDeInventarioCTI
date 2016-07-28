@@ -15,7 +15,7 @@
     <!--Búsqueda por codigo o nombre-->
     <div class="row">
 
-      <div class="col l2  m2 offset-l9 offset-m6" style="width: 100px">
+      <div class="col l2 offset-l9 offset-m6 s6" style="width: 100px">
         <div class="input-field">
           <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipo">
             <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
@@ -23,7 +23,7 @@
         </div>
       </div>
 
-        <div class="col l2 m2">
+        <div class="col l2  s6">
           <div class="input-field">
             <input (keyup)="buscar()" type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
             <label class="black-text" for="identificacion" class="active">Búsqueda</label>
