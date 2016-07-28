@@ -14,25 +14,22 @@
   <div *ngIf="template=='null'">
     <!--Búsqueda por codigo o nombre-->
     <div class="row">
-
-      <div class="col l4 m4 s4">
+      <div class="col l2  offset-l7 ">
         <div class="input-field">
           <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipo">
             <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
           </select>
         </div>
       </div>
-
-        <div class="col l6 m6 s6">
-          <div class="input-field">
-            <input type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
-            <label class="black-text" for="identificacion" class="active">Búsqueda</label>
-          </div>
+      <div class="col l2 ">
+        <div class="input-field">
+          <input type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
+          <label class="black-text" for="identificacion" class="active">Búsqueda</label>
         </div>
-        <div class="col l1 m1 s1" style="padding-top: 22px">
-          <a (click)="buscar()" class="waves-effect waves-light btn"><i class="material-icons center ">search</i></a>
-        </div>
-
+      </div>
+      <div class="col l1" style="padding-top: 22px">
+        <a (click)="buscar()" class="waves-effect waves-light btn"><i class="material-icons center ">search</i></a>
+      </div>
     </div>
     <!--Tabla de items-->
     <table  materialize class="centered table centered striped" style="font-size: 15px">
