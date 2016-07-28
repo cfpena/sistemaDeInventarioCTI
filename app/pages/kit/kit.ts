@@ -5,8 +5,6 @@ import {MaterializeDirective} from "../../materialize-directive";
 import {Validator} from "validator.ts/Validator";
 import {Kit} from '../kit/kit.model';
 
-
-
 @Component({
   templateUrl: 'build/pages/kit/kit.html',
     directives: [MaterializeDirective],
@@ -38,7 +36,7 @@ count=10;
 id=0;
 selected: number[]=[];
 tiposBusquedas = ['código', 'nombre'];
-busqueda={tipo: '', valor: ''};
+busqueda={tipo: 'código', valor: ''};
 
   constructor(private navController:NavController,private menu: MenuController) {
     this.kitsTemporal=this.KITS;
@@ -132,12 +130,13 @@ busqueda={tipo: '', valor: ''};
   }
 
   buscar(){
-
     let busquedaTemp = this.busqueda;
     if(busquedaTemp.valor=='') this.KITS=this.kitsTemporal;
-
     this.KITS=this.kitsTemporal.filter(function(kit){
-      if(busquedaTemp.tipo=='código') return kit.codigo.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+      if(busquedaTemp.tipo=='código') {
+        console.log("codigo");
+        return kit.codigo.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+      }
       else return kit.nombre.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
     })
   }

@@ -30,7 +30,7 @@ export class ItemPage implements OnInit {
 
   selected: number[]=[];
   tiposBusquedas = ['código', 'nombre'];
-  busqueda={tipo: '', valor: ''};
+  busqueda={tipo: 'código', valor: ''};
 
   constructor( private navController:NavController,private menu: MenuController){
     this.itemsTemporal=this.items;
@@ -125,12 +125,13 @@ cancelar(){
 }
 
 buscar(){
-
   let busquedaTemp = this.busqueda;
   if(busquedaTemp.valor=='') this.items=this.itemsTemporal;
-
   this.items=this.itemsTemporal.filter(function(item){
-    if(busquedaTemp.tipo=='código') return item.codigo.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+    if(busquedaTemp.tipo=='código') {
+      console.log("codigo");
+      return item.codigo.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+    }
     else return item.nombre.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
   })
 }
