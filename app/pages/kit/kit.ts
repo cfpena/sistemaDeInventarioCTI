@@ -15,17 +15,18 @@ export class KitPage implements OnInit{
 
 title: string ='Kits';
 ITEMS: ITEM[]=[
-  {id: 1,  codigo: '1234567890',  nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:20, esDispositivo:true, image:''},
-  {id: 2,  codigo: '1234456891',  nombre: 'Capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:70, esDispositivo:true, image:''},
-  {id: 3,  codigo: '0956787892',  nombre: 'Ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:16, esDispositivo:true, image:''}
+  {id: 1,  codigo: '1234567890',  nombre: 'resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:20, esDispositivo:true, image:''},
+  {id: 2,  codigo: '1234456891',  nombre: 'capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:70, esDispositivo:true, image:''},
+  {id: 3,  codigo: '0956787892',  nombre: 'ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:16, esDispositivo:true, image:''}
 
 ];
 KITS: Kit[]=[
-  {id: 1,  codigo: 'Kit0000001',  nombre: 'Kit 1',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, items: this.ITEMS},
-  {id: 2,  codigo: 'Kit0000002',  nombre: 'Kit 2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, items: this.ITEMS}
+  {id: 1,  codigo: '1239033567',  nombre: 'arduino',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, items: this.ITEMS},
+  {id: 2,  codigo: '9988444444',  nombre: 'kit2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, items: this.ITEMS}
   ]
 
 template: string = 'null';
+kitsTemporal: Kit[]=[];
 
 @Input()
 kitNuevo = new Kit();
@@ -36,9 +37,12 @@ kitModificar= new Kit();
 count=10;
 id=0;
 selected: number[]=[];
-  tiposBusquedas = ['Buscar por...', 'código', 'nombre'];
+tiposBusquedas = ['código', 'nombre'];
+busqueda={tipo: '', valor: ''};
 
-  constructor(private navController:NavController,private menu: MenuController) {}
+  constructor(private navController:NavController,private menu: MenuController) {
+    this.kitsTemporal=this.KITS;
+  }
 
   openMenu(){
     this.menu.open();
@@ -125,6 +129,17 @@ selected: number[]=[];
 
   cancelar(){
     this.template='null';
+  }
+
+  buscar(){
+
+    let busquedaTemp = this.busqueda;
+    if(busquedaTemp.valor=='') this.KITS=this.kitsTemporal;
+
+    this.KITS=this.kitsTemporal.filter(function(kit){
+      if(busquedaTemp.tipo=='código') return kit.codigo.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+      else return kit.nombre.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+    })
   }
 
 

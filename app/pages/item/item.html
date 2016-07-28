@@ -14,7 +14,7 @@
   <div *ngIf="template=='null'">
     <!--Búsqueda por codigo o nombre-->
     <div class="row">
-      <div class="col l2  m2 offset-l9 offset-m6" style="width: 100px">
+      <div class="col l2 m2 offset-l9 offset-m6" style="width: 100px">
         <div class="input-field">
           <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipo">
             <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
