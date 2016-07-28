@@ -48,22 +48,22 @@ Ionic pages and navigation.
       </thead>
       <tbody>
         <tr *ngFor = "let inventario of inventarios">
-        <td >{{inventario.fecha}}</td>
-        <td >{{inventario.codigo}}</td>
-        <td>{{inventario.tipo}}</td>
-        <td>{{inventario.detalle}}</td>
-        <td>{{inventario.nombre}}</td>
-        <td>{{inventario.marca}}</td>
-        <td>{{inventario.modelo}}</td>
-        <td>{{inventario.estado}}</td>
-        <td>{{inventario.cantidad}}</td>
-        <td>
-          <a (click)="goSalida(inventario.id)" class="button-collapse "><i class="material-icons left ">unarchive</i></a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+          <td >{{inventario.fecha}}</td>
+          <td >{{inventario.codigo}}</td>
+          <td>{{inventario.tipo}}</td>
+          <td>{{inventario.detalle}}</td>
+          <td>{{inventario.nombre}}</td>
+          <td>{{inventario.marca}}</td>
+          <td>{{inventario.modelo}}</td>
+          <td>{{inventario.estado}}</td>
+          <td>{{inventario.cantidad}}</td>
+          <td>
+            <a (click)="goSalida(inventario.id)" class="button-collapse "><i class="material-icons left ">unarchive</i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </ion-content>
 
 <!--Boton flotante para ingresar en el inventario-->
