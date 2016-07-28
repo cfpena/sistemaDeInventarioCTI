@@ -11,8 +11,6 @@ import {UsuarioService} from '../usuario/usuario.auth.service';
   directives: [MaterializeDirective],
 })
 
-
-
 export class UsuarioPage implements OnInit {
   title: string ='Usuarios';
   usuarios: Usuario[] = [
@@ -20,6 +18,8 @@ export class UsuarioPage implements OnInit {
     {id: 2, email: 'cristian@prueba.com', provider:"", uid:'cristian@prueba.com', name:'Cristian',nickname:"",image:'',type:'custom'},
   ];
   template: string = 'null';
+  usuariosTemporal: Usuario[]=[];
+
   @Input()
   usuarioNuevo = new Usuario();
 
@@ -33,11 +33,14 @@ export class UsuarioPage implements OnInit {
   id=0;
   selected: number[]=[];
   tipos = ['Elija un tipo...','ayudante','administrador'];
+  tiposBusquedas = ['usuario', 'nombre'];
+  busqueda={tipo: 'usuario', valor: ''};
 
   constructor( private navController:NavController,
     private menu: MenuController,
   private usuarioService: UsuarioService,
 private http: Http) {
+    this.usuariosTemporal=this.usuarios;
 
   }
   openMenu(){
@@ -131,6 +134,19 @@ eliminar(){
   cancelar(){
     this.template='null';
   }
+
+  buscar(){
+    let busquedaTemp = this.busqueda;
+    if(busquedaTemp.valor=='') this.usuarios=this.usuariosTemporal;
+    this.usuarios=this.usuariosTemporal.filter(function(usuario){
+      if(busquedaTemp.tipo=='usuario') {
+        console.log("usuario");
+        return usuario.email.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+      }
+      else return usuario.name.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+    })
+  }
+
   public ngOnInit() {
     this.usuarioService.getHeaders().then(headers => {
     return this.http.get('http://162.243.83.72:8080/items',{headers: headers}).toPromise();

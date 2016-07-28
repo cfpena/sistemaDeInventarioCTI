@@ -22,23 +22,25 @@
   </div>
 </nav>
 
-
-<div class="row">
-  <div class="col l8 m9 s8">
-    <div class="input-field">
-      <i class="material-icons prefix">account_box</i>
-      <input type="text" id="identificacion">
-      <label class="black-text" for="identificacion" class="active">Nombre</label>
+<div *ngIf="template=='null'">
+  <!--Búsqueda por cedula o nombre-->
+  <div class="row">
+    <div class="col l1 m2 s4 offset-l9 offset-m7 " >
+      <div class="input-field">
+        <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipo">
+          <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col l2 m3 s8">
+      <div class="input-field">
+        <input (keyup)="buscar()" type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
+        <label class="black-text active" for="identificacion">Búsqueda</label>
+      </div>
     </div>
   </div>
-
-  <div class="col l3 m3 s3" style="padding-top: 22px">
-    <a class="waves-effect waves-light btn"><i class="material-icons center ">search</i></a>
-  </div>
-    </div>
-
 <!--tabla de usuarios-->
-<ion-content>
+
 <div *ngIf="template=='null'">
     <table materialize class="centered table centered striped" style="font-size: 15px">
       <thead>
@@ -53,16 +55,11 @@
       <tbody>
         <!-- angular 2 for -->
         <tr *ngFor="let usuario of usuarios">
-
           <td>
-
             <!-- evento change y atributo por defecto checked false, se agrega como id el id del usuario
           para luego saber que checkbox le pertenece a cada usuario-->
             <input  [checked]="false" (change)="select(usuario.id)" id="{{usuario.id}}" type="checkbox" class="filled-in"/>
-
             <label  attr.for="{{usuario.id}}"></label>
-
-
           </td>
           <td>{{usuario.name}}</td>
           <td>{{usuario.email}}</td>
@@ -71,11 +68,10 @@
               <a class="button-collapse" (click)="goModificar(usuario.id)"><i class="material-icons left">mode_edit</i></a>
           </td>
         </tr>
-
       </tbody>
     </table>
   </div>
-  </ion-content>
+
 
   <!--Boton flotante de opciones add, edit, delete-->
 <!-- if de angular, valida si se debe mostrar o no segun la variable template -->
@@ -89,7 +85,7 @@
       </ul>
     </div>
 
-
+<ion-content>
 <div *ngIf="template=='crear'" >
     <!--nuevo user-->
     <div materialize id="nuevo_item" class="section">
@@ -157,6 +153,7 @@
       </div>
     </div>
 </div>
+</ion-content>
 
 
 <div *ngIf="template=='modificar'">
