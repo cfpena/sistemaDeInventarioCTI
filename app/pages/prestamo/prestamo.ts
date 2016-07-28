@@ -21,15 +21,16 @@ export class PrestamoPage implements OnInit{
     {id: 2, typeIdentificacion: 'nombre', inputIdentificacion:"", busqueda:'nombre', inputbusqueda:''},
   ];
 
-
-
   template: string = 'null';
+  prestamosTemporal: Prestamo[]=[];
 
   @Input()
   prestamoNuevo = {
     id:10, typeIdentificacion: '',inputIdentificacion: '', busqueda: "", inputbusqueda:''
   }
-  constructor(private _navController:NavController,private menu: MenuController) {}
+  constructor(private _navController:NavController,private menu: MenuController) {
+    this.prestamosTemporal=this.prestamos;
+  }
   openMenu(){
     this.menu.open();
   }
@@ -51,10 +52,8 @@ export class PrestamoPage implements OnInit{
   //lista de ids seleccionados por el checkbox
   selected: number[]=[];
   tiposIdentificaciones = ['Tipo de Identificación...', 'cédula', 'nombre'];
-  tiposBusquedas = ['Buscar por...', 'código', 'nombre'];
-  busquedaTablaPrestamos = ['Buscar por...', 'nombre de persona', 'cédula de persona', 'nombre de item','código de item'];
-
-
+  tiposBusquedas = ['código', 'nombre'];
+  busqueda={tipo: 'código', valor: ''};
 
 
   select(id: any){
@@ -67,7 +66,21 @@ export class PrestamoPage implements OnInit{
       console.log(this.selected);
 
     }
+    /*
+    buscar(){
+      let busquedaTemp = this.busqueda;
+      if(busquedaTemp.valor=='') this.prestamos=this.prestamosTemporal;
+      this.prestamos=this.prestamosTemporal.filter(function(prestamo){
+        if(busquedaTemp.tipo=='código') {
+          console.log("codigo");
+          return prestamo.codigo.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+        }
+        else return prestamo.nombre.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+      })
+    }*/
     public ngOnInit() {
+      window.setTimeout(()=>{
+      },100);
     }
 
 
