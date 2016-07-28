@@ -130,8 +130,8 @@ buscar(){
   if(busquedaTemp.valor=='') this.items=this.itemsTemporal;
 
   this.items=this.itemsTemporal.filter(function(item){
-    if(busquedaTemp.tipo=='código') return item.codigo == busquedaTemp.valor;
-    else return item.nombre.toLowerCase().indexOf(busquedaTemp.valor)>=0;
+    if(busquedaTemp.tipo=='código') return item.codigo.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+    else return item.nombre.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
   })
 }
 //retrasa la carga de la pagina 100 ms
