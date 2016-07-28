@@ -16,6 +16,7 @@ export class ItemPage implements OnInit {
     {id: 2,  codigo: '1234456891',  nombre: 'Capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:70, esDispositivo:true, image:''},
     {id: 3,  codigo: '0956787892',  nombre: 'Ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:16, esDispositivo:true, image:'' }
   ];
+  itemsTemporal: ITEM[]=[];
   template: string = 'null';
 
   @Input()
@@ -28,9 +29,11 @@ export class ItemPage implements OnInit {
   id=0;
 
   selected: number[]=[];
-  tiposBusquedas = ['Buscar por...', 'código', 'nombre'];
+  tiposBusquedas = ['código', 'nombre'];
+  busqueda={tipo: '', valor: ''};
 
   constructor( private navController:NavController,private menu: MenuController){
+    this.itemsTemporal=this.items;
   }
 
   openMenu(){
@@ -121,6 +124,16 @@ cancelar(){
   this.template='null';
 }
 
+buscar(){
+
+  let busquedaTemp = this.busqueda;
+  if(busquedaTemp.valor=='') this.items=this.itemsTemporal;
+
+  this.items=this.itemsTemporal.filter(function(item){
+    if(busquedaTemp.tipo=='código') return item.codigo == busquedaTemp.valor;
+    else return item.nombre.toLowerCase().indexOf(busquedaTemp.valor)>=0;
+  })
+}
 //retrasa la carga de la pagina 100 ms
 public ngOnInit() {
   window.setTimeout(()=>{
