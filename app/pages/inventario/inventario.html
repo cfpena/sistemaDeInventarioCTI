@@ -11,59 +11,25 @@ Ionic pages and navigation.
   </div>
 </nav>
 
-<!--Búsqueda por codigo o nombre-->
-<div class="row"  *ngIf="template=='null'" >
-  <div class="col l11 m12 s11">
-    <div class="input-field">
-      <i class="material-icons prefix">account_box</i>
-      <select materialize="material_select" [materializeSelectOptions]="selectOptions">
-        <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda">{{tiposBusqueda}}</option>
-      </select>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col l8 m9 s8">
-      <div class="input-field">
-        <i class="material-icons prefix">account_box</i>
-        <input type="text" id="identificacion">
-        <label class="black-text" for="identificacion" class="active">Búsqueda</label>
-      </div>
-    </div>
-    <div class="col l3 m3 s3" style="padding-top: 22px">
-      <a class="waves-effect waves-light btn"><i class="material-icons center ">search</i></a>
-    </div>
-  </div>
-</div>
-
 <!--Tabla de ínventario-->
 <ion-content>
   <div *ngIf="template=='null'">
-    <!--Boton de busqueda por codigo o nombre-->
-    <!--
-    <div id="filtrar">
-      <div class="row">
-        <div class="col l3 m4 s12 offset-l4 offset-m4">
-          <div class="input-field">
-            <i class="material-icons prefix">account_box</i>
-            <select materialize="material_select" [materializeSelectOptions]="selectOptions">
-              <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda">{{tiposBusqueda}}</option>
-            </select>
-          </div>
+    <!--Búsqueda por codigo o nombre-->
+    <div class="row">
+      <div class="col l1 m2 s4 offset-l9 offset-m7 " >
+        <div class="input-field">
+          <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipoB">
+            <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
+          </select>
         </div>
       </div>
-      <div class="row">
-        <div class="col l2 m3 s6 offset-l4 offset-m4">
-          <div class="input-field">
-            <i class="material-icons prefix">account_box</i>
-            <input type="text" id="identificacion">
-            <label class="black-text" for="identificacion" class="active">Identificación</label>
-          </div>
-        </div>
-        <div class="col l1 m1 s6" style="padding-top: 24px">
-          <a class="waves-effect waves-light btn"><i class="material-icons right ">search</i></a>
+      <div class="col l2 m3 s8">
+        <div class="input-field">
+          <input (keyup)="buscar()" type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
+          <label class="black-text active" for="identificacion">Búsqueda</label>
         </div>
       </div>
-    </div>-->
+    </div>
     <!--Tabla de inventario-->
     <table  materialize class="centered table centered striped" style="font-size: 15px">
       <thead>
@@ -147,7 +113,7 @@ Ionic pages and navigation.
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_descripcion" type="text" class="validate" minlength="5" maxlength="30" >
+                  <input id="icon_descripcion" type="text" class="validate" minlength="5" maxlength="30" [(ngModel)]="inventarioNuevo.detalle">
                   <label for="icon_descripcion">Detalle</label>
                 </div>
                 <div class="input-field">

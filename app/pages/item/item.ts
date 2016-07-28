@@ -27,7 +27,6 @@ export class ItemPage implements OnInit {
 
   count=10;
   id=0;
-
   selected: number[]=[];
   tiposBusquedas = ['código', 'nombre'];
   busqueda={tipo: 'código', valor: ''};

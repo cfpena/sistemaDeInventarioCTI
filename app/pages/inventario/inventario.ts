@@ -12,11 +12,12 @@ export class InventarioPage implements OnInit{
     title: string ='Inventario';
 
     inventarios: Inventario[]=[
-      {id: 1, fecha:'05/07/16', codigo: '1234567890', tipo:'item', nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  detalle: 'Ingreso nuevo', estado:'disponible' ,cantidad:20},
-      {id: 2, fecha:'08/07/16', codigo: '1234456891', tipo:'kit', nombre: 'Arduino',  marca: 'Marca 2',  modelo: 'Modelo 2',  detalle: 'Ingreso nuevo',estado:'disponible' ,  cantidad:40},
-      {id: 3, fecha:'10/07/16', codigo: '0956787892', tipo:'item',  nombre: 'Capacitor',  marca: 'Marca 3',  modelo: 'Modelo 3',  detalle: 'Ingreso nuevo', estado:'no disponible' , cantidad:20}
+      {id: 1, fecha:'05/07/16', codigo: '0204567890', tipo:'item', nombre: 'resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  detalle: 'Ingreso nuevo', estado:'disponible' ,cantidad:20},
+      {id: 2, fecha:'08/07/16', codigo: '1234456891', tipo:'kit', nombre: 'arduino',  marca: 'Marca 2',  modelo: 'Modelo 2',  detalle: 'Ingreso nuevo',estado:'disponible' ,  cantidad:40},
+      {id: 3, fecha:'10/07/16', codigo: '0956787892', tipo:'item',  nombre: 'capacitor',  marca: 'Marca 3',  modelo: 'Modelo 3',  detalle: 'Ingreso nuevo', estado:'no disponible' , cantidad:20}
     ];
 
+    inventarioTemporal: Inventario[]=[];
     template: string = 'null';
 
     @Input()
@@ -30,9 +31,11 @@ export class InventarioPage implements OnInit{
     selected: number[]=[];
     tipos = ['Elija tipo','ítem','kit'];
     estados = ['Elija un estado...','disponible','no disponible'];
-    tiposBusquedas = ['Buscar por...', 'código', 'nombre'];
+    tiposBusquedas = ['código', 'nombre'];
+    busqueda={tipoB: 'código', valor: ''};
 
     constructor( private navController:NavController,private menu: MenuController){
+        this.inventarioTemporal=this.inventarios;
     }
 
     openMenu(){
@@ -133,8 +136,21 @@ export class InventarioPage implements OnInit{
       console.log(this.selected);
 
     }
+
+    buscar(){
+      let busquedaTemp = this.busqueda;
+      if(busquedaTemp.valor=='') this.inventarios=this.inventarioTemporal;
+      this.inventarios=this.inventarioTemporal.filter(function(inventario){
+        if(busquedaTemp.tipoB=='código') {
+          console.log("codigo");
+          return inventario.codigo.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+        }
+        else return inventario.nombre.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+      })
+    }
     //retrasa la carga de la pagina 100 ms
     public ngOnInit() {
-
+      window.setTimeout(()=>{
+      },100);
     }
 }
