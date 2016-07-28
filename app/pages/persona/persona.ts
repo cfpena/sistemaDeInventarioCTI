@@ -20,12 +20,13 @@ export class PersonaPage implements OnInit {
   //personas de prueba
   personas: Persona[]=[
   {id: 1,  cedula:'0912345678', nombre: 'Adriano',  apellido: 'Pinargote',  correo: 'a@prueba.com', funcion:'estudiante', telefono: '0959605816', celular: ' ', genero: 'M'},
-  {id: 2,  cedula:'0912345674',  nombre: 'Janina', apellido: 'Costa',  correo: 'j@prueba.com', funcion:'ayudante', telefono: '04-6025888', celular: ' ', genero: 'M'},
-  {id: 3,  cedula:'0912345675',  nombre: 'Maria', apellido: 'Pozo',  correo: 'm@prueba.com', funcion:'estudiante', telefono: '04-6025888', celular: ' ', genero: 'F'}
+  {id: 2,  cedula:'0965321094',  nombre: 'Janina', apellido: 'Costa',  correo: 'j@prueba.com', funcion:'ayudante', telefono: '04-6025888', celular: ' ', genero: 'M'},
+  {id: 3,  cedula:'0930128897',  nombre: 'Maria', apellido: 'Pozo',  correo: 'm@prueba.com', funcion:'estudiante', telefono: '04-6025888', celular: ' ', genero: 'F'}
 
-]
+];
   //selector de html a mostrar dependiendo de la accion
   template: string = 'null';
+  personasTemporal: Persona[]=[];
   //persona en blanco para crear una persona
   @Input()
   personaNueva = {
@@ -43,12 +44,13 @@ export class PersonaPage implements OnInit {
   //lista de ids seleccionados por el checkbox
   selected: number[]=[];
   tiposIdentificaciones = ['Tipo de Identificación...', 'cédula', 'nombre'];
-  tiposBusquedas = ['Buscar por...', 'cédula', 'nombre'];
   generos = ['Elija un genero...','Femenino','Masculino'];
   funcions = ['Elija una funcion...','Natural','Profesor','Estudiante','Ayudante'];
 
+  tiposBusquedas = ['cédula', 'nombre'];
+  busqueda={tipo: 'cédula', valor: ''};
   constructor( private navController:NavController,private menu: MenuController) {
-
+      this.personasTemporal=this.personas;
   }
   //abre el menu
 openMenu(){
@@ -133,6 +135,18 @@ toast.onDismiss(() => {
   //cierra html y regresa a la lista por defecto
   cancelar(){
     this.template='null';
+  }
+
+  buscar(){
+    let busquedaTemp = this.busqueda;
+    if(busquedaTemp.valor=='') this.personas=this.personasTemporal;
+    this.personas=this.personasTemporal.filter(function(persona){
+      if(busquedaTemp.tipo=='cédula') {
+        console.log("cédula");
+        return persona.cedula.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+      }
+      else return persona.nombre.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+    })
   }
   //retrasa la carga de la pagina 100 ms
   public ngOnInit() {

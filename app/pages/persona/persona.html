@@ -21,34 +21,26 @@ Ionic pages and navigation.
     <a href="#!" class="brand-logo">{{title}}</a>
   </div>
 </nav>
-<div class="row">
-  <div class="col l11 m12 s11">
-<div class="input-field">
 
-  <i class="material-icons prefix">account_box</i>
-  <select materialize="material_select" [materializeSelectOptions]="selectOptions">
-    <option *ngFor="let tiposIdentificacion of tiposIdentificaciones" [value]="tiposIdentificacion">{{tiposIdentificacion}}</option>
-  </select>
-</div>
-
-</div>
-<div class="row">
-  <div class="col l8 m9 s8">
-    <div class="input-field">
-      <i class="material-icons prefix">account_box</i>
-      <input type="text" id="identificacion">
-      <label class="black-text" for="identificacion" class="active">Identificación</label>
-    </div>
-  </div>
-
-  <div class="col l3 m3 s3" style="padding-top: 22px">
-    <a class="waves-effect waves-light btn"><i class="material-icons center ">search</i></a>
-  </div>
-    </div>
-</div>
 <!--tabla de personas-->
 <ion-content>
 <div *ngIf="template=='null'">
+  <!--Búsqueda por cedula o nombre-->
+  <div class="row">
+    <div class="col l1 m2 s4 offset-l9 offset-m7 " >
+      <div class="input-field">
+        <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipo">
+          <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col l2 m3 s8">
+      <div class="input-field">
+        <input (keyup)="buscar()" type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
+        <label class="black-text active" for="identificacion">Búsqueda</label>
+      </div>
+    </div>
+  </div>
   <table materialize class="centered table centered striped" style="font-size: 15px">
     <thead>
       <tr>
@@ -68,7 +60,7 @@ Ionic pages and navigation.
           <input  [checked]="false" (change)="select(persona.id)" id="{{persona.id}}" type="checkbox" class="filled-in"/>
           <label  attr.for="{{persona.id}}"></label>
         </td>
-        <td>{{persona.id}}</td>
+        <td>{{persona.cedula}}</td>
         <td>{{persona.nombre}}</td>
         <td>{{persona.apellido}}</td>
         <td>
