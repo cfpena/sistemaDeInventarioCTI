@@ -22,9 +22,8 @@ Ionic pages and navigation.
   </div>
 </nav>
 
-
 <!--tabla de usuarios-->
-<ion-content>
+
   <div *ngIf="template=='null'">
     <!--Búsqueda por codigo o nombre-->
     <div class="row">
@@ -42,6 +41,7 @@ Ionic pages and navigation.
         </div>
       </div>
     </div>
+
     <table materialize class="centered table centered striped" style="font-size: 15px">
       <thead>
         <tr>
@@ -71,10 +71,10 @@ Ionic pages and navigation.
       </tbody>
     </table>
   </div>
-</ion-content>
 
 <!--Boton flotante de opciones add, edit, delete-->
 <!-- if de angular, valida si se debe mostrar o no segun la variable template -->
+<div *ngIf="template=='null'">
 <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
   <a class="btn-floating btn-large orange darken-1">
     <i class="large material-icons">settings</i>
@@ -83,6 +83,7 @@ Ionic pages and navigation.
     <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
     <li><a (click)="goCrearUsuario()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
   </ul>
+</div>
 </div>
 
 
@@ -153,6 +154,7 @@ Ionic pages and navigation.
     </div>
   </div>
 </div>
+
 
 <div *ngIf="template=='modificar'">
   <!--modificar user-->

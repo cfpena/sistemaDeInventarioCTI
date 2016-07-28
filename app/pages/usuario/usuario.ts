@@ -11,8 +11,6 @@ import {UsuarioService} from '../usuario/usuario.auth.service';
   directives: [MaterializeDirective],
 })
 
-
-
 export class UsuarioPage implements OnInit {
   title: string ='Usuarios';
   usuarios: Usuario[] = [
@@ -35,14 +33,17 @@ export class UsuarioPage implements OnInit {
   id=0;
   selected: number[]=[];
   tipos = ['Elija un tipo...','ayudante','administrador'];
+
   tiposBusquedas = ['email', 'nombre'];
   busqueda={tipoB: 'email', valor: ''};
+
 
   constructor( private navController:NavController,
     private menu: MenuController,
   private usuarioService: UsuarioService,
 private http: Http) {
     this.usuariosTemporal=this.usuarios;
+
   }
   openMenu(){
         this.menu.open();
