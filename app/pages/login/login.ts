@@ -21,11 +21,11 @@ export class LoginPage implements OnInit{
     clave: ''
   };
   //constantes para http
-  URL: string = "http://162.243.83.72:8080";
-  LOGIN_URL: string = "/auth/sign_in";
+  URL: string = "http://162.243.83.72:8000";
+  LOGIN_URL: string = "/token/new.json";
   SIGNUP_URL: string = "/auth/sign_up";
   authType: string = "login";
-  contentHeader: Headers = new Headers({"Content-Type": "application/json"});
+  contentHeader: Headers = new Headers({"Content-Type": "application/x-www-form-urlencoded"});
   jwtHelper: JwtHelper = new JwtHelper();
   user: string;
 
@@ -55,11 +55,11 @@ export class LoginPage implements OnInit{
 
   login() {
 
-    this.http.post(this.URL + this.LOGIN_URL, JSON.stringify({'email': this.usuario.usuario,'password': this.usuario.clave}), { headers: this.contentHeader })
+    this.http.post(this.URL + this.LOGIN_URL, "username="+this.usuario.usuario+"&password="+this.usuario.clave, { headers: this.contentHeader })
       .map(res => res)
       .subscribe(
         data => this.authSuccess(data),
-        err => this.errores.auth = 'Usuario o clave incorrectos'
+        err => this.errores.auth="Usuario o clave incorrectos"
       );
   }
   isLoggedIn(){
@@ -78,10 +78,9 @@ export class LoginPage implements OnInit{
   authSuccess(data) {
     this.logged=true;
     this.errores.auth = null;
-    this.local.setJson('token',
-            {'access-token': data.headers.toJSON()['access-token'][0],
-              'client': data.headers.toJSON()['client'][0],
-              'uid': data.headers.toJSON()['uid'][0]
+    this.local.set('auth',
+            {'token': data.json().token,
+              'user': data.json().user
             }
           );
     this.local.setJson('profile', data.json().data);
