@@ -7,8 +7,9 @@
   </div>
 </nav>
 
-
 <!--tabla de personas-->
+
+<ion-content>
 <div *ngIf="template=='null'">
   <!--Búsqueda por codigo o nombre-->
   <div class="row">
@@ -29,190 +30,153 @@
   <table materialize class="centered table centered striped" style="font-size: 15px">
     <thead>
       <tr>
-        <th data-field="id">Identificacion</th>
-        <th data-field="nombre">Nombre Completo</th>
-        <th data-field="apellido">Cant. Items</th>
-        <th data-field="apellido">Fecha Prestamo</th>
-        <th data-field="apellido">Fecha Devolucion</th>
-        <th data-field="apellido">Devuelto</th>
-        <th><th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- angular 2 for -->
-        <tr >
-          <td>0920188855</td>
-          <td>Maria Pozo</td>
-          <td>5</td>
-          <td>05/06/2016</td>
-          <td>15/06/2016</td>
-          <td>
-            <input  [checked]="true" id="prestamo1" type="checkbox" class="filled-in"/>
-            <label  attr.for="prestamo1"></label>
-          </td>
-          <td>
-            <a class="button-collapse" (click)="goModificar()"><i class="material-icons left">mode_edit</i></a>
-          </td>
-        </tr>
-        <tr >
-          <td>0920188855</td>
-          <td>Maria Pozo</td>
-          <td>3</td>
-          <td>02/07/2016</td>
-          <td>12/07/2016</td>
-          <td>
-            <input  [checked]="false" id="prestamo2" type="checkbox" class="filled-in"/>
-            <label  attr.for="prestamo2"></label>
-          </td>
-          <td>
-            <a class="button-collapse" (click)="goModificar()"><i class="material-icons left">mode_edit</i></a>
-          </td>
-        </tr>
-        <tr >
-          <td>0956123456</td>
-          <td>Janina Costa</td>
-          <td>8</td>
-          <td>03/07/2016</td>
-          <td>10/07/2016</td>
-          <td>
-            <input  [checked]="false" id="prestamo3" type="checkbox" class="filled-in"/>
-            <label  attr.for="prestamo3"></label>
-          </td>
-          <td>
-            <a class="button-collapse" (click)="goModificar()"><i class="material-icons left">mode_edit</i></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <!--Botones-->
-  <div *ngIf="template=='null'">
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a class="btn-floating btn-large orange darken-1">
-        <i class="large material-icons">settings</i>
-      </a>
-      <ul>
-        <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
-        <li><a (click)="goCrear()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
-      </ul>
-    </div>
-  </div>
+        <th data-field="Nombre">Nombre</th>
+        <th data-field="Apellido">Apellido</th>
+        <th data-field="Ítem_Nombre">Ítem</th>
+        <th data-field="Cantidad">cantidad</th>
+        <th data-field="fecha_prestamo">fecha ini.</th>
+        <th data-field="fecha_devuelto">fecha fin.</th>
+        <th data-field="devuelto">devuelto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let prestamo of prestamos">
+        <td *ngFor ="let persona of prestamo.personas">{{persona.nombre}} {{persona.apellido}}</td>
+        <td *ngFor ="let item of prestamo.items">{{item.nombre}}</td>
+        <td>{{prestamo.cantidad}}</td>
+        <td>{{prestamo.fecha_prestamo}}</td>
+        <td>{{prestamo.fecha_fin}}</td>
+        <td>{{prestamo.devuelto}}</td>
+        <td>
+          <a class="button-collapse"><i class="material-icons left">mode_edit</i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-  <ion-content>
-    <!--Layout de nuevo préstamo-->
-    <div *ngIf="template=='crear'" >
-      <!--nuevo user-->
-      <div materialize id="nuevo_prestamo" class="section">
-        <div class="container" style="padding-top: 50px">
-          <div class="row">
-            <div class="col s12 m6">
-              <div class="card light-green lighten-5">
-                <div class="card-panel teal lighten-2 black-text ">Persona</div>
-                <div class="card-content black-text">
-                  <!--<span class="card-title ">Persona</span>-->
-                  <div class="input-field">
-                    <i class="material-icons prefix">account_box</i>
-                    <select materialize="material_select" [materializeSelectOptions]="selectOptions">
-                      <option *ngFor="let tiposIdentificacion of tiposIdentificaciones" [value]="tiposIdentificacion">{{tiposIdentificacion}}</option>
-                    </select>
-                  </div>
-                  <div class="row">
-                    <div class="col l9 m9 s8">
-                      <div class="input-field">
-                        <i class="material-icons prefix">account_box</i>
-                        <input type="text" id="identificacion">
-                        <label class="black-text" for="identificacion" class="active">Identificación</label>
-                      </div>
+</ion-content>
+
+<!--Botones-->
+<div *ngIf="template=='null'">
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large orange darken-1">
+      <i class="large material-icons">settings</i>
+    </a>
+    <ul>
+      <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
+      <li><a (click)="goNuevoPrestamo()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
+    </ul>
+  </div>
+</div>
+
+  <!--Layout de nuevo préstamo-->
+  <div *ngIf="template=='nuevo_prestamo'" >
+    <!--nuevo user-->
+    <div materialize id="nuevo_prestamo" class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m6">
+            <div class="card light-green lighten-5">
+              <div class="card-panel teal lighten-2 black-text ">Persona</div>
+              <div class="card-content black-text">
+                <!--<span class="card-title ">Persona</span>-->
+                <div class="input-field">
+                  <i class="material-icons prefix">account_box</i>
+                  <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+                    <option *ngFor="let tiposIdentificacion of tiposIdentificaciones" [value]="tiposIdentificacion">{{tiposIdentificacion}}</option>
+                  </select>
+                </div>
+                <div class="row">
+                  <div class="col l9 m9 s8">
+                    <div class="input-field">
+                      <i class="material-icons prefix">account_box</i>
+                      <input type="text" id="identificacion">
+                      <label class="black-text" for="identificacion" class="active">Identificación</label>
                     </div>
-                    <div class="col l3 m3 s3" style="padding-top: 22px">
-                      <a class="waves-effect waves-light btn"><i class="material-icons right ">search</i></a>
+                  </div>
+                  <div class="col l3 m3 s3" style="padding-top: 22px">
+                    <a class="waves-effect waves-light btn"><i class="material-icons right ">search</i></a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col l11 s11 m11 offset-l1 offset-m1 offset-s1">
+                    <label style="font-size: 20px" >nombre persona - existe</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-action">
+              <a href = "#" (click)="goCrearPersona()">Crear nueva persona</a>
+            </div>
+          </div>
+          <div class="col s12 l6 m6">
+            <div class="card light-green lighten-5 "> <!--blue-grey darken-1-->
+              <div class="card-panel teal lighten-2">Préstamo</div>
+              <div class="card-content black-text">
+                <!--<span class="card-title">Préstamo</span>-->
+                <div class="input-field">
+                  <i class="material-icons prefix">local_offer</i>
+                  <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+                    <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda">{{tiposBusqueda}}</option>
+                  </select>
+                </div>
+                <div class="row">
+                  <div class="col l9 m9 s8 ">
+                    <div class="input-field">
+                      <i class="material-icons prefix">local_offer</i>
+                      <input class="black-text"  id="busqueda" type="text">
+                      <label class="black-text" for="busqueda" class="active">Búsqueda</label>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col l11 s11 m11 offset-l1 offset-m1 offset-s1">
-                      <label style="font-size: 20px" >nombre persona - existe</label>
+                  <div class="col l3 m3 s3" style="padding-top: 22px">
+                    <a class="waves-effect waves-light btn"><i class="material-icons right">search</i></a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col l11 s11 m11 offset-l1 offset-m1 offset-s1">
+                    <label style="font-size: 20px">Kit Arduino disponible 10 unidades</label>
+                  </div>
+                </div>
+
+                <div class="row ">
+
+                  <div materialize class="col s4 m4 l4 offset-l1 offset-m1 offset-s1">
+                    <div class="input-field">
+                      <label for="fecha_desde" class="active">desde</label>
+                      <input  id="fecha_desde" type="date" class="datepicker" style="padding-top: 16px">
+                      <script>
+                      new Datepicker('.datepicker');
+                      </script>
+                    </div>
+                  </div>
+                  <div materialize class="col s4 m4 l4 offset-l1 offset-m1 offset-s1">
+                    <div class="input-field">
+                      <label for="fecha_hasta" class="active" >hasta</label>
+                      <input id="fecha_hasta" type="date" class="datepicker" style="padding-top: 16px">
+                      <script>
+                      new Datepicker('.datepicker');
+                      </script>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-action">
-                <a href="#">Crear nueva persona</a>
+                <a class="waves-effect waves-light btn "><i class="material-icons right">swap_horiz</i>Prestar</a>
               </div>
-            </div>
-            <div class="col s12 l6 m6">
-              <div class="card light-green lighten-5 "> <!--blue-grey darken-1-->
-                <div class="card-panel teal lighten-2">Préstamo</div>
-                <div class="card-content black-text">
-                  <!--<span class="card-title">Préstamo</span>-->
-                  <div class="input-field">
-                    <i class="material-icons prefix">local_offer</i>
-                    <select materialize="material_select" [materializeSelectOptions]="selectOptions">
-                      <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda">{{tiposBusqueda}}</option>
-                    </select>
-                  </div>
-                  <div class="row">
-                    <div class="col l9 m9 s8 ">
-                      <div class="input-field">
-                        <i class="material-icons prefix">local_offer</i>
-                        <input class="black-text"  id="busqueda" type="text">
-                        <label class="black-text" for="busqueda" class="active">Búsqueda</label>
-                      </div>
-                    </div>
-                    <div class="col l3 m3 s3" style="padding-top: 22px">
-                      <a class="waves-effect waves-light btn"><i class="material-icons right">search</i></a>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col l11 s11 m11 offset-l1 offset-m1 offset-s1">
-                      <label style="font-size: 20px">Kit Arduino disponible 10 unidades</label>
-                    </div>
-                  </div>
-
-                  <div class="row ">
-
-                    <div materialize class="col s4 m4 l4 offset-l1 offset-m1 offset-s1">
-                      <div class="input-field">
-                        <label for="fecha_desde" class="active">desde</label>
-                        <input  id="fecha_desde" type="date" class="datepicker" style="padding-top: 16px">
-                        <script>
-                        new Datepicker('.datepicker');
-                        </script>
-                      </div>
-                    </div>
-                    <div materialize class="col s4 m4 l4 offset-l1 offset-m1 offset-s1">
-                      <div class="input-field">
-                        <label for="fecha_hasta" class="active" >hasta</label>
-                        <input id="fecha_hasta" type="date" class="datepicker" style="padding-top: 16px">
-                        <script>
-                        new Datepicker('.datepicker');
-                        </script>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-action">
-                  <a class="waves-effect waves-light btn "><i class="material-icons right">swap_horiz</i>Prestar</a>
-                </div>
-              </div>
-
             </div>
           </div>
-
-        </div>
-
-
-
-
-      </div>
-
-      <!--boton para cancelar-->
-      <div class="section">
-        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-          <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
-            <i class="material-icons">clear</i>
-          </a>
         </div>
       </div>
     </div>
+  </div>
 
-  </ion-content>
+
+<!--boton para cancelar-->
+<div *ngIf="template=='nuevo_prestamo'" class="section">
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+      <i class="material-icons">clear</i>
+    </a>
+  </div>
+</div>
