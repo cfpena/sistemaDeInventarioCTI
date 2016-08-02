@@ -19,7 +19,8 @@ export class UsuarioService {
             return this.http.get(this.url.base + this.url.usuario, { headers: this.headers }).toPromise();
 
         }).then(result => {
-            return result.json() as Usuario[];
+          let usuarios = result.json() as Usuario[];
+            return usuarios;
         });
     }
 }

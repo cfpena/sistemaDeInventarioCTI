@@ -63,7 +63,7 @@ Ionic pages and navigation.
           </td>
           <td>{{usuario.Nombre}}</td>
           <td>{{usuario.Email}}</td>
-          <td>{{usuario.Tipo}}</td>
+          <td>{{usuario.Usuario.groups[0].name}}</td>
           <td>
             <a class="button-collapse" (click)="goModificar(usuario.id)"><i class="material-icons left">mode_edit</i></a>
           </td>
