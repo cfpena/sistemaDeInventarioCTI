@@ -2,16 +2,16 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {PrincipalPage} from '../principal/principal';
 import {Usuario} from '../usuario/usuario.model';
-import {UsuarioService} from '../usuario/usuario.auth.service';
+import {UsuarioAuthService} from '../usuario/usuario.auth.service';
 import {Storage, LocalStorage} from 'ionic-angular';
 import {Http, Headers} from '@angular/http';
 import {FORM_DIRECTIVES} from '@angular/common';
 import {JwtHelper} from 'angular2-jwt';
 import 'rxjs/add/operator/map';
-
+import {Url} from '../../url';
 @Component({
   templateUrl: 'build/pages/login/login.html',
-  providers: [UsuarioService],
+  providers: [UsuarioAuthService],
   directives: [FORM_DIRECTIVES]
 })
 export class LoginPage implements OnInit{
@@ -21,11 +21,9 @@ export class LoginPage implements OnInit{
     clave: ''
   };
   //constantes para http
-  URL: string = "http://162.243.83.72:8000";
-  LOGIN_URL: string = "/token/new.json";
-  SIGNUP_URL: string = "/auth/sign_up";
+  url = new Url();
   authType: string = "login";
-  contentHeader: Headers = new Headers({"Content-Type": "application/x-www-form-urlencoded"});
+  contentHeader: Headers = new Headers({"Content-Type": "application/json"});
   jwtHelper: JwtHelper = new JwtHelper();
   user: string;
 
@@ -37,7 +35,7 @@ export class LoginPage implements OnInit{
   local: Storage = new Storage(LocalStorage);
   constructor(private http: Http,
               private nav:NavController,
-              private usuarioService: UsuarioService) {
+              private usuarioService: UsuarioAuthService) {
 
 
         this.local.get('profile').then(profile => {
@@ -55,7 +53,7 @@ export class LoginPage implements OnInit{
 
   login() {
 
-    this.http.post(this.URL + this.LOGIN_URL, "username="+this.usuario.usuario+"&password="+this.usuario.clave, { headers: this.contentHeader })
+    this.http.post(this.url.base+this.url.token,JSON.stringify({username: this.usuario.usuario,password: this.usuario.clave}), { headers: this.contentHeader })
       .map(res => res)
       .subscribe(
         data => this.authSuccess(data),
@@ -66,33 +64,24 @@ export class LoginPage implements OnInit{
     return this.logged;
 
   }
-  signup() {
-    this.http.post(this.SIGNUP_URL, JSON.stringify(JSON.stringify({'username': this.usuario.usuario,'password': this.usuario.clave})), { headers: this.contentHeader })
-      .map(res => res.json())
-      .subscribe(
-        data => this.authSuccess(data.id_token),
-        err => this.errores.auth = err
-      );
-  }
+
 
   authSuccess(data) {
+    
     this.logged=true;
     this.errores.auth = null;
-    this.local.set('auth',
-            {'token': data.json().token,
-              'user': data.json().user
+    this.local.setJson('auth',
+            {'token': data.json().token
             }
           );
-    this.local.setJson('profile', data.json().data);
-    this.user = data.json().data;
     this.nav.setRoot(PrincipalPage);
     this.usuarioService.loggedIn = true;
 
   }
   ngOnInit() {
 
-    this.local.getJson('profile').then(profile => {
-      if(profile!=null)
+    this.local.get('auth').then(auth => {
+      if(auth!=null)
         this.nav.setRoot(PrincipalPage);
     }).catch(error => {
         console.log(error);

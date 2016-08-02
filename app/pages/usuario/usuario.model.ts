@@ -2,21 +2,22 @@ import {Validator} from "validator.ts/Validator";
 import {Contains, IsInt, IsLength, IsEmail, IsAlpha} from "validator.ts/decorator/Validation";
 
 export class Usuario {
-    @IsInt() id: number;
-    @IsEmail() email: string;
-    provider: string; //no va
-    @IsEmail() uid: string;
-    @IsAlpha() name: string;
-    nickname: string; //no va
-    image: string;    //no va
-    type: string;
-
+    Username: String;
+    CI: String;
+    Nombre:String;
+    Apellido: String;
+    @IsEmail() Email: string;
+    Telefono: String;
+    Genero: String;
+    Tipo: String;
 
 constructor( ) {
-  this.id=0;
-  this.email='';
-  this.uid='';
-  this.type='';
-  this.name='';
+  this.Username='';
+  this.CI='';
+  this.Nombre='';
+  this.Apellido='';
+  this.Email='';
+  this.Telefono='';
+  this.Genero='';
 }
 }
