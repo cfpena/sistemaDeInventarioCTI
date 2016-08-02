@@ -11,15 +11,15 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class UsuarioService{
+export class UsuarioAuthService{
   loggedIn: Boolean=false;
   local: Storage = new Storage(LocalStorage);
   url: string = 'http://162.243.83.72:8080'
 
   constructor(private http: Http) { }
   logout() {
-    this.local.remove('token');
-    this.local.remove('profile');
+    this.local.remove('auth');
+
   }
 
   getUsuario(): Promise<Usuario[]> {
@@ -48,6 +48,7 @@ export class UsuarioService{
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   });
+  /*
   return this.local.get('token').then(res=>{
     headers.append('access-token', JSON.parse(res)['access-token']);
     headers.append('client', JSON.parse(res)['client']);
@@ -56,7 +57,18 @@ export class UsuarioService{
   }, err=>{
     headers.append('Authorization', '');
     return headers;
-  });
+  });*/
+  return headers;
+}
+
+
+getToken() {
+return this.local.get('auth').then(res=>{
+  return JSON.parse(res).token;
+}, err=>{
+  console.log("No existe el token");
+  return null;
+});
 }
 
 }
