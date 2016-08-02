@@ -9,7 +9,7 @@ export class Usuario {
     @IsEmail() Email: string;
     Telefono: String;
     Genero: String;
-    Tipo: String;
+    Usuario: any;
 
 constructor( ) {
   this.Username='';

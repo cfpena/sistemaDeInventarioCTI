@@ -5,7 +5,6 @@ import {MaterializeDirective} from "../../materialize-directive";
 import {Validator} from "validator.ts/Validator";
 import { Http, Headers } from '@angular/http';
 import {UsuarioService} from './usuario.service';
-import {UsuarioAuthService} from './usuario.auth.service';
 import {Url} from '../../url';
 
 
@@ -17,7 +16,7 @@ import {Url} from '../../url';
 
 export class UsuarioPage implements OnInit {
     url = new Url();
-    headers = new Headers({ "Content-Type": "application/json" });
+
     title: string = 'Usuarios';
     usuarios: Usuario[];
     template: string = 'null';
@@ -44,7 +43,6 @@ export class UsuarioPage implements OnInit {
     constructor(private navController: NavController,
         private menu: MenuController,
         private usuarioService: UsuarioService,
-        private usuarioAuthService: UsuarioAuthService,
         private http: Http) {
         this.usuariosTemporal = this.usuarios;
 
@@ -65,16 +63,7 @@ export class UsuarioPage implements OnInit {
         this.navController.present(toast);
     }
     listar() {
-        this.usuarioAuthService.getToken().then(token => {
-
-            this.headers.append('Authorization', 'JWT ' + token);
-
-            return this.http.get(this.url.base + this.url.usuario, { headers: this.headers }).toPromise();
-
-        }).then(result => {
-            //this.usuarios=result.json().data as Usuario[];
-            this.usuarios = result.json() as Usuario[];
-        });
+        this.usuarioService.getUsuarios().then(usuarios => this.usuarios= usuarios);
 
     }
     crear() {

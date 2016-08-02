@@ -33,7 +33,7 @@ export class MyApp {
   pages: Array<{title: string, icon: string,component: any}>
 
   constructor(private platform: Platform,
-              private usuarioService: UsuarioAuthService) {
+              private usuarioAuthService: UsuarioAuthService) {
     this.initializeApp();
         // used for an example of ngFor and navigation
     this.pages = [
@@ -62,9 +62,8 @@ export class MyApp {
   }
 
   openPage(page) {
-
     this.nav.setRoot(page.component);
-    if(page.component == LoginPage) this.usuarioService.logout();
+    if(page.component == LoginPage) this.usuarioAuthService.logout();
   }
 }
 
