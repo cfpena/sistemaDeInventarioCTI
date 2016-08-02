@@ -10,84 +10,59 @@ import {JwtHelper} from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 import {Url} from '../../url';
 @Component({
-  templateUrl: 'build/pages/login/login.html',
-  providers: [UsuarioAuthService],
-  directives: [FORM_DIRECTIVES]
+    templateUrl: 'build/pages/login/login.html',
+    providers: [UsuarioAuthService],
+    directives: [FORM_DIRECTIVES]
 })
-export class LoginPage implements OnInit{
-  @Input()
-  usuario = {
-    usuario: '',
-    clave: ''
-  };
-  //constantes para http
-  url = new Url();
-  authType: string = "login";
-  contentHeader: Headers = new Headers({"Content-Type": "application/json"});
-  jwtHelper: JwtHelper = new JwtHelper();
-  user: string;
+export class LoginPage implements OnInit {
+    @Input()
+    usuario = {
+        usuario: '',
+        clave: ''
+    };
+    url = new Url();
+    contentHeader: Headers = new Headers({ "Content-Type": "application/json" });
+    usuarios: Usuario[];
 
-  usuarios: Usuario[];
-  logged=false;
-  errores={
-    auth: '',
-  };
-  local: Storage = new Storage(LocalStorage);
-  constructor(private http: Http,
-              private nav:NavController,
-              private usuarioService: UsuarioAuthService) {
+    errores = {
+        auth: '',
+    };
+    local: Storage = new Storage(LocalStorage);
+    constructor(private http: Http,
+        private nav: NavController,
+        private usuarioAuthService: UsuarioAuthService) {}
 
+    setUsuario(usuario: string, clave: string) {
+        this.usuario.usuario = usuario;
+        this.usuario.clave = clave;
+    }
 
-        this.local.get('profile').then(profile => {
-          this.user =profile;
-        }).catch(error => {
-          console.log(error);
-        });
+    login() {
 
-  }
+        this.http.post(this.url.base + this.url.token, JSON.stringify({ username: this.usuario.usuario, password: this.usuario.clave }), { headers: this.contentHeader })
+            .map(res => res)
+            .subscribe(
+            data => this.authSuccess(data),
+            err => this.errores.auth = "Usuario o clave incorrectos"
+            );
+    }
 
-  setUsuario(usuario:string,clave:string){
-    this.usuario.usuario=usuario;
-    this.usuario.clave=clave;
-  }
+    authSuccess(data) {
 
-  login() {
-
-    this.http.post(this.url.base+this.url.token,JSON.stringify({username: this.usuario.usuario,password: this.usuario.clave}), { headers: this.contentHeader })
-      .map(res => res)
-      .subscribe(
-        data => this.authSuccess(data),
-        err => this.errores.auth="Usuario o clave incorrectos"
-      );
-  }
-  isLoggedIn(){
-    return this.logged;
-
-  }
-
-
-  authSuccess(data) {
-    
-    this.logged=true;
-    this.errores.auth = null;
-    this.local.setJson('auth',
-            {'token': data.json().token
+        this.errores.auth = null;
+        this.local.setJson('auth',
+            {
+                'token': data.json().token
             }
-          );
-    this.nav.setRoot(PrincipalPage);
-    this.usuarioService.loggedIn = true;
-
-  }
-  ngOnInit() {
-
-    this.local.get('auth').then(auth => {
-      if(auth!=null)
+        );
         this.nav.setRoot(PrincipalPage);
-    }).catch(error => {
-        console.log(error);
-      });
 
-}
+    }
+    ngOnInit() {
+        this.usuarioAuthService.isAuthenticated().then(result => {
+            if (result) this.nav.setRoot(PrincipalPage);
+        });
+    }
 
 
 
