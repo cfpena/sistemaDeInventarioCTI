@@ -1,4 +1,4 @@
-<!--
+  <!--
 Generated template for the UsuarioPage page.
 
 See http://ionicframework.com/docs/v2/components/#navigation for more info on
@@ -60,9 +60,9 @@ Ionic pages and navigation.
           <input  [checked]="false" (change)="select(usuario.id)" id="{{usuario.id}}" type="checkbox" class="filled-in"/>
           <label  attr.for="{{usuario.id}}"></label>
         </td>
-        <td>{{usuario.Nombre}}</td>
+        <td>{{usuario.Nombre + ' ' + usuario.Apellido}}</td>
         <td>{{usuario.Email}}</td>
-        <td>{{usuario.Tipo}}</td>
+        <td>{{usuario.Usuario.groups[0].name}}</td>
         <td>
           <a class="button-collapse" (click)="goModificar(usuario.id)"><i class="material-icons left">mode_edit</i></a>
         </td>
@@ -95,17 +95,17 @@ Ionic pages and navigation.
           <div class="col l6 m6 s12">
             <div class="input-field">
               <i class="material-icons prefix">email</i>
-              <input id="icon_codigo" type="email" class="validate" maxlength="50"  [(ngModel)]="usuarioNuevo.email">
+              <input id="icon_codigo" type="email" class="validate" maxlength="50"  [(ngModel)]="usuarioNuevo.Email">
               <label for="icon_codigo">Email</label>
             </div>
             <div class="input-field">
               <i class="material-icons prefix">account_box</i>
-              <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*"[(ngModel)]="usuarioNuevo.name">
+              <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*"[(ngModel)]="usuarioNuevo.Nombre">
               <label for="icon_codigo">Nombre</label>
             </div>
             <div class="input-field">
               <i class="material-icons prefix">account_box</i>
-              <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*">
+              <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="usuarioNuevo.Apellido">
               <label for="icon_codigo">Apellido</label>
             </div>
           </div>
@@ -113,8 +113,8 @@ Ionic pages and navigation.
           <div class="col l6 m6 s12">
             <div class="input-field">
               <i class="material-icons prefix">keyboard_arrow_right</i>
-              <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="usuarioNuevo.type">
-                <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
+              <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="Tipo">
+                <option *ngFor="let tipo of tipos" [value]="tipo.name">{{tipo.name}}</option>
               </select>
             </div>
             <div class="input-field" style="padding-top: 18px">

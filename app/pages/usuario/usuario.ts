@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild} from '@angular/core';
 import {NavController, MenuController, Toast} from 'ionic-angular';
-import {Usuario} from './usuario.model';
+import {Usuario,Group,User} from './usuario.model';
+
 import {MaterializeDirective} from "../../materialize-directive";
 import {Validator} from "validator.ts/Validator";
 import { Http, Headers } from '@angular/http';
@@ -21,6 +22,14 @@ export class UsuarioPage implements OnInit {
     usuarios: Usuario[];
     template: string = 'null';
     usuariosTemporal: Usuario[] = [];
+    Tipo= '';
+    count = 10;
+    id = 0;
+    selected: number[] = [];
+    tipos: Group[];
+
+    tiposBusquedas = ['email', 'nombre'];
+    busqueda = { tipoB: 'email', valor: '' };
 
     @Input()
     usuarioNuevo = new Usuario();
@@ -31,20 +40,14 @@ export class UsuarioPage implements OnInit {
     }
     @Input()
     usuarioModificar = new Usuario();
-    count = 10;
-    id = 0;
-    selected: number[] = [];
-    tipos = ['Elija un tipo...', 'ayudante', 'administrador'];
 
-    tiposBusquedas = ['email', 'nombre'];
-    busqueda = { tipoB: 'email', valor: '' };
 
 
     constructor(private navController: NavController,
         private menu: MenuController,
         private usuarioService: UsuarioService,
         private http: Http) {
-        this.usuariosTemporal = this.usuarios;
+//this.usuariosTemporal = this.usuarios;
 
     }
     openMenu() {
@@ -63,29 +66,37 @@ export class UsuarioPage implements OnInit {
         this.navController.present(toast);
     }
     listar() {
-        this.usuarioService.getUsuarios().then(usuarios => this.usuarios= usuarios);
-
+        this.usuarioService.getUsuarios().then(usuarios => {this.usuarios= usuarios; return usuarios}).then(usuarios =>{
+        for(var usuario of this.usuarios){
+          this.usuarioService.llenarTipo(usuario);
+        }
+        return usuarios
+      })
     }
     crear() {
-        /*
+
             let validator = new Validator();
-            this.usuarioNuevo.uid=this.usuarioNuevo.email;
-            console.log(JSON.stringify(validator.validate(this.usuarioNuevo)));
-              console.log(this.usuarioNuevo.type);
+
             if(!validator.isValid(this.usuarioNuevo)) this.presentToast('Corrija el formulario');
             else if(this.credenciales.clave=='') this.presentToast('Clave vacia');
             else if(this.credenciales.clave.length< 6) this.presentToast('Clave menor a 6 caracteres');
             else if(this.credenciales.clave!=this.credenciales.clave2) this.presentToast('Claves no coinciden');
-            else if(this.usuarioNuevo.type=='' || this.usuarioNuevo.type==this.tipos[0])this.presentToast('Tipo no definido');
+            else if(this.Tipo=='')this.presentToast('Tipo no definido');
             else{
 
-            this.usuarios.push(this.usuarioNuevo);
+              this.usuarioNuevo.Usuario =  new User();
+              this.usuarioNuevo.Usuario.username=this.usuarioNuevo.Email;
+
+            let tipo = this.tipos.find(tipo=> this.Tipo==tipo.name);
+            let usuario = JSON.parse(JSON.stringify(this.usuarioNuevo))
+            usuario['Usuario']['groups'] = [tipo.url]
+            this.usuarioService.createUsuario(usuario).then(result=>this.listar());
             this.template='null';
-            this.count++;
             this.usuarioNuevo = new Usuario();
+
             this.credenciales.clave='';
             this.credenciales.clave2='';
-          }*/
+          }
     }
     goModificar(id: string) {
         /*
@@ -161,7 +172,13 @@ export class UsuarioPage implements OnInit {
     }
 
     public ngOnInit() {
+
         this.listar();
+
+        this.usuarioService.getTipos().then(tipos =>{
+          this.tipos=tipos
+        });
+      //  this.Tipo=this.tipos[0].name.toString();
         /*
         this.http.post(this.url.base+this.url.usuario,), { headers: this.contentHeader })
           .map(res => res.json())

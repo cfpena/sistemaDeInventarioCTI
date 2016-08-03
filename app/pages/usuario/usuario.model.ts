@@ -1,18 +1,28 @@
 import {Validator} from "validator.ts/Validator";
 import {Contains, IsInt, IsLength, IsEmail, IsAlpha} from "validator.ts/decorator/Validation";
 
+export class Group{
+  name: String;
+  url: String;
+}
+export class User{
+  username: String;
+  groups: Group[];
+
+}
+
 export class Usuario {
-    Username: String;
+
     CI: String;
     Nombre:String;
     Apellido: String;
     @IsEmail() Email: string;
     Telefono: String;
     Genero: String;
-    Usuario: any;
+    Usuario: User;
 
 constructor( ) {
-  this.Username='';
+
   this.CI='';
   this.Nombre='';
   this.Apellido='';

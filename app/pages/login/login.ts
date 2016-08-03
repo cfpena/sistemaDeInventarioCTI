@@ -21,7 +21,6 @@ export class LoginPage implements OnInit {
         clave: ''
     };
     url = new Url();
-    contentHeader: Headers = new Headers({ "Content-Type": "application/json" });
     usuarios: Usuario[];
 
     errores = {
@@ -39,7 +38,7 @@ export class LoginPage implements OnInit {
 
     login() {
 
-        this.http.post(this.url.base + this.url.token, JSON.stringify({ username: this.usuario.usuario, password: this.usuario.clave }), { headers: this.contentHeader })
+        this.http.post(this.url.base + this.url.token, JSON.stringify({username: this.usuario.usuario,password: this.usuario.clave }), { headers: this.url.header })
             .map(res => res)
             .subscribe(
             data => this.authSuccess(data),
@@ -49,13 +48,9 @@ export class LoginPage implements OnInit {
 
     authSuccess(data) {
 
-        this.errores.auth = null;
-        this.local.setJson('auth',
-            {
-                'token': data.json().token
-            }
-        );
         this.nav.setRoot(PrincipalPage);
+        this.errores.auth = null;
+        this.local.setJson('auth',{token: data.json().token});
 
     }
     ngOnInit() {

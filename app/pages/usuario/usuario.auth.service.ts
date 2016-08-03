@@ -32,6 +32,7 @@ export class UsuarioAuthService {
       let result=false
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
+      headers.append('Accept','application/json');
       return this.local.get('auth').then(auth => {
         if(auth!=null){
           return this.http.post(this.url.base + this.url.verifyToken,'{"token": "' + JSON.parse(auth).token +'"}', { headers: headers }).toPromise();
