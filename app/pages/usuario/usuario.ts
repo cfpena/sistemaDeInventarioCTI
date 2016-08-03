@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild} from '@angular/core';
 import {NavController, MenuController, Toast} from 'ionic-angular';
-import {Usuario,Group,User} from './usuario.model';
+import {Usuario, Group, User} from './usuario.model';
 
 import {MaterializeDirective} from "../../materialize-directive";
 import {Validator} from "validator.ts/Validator";
@@ -22,10 +22,10 @@ export class UsuarioPage implements OnInit {
     usuarios: Usuario[];
     template: string = 'null';
     usuariosTemporal: Usuario[] = [];
-    Tipo= '';
+    Tipo = '';
     count = 10;
     id = 0;
-    selected: number[] = [];
+    usuariosEliminar: Usuario[] = [];
     tipos: Group[];
 
     tiposBusquedas = ['email', 'nombre'];
@@ -47,7 +47,7 @@ export class UsuarioPage implements OnInit {
         private menu: MenuController,
         private usuarioService: UsuarioService,
         private http: Http) {
-//this.usuariosTemporal = this.usuarios;
+        //this.usuariosTemporal = this.usuarios;
 
     }
     openMenu() {
@@ -66,41 +66,41 @@ export class UsuarioPage implements OnInit {
         this.navController.present(toast);
     }
     listar() {
-        this.usuarioService.getUsuarios().then(usuarios => {this.usuarios= usuarios; return usuarios}).then(usuarios =>{
-        for(var usuario of this.usuarios){
-          this.usuarioService.llenarTipo(usuario);
-        }
-        return usuarios
-      })
+        this.usuarioService.getUsuarios().then(usuarios => { this.usuarios = usuarios; return usuarios }).then(usuarios => {
+            for (var usuario of this.usuarios) {
+                this.usuarioService.llenarTipo(usuario);
+            }
+        })
+        return this.usuarios
     }
     crear() {
 
-            let validator = new Validator();
+        let validator = new Validator();
 
-            if(!validator.isValid(this.usuarioNuevo)) this.presentToast('Corrija el formulario');
-            else if(this.credenciales.clave=='') this.presentToast('Clave vacia');
-            else if(this.credenciales.clave.length< 6) this.presentToast('Clave menor a 6 caracteres');
-            else if(this.credenciales.clave!=this.credenciales.clave2) this.presentToast('Claves no coinciden');
-            else if(this.Tipo=='')this.presentToast('Tipo no definido');
-            else{
+        if (!validator.isValid(this.usuarioNuevo)) this.presentToast('Corrija el formulario');
+        else if (this.credenciales.clave == '') this.presentToast('Clave vacia');
+        else if (this.credenciales.clave.length < 6) this.presentToast('Clave menor a 6 caracteres');
+        else if (this.credenciales.clave != this.credenciales.clave2) this.presentToast('Claves no coinciden');
+        else if (this.Tipo == '') this.presentToast('Tipo no definido');
+        else {
 
-              this.usuarioNuevo.Usuario =  new User();
-              this.usuarioNuevo.Usuario.username=this.usuarioNuevo.Email;
+            this.usuarioNuevo.Usuario = new User();
+            this.usuarioNuevo.Usuario.username = this.usuarioNuevo.Email;
 
-            let tipo = this.tipos.find(tipo=> this.Tipo==tipo.name);
+            let tipo = this.tipos.find(tipo => this.Tipo == tipo.name);
             let usuario = JSON.parse(JSON.stringify(this.usuarioNuevo))
             usuario['Usuario']['groups'] = [tipo.url]
-            this.usuarioService.createUsuario(usuario,this.credenciales).then(result=>this.listar());
-            this.template='null';
+            this.usuarioService.createUsuario(usuario, this.credenciales).then(result => this.listar());
+            this.template = 'null';
             this.usuarioNuevo = new Usuario();
 
-            
-          }
+
+        }
     }
+
     goModificar(id: string) {
-        /*
-                this.template='modificar'
-                this.id=parseInt(id);
+               this.template='modificar'
+/*                this.id=parseInt(id);
                 let user = this.usuarios.find(usuario => usuario.id == this.id);
                 for(var i in this.usuarioModificar){
                   this.usuarioModificar[i]=user[i];
@@ -127,25 +127,23 @@ export class UsuarioPage implements OnInit {
             return this.usuarios[index];*/
     }
     eliminar() {
-        /*
-              for(var i in this.selected){
-                console.log(this.selected[i]);
-                let index =this.usuarios.findIndex(usuario => usuario.id==this.selected[i]);
-                console.log(index);
-                this.usuarios.splice(index,1);
+
+              for(var usuario of this.usuariosEliminar){
+                this.usuarioService.eliminarUsuario(usuario).then(result =>
+                  { console.log(result) }).catch(error=> console.log(error))
               }
-              this.selected=[];*/
+              this.usuariosEliminar= Array<Usuario>();
+              this.listar();
     }
 
-    select(id: any) {
-        let index: number;
-        index = this.selected.findIndex(num => num == parseInt(id));
+    select(usuario: Usuario) {
 
-        if (index == -1) {
-            this.selected.push(parseInt(id));
-        }
-        else { this.selected.splice(index, 1) };
-        console.log(this.selected);
+        if (!this.usuariosEliminar.some(user => user == usuario)) {
+            this.usuariosEliminar.push(usuario);
+        }else {
+            let index = this.usuariosEliminar.findIndex(x => x == usuario)
+            this.usuariosEliminar.splice(index, 1)
+        };
 
     }
 
@@ -157,23 +155,20 @@ export class UsuarioPage implements OnInit {
     }
 
     buscar() {
-/*
-        let busquedaTemp = this.busqueda;
-        if(busquedaTemp.valor=='') this.usuarios=this.usuariosTemporal;
-        this.usuarios=this.usuariosTemporal.filter(function(usuario){
-          if(busquedaTemp.tipoB=='email') {
-            console.log("email");
-            return usuario.Email.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+      if(this.busqueda.valor.trim() != ""){
+      this.usuarioService.getBuscar(this.busqueda.valor).then(usuarios => { this.usuarios = usuarios; return usuarios }).then(usuarios => {
+          for (var usuario of this.usuarios) {
+              this.usuarioService.llenarTipo(usuario);
           }
-          else return usuario.Nombre.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
-        })
-*/
+      })}
+      else{this.listar()}
+      return this.usuarios
     }
 
     public ngOnInit() {
         this.listar();
-        this.usuarioService.getTipos().then(tipos =>{
-          this.tipos=tipos
+        this.usuarioService.getTipos().then(tipos => {
+            this.tipos = tipos
         });
-        }
+    }
 }

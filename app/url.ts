@@ -7,6 +7,7 @@ export class Url {
   tiposUsuarios = 'api/groups/';
   header= new Headers();
   password= 'api/password/';
+  buscar = '?search='
   constructor() {
     this.header.append('Content-Type','application/json')
     this.header.append('Accept','application/json')
