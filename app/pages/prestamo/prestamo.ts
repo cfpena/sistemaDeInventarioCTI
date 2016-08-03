@@ -1,25 +1,46 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild  } from '@angular/core';
 import { NavController, MenuController , Toast } from 'ionic-angular';
 import {ITEM} from '../item/item.model';
 import {Kit} from '../kit/kit.model';
+import {Persona} from '../persona/persona.model';
+import {PersonaPage} from '../persona/persona';
 import {Prestamo} from '../prestamo/prestamo.model';
 import {MaterializeDirective} from "../../materialize-directive";
 import {DatePicker} from 'ionic-native';
 
+
+
 @Component({
   templateUrl: 'build/pages/prestamo/prestamo.html',
   directives: [MaterializeDirective],
+
 })
 export class PrestamoPage implements OnInit{
-  /*
-  items = ITEMS;
-  kits = KITS;*/
+
   title: string ='Prestamos';
 
+  personas: Persona[]=[
+  {id: 1,  cedula:'0912345678', nombre: 'Adriano',  apellido: 'Pinargote',  correo: 'a@prueba.com', funcion:'estudiante', telefono: '0959605816', celular: ' ', genero: 'M'},
+  //{id: 2,  cedula:'0965321094',  nombre: 'Janina', apellido: 'Costa',  correo: 'j@prueba.com', funcion:'ayudante', telefono: '04-6025888', celular: ' ', genero: 'M'},
+  //{id: 3,  cedula:'0930128897',  nombre: 'Maria', apellido: 'Pozo',  correo: 'm@prueba.com', funcion:'estudiante', telefono: '04-6025888', celular: ' ', genero: 'F'}
+];
+ITEMS: ITEM[]=[
+  {id: 1,  codigo: '1234567890',  nombre: 'resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:20, esDispositivo:true, image:''},
+  //{id: 2,  codigo: '1234456891',  nombre: 'capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:70, esDispositivo:true, image:''},
+  //{id: 3,  codigo: '0956787892',  nombre: 'ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:16, esDispositivo:true, image:''}
+
+];
+KITS: Kit[]=[
+  {id: 1,  codigo: '1239033567',  nombre: 'arduino',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, items: this.ITEMS},
+  //{id: 2,  codigo: '9988444444',  nombre: 'kit2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, items: this.ITEMS}
+  ]
+
+
   prestamos: Prestamo[] = [
-    {id: 1, typeIdentificacion: 'cedula', inputIdentificacion:"", busqueda:'código', inputbusqueda:''},
-    {id: 2, typeIdentificacion: 'nombre', inputIdentificacion:"", busqueda:'nombre', inputbusqueda:''},
+    {id: 1, personas:this.personas, items:this.ITEMS, kits: this.KITS, cantidad:8, disponible: true, devuelto:false, fecha_prestamo:'12/05/16', fecha_fin: '12/06/2016'},
+    {id: 2, personas:this.personas, items:this.ITEMS, kits: this.KITS, cantidad:10, disponible: true, devuelto:false, fecha_prestamo:'12/05/16', fecha_fin: '12/06/2016'},
   ];
+
 
   template: string = 'null';
   prestamosTemporal: Prestamo[]=[];
@@ -31,11 +52,17 @@ export class PrestamoPage implements OnInit{
   constructor(private _navController:NavController,private menu: MenuController) {
     this.prestamosTemporal=this.prestamos;
   }
+
   openMenu(){
     this.menu.open();
   }
-  goCrear(){
-    this.template='crear';
+
+  goCrearPersona(){
+      this._navController.push(PersonaPage,{});
+  }
+
+  goNuevoPrestamo(){
+    this.template='nuevo_prestamo';
   }
   goModificar(id: string){
     this.template='modificar'

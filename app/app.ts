@@ -11,7 +11,7 @@ import {KitPage} from './pages/kit/kit';
 import {PrestamoPage} from './pages/prestamo/prestamo';
 import {ReportesPage} from './pages/reportes/reportes';
 import {UsuarioPage} from './pages/usuario/usuario';
-import {UsuarioService} from './pages/usuario/usuario.auth.service';
+import {UsuarioAuthService} from './pages/usuario/usuario.auth.service';
 import {MaterializeDirective} from "./materialize-directive";
 import {Storage, LocalStorage} from 'ionic-angular';
 
@@ -22,7 +22,7 @@ import {Storage, LocalStorage} from 'ionic-angular';
 
 @Component({
   templateUrl: 'build/app.html',
-  providers: [UsuarioService],
+  providers: [UsuarioAuthService],
   directives: [MaterializeDirective],
 })
 export class MyApp {
@@ -33,7 +33,7 @@ export class MyApp {
   pages: Array<{title: string, icon: string,component: any}>
 
   constructor(private platform: Platform,
-              private usuarioService: UsuarioService) {
+              private usuarioAuthService: UsuarioAuthService) {
     this.initializeApp();
         // used for an example of ngFor and navigation
     this.pages = [
@@ -62,10 +62,9 @@ export class MyApp {
   }
 
   openPage(page) {
-
     this.nav.setRoot(page.component);
-    if(page.component == LoginPage) this.usuarioService.logout();
+    if(page.component == LoginPage) this.usuarioAuthService.logout();
   }
 }
 
-ionicBootstrap(MyApp,[UsuarioService]);
+ionicBootstrap(MyApp,[UsuarioAuthService]);
