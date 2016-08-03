@@ -47,7 +47,7 @@ export class LoginPage implements OnInit {
     }
 
     authSuccess(data) {
-
+        console.log(data.json().token)
         this.nav.setRoot(PrincipalPage);
         this.errores.auth = null;
         this.local.setJson('auth',{token: data.json().token});

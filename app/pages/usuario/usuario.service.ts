@@ -24,29 +24,35 @@ export class UsuarioService {
 
         }).then(result => {
           let usuarios = result.json() as Usuario[];
-
-          for(var usuario of usuarios){
-            this.http.get(String(usuario.Usuario.groups[0]), { headers: headers }).toPromise()
-            .then(group => usuario.Usuario.groups[0]= group.json() as Group);
-          }
           return usuarios;
         });
     }
     llenarTipo(usuario: Usuario){
+      let headers = new Headers({ "Content-Type": "application/json" });
+      headers.append("Accept","application/json");
+      return this.usuarioAuthService.getToken().then(token => {
+          headers.append('Authorization', 'JWT ' + token);
+      return this.http.get(String(usuario.Usuario.groups[0]), { headers: headers }).toPromise();
+    }).then(tipo=>{
+      usuario.Usuario.groups[0] =  tipo.json() as Group;
+    });
 
     }
-    createUsuario(usuario: Usuario) {
+    createUsuario(usuario: Usuario, credenciales: any) {
+      let headers = new Headers({ "Content-Type": "application/json" });
+      headers.append('Accept','application/json');
         return this.usuarioAuthService.getToken().then(token => {
-        
-            let headers = new Headers({ "Content-Type": "application/json" });
-            headers.append('Accept','application/json');
+
+
+
 
             headers.append('Authorization', 'JWT ' + token);
             return this.http.post(this.url.base + this.url.usuario, JSON.stringify(usuario),{ headers: headers }).toPromise();
 
         }).then(result => {
-          console.log(result)
-        }).catch(error => console.log(error));
+          console.log(credenciales)
+          return this.http.post(this.url.base + this.url.password, JSON.stringify({"user": usuario.Email,"password1": credenciales.clave, "password2":credenciales.clave2}),{ headers: headers }).toPromise();
+        }).then(result=> console.log(result)).catch(error => console.log(error));
     }
 
     getTipos() {

@@ -90,12 +90,11 @@ export class UsuarioPage implements OnInit {
             let tipo = this.tipos.find(tipo=> this.Tipo==tipo.name);
             let usuario = JSON.parse(JSON.stringify(this.usuarioNuevo))
             usuario['Usuario']['groups'] = [tipo.url]
-            this.usuarioService.createUsuario(usuario).then(result=>this.listar());
+            this.usuarioService.createUsuario(usuario,this.credenciales).then(result=>this.listar());
             this.template='null';
             this.usuarioNuevo = new Usuario();
 
-            this.credenciales.clave='';
-            this.credenciales.clave2='';
+            
           }
     }
     goModificar(id: string) {
@@ -158,36 +157,23 @@ export class UsuarioPage implements OnInit {
     }
 
     buscar() {
-        /*
+/*
         let busquedaTemp = this.busqueda;
         if(busquedaTemp.valor=='') this.usuarios=this.usuariosTemporal;
         this.usuarios=this.usuariosTemporal.filter(function(usuario){
           if(busquedaTemp.tipoB=='email') {
             console.log("email");
-            return usuario.email.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+            return usuario.Email.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
           }
-          else return usuario.name.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+          else return usuario.Nombre.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
         })
-        */
+*/
     }
 
     public ngOnInit() {
-
         this.listar();
-
         this.usuarioService.getTipos().then(tipos =>{
           this.tipos=tipos
         });
-      //  this.Tipo=this.tipos[0].name.toString();
-        /*
-        this.http.post(this.url.base+this.url.usuario,), { headers: this.contentHeader })
-          .map(res => res.json())
-          .subscribe(
-            data => this.authSuccess(data.id_token),
-            err => this.errores.auth = err
-          );
-          */
-
-
-    }
+        }
 }
