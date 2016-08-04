@@ -57,8 +57,8 @@ Ionic pages and navigation.
         <td>
           <!-- evento change y atributo por defecto checked false, se agrega como id el id del usuario
           para luego saber que checkbox le pertenece a cada usuario-->
-          <input  [checked]="false" (change)="select(usuario.id)" id="{{usuario.id}}" type="checkbox" class="filled-in"/>
-          <label  attr.for="{{usuario.id}}"></label>
+          <input   (change)="select(usuario)" id={{usuario.url}} type="checkbox" class="filled-in"/>
+          <label  attr.for="{{usuario.url}}"></label>
         </td>
         <td>{{usuario.Nombre + ' ' + usuario.Apellido}}</td>
         <td>{{usuario.Email}}</td>

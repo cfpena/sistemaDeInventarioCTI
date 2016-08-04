@@ -12,7 +12,7 @@ export class User{
 }
 
 export class Usuario {
-
+    url: String;
     CI: String;
     Nombre:String;
     Apellido: String;
