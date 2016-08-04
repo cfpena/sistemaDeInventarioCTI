@@ -21,7 +21,8 @@ export class UsuarioPage implements OnInit {
     title: string = 'Usuarios';
     usuarios: Usuario[];
     template: string = 'null';
-    usuariosTemporal: Usuario[] = [];
+    @Input()
+    usuarioModificar= new Usuario;
     Tipo = '';
     count = 10;
     id = 0;
@@ -38,8 +39,8 @@ export class UsuarioPage implements OnInit {
     credenciales = {
         clave: '', clave2: ''
     }
-    @Input()
-    usuarioModificar = new Usuario();
+
+
 
 
 
@@ -98,33 +99,18 @@ export class UsuarioPage implements OnInit {
         }
     }
 
-    goModificar(id: string) {
-               this.template='modificar'
-/*                this.id=parseInt(id);
-                let user = this.usuarios.find(usuario => usuario.id == this.id);
-                for(var i in this.usuarioModificar){
-                  this.usuarioModificar[i]=user[i];
-                }
-                */
+    goModificar(usuario: Usuario) {
+      console.log(usuario)
+            this.usuarioModificar=JSON.parse(JSON.stringify(usuario))
+
+            this.template='modificar'
+
     }
     modificar() {
-        /*
-                let index =this.usuarios.findIndex(usuario => usuario.id == this.id);
-                this.usuarioModificar.uid=this.usuarioModificar.email;
-                let validator = new Validator();
+      this.usuarioService.updateUsuario(this.usuarioModificar).then(result => this.listar());
+      this.template='null'
 
-                if(validator.isValid(this.usuarioModificar)
-                  && this.usuarioModificar.type!=''
-                  && this.usuarioModificar.type!=this.tipos[0]){
-                      let user = this.usuarios[index];
-                      for(var i in this.usuarioModificar){
-                        user[i]=this.usuarioModificar[i]
-                      }
-                      this.template='null';
-                }else{
-                      this.presentToast('Corrija errores en formulario');
-                    }
-            return this.usuarios[index];*/
+
     }
     eliminar() {
 

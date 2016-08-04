@@ -26,18 +26,15 @@ Ionic pages and navigation.
 <div *ngIf="template=='null'">
   <!--Búsqueda por codigo o nombre-->
   <div class="row">
-    <div class="col l1 m2 s4 offset-l9 offset-m7 " >
-      <div class="input-field">
-        <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipoB">
-          <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
-        </select>
-      </div>
-    </div>
-    <div class="col l2 m3 s8">
+    <div class="col l3 m4 s8 offset-l9 offset-m7 " >
       <div class="input-field">
         <input (keyup)="buscar()" type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
         <label class="black-text active" for="identificacion">Búsqueda</label>
       </div>
+
+    </div>
+    <div class="col l2 m3 s8">
+
     </div>
   </div>
 
@@ -64,7 +61,7 @@ Ionic pages and navigation.
         <td>{{usuario.Email}}</td>
         <td>{{usuario.Usuario.groups[0].name}}</td>
         <td>
-          <a class="button-collapse" (click)="goModificar(usuario.id)"><i class="material-icons left">mode_edit</i></a>
+          <a class="button-collapse" (click)="goModificar(usuario)"><i class="material-icons left">mode_edit</i></a>
         </td>
       </tr>
     </tbody>
@@ -160,21 +157,21 @@ Ionic pages and navigation.
               <div class="card-panel hoverable card-action white">
                 <div class="card-content black-text">
                   <span class="card-title">Modificar Usuario</span>
-                  
+
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="usuarioModificar.name">
+                    <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="usuarioModificar.Nombre">
                     <label for="icon_codigo">Nombre</label>
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" >
+                    <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="usuarioModificar.Apellido">
                     <label for="icon_codigo">Apellido</label>
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="usuarioModificar.type">
-                      <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
+                    <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="usuarioModificar.Usuario.groups[0].name" >
+                      <option *ngFor="let tipo of tipos" [value]="tipo.name" selected="usuarioModificar.Usuario.groups[0].name">{{tipo.name}}</option>
                     </select>
                   </div>
 

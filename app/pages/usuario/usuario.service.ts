@@ -82,6 +82,23 @@ export class UsuarioService {
         }).then(result=> console.log(result)).catch(error => console.log(error));
     }
 
+    updateUsuario(usuario: Usuario) {
+
+      let headers = new Headers({ "Content-Type": "application/json" });
+      headers.append('Accept','application/json');
+        return this.usuarioAuthService.getToken().then(token => {
+
+
+
+
+            headers.append('Authorization', 'JWT ' + token);
+            return this.http.patch(String(usuario.url), JSON.stringify({Nombre: usuario.Nombre,Apellido: usuario.Apellido}),{ headers: headers }).toPromise();
+
+        }).then(result => {return result});
+
+
+    }
+
     getTipos() {
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append('Accept','application/json');
