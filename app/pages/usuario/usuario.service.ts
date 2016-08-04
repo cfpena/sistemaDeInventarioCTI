@@ -20,6 +20,7 @@ export class UsuarioService {
 
         return this.usuarioAuthService.getToken().then(token => {
             headers.append('Authorization', 'JWT ' + token);
+            console.log(headers)
             return this.http.get(this.url.base + this.url.usuario, { headers: headers }).toPromise();
 
         }).then(result => {
