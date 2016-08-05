@@ -42,7 +42,8 @@ export class LoginPage implements OnInit {
             .map(res => res)
             .subscribe(
             data => this.authSuccess(data),
-            err => this.errores.auth = "Usuario o clave incorrectos"
+            err => {this.errores.auth = "Usuario o clave incorrectos";
+                    console.log(err)}
             );
     }
 

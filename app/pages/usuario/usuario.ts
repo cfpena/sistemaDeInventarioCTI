@@ -21,20 +21,19 @@ export class UsuarioPage implements OnInit {
     title: string = 'Usuarios';
     usuarios: Usuario[];
     template: string = 'null';
+    //usuario temporal para mantener los datos para modificar
     @Input()
     usuarioModificar= new Usuario;
     Tipo = '';
-    count = 10;
-    id = 0;
+    //lista de usuarios seleccionados por el checkbox para eliminar
     usuariosEliminar: Usuario[] = [];
     tipos: Group[];
-
-    tiposBusquedas = ['email', 'nombre'];
-    busqueda = { tipoB: 'email', valor: '' };
-
+    //valor del campo de busqueda
+    busqueda = {valor: '' };
+    //usuario temporal para crear un usuario
     @Input()
     usuarioNuevo = new Usuario();
-
+    //variable que guarda las claves para el nuevo usuario
     @Input()
     credenciales = {
         clave: '', clave2: ''
@@ -60,14 +59,15 @@ export class UsuarioPage implements OnInit {
             message: text,
             duration: 3000
         });
-
         toast.onDismiss(() => {
             console.log('Dismissed toast');
         });
         this.navController.present(toast);
     }
     listar() {
+      //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
         this.usuarioService.getUsuarios().then(usuarios => { this.usuarios = usuarios; return usuarios }).then(usuarios => {
+          //se itera cada usuario para obtener datos del tipo
             for (var usuario of this.usuarios) {
                 this.usuarioService.llenarTipo(usuario);
             }
@@ -87,12 +87,15 @@ export class UsuarioPage implements OnInit {
 
             this.usuarioNuevo.Usuario = new User();
             this.usuarioNuevo.Usuario.username = this.usuarioNuevo.Email;
-
+            //se busca el tipo dentro de la lista de tipos por el nombre dado en el select de tipos al crear
             let tipo = this.tipos.find(tipo => this.Tipo == tipo.name);
+            //se hace un doble parse para obtener el valor de la variable y no la referencia
+            //si no se hace esto al moficiar el usuario nuevo, tambien se modifica el usuario viejo
             let usuario = JSON.parse(JSON.stringify(this.usuarioNuevo))
             usuario['Usuario']['groups'] = [tipo.url]
             this.usuarioService.createUsuario(usuario, this.credenciales).then(result => this.listar());
             this.template = 'null';
+            //se vuelve a dejar en blanco el usuarioNuevo para volverlo  a usar luego
             this.usuarioNuevo = new Usuario();
 
 
@@ -118,12 +121,13 @@ export class UsuarioPage implements OnInit {
                 this.usuarioService.eliminarUsuario(usuario).then(result =>
                   { console.log(result) }).catch(error=> console.log(error))
               }
+              //se deja en blanco la lista a eliminar
               this.usuariosEliminar= Array<Usuario>();
+              //se refrescan los datos del servidor
               this.listar();
     }
-
+    //funcion que agrega los usuarios a la lista para eliminarlos luego
     select(usuario: Usuario) {
-
         if (!this.usuariosEliminar.some(user => user == usuario)) {
             this.usuariosEliminar.push(usuario);
         }else {
@@ -139,8 +143,9 @@ export class UsuarioPage implements OnInit {
     cancelar() {
         this.template = 'null';
     }
-
+    //funcion para realizar la busqueda
     buscar() {
+      //si el valor es diferente de vacio entonces se manda a buscar, sino se listan los datos sin filtros
       if(this.busqueda.valor.trim() != ""){
       this.usuarioService.getBuscar(this.busqueda.valor).then(usuarios => { this.usuarios = usuarios; return usuarios }).then(usuarios => {
           for (var usuario of this.usuarios) {
@@ -150,8 +155,9 @@ export class UsuarioPage implements OnInit {
       else{this.listar()}
       return this.usuarios
     }
-
+    //funcion que se ejecuta al cargar la pagina
     public ngOnInit() {
+      //se obtienen los usuarios para llenar la tabla y se obtienen los tipos de usuarioss
         this.listar();
         this.usuarioService.getTipos().then(tipos => {
             this.tipos = tipos
