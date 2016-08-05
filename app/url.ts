@@ -1,6 +1,6 @@
 import {Headers} from '@angular/http';
 export class Url {
-  base ='http://localhost:8000/';
+  base ='http://162.243.83.72:80/';
   usuario ='api/usuarios/';
   token = 'api-token-auth/';
   verifyToken= 'api-token-verify/';
