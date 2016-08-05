@@ -72,6 +72,8 @@ KITS: Kit[]=[
     this.template='null';
   }
 
+
+
   //variable para asignar id incremental para personas locales
   count=10;
   //usado para mantener el id del prestamo que se esta modificando o eliminando

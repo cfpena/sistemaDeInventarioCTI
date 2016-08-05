@@ -72,18 +72,23 @@
 <div *ngIf="template=='nuevo_prestamo'" style="overflow: scroll;" >
   <!--nuevo user-->
   <div materialize id="nuevo_prestamo" class="section">
-    <div class="container">
+    <div>
       <div class="row">
-        <div class="col s12 m6 l6">
+
+        <div class="col s12 m6 l4" style="position: relative; left:5%">
           <div class="card blue-grey lighten-5 ">
             <div class="card-panel teal lighten-2 black-text ">Persona</div>
             <div class="card-content black-text">
               <!--<span class="card-title ">Persona</span>-->
-              <div class="input-field">
-                <i class="material-icons prefix">account_box</i>
-                <select materialize="material_select" [materializeSelectOptions]="selectOptions">
-                  <option *ngFor="let tiposIdentificacion of tiposIdentificaciones" [value]="tiposIdentificacion">{{tiposIdentificacion}}</option>
-                </select>
+              <div class="row">
+                <div class="col l12 m12 s12">
+                  <div class="input-field">
+                    <i class="material-icons prefix">account_box</i>
+                    <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+                      <option *ngFor="let tiposIdentificacion of tiposIdentificaciones" [value]="tiposIdentificacion">{{tiposIdentificacion}}</option>
+                    </select>
+                  </div>
+                </div>
               </div>
               <div class="row">
                 <div class="col l9 m9 s8">
@@ -108,16 +113,25 @@
             <a href = "#" (click)="goCrearPersona()">Crear nueva persona</a>
           </div>
         </div>
-        <div class="col s12 l6 m6">
+
+        <!--Segundo panel para préstamos-->
+
+        <div class="col s12 l4 m6 " style="position: relative; left:5%">
           <div class="card blue-grey lighten-5 "> <!--blue-grey darken-1-->
             <div class="card-panel teal lighten-2">Préstamo</div>
             <div class="card-content black-text">
               <!--<span class="card-title">Préstamo</span>-->
-              <div class="input-field">
-                <i class="material-icons prefix">keyboard_arrow_right</i>
-                <select materialize="material_select" [materializeSelectOptions]="selectOptions">
-                  <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda">{{tiposBusqueda}}</option>
-                </select>
+              <div class="row">
+                <div class="col l12 m12 12 ">
+
+                  <div class="input-field">
+                    <i class="material-icons prefix">keyboard_arrow_right</i>
+                    <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+                      <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda">{{tiposBusqueda}}</option>
+                    </select>
+                  </div>
+
+                </div>
               </div>
               <div class="row">
                 <div class="col l9 m9 s8 ">
@@ -167,7 +181,18 @@
               </div>
             </div>
             <div class="card-action">
-              <a class="waves-effect waves-light btn "><i class="material-icons right">swap_horiz</i>Prestar</a>
+              <a class="waves-effect waves-light btn ">Prestar</a>
+            </div>
+          </div>
+        </div>
+        <!--panel 3> Tabla de prestamos-->
+        <div class="col s12 m6 l3 " style="font-size: 15px; position: relative; left:5%">
+          <div class="card blue-grey lighten-5 ">
+            <div class="card-content grey-text ">
+              <ul *ngFor = "let prestamo of prestamos">
+                <li><a class="button-collapse "><i class="material-icons right" style="color:	#ef5350 ">remove_circle</i></a></li>
+                <li *ngFor ="let item of prestamo.items">{{item.nombre}}</li>
+              </ul>
             </div>
           </div>
         </div>
