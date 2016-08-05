@@ -20,7 +20,7 @@ export class PrestamoPage implements OnInit{
   title: string ='Prestamos';
 
   personas: Persona[]=[
-  {id: 1,  cedula:'0912345678', nombre: 'Adriano',  apellido: 'Pinargote',  correo: 'a@prueba.com', funcion:'estudiante', telefono: '0959605816', celular: ' ', genero: 'M'},
+  {id: 1,  cedula:'0912345678', nombre: 'Jose',  apellido: 'Andrade',  correo: 'a@prueba.com', funcion:'estudiante', telefono: '0959605816', celular: ' ', genero: 'M'},
   //{id: 2,  cedula:'0965321094',  nombre: 'Janina', apellido: 'Costa',  correo: 'j@prueba.com', funcion:'ayudante', telefono: '04-6025888', celular: ' ', genero: 'M'},
   //{id: 3,  cedula:'0930128897',  nombre: 'Maria', apellido: 'Pozo',  correo: 'm@prueba.com', funcion:'estudiante', telefono: '04-6025888', celular: ' ', genero: 'F'}
 ];
@@ -59,6 +59,7 @@ KITS: Kit[]=[
 
   goCrearPersona(){
       this._navController.push(PersonaPage,{});
+      this.template='crear';
   }
 
   goNuevoPrestamo(){
