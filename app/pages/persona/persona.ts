@@ -1,8 +1,12 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { NavController, MenuController , Toast } from 'ionic-angular';
 import {Persona} from '../persona/persona.model';
-import {CrearPersonaPage} from '../crear_persona/crear_persona';
+
 import {MaterializeDirective} from "../../materialize-directive";
+import {Validator} from "validator.ts/Validator";
+import { Http, Headers } from '@angular/http';
+import {PersonaService} from './persona.service';
+import {Url} from '../../url';
 
 /*
   Generated class for the PersonaPage page.
@@ -13,30 +17,24 @@ import {MaterializeDirective} from "../../materialize-directive";
 @Component({
   templateUrl: 'build/pages/persona/persona.html',
   directives: [MaterializeDirective],
+  providers: [PersonaService],
 })
 
 export class PersonaPage implements OnInit {
   title: string ='Personas';
   //personas de prueba
-  personas: Persona[]=[
-  {id: 1,  cedula:'0912345678', nombre: 'Adriano',  apellido: 'Pinargote',  correo: 'a@prueba.com', funcion:'estudiante', telefono: '0959605816', celular: ' ', genero: 'M'},
-  {id: 2,  cedula:'0965321094',  nombre: 'Janina', apellido: 'Costa',  correo: 'j@prueba.com', funcion:'ayudante', telefono: '04-6025888', celular: ' ', genero: 'M'},
-  {id: 3,  cedula:'0930128897',  nombre: 'Maria', apellido: 'Pozo',  correo: 'm@prueba.com', funcion:'estudiante', telefono: '04-6025888', celular: ' ', genero: 'F'}
-
-];
+  personas: Persona[]=[];
   //selector de html a mostrar dependiendo de la accion
   template: string = 'null';
   personasTemporal: Persona[]=[];
   //persona en blanco para crear una persona
+
+  personasEliminar: Persona[] = [];
   @Input()
-  personaNueva = {
-    id:10, cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",celular:'',genero:''
-  }
+  personaNueva = new Persona();
   //persona en blanco usada como persona temporal para modificar persona
   @Input()
-  personaModificar= {
-    id:10, cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",celular:'',genero:''
-  }
+  personaModificar= new Persona;
   //variable para asignar id incremental para personas locales
   count=10;
   //usado para mantener el id de la persona que se esta modificando o eliminando
@@ -49,7 +47,9 @@ export class PersonaPage implements OnInit {
 
   tiposBusquedas = ['cédula', 'nombre'];
   busqueda={tipo: 'cédula', valor: ''};
-  constructor( private navController:NavController,private menu: MenuController) {
+  constructor( private navController:NavController,private menu: MenuController,
+    private personaService: PersonaService,
+    private http: Http) {
       this.personasTemporal=this.personas;
   }
   //abre el menu
@@ -68,11 +68,19 @@ toast.onDismiss(() => {
 });
   this.navController.present(toast);
 }
-
+listar() {
+  //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
+    this.personaService.getPersonas().then(personas => { this.personas = personas; return personas }).then(personas => {
+    })
+    return this.personas
+}
 //cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",celular:'',genero:''
 //crea persona
   crear(){
-     if (this.personaNueva.cedula=='' || this.personaNueva.cedula.length < 10) this.presentToast('Cedula vacia');
+    let validator = new Validator();
+
+    if (!validator.isValid(this.personaNueva)) this.presentToast('Corrija el formulario');
+    else if (this.personaNueva.cedula=='' || this.personaNueva.cedula.length < 10) this.presentToast('Cedula vacia');
     else if(this.personaNueva.nombre=='') this.presentToast('Nombre vacio');
     else if(this.personaNueva.apellido=='') this.presentToast('Apellido vacio');
     else if(this.personaNueva.correo=='') this.presentToast('Email vacio');
@@ -84,50 +92,45 @@ toast.onDismiss(() => {
     this.personas.push(this.personaNueva);
     this.template='null';
     this.count++;
-    this.personaNueva = {
-      id:this.count,  cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",celular:'',genero:''
-    }
+    this.personaNueva = new Persona();
   }
 }
   //abre el html de modificar
-  goModificar(id: string){
-    this.template='modificar'
-    this.id=parseInt(id);
-    this.personaModificar = JSON.parse(JSON.stringify(this.personas.find(persona => persona.id == this.id)));
+  goModificar(persona: Persona) {
+    console.log(persona)
+          this.personaModificar=JSON.parse(JSON.stringify(persona))
+
+          this.template='modificar'
+
   }
   //modifica la persona
   modificar(){
-  let index =this.personas.findIndex(persona => persona.id == this.id);
-  if(this.personaModificar.nombre=='' || this.personaNueva.cedula.length < 10) this.presentToast('Nombre vacio');
-  else if(this.personaModificar.apellido=='') this.presentToast('Apellido vacio');
-  else if(this.personaModificar.correo=='') this.presentToast('Email vacio');
-  else if(this.personaModificar.funcion=='' || this.personaModificar.funcion==this.funcions[0])this.presentToast('Roll no definido');
-  else if(this.personaModificar.telefono.length!= 7) this.presentToast('Convencional de 7 numeros');
-  else if(this.personaModificar.celular.length!= 10) this.presentToast('Celular de 10 numeros');
-  else if(this.personaModificar.genero=='' || this.personaModificar.genero==this.generos[0])this.presentToast('Elija genero');
-
-  this.personas[index] =JSON.parse(JSON.stringify(this.personaModificar));
-  this.template='null';
+    this.personaService.updatePersona(this.personaModificar).then(result => this.listar());
+    this.template='null';
   }
   //elimina una o mas personas
   eliminar(){
 
-    for(var i in this.selected){
-      console.log(this.selected[i]);
-      let index =this.personas.findIndex(persona => persona.id==this.selected[i]);
-      console.log(index);
-      this.personas.splice(index,1);
+    for(var persona of this.personasEliminar){
+      this.personaService.eliminarPersona(persona).then(result =>
+        { console.log(result) }).catch(error=> console.log(error))
     }
-    this.selected=[];
+    //se deja en blanco la lista a eliminar
+    this.personasEliminar= Array<Persona>();
+    //se refrescan los datos del servidor
+    this.listar();
   }
 //agrega o elimina ids de personas en lista para saber cual ha sido seleccionada
-  select(id: any){
-    let index: number;
-    index = this.selected.findIndex(num => num == parseInt(id));
-    if(index==-1){
-    this.selected.push(parseInt(id));}
-    else{this.selected.splice(index,1)};
-  }
+//funcion que agrega los usuarios a la lista para eliminarlos luego
+select(persona: Persona) {
+    if (!this.personasEliminar.some(persona => persona == persona)) {
+        this.personasEliminar.push(persona);
+    }else {
+        let index = this.personasEliminar.findIndex(x => x == persona)
+        this.personasEliminar.splice(index, 1)
+    };
+
+}
   //abre html de crear persona
     goCrearPersona(){
       this.template='crear';
@@ -138,15 +141,12 @@ toast.onDismiss(() => {
   }
 
   buscar(){
-    let busquedaTemp = this.busqueda;
-    if(busquedaTemp.valor=='') this.personas=this.personasTemporal;
-    this.personas=this.personasTemporal.filter(function(persona){
-      if(busquedaTemp.tipo=='cédula') {
-        console.log("cédula");
-        return persona.cedula.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
-      }
-      else return persona.nombre.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
-    })
+    //si el valor es diferente de vacio entonces se manda a buscar, sino se listan los datos sin filtros
+    if(this.busqueda.valor.trim() != ""){
+    this.personaService.getBuscar(this.busqueda.valor).then(personas => { this.personas = personas; return personas }).then(personas => {
+    })}
+    else{this.listar()}
+    return this.personas
   }
   //retrasa la carga de la pagina 100 ms
   public ngOnInit() {

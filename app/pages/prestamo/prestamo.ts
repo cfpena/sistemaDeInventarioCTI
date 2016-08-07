@@ -19,11 +19,7 @@ export class PrestamoPage implements OnInit{
 
   title: string ='Prestamos';
 
-  personas: Persona[]=[
-  {id: 1,  cedula:'0912345678', nombre: 'Jose',  apellido: 'Andrade',  correo: 'a@prueba.com', funcion:'estudiante', telefono: '0959605816', celular: ' ', genero: 'M'},
-  //{id: 2,  cedula:'0965321094',  nombre: 'Janina', apellido: 'Costa',  correo: 'j@prueba.com', funcion:'ayudante', telefono: '04-6025888', celular: ' ', genero: 'M'},
-  //{id: 3,  cedula:'0930128897',  nombre: 'Maria', apellido: 'Pozo',  correo: 'm@prueba.com', funcion:'estudiante', telefono: '04-6025888', celular: ' ', genero: 'F'}
-];
+  personas: Persona[]=[];
 ITEMS: ITEM[]=[
   {id: 1,  codigo: '1234567890',  nombre: 'resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:20, esDispositivo:true, image:''},
   //{id: 2,  codigo: '1234456891',  nombre: 'capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:70, esDispositivo:true, image:''},
