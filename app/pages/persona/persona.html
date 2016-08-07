@@ -132,14 +132,26 @@ Ionic pages and navigation.
                 <label for="icon_modelo">Teléfono</label>
               </div>
               <div class="input-field">
-                <i class="material-icons prefix">stay_current_portrait</i>
-                <input id="icon_observaciones" type="tel" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*" [(ngModel)]="personaNueva.celular">
-                <label for="icon_observaciones">Celular</label>
-              </div><div class="input-field">
                 <i class="material-icons prefix">label_outline</i>
                 <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaNueva.genero">
                   <option *ngFor="let genero of generos" [value]="genero">{{genero}}</option>
                 </select>
+              </div>
+              <div class="col l5 m5 s12 ">
+                <form action="#">
+                  <p>
+                    <input type="checkbox" id="esPrestario"  [(ngModel)]="personaNueva.esPrestario"/>
+                    <label for="esPrestario">Prestario</label>
+                  </p>
+                </form>
+              </div>
+              <div class="col l3 m6 s6 offset-l1 offset-m1 ">
+                <form action="#">
+                  <p>
+                    <input type="checkbox" id="esProveedor" [(ngModel)]="personaNueva.esProveedor" />
+                    <label for="esProveedor">Proveedor</label>
+                  </p>
+                </form>
               </div>
             </div>
             <div class="col s12">
@@ -217,14 +229,26 @@ Ionic pages and navigation.
                 <label for="icon_modelo">Teléfono</label>
               </div>
               <div class="input-field">
-                <i class="material-icons prefix">stay_current_portrait</i>
-                <input id="icon_observaciones" type="tel" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*" [(ngModel)]="personaModificar.celular">
-                <label for="icon_observaciones">Celular</label>
-              </div><div class="input-field">
                 <i class="material-icons prefix">label_outline</i>
                 <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaModificar.genero">
                   <option *ngFor="let genero of generos" [value]="genero">{{genero}}</option>
                 </select>
+              </div>
+              <div class="col l5 m5 s12 ">
+                <form action="#">
+                  <p>
+                    <input type="checkbox" id="esPrestario"  [(ngModel)]="personaModificar.esPrestario"/>
+                    <label for="esPrestario">Prestario</label>
+                  </p>
+                </form>
+              </div>
+              <div class="col l3 m6 s6 offset-l1 offset-m1 ">
+                <form action="#">
+                  <p>
+                    <input type="checkbox" id="esProveedor" [(ngModel)]="personaModificar.esProveedor" />
+                    <label for="esProveedor">Proveedor</label>
+                  </p>
+                </form>
               </div>
             </div>
             <div class="col s12">

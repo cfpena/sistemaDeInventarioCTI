@@ -6,6 +6,7 @@ export class Persona {
   correo: string;
   funcion: string;
   telefono: string;
-  celular: string;
   genero: string;
+  esPrestario: boolean;
+  esProveedor: boolean;
 }

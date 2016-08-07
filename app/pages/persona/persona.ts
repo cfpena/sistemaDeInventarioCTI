@@ -19,9 +19,9 @@ export class PersonaPage implements OnInit {
   title: string ='Personas';
   //personas de prueba
   personas: Persona[]=[
-  {id: 1,  cedula:'0912345678', nombre: 'Adriano',  apellido: 'Pinargote',  correo: 'a@prueba.com', funcion:'estudiante', telefono: '0959605816', celular: ' ', genero: 'M'},
-  {id: 2,  cedula:'0965321094',  nombre: 'Janina', apellido: 'Costa',  correo: 'j@prueba.com', funcion:'ayudante', telefono: '04-6025888', celular: ' ', genero: 'M'},
-  {id: 3,  cedula:'0930128897',  nombre: 'Maria', apellido: 'Pozo',  correo: 'm@prueba.com', funcion:'estudiante', telefono: '04-6025888', celular: ' ', genero: 'F'}
+  {id: 1,  cedula:'0912345678', nombre: 'Adriano',  apellido: 'Pinargote',  correo: 'a@prueba.com', funcion:'estudiante', telefono: '0959605816', genero: 'M', esPrestario: false, esProveedor: false},
+  {id: 2,  cedula:'0965321094',  nombre: 'Janina', apellido: 'Costa',  correo: 'j@prueba.com', funcion:'ayudante', telefono: '04-6025888', genero: 'M', esPrestario: false, esProveedor: false},
+  {id: 3,  cedula:'0930128897',  nombre: 'Maria', apellido: 'Pozo',  correo: 'm@prueba.com', funcion:'estudiante', telefono: '04-6025888', genero: 'F', esPrestario: false, esProveedor: false}
 
 ];
   //selector de html a mostrar dependiendo de la accion
@@ -30,12 +30,12 @@ export class PersonaPage implements OnInit {
   //persona en blanco para crear una persona
   @Input()
   personaNueva = {
-    id:10, cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",celular:'',genero:''
+    id:10, cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",genero:'', esPrestario: false, esProveedor:false
   }
   //persona en blanco usada como persona temporal para modificar persona
   @Input()
   personaModificar= {
-    id:10, cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",celular:'',genero:''
+    id:10, cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",genero:'', esPrestario: false, esProveedor:false
   }
   //variable para asignar id incremental para personas locales
   count=10;
@@ -43,12 +43,12 @@ export class PersonaPage implements OnInit {
   id=0;
   //lista de ids seleccionados por el checkbox
   selected: number[]=[];
-  tiposIdentificaciones = ['Tipo de Identificación...', 'cédula', 'nombre'];
-  generos = ['Elija un genero...','Femenino','Masculino'];
-  funcions = ['Elija una funcion...','Natural','Profesor','Estudiante','Ayudante'];
+  tiposIdentificaciones = ['Tipo de Identificación...', 'Cédula', 'Nombre'];
+  generos = ['Elija un género...','Femenino','Masculino'];
+  funcions = ['Elija una función...','Profesor','Estudiante','Ayudante', 'Otro'];
 
-  tiposBusquedas = ['cédula', 'nombre'];
-  busqueda={tipo: 'cédula', valor: ''};
+  tiposBusquedas = ['Cédula', 'Nombre'];
+  busqueda={tipo: 'Cédula', valor: ''};
   constructor( private navController:NavController,private menu: MenuController) {
       this.personasTemporal=this.personas;
   }
@@ -78,14 +78,13 @@ toast.onDismiss(() => {
     else if(this.personaNueva.correo=='') this.presentToast('Email vacio');
     else if(this.personaNueva.funcion=='' || this.personaNueva.funcion==this.funcions[0])this.presentToast('Roll no definido');
     else if(this.personaNueva.telefono.length!= 7) this.presentToast('Convencional de 7 numeros');
-    else if(this.personaNueva.celular.length!= 10) this.presentToast('Celular de 10 numeros');
     else if(this.personaNueva.genero=='' || this.personaNueva.genero==this.generos[0])this.presentToast('Elija genero');
     else{
     this.personas.push(this.personaNueva);
     this.template='null';
     this.count++;
     this.personaNueva = {
-      id:this.count,  cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",celular:'',genero:''
+      id:this.count,  cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",genero:'', esPrestario: false, esProveedor: false
     }
   }
 }
@@ -103,7 +102,6 @@ toast.onDismiss(() => {
   else if(this.personaModificar.correo=='') this.presentToast('Email vacio');
   else if(this.personaModificar.funcion=='' || this.personaModificar.funcion==this.funcions[0])this.presentToast('Roll no definido');
   else if(this.personaModificar.telefono.length!= 7) this.presentToast('Convencional de 7 numeros');
-  else if(this.personaModificar.celular.length!= 10) this.presentToast('Celular de 10 numeros');
   else if(this.personaModificar.genero=='' || this.personaModificar.genero==this.generos[0])this.presentToast('Elija genero');
 
   this.personas[index] =JSON.parse(JSON.stringify(this.personaModificar));
