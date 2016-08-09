@@ -40,11 +40,10 @@ export class PersonaPage implements OnInit {
   id=0;
   //lista de ids seleccionados por el checkbox
   selected: number[]=[];
-  tiposIdentificaciones = ['Tipo de Identificación...', 'cédula', 'nombre'];
-  generos = ['Elija un genero...','Femenino','Masculino'];
-  funcions = ['Elija una funcion...','Natural','Profesor','Estudiante','Ayudante'];
+  tiposIdentificaciones = ['Tipo de Identificación...', 'cédula', 'Nombre'];
+  Generos = ['Elija un Genero...','F','M'];
 
-  tiposBusquedas = ['cédula', 'nombre'];
+  tiposBusquedas = ['cédula', 'Nombre'];
   busqueda={tipo: 'cédula', valor: ''};
   constructor( private navController:NavController,private menu: MenuController,
     private personaService: PersonaService,
@@ -73,22 +72,24 @@ listar() {
     })
     return this.personas
 }
-//cedula: '',nombre: '', apellido: "", correo:'', funcion:'',telefono:"",celular:'',genero:''
+//CI: '',Nombre: '', Apellido: "", Email:'', funcion:'',Telefono:"",celular:'',Genero:''
 //crea persona
   crear(){
     let validator = new Validator();
 
     if (!validator.isValid(this.personaNueva)) this.presentToast('Corrija el formulario');
-    else if (this.personaNueva.cedula=='' || this.personaNueva.cedula.length < 10) this.presentToast('Cedula vacia');
-    else if(this.personaNueva.nombre=='') this.presentToast('Nombre vacio');
-    else if(this.personaNueva.apellido=='') this.presentToast('Apellido vacio');
-    else if(this.personaNueva.correo=='') this.presentToast('Email vacio');
-    else if(this.personaNueva.funcion=='' || this.personaNueva.funcion==this.funcions[0])this.presentToast('Roll no definido');
-    else if(this.personaNueva.telefono.length!= 7) this.presentToast('Convencional de 7 numeros');
-    else if(this.personaNueva.celular.length!= 10) this.presentToast('Celular de 10 numeros');
-    else if(this.personaNueva.genero=='' || this.personaNueva.genero==this.generos[0])this.presentToast('Elija genero');
+    else if (this.personaNueva.CI=='' || this.personaNueva.CI.length < 10) this.presentToast('Cedula vacia o Incompleta');
+    else if(this.personaNueva.Nombre=='') this.presentToast('Nombre vacio o Incorrecto');
+    else if(this.personaNueva.Apellido=='') this.presentToast('Apellido vacio o Incorrecto');
+    else if(this.personaNueva.Email=='') this.presentToast('Email vacio o Incorrecto');
+
+    else if(this.personaNueva.Telefono.length!= 10) this.presentToast('Convencional de 10 numeros. Ejm <09....>');
+
+    else if(this.personaNueva.Genero=='' || this.personaNueva.Genero==this.Generos[0])this.presentToast('Elija Genero');
     else{
     this.personas.push(this.personaNueva);
+    let persona = JSON.parse(JSON.stringify(this.personaNueva))
+    this.personaService.createPersona(persona).then(result => this.listar());
     this.template='null';
     this.count++;
     this.personaNueva = new Persona();
@@ -104,9 +105,23 @@ listar() {
   }
   //modifica la persona
   modificar(){
+    let validator = new Validator();
+
+    if (!validator.isValid(this.personaModificar)) this.presentToast('Corrija el formulario');
+    else if (this.personaModificar.CI=='' || this.personaModificar.CI.length < 10) this.presentToast('Cedula vacia o Incompleta');
+    else if(this.personaModificar.Nombre=='') this.presentToast('Nombre vacio o Incorrecto');
+    else if(this.personaModificar.Apellido=='') this.presentToast('Apellido vacio o Incorrecto');
+    else if(this.personaModificar.Email=='') this.presentToast('Email vacio o Incorrecto');
+
+    else if(this.personaModificar.Telefono.length!= 10) this.presentToast('Convencional de 10 numeros. Ejm <09....>');
+
+    else if(this.personaModificar.Genero=='' || this.personaModificar.Genero==this.Generos[0])this.presentToast('Elija Genero');
+    else{
+
     this.personaService.updatePersona(this.personaModificar).then(result => this.listar());
     this.template='null';
   }
+}
   //elimina una o mas personas
   eliminar(){
 
@@ -149,7 +164,6 @@ select(persona: Persona) {
   }
   //retrasa la carga de la pagina 100 ms
   public ngOnInit() {
-    window.setTimeout(()=>{
-    },100);
+    this.listar();
 }
 }
