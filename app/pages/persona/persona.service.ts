@@ -66,7 +66,7 @@ export class PersonaService {
         }).catch(error=> console.log(error));
     }
 
-    createPersona(persona: Persona, credenciales: any) {
+    createPersona(persona: Persona) {
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append('Accept','application/json');
         return this.usuarioAuthService.getToken().then(token => {
@@ -75,7 +75,13 @@ export class PersonaService {
 
         }).then(result => {
           //para el metodo post se debe pasar los parametros con formato JSON pero de tipo string
-          return this.http.post(this.url.base + this.url.password, JSON.stringify({"persona": persona.correo,"password1": credenciales.clave, "password2":credenciales.clave2}),{ headers: headers }).toPromise();
+          return this.http.post(this.url.base + this.url.password, JSON.stringify({
+            Nombre: persona.Nombre,
+            Apellido: persona.Apellido,
+            Email: persona.Email,
+            Telefono: persona.Telefono,
+            Genero: persona.Genero
+          }),{ headers: headers }).toPromise();
         }).then(result=> console.log(result)).catch(error => console.log(error));
     }
 
@@ -85,7 +91,13 @@ export class PersonaService {
       headers.append('Accept','application/json');
         return this.usuarioAuthService.getToken().then(token => {
             headers.append('Authorization', 'JWT ' + token);
-            return this.http.patch(String(persona.url), JSON.stringify({Nombre: persona.nombre,Apellido: persona.apellido,Correo: persona.correo,Funcion: persona.funcion,Telefono: persona.telefono,Celular: persona.celular,Genero: persona.genero}),{ headers: headers }).toPromise();
+            return this.http.patch(String(persona.url), JSON.stringify({
+              Nombre: persona.Nombre,
+              Apellido: persona.Apellido,
+              Email: persona.Email,
+              Telefono: persona.Telefono,
+              Genero: persona.Genero
+            }),{ headers: headers }).toPromise();
 
         }).then(result => {return result});
 
