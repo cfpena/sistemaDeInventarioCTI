@@ -99,11 +99,6 @@
                   <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitNuevo.nombre" >
                   <label for="icon_nombre" >Nombre</label>
                 </div>
-                <div class="input-field">
-                  <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_descripcion" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitNuevo.descripcion">
-                  <label for="icon_descripcion">Descripción</label>
-                </div>
               </div>
               <div class="col s12 m6 l6">
                 <!--segunda columna-->
@@ -137,13 +132,13 @@
                 <tbody >
                   <tr *ngFor = "let itemNuevo of ITEMS">
                     <td>
-                      <input  [checked]="false" (change)="select(itemNuevo.id)" id="nuevo{{itemNuevo.id}}" type="checkbox" class="filled-in"/>
+                      <input  [checked]="false" (change)="select(itemNuevo.id)" id="nuevo{{itemNuevo.id}}" type="checkbox" class="filled-in" />
                       <label  attr.for="nuevo{{itemNuevo.id}}"></label>
                     </td>
                     <td>{{itemNuevo.codigo}}</td>
                     <td>{{itemNuevo.nombre}}</td>
                     <td class="center-align">
-                      <input class="mdl-textfield__input" type="text" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" id="cantidadItemNuevo">
+                      <input class="mdl-textfield__input" type="text" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" id="cantidadItemNuevo" >
                     </td>
                   </tr>
                 </tbody>
@@ -194,11 +189,6 @@
                   <i class="material-icons prefix">label_outline</i>
                   <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitModificar.nombre" >
                   <label for="icon_nombre" class="active">Nombre</label>
-                </div>
-                <div class="input-field">
-                  <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitModificar.descripcion"><!--[(ngModel)]="selectedItem.descripcion">-->
-                  <label for="icon_descripcion" class="active">Descripción</label>
                 </div>
               </div>
               <div class="col s12 m6 l6">

@@ -4,6 +4,7 @@ import {ITEM} from '../item/item.model';
 import {MaterializeDirective} from "../../materialize-directive";
 import {Validator} from "validator.ts/Validator";
 import {Kit} from '../kit/kit.model';
+import {KitDetalle} from '../kit/kit.model'
 
 @Component({
   templateUrl: 'build/pages/kit/kit.html',
@@ -18,9 +19,19 @@ ITEMS: ITEM[]=[
   {id: 3,  codigo: '0956787892',  nombre: 'ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:16, esDispositivo:true, image:''}
 
 ];
+
+ITEMSENKIT1: KitDetalle[] = [{KitId:5, ItemId:1, cantidad:10},
+  {KitId:5, ItemId:1, cantidad:10},
+  {KitId:5, ItemId:1, cantidad:10}
+];
+
+ITEMSENKIT2: KitDetalle[] = [  {KitId:4, ItemId:1, cantidad:10},
+  {KitId:4, ItemId:1, cantidad:10}
+];
+
 KITS: Kit[]=[
-  {id: 1,  codigo: '1239033567',  nombre: 'arduino',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, items: this.ITEMS},
-  {id: 2,  codigo: '9988444444',  nombre: 'kit2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, items: this.ITEMS}
+  {id: 4,  codigo: '1239033567',  nombre: 'arduino',  marca: 'Marca 1',  modelo: 'Modelo 1',  cantidad:20, itemsEnKit: this.ITEMSENKIT2, esKit:true, esDispositivo:false},
+  {id: 5,  codigo: '9988444444',  nombre: 'kit2',  marca: 'Marca 1',  modelo: 'Modelo 2', cantidad:10, itemsEnKit: this.ITEMSENKIT1, esKit:true, esDispositivo:false}
   ]
 
 template: string = 'null';
@@ -29,14 +40,19 @@ kitsTemporal: Kit[]=[];
 @Input()
 kitNuevo = new Kit();
 
+ItemsEnKitNuevo: KitDetalle[];
+
 
 @Input()
 kitModificar= new Kit();
+
+ItemsEnKitModificar: KitDetalle[];
+
 count=10;
 id=0;
 selected: number[]=[];
-tiposBusquedas = ['código', 'nombre'];
-busqueda={tipo: 'código', valor: ''};
+tiposBusquedas = ['Código', 'Nombre'];
+busqueda={tipo: 'Código', valor: ''};
 
   constructor(private navController:NavController,private menu: MenuController) {
     this.kitsTemporal=this.KITS;
@@ -65,14 +81,22 @@ busqueda={tipo: 'código', valor: ''};
     if(!validator.isValid(this.kitNuevo)) this.presentToast('Corrija el formulario');
     else if (this.kitNuevo.codigo=='' || this.kitNuevo.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
    else if(this.kitNuevo.nombre=='') this.presentToast('Nombre vacio');
-   else if(this.kitNuevo.descripcion=='') this.presentToast('Descripción vacio');
    else if(this.kitNuevo.marca=='') this.presentToast('Marca vacio');
    else if(this.kitNuevo.modelo=='') this.presentToast('Modelo vacio');
    else{
-     this.kitNuevo.items = this.ITEMS;
+     /*this.ITEMS.forEach(
+       function(){
+         let kitDet = new KitDetalle();
+         if ("nuevo{{this.id}}"){
+           this.kitDet ={ItemId: this.id, KitId: this.count, cantidad: "cantNuevo{{this.id}}"};
+           this.ItemsEnKitNuevo.push(this.kitDet);
+         }
+       }
+     ) ;*/
     this.KITS.push(this.kitNuevo);
     this.template='null';
     this.count++;
+
     this.kitNuevo = new Kit();
   }
   }
@@ -92,7 +116,6 @@ busqueda={tipo: 'código', valor: ''};
     if(!validator.isValid(this.kitModificar)) this.presentToast('Corrija el formulario');
     else if (this.kitModificar.codigo=='' || this.kitModificar.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
   else if(this.kitModificar.nombre=='') this.presentToast('Nombre vacio');
-  else if(this.kitModificar.descripcion=='') this.presentToast('Descripción vacio');
   else if(this.kitModificar.marca=='') this.presentToast('Marca vacio');
   else if(this.kitModificar.modelo=='') this.presentToast('Modelo vacio');
   else{

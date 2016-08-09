@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild  } from '@angular/core';
 import { NavController, MenuController , Toast } from 'ionic-angular';
 import {ITEM} from '../item/item.model';
 import {Kit} from '../kit/kit.model';
+import {KitDetalle} from '../kit/kit.model';
 import {Persona} from '../persona/persona.model';
 import {PersonaPage} from '../persona/persona';
 import {Prestamo} from '../prestamo/prestamo.model';
@@ -20,7 +21,7 @@ export class PrestamoPage implements OnInit{
   title: string ='Prestamos';
 
   personas: Persona[]=[
-  {id: 1,  cedula:'0912345678', nombre: 'Jose',  apellido: 'Andrade',  correo: 'a@prueba.com', funcion:'estudiante', telefono: '0959605816', celular: ' ', genero: 'M'},
+  {id: 1,  cedula:'0912345678', nombre: 'Jose',  apellido: 'Andrade',  correo: 'a@prueba.com', funcion:'estudiante', telefono: '0959605816', genero: 'M', esPrestario: true, esProveedor: false},
   //{id: 2,  cedula:'0965321094',  nombre: 'Janina', apellido: 'Costa',  correo: 'j@prueba.com', funcion:'ayudante', telefono: '04-6025888', celular: ' ', genero: 'M'},
   //{id: 3,  cedula:'0930128897',  nombre: 'Maria', apellido: 'Pozo',  correo: 'm@prueba.com', funcion:'estudiante', telefono: '04-6025888', celular: ' ', genero: 'F'}
 ];
@@ -30,8 +31,14 @@ ITEMS: ITEM[]=[
   //{id: 3,  codigo: '0956787892',  nombre: 'ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:16, esDispositivo:true, image:''}
 
 ];
+
+ITEMSENKIT1: KitDetalle[] = [{KitId:5, ItemId:1, cantidad:10},
+  {KitId:5, ItemId:1, cantidad:10},
+  {KitId:5, ItemId:1, cantidad:10}
+];
+
 KITS: Kit[]=[
-  {id: 1,  codigo: '1239033567',  nombre: 'arduino',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, items: this.ITEMS},
+  {id: 1,  codigo: '1239033567',  nombre: 'arduino',  marca: 'Marca 1',  modelo: 'Modelo 1',  cantidad:20, itemsEnKit: this.ITEMSENKIT1},
   //{id: 2,  codigo: '9988444444',  nombre: 'kit2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, items: this.ITEMS}
   ]
 

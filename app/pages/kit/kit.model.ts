@@ -4,13 +4,14 @@ import {Contains, IsInt, IsLength, IsEmail, IsAlpha} from "validator.ts/decorato
 
 export class Kit {
   id: number;
-  @IsAlpha() nombre: string;
-  @IsAlpha() marca: string;
-  @IsAlpha() modelo: string;
+  nombre: string;
+  marca: string;
+  modelo: string;
   codigo: string;
-  descripcion: string;
+  esDispositivo: boolean;
+  esKit: boolean;
   @IsInt() cantidad: number;
-  items : ITEM[];
+  itemsEnKit : KitDetalle[];
 
 constructor() {
   this.id=0;
@@ -18,7 +19,14 @@ constructor() {
   this.nombre='';
   this.marca='';
   this.modelo='';
-  this.descripcion='';
   this.cantidad=0;
+  this.esDispositivo=false;
+  this.esKit=true;
 }
+}
+
+export class KitDetalle {
+  ItemId: number;
+  KitId: number;
+  @IsInt() cantidad: number;
 }
