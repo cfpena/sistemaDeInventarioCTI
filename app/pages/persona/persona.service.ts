@@ -1,7 +1,5 @@
 import { Injectable }     from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
-
-
 import { Persona } from './persona.model';
 import {Url} from '../../url';
 import {UsuarioAuthService} from '../usuario/usuario.auth.service';

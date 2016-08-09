@@ -3,6 +3,7 @@ export class Url {
   base ='http://162.243.83.72:80/';
   usuario ='api/usuarios/';
   persona ='api/personas/';
+  item ='api/items/';
   token = 'api-token-auth/';
   verifyToken= 'api-token-verify/';
   tiposUsuarios = 'api/groups/';

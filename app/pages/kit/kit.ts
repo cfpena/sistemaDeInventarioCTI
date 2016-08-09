@@ -12,12 +12,7 @@ import {Kit} from '../kit/kit.model';
 export class KitPage implements OnInit{
 
 title: string ='Kits';
-ITEMS: ITEM[]=[
-  {id: 1,  codigo: '1234567890',  nombre: 'resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:20, esDispositivo:true, image:''},
-  {id: 2,  codigo: '1234456891',  nombre: 'capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:70, esDispositivo:true, image:''},
-  {id: 3,  codigo: '0956787892',  nombre: 'ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:16, esDispositivo:true, image:''}
-
-];
+ITEMS: ITEM[]=[];
 KITS: Kit[]=[
   {id: 1,  codigo: '1239033567',  nombre: 'arduino',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, items: this.ITEMS},
   {id: 2,  codigo: '9988444444',  nombre: 'kit2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, items: this.ITEMS}

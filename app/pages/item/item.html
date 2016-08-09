@@ -45,8 +45,11 @@
       <tbody>
         <tr *ngFor = "let item of items">
           <td>
-            <input [checked]="false" (change)="select(item.id)" id="{{item.id}}" type="checkbox" class="filled-in"/>
-            <label attr.for="{{item.id}}"></label>
+            <!-- evento change y atributo por defecto checked false, se agrega como id el id de la persona
+            para luego saber que checkbox le pertenece a cada persona-->
+
+            <input  (change)="select(item)" id="{{item.url}}" type="checkbox" class="filled-in"/>
+            <label attr.for="{{item.url}}"></label>
           </td>
           <!--foto del ítem-->
           <td>
@@ -54,12 +57,9 @@
           </td>
           <td >{{item.codigo}}</td>
           <td>{{item.nombre}}</td>
-          <!--<td>{{item.marca}}</td>
-          <td>{{item.modelo}}</td>
-          <td>{{item.descripcion}}</td>-->
           <td>{{item.cantidad}}</td>
           <td>
-            <a class="button-collapse" (click)="goModificar(item.id)"><i class="material-icons left">mode_edit</i></a>
+            <a class="button-collapse" (click)="goModificar(item)"><i class="material-icons left">mode_edit</i></a>
           </td>
         </tr>
       </tbody>
@@ -170,9 +170,7 @@
                       </p>
                     </form>
                   </div>
-
                 </div>
-
               </div>
             </div>
           </div>
