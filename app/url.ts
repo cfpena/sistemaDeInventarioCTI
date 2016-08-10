@@ -1,6 +1,6 @@
 import {Headers} from '@angular/http';
 export class Url {
-  base ='http://162.243.83.72:80/';
+  base ='http://127.0.0.1:8000/';
   usuario ='api/usuarios/';
   persona ='api/personas/';
   item ='api/items/';

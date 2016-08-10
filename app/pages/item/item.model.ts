@@ -3,28 +3,29 @@ import {Contains, IsInt, IsLength, IsEmail, IsAlpha} from "validator.ts/decorato
 
 
 export class ITEM {
-  url: String;
+  id: number;
   Codigo: string;
   Nombre: string;
   Marca: string;
   Modelo: string;
-  //Descripcion: string;
+  Descripcion: string;
   @IsInt() Stock: number;
   Is_dispositivo: boolean;
   Is_kit: boolean;
-  Images: ImageData;
-  Items: string;
+  //Images: ImageData;
+  Images: any;
+  Items: any;
 
   constructor( ) {
     this.Codigo='';
     this.Nombre='';
     this.Marca='';
     this.Modelo='';
-    //this.Descripcion='';
+    this.Descripcion='';
     this.Stock;
     this.Is_dispositivo=false;
     this.Is_kit=false;
-    this.Images;
+    this.Images='';
     this.Items='';
 
   }

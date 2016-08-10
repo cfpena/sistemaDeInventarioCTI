@@ -18,23 +18,15 @@ import {DatePicker} from 'ionic-native';
 })
 export class ReportesPage {
   title: string ='Reportes';
+  template: string = 'crear';
+  tiposFotos = ['subir foto', 'cámara'];
+  foto={tipo: 'camara', valor: ''};
   constructor( private navController:NavController,private menu: MenuController){
   }
   openMenu(){
     this.menu.open();
   }
 
-tiposReportes = ['Tipo de Reporte...', 'Prestamos', 'Existencias','Estado'];
-fechaInicial={tipo: 'código', valor: ''};
-  selected: number[]=[];
 
-select(id: any){
-let index: number;
-index = this.selected.findIndex(num => num == parseInt(id));
-if(index==-1){
-this.selected.push(parseInt(id));}
-else{this.selected.splice(index,1)};
-  console.log(this.selected);
-}
 
 }

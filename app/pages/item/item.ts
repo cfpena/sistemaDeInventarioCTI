@@ -32,7 +32,6 @@ export class ItemPage implements OnInit {
     itemModificar= new ITEM;
     count=10;
     selected: number[]=[];
-
     tiposBusquedas = ['código', 'Nombre'];
     busqueda={tipo: 'codigo', valor: ''};
     constructor( private navController:NavController,private menu: MenuController,
@@ -60,6 +59,7 @@ export class ItemPage implements OnInit {
   listar() {
     //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
       this.itemService.getItems().then(items => { this.items = items; return items }).then(items => {
+        console.log(items);
       })
       return this.items
   }
@@ -69,7 +69,7 @@ export class ItemPage implements OnInit {
       if(!validator.isValid(this.itemNuevo)) this.presentToast('Corrija el formulario');
       else if (this.itemNuevo.Codigo=='' || this.itemNuevo.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
       else if(this.itemNuevo.Nombre=='') this.presentToast('Nombre vacio');
-      //else if(this.itemNuevo.Descripcion=='') this.presentToast('Descripción vacio');
+      else if(this.itemNuevo.Descripcion=='') this.presentToast('Descripción vacio');
       else if(this.itemNuevo.Stock < 1 || this.itemNuevo.Stock> 50 || this.itemNuevo.Stock==0) this.presentToast('Cantidad mínima 1 máximo 50');
       else{
         this.items.push(this.itemNuevo);
@@ -80,6 +80,7 @@ export class ItemPage implements OnInit {
         this.itemNuevo = new ITEM();
     }
   }
+
     //abre el html de modificar
     goModificar(item: ITEM) {
       console.log(item)
@@ -91,10 +92,12 @@ export class ItemPage implements OnInit {
     modificar(){
       let validator = new Validator();
       if(!validator.isValid(this.itemModificar)) this.presentToast('Corrija el formulario');
-      else if (this.itemModificar.Codigo=='' || this.itemModificar.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
+      else if (this.itemModificar.Codigo=='' || this.itemModificar.Codigo.length < 10)
+      this.presentToast('Código debe tener 10 dígitos');
       else if(this.itemModificar.Nombre=='') this.presentToast('Nombre vacio');
-      //else if(this.itemModificar.Descripcion=='') this.presentToast('Descripción vacio');
-      else if(this.itemModificar.Stock < 1 || this.itemModificar.Stock > 50 || this.itemModificar.Stock==0) this.presentToast('Cantidad mínima 1 máximo 50');
+      else if(this.itemModificar.Descripcion=='') this.presentToast('Descripción vacio');
+      else if(this.itemModificar.Stock < 1 || this.itemModificar.Stock > 50 || this.itemModificar.Stock==0)
+        this.presentToast('Cantidad mínima 1 máximo 50');
       else{
         this.itemService.updateItem(this.itemModificar).then(result => this.listar());
         this.template='null';
@@ -102,6 +105,7 @@ export class ItemPage implements OnInit {
   }
 
     eliminar(){
+
       for(var item of this.itemsEliminar){
         this.itemService.eliminarItem(item).then(result =>
           { console.log(result) }).catch(error=> console.log(error))
@@ -109,6 +113,7 @@ export class ItemPage implements OnInit {
       //se deja en blanco la lista a eliminar
       this.itemsEliminar= Array<ITEM>();
       //se refrescan los datos del servidor
+      this.listar();
       this.listar();
     }
 
@@ -130,7 +135,7 @@ export class ItemPage implements OnInit {
     cancelar(){
       this.template='null';
     }
-    
+
 
     buscar(){
       if(this.busqueda.valor.trim() != ""){

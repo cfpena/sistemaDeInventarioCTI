@@ -6,7 +6,6 @@
     <a href="#!" class="brand-logo">{{title}}</a>
   </div>
 </nav>
-
 <!--Tabla de ítems-->
 <ion-content>
   <div *ngIf="template=='null'">
@@ -31,8 +30,8 @@
     <table  materialize class="centered table centered striped" style="font-size: 15px">
       <thead>
         <tr>
-          <th></th>
-          <!--<th></th>-->
+          <th></th><!--para el select-->
+          <!--<th></th> para la imagen-->
           <th data-field="id">Código</th>
           <th data-field="nombre">Nombre</th>
           <th data-field="cantidad">Cantidad</th>
@@ -44,14 +43,13 @@
           <td>
             <!-- evento change y atributo por defecto checked false, se agrega como id el id de la persona
             para luego saber que checkbox le pertenece a cada persona-->
-            <input  (change)="select(item)" id="{{item.url}}" type="checkbox" class="filled-in"/>
-            <label attr.for="{{item.url}}"></label>
+            <input (change)="select(item)" id={{item.id}} type="checkbox" class="filled-in"/>
+            <label attr.for="{{item.id}}"></label>
           </td>
           <!--foto del ítem
           <td>
-            <a materialize="leanModal" [materializeParams]="[{dismissible: true}]" class='modal-trigger' href='#demoModal'><img src="../../../www/src/images/image.png" alt="" class="circle responsive-img "></a>
-          </td>
-          -->
+            <a materialize="leanModal" [materializeParams]="[{dismissible: true}]" class='modal-trigger' href='#demoModal'><img src="{{item.Images}}"  alt="" class="circle responsive-img "></a>
+          </td>-->
           <td >{{item.Codigo}}</td>
           <td>{{item.Nombre}}</td>
           <td>{{item.Stock}}</td>
@@ -108,8 +106,8 @@
 
             <!--Paneles -->
             <!--<div class="card blue-grey lighten-5 ">
-              <div class="card-panel teal lighten-2 black-text ">Nuevo Ítem</div>
-              <div class="card-content black-text">-->
+            <div class="card-panel teal lighten-2 black-text ">Nuevo Ítem</div>
+            <div class="card-content black-text">-->
 
             <!--Botón para subir foto-->
             <div class="row">
@@ -117,8 +115,8 @@
                 <form action="#">
                   <div class="file-field input-field">
                     <div class="btn">
-                        <i class="material-icons center">camera_enhance</i>
-                         <input type="file">
+                      <i class="material-icons center">camera_enhance</i>
+                      <input type="file" >
                     </div>
                     <div class="file-path-wrapper">
                       <input class="file-path validate" type="text" [(ngModel)]="itemNuevo.Images">
@@ -291,19 +289,3 @@
     </div>
   </div>
 </div>
-
-
-
-<script>
-		function habilitar(value)
-		{
-			if(value==true)
-			{
-				// habilitamos
-				document.getElementById("segundo").disabled=false;
-			}else if(value==false){
-				// deshabilitamos
-				document.getElementById("segundo").disabled=true;
-			}
-		}
-	</script>

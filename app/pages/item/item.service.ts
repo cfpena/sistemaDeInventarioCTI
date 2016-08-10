@@ -52,57 +52,39 @@ export class ItemService {
         });
     }
     eliminarItem(item: ITEM) {
-
+      let Url = this.url.base + this.url.item + item.id.toString() + '/';
+      console.log(Url)
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append("Accept","application/json");
 
         return this.usuarioAuthService.getToken().then(token => {
             headers.append('Authorization', 'JWT ' + token);
             //request del tipo delete para eliminar, se envia la url que ya la contiene el mismo modelo
-            return this.http.delete(item.url.toString(), { headers: headers }).toPromise();
+            return this.http.delete(Url, { headers: headers }).toPromise();
         }).then(result => {
           return result;
         }).catch(error=> console.log(error));
     }
 
     createItem(item: ITEM) {
+      item.Items=new Array<ITEM>();
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append('Accept','application/json');
         return this.usuarioAuthService.getToken().then(token => {
             headers.append('Authorization', 'JWT ' + token);
             return this.http.post(this.url.base + this.url.item, JSON.stringify(item),{ headers: headers }).toPromise();
 
-        }).then(result => {
-          //para el metodo post se debe pasar los parametros con formato JSON pero de tipo string
-          return this.http.post(this.url.base + this.url.password, JSON.stringify({
-            Codigo: item.Codigo,
-            Nombre: item.Nombre,
-            Marca: item.Marca,
-            Modelo: item.Modelo,
-            Is_dispositivo: item.Is_dispositivo,
-            Is_kit: item.Is_kit,
-            Stock: item.Stock,
-            Images: item.Images,
-            Items: item.Items}),{ headers: headers }).toPromise();
         }).then(result=> console.log(result)).catch(error => console.log(error));
     }
 
     updateItem(item: ITEM) {
-
+      let Url = this.url.base + this.url.item + item.id.toString() + '/';
+      console.log(Url)
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append('Accept','application/json');
         return this.usuarioAuthService.getToken().then(token => {
             headers.append('Authorization', 'JWT ' + token);
-            return this.http.patch(String(item.url), JSON.stringify({
-              Codigo: item.Codigo,
-              Nombre: item.Nombre,
-              Marca: item.Marca,
-              Modelo: item.Modelo,
-              Is_dispositivo: item.Is_dispositivo,
-              Is_kit: item.Is_kit,
-              Stock: item.Stock,
-              Images: item.Images,
-              Items: item.Items}),{ headers: headers }).toPromise();
+            return this.http.patch(Url, JSON.stringify(item),{ headers: headers }).toPromise();
 
         }).then(result => {return result});
 
