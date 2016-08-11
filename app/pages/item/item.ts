@@ -34,6 +34,8 @@ export class ItemPage implements OnInit {
     selected: number[]=[];
     tiposBusquedas = ['código', 'Nombre'];
     busqueda={tipo: 'codigo', valor: ''};
+    tiposFotos = ['archivo', 'cámara'];
+    foto={tipo: 'camara', valor: ''};
     constructor( private navController:NavController,private menu: MenuController,
       private itemService: ItemService,
       private http: Http) {
