@@ -9,7 +9,6 @@ export class Movimiento_Detalle {
   @IsInt() cantidad: number;
   Is_DetalleKit: boolean;
   item: ITEM;
-  movimiento: Movimiento;
 
   constructor( ) {
     this.id=0;
