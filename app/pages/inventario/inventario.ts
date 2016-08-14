@@ -45,6 +45,8 @@ export class InventarioPage implements OnInit{
 
     Proveedor1: Persona = {url: '1',  CI:'0912345678', Nombre: 'Adriano',  Apellido: 'Pinargote',  Email: 'a@prueba.com', Telefono: '0959605816', Genero: 'Masculino'};
     Proveedor2: Persona = {url: '2',  CI:'0965321094',  Nombre: 'Janina', Apellido: 'Costa',  Email: 'j@prueba.com', Telefono: '04-6025888', Genero: 'Femenino'};
+    Proveedores: Persona[]=[{url: '1',  CI:'0912345678', Nombre: 'Adriano',  Apellido: 'Pinargote',  Email: 'a@prueba.com', Telefono: '0959605816', Genero: 'Masculino'},
+      {url: '2',  CI:'0965321094',  Nombre: 'Janina', Apellido: 'Costa',  Email: 'j@prueba.com', Telefono: '04-6025888', Genero: 'Femenino'}];
 
     ingresos: Ingreso[] = [{id: 1, Acta_entrega: '2016-000123', movimiento: this.movimientos[0], proveedor: this.Proveedor1},
       {id: 2, Acta_entrega: '2016-000124', movimiento: this.movimientos[1], proveedor: this.Proveedor2},
@@ -54,10 +56,16 @@ export class InventarioPage implements OnInit{
 
 
     template: string = 'null';
+    templateMovimiento: string ='ingreso_inventario'
+    idProveedor: string ='';
+    nombreProveedor: string ='';
 
     @Input() ingresoNuevo = new Ingreso();
     @Input() salidaNuevo = new Salida();
     @Input() movimientoNuevo = new Movimiento();
+    @Input() proveedorNuevo = new Persona();
+
+    @Input() movimientoMostrar = new Movimiento();
 
     countMov=10;
     countIng=10;
@@ -89,6 +97,10 @@ export class InventarioPage implements OnInit{
       this.navController.present(toast);
     }
 
+    goIngresarMovimiento(){
+      this.template='ingresar_movimiento';
+    }
+
     //ingreso a inventario
     crearIngreso(){
       let validator = new Validator();
@@ -115,6 +127,7 @@ export class InventarioPage implements OnInit{
         this.countSal++;
         this.movimientoNuevo = new Movimiento();
         this.salidaNuevo = new Salida();
+        this.proveedorNuevo = new Persona();
       }
     }
 
@@ -148,14 +161,21 @@ export class InventarioPage implements OnInit{
       return false
     }
 
-    goSalida(id: string){
-      this.template='salida_inventario';
+    goVerMovimiento(id: string){
+      this.template='ver_movimiento';
       this.id=parseInt(id);
+      this.movimientoMostrar = JSON.parse(JSON.stringify(this.movimientos.find(movimiento => movimiento.id == this.id)));
+      if (this.movimientoMostrar.tipo_movimiento.id ==1) this.goIngreso();
+      else if (this.movimientoMostrar.tipo_movimiento.id==3) this.goSalida();
+      else this.templateMovimiento ='';
     }
 
-    goIngreso(id: string){
-      this.template ='ingreso_inventario';
-      this.id= parseInt(id);
+    goIngreso(){
+      this.templateMovimiento = 'ingreso_inventario'
+    }
+
+    goSalida(){
+      this.templateMovimiento = 'salida_inventario'
     }
 
 
@@ -172,6 +192,31 @@ export class InventarioPage implements OnInit{
       else{this.selected.splice(index,1)};
       console.log(this.selected);
     }
+
+    buscarProveedor(){
+      console.log(this.idProveedor);
+      //this.proveedorNuevo = JSON.parse(JSON.stringify(this.Proveedores.find(persona => persona.CI == this.idProveedor)));
+      let proveedorActual: Persona[];
+      let proveedorNuevo: Persona;
+      let id = this.idProveedor;
+      if (this.idProveedor.length==10){
+        console.log('voy a buscar el proveedor');
+        proveedorActual = this.Proveedores.filter(function (proveedor){
+          console.log(id);
+          if (proveedor.CI.toLowerCase().indexOf(id.toLowerCase())>=0){
+            console.log(proveedor.Apellido);
+            proveedorNuevo = proveedor;
+            return true;
+          }
+          console.log('no encontre :(');
+          return false;
+        })
+        this.proveedorNuevo=proveedorNuevo;
+        this.nombreProveedor = proveedorNuevo.Nombre + ' ' + proveedorNuevo.Apellido;
+      }
+      //console.log(this.proveedorNuevo.Apellido);
+    }
+
 
     //retrasa la carga de la pagina 100 ms
     public ngOnInit() {
