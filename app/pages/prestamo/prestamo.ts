@@ -7,40 +7,36 @@ import {PersonaPage} from '../persona/persona';
 import {Prestamo} from '../prestamo/prestamo.model';
 import {MaterializeDirective} from "../../materialize-directive";
 import {DatePicker} from 'ionic-native';
+import {PrestamoService} from './prestamo.service';
+import {Url} from '../../url';
+import { Http, Headers } from '@angular/http';
 
 
 
 @Component({
   templateUrl: 'build/pages/prestamo/prestamo.html',
   directives: [MaterializeDirective],
+  providers: [PrestamoService],
 
 })
 export class PrestamoPage implements OnInit{
-
   title: string ='Prestamos';
-
-  personas: Persona[]=[];
-ITEMS: ITEM[]=[];
-KITS: Kit[]=[
-  {id: 1,  codigo: '1239033567',  nombre: 'arduino',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, items: this.ITEMS},
-  //{id: 2,  codigo: '9988444444',  nombre: 'kit2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, items: this.ITEMS}
-  ]
-
-  prestamos: Prestamo[] = [
-    {id: 1, personas:this.personas, items:this.ITEMS, kits: this.KITS, cantidad:8, disponible: true, devuelto:false, fecha_prestamo:'12/05/16', fecha_fin: '12/06/2016'},
-    {id: 2, personas:this.personas, items:this.ITEMS, kits: this.KITS, cantidad:10, disponible: true, devuelto:false, fecha_prestamo:'12/05/16', fecha_fin: '12/06/2016'},
-  ];
-
-
+  Personas: Persona[]=[];
+  ITEMS: ITEM[]=[];
+  prestamos: Prestamo[] = [];
   template: string = 'null';
   prestamosTemporal: Prestamo[]=[];
+  prestamosEliminar: Prestamo[]=[];
 
   @Input()
-  prestamoNuevo = {
-    id:10, typeIdentificacion: '',inputIdentificacion: '', busqueda: "", inputbusqueda:''
-  }
-  constructor(private _navController:NavController,private menu: MenuController) {
-    this.prestamosTemporal=this.prestamos;
+  prestamoNuevo = new Prestamo();
+
+  @Input()
+  prestamoModificar= new Prestamo;
+  constructor( private navController:NavController,private menu: MenuController,
+    private prestamoService: PrestamoService,
+    private http: Http) {
+      this.prestamosTemporal=this.prestamos;
   }
 
   openMenu(){
@@ -48,16 +44,18 @@ KITS: Kit[]=[
   }
 
   goCrearPersona(){
-      this._navController.push(PersonaPage,{});
+      //this._navController.push(PersonaPage,{});
       this.template='crear';
   }
 
   goNuevoPrestamo(){
     this.template='nuevo_prestamo';
   }
-  goModificar(id: string){
-    this.template='modificar'
-  }
+  goModificar(prestamo: Prestamo) {
+      console.log(prestamo)
+            this.prestamoModificar=JSON.parse(JSON.stringify(prestamo))
+            this.template='modificar'
+    }
 
   cancelar(){
     this.template='null';
@@ -75,17 +73,22 @@ KITS: Kit[]=[
   tiposBusquedas = ['código', 'nombre'];
   busqueda={tipo: 'código', valor: ''};
 
+  listar() {
+    //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
+      this.prestamoService.getPrestamos().then(prestamos => { this.prestamos = prestamos; return prestamos }).then(prestamos => {
+      })
+      return this.prestamos
+  }
 
-  select(id: any){
-    let index: number;
-    index = this.selected.findIndex(num => num == parseInt(id));
+  select(prestamo: Prestamo) {
+      if (!this.prestamosEliminar.some(prestamo => prestamo == prestamo)) {
+          this.prestamosEliminar.push(prestamo);
+      }else {
+          let index = this.prestamosEliminar.findIndex(x => x == prestamo)
+          this.prestamosEliminar.splice(index, 1)
+      };
 
-    if(index==-1){
-      this.selected.push(parseInt(id));}
-      else{this.selected.splice(index,1)};
-      console.log(this.selected);
-
-    }
+  }
     /*
     buscar(){
       let busquedaTemp = this.busqueda;
@@ -99,8 +102,7 @@ KITS: Kit[]=[
       })
     }*/
     public ngOnInit() {
-      window.setTimeout(()=>{
-      },100);
+      this.listar();
     }
 
 

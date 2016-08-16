@@ -1,8 +1,10 @@
 import {Headers} from '@angular/http';
 export class Url {
-  base ='http://127.0.0.1:8000/';
+  base ='http://162.243.83.72/';
+  //base ='http://162.243.83.72/';
   usuario ='api/usuarios/';
   persona ='api/personas/';
+  prestamo ='api/prestamos/';
   item ='api/items/';
   token = 'api-token-auth/';
   verifyToken= 'api-token-verify/';

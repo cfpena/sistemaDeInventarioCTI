@@ -25,7 +25,7 @@ export class PersonaService {
             return this.http.get(this.url.base + this.url.persona, { headers: headers }).toPromise();
             //cuando la funcion haya terminado de traer los datos pasa a la seccion then()
         }).then(result => {
-          //convertimos el resultado que es un json con los usuarios a un arreglo del modelo Usuarios
+          //convertimos el resultado que es un json con las personas a un arreglo del modelo Personas
           let personas = result.json() as Persona[];
           return personas;
           //si existe un error, no pasa por then, sino por catch
@@ -33,15 +33,15 @@ export class PersonaService {
           console.log(error)
         });;
     }
+
+
     getBuscar(cadena: String) {
 
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append("Accept","application/json");
-
         return this.usuarioAuthService.getToken().then(token => {
             headers.append('Authorization', 'JWT ' + token);
             return this.http.get(this.url.base + this.url.persona + this.url.buscar + cadena , { headers: headers }).toPromise();
-
         }).then(result => {
           let personas = result.json() as Persona[];
           return personas;
@@ -50,19 +50,7 @@ export class PersonaService {
           console.log(error)
         });
     }
-    eliminarPersona(persona: Persona) {
 
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append("Accept","application/json");
-
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            //request del tipo delete para eliminar, se envia la url que ya la contiene el mismo modelo
-            return this.http.delete(persona.url.toString(), { headers: headers }).toPromise();
-        }).then(result => {
-          return result;
-        }).catch(error=> console.log(error));
-    }
 
     createPersona(persona: Persona) {
       let headers = new Headers({ "Content-Type": "application/json" });
@@ -98,8 +86,21 @@ export class PersonaService {
             }),{ headers: headers }).toPromise();
 
         }).then(result => {return result});
+    }
 
 
+
+    eliminarPersona(persona: Persona) {
+
+      let headers = new Headers({ "Content-Type": "application/json" });
+      headers.append("Accept","application/json");
+        return this.usuarioAuthService.getToken().then(token => {
+            headers.append('Authorization', 'JWT ' + token);
+            //request del tipo delete para eliminar, se envia la url que ya la contiene el mismo modelo
+            return this.http.delete(persona.url.toString(), { headers: headers }).toPromise();
+        }).then(result => {
+          return result;
+        }).catch(error=> console.log(error));
     }
 
 
