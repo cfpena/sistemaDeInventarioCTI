@@ -48,7 +48,7 @@ Ionic pages and navigation.
           <td>{{movimiento.tipo_movimiento.nombre}}</td>
           <td>{{movimiento.observaciones}}</td>
           <td>
-            <a (click)="goMovimiento(movimiento.id)" class="button-collapse "><i class="material-icons left">description</i></a>
+            <a (click)="goVerMovimiento(movimiento.id)" class="button-collapse "><i class="material-icons left">description</i></a>
           </td>
         </tr>
       </tbody>
@@ -82,6 +82,7 @@ Ionic pages and navigation.
               <label for="test2">Salida</label>
             </p>
             <div style="padding-top: 15px"></div>
+            <!--Cabecera de movimiento-->
             <div class="row" >
               <div class="col s12 m6 l6" *ngIf="templateMovimiento=='ingreso_inventario'">
                 <div class="input-field">
@@ -91,7 +92,7 @@ Ionic pages and navigation.
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"   [(ngModel)]="nombreProveedor" disabled="true">
+                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"   [(ngModel)]="nombreProveedor" disabled="true"  >
                   <label for="icon_codigo" class="active">Proveedor</label>
                 </div>
                 <div class="input-field">
@@ -114,6 +115,40 @@ Ionic pages and navigation.
                 </div>
               </div>
 
+              <div class="col s12 m6 l6" >
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input  type="date" id="fecha"  [(ngModel)]="movimientoNuevo.fecha" class="datepicker"  style="padding-top: 16px" >
+                  <label for="fecha" class="active">Fecha</label>
+                  <script> new Datepicker('.datepicker');</script>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix">label_outline</i>
+                  <input id="icon_codigo" type="text" class="validate" minlength="1" maxlength="250"   [(ngModel)]="movimientoNuevo.observaciones" >
+                  <label for="icon_codigo" class="active">Descripción</label>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="input-field col s12 m6 l6">
+                <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
+                <label for="itemLista">Item/Kit</label>
+              </div>
+              <div class="input-field col s6 m3 l3">
+                <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=itemNuevo.Stock disabled="true">
+                <label for="itemLista" class="active">Stock</label>
+              </div>
+              <div class="input-field col s6 m3 l3">
+                <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*">
+                <label for="itemLista" class="active">Cantidad</label>
+              </div>
+              <div class="suggestions col s12 m6 l6" ><!--*ngIf="listaFiltradaItem.length > 0"-->
+                <ul *ngFor="let item of listaFiltradaItem" >
+                    <li >
+                        <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}}</a>
+                    </li>
+                </ul>
+              </div>
             </div>
           </div>
           <div class="card-action">

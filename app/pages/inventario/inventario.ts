@@ -58,12 +58,16 @@ export class InventarioPage implements OnInit{
     template: string = 'null';
     templateMovimiento: string ='ingreso_inventario'
     idProveedor: string ='';
-    nombreProveedor: string ='';
+    nombreProveedor: string ='NO EXISTE EL PROVEEDOR';
+    descripcionItem: string =''
+    listaFiltradaItem: ITEM[];
+    cantidad=0;
 
     @Input() ingresoNuevo = new Ingreso();
     @Input() salidaNuevo = new Salida();
     @Input() movimientoNuevo = new Movimiento();
     @Input() proveedorNuevo = new Persona();
+    @Input() itemNuevo = new ITEM();
 
     @Input() movimientoMostrar = new Movimiento();
 
@@ -113,6 +117,8 @@ export class InventarioPage implements OnInit{
         this.countIng++;
         this.movimientoNuevo = new Movimiento();
         this.ingresoNuevo = new Ingreso();
+        this.proveedorNuevo = new Persona();
+        this.nombreProveedor = 'NO EXISTE EL PROVEEDOR';
       }
     }
 
@@ -128,6 +134,7 @@ export class InventarioPage implements OnInit{
         this.movimientoNuevo = new Movimiento();
         this.salidaNuevo = new Salida();
         this.proveedorNuevo = new Persona();
+        this.nombreProveedor = 'NO EXISTE EL PROVEEDOR';
       }
     }
 
@@ -210,13 +217,44 @@ export class InventarioPage implements OnInit{
           }
           console.log('no encontre :(');
           return false;
-        })
-        this.proveedorNuevo=proveedorNuevo;
-        this.nombreProveedor = proveedorNuevo.Nombre + ' ' + proveedorNuevo.Apellido;
+        }.bind(this));
+        if (proveedorActual.length==1){
+          this.proveedorNuevo=proveedorNuevo;
+          this.nombreProveedor = proveedorNuevo.Nombre + ' ' + proveedorNuevo.Apellido;
+        }
       }
-      //console.log(this.proveedorNuevo.Apellido);
     }
 
+    buscarItem(){
+      let itemsFiltro: ITEM[];
+      let busquedaItem = this.descripcionItem;
+      let elementoEncontrado: string;
+
+      if (busquedaItem!==''){
+        itemsFiltro = this.items.filter(function (item){
+          console.log(busquedaItem);
+          if (item.Codigo.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0 ||  item.Nombre.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0){
+            elementoEncontrado= item.Codigo+" - "+item.Nombre;
+            console.log(elementoEncontrado);
+            return true;
+          }
+          return false;
+        }.bind(this));
+        this.listaFiltradaItem = itemsFiltro;
+      }else{
+        this.listaFiltradaItem =[];
+      }
+    }
+
+    seleccionarItem(item: ITEM){
+      console.log(item);
+      console.log(this.itemNuevo);
+      this.itemNuevo=JSON.parse(JSON.stringify(item));
+      console.log(this.itemNuevo);
+      this.descripcionItem = this.itemNuevo.Codigo +' - '+ this.itemNuevo.Nombre;
+      this.listaFiltradaItem=[];
+      //this.itemSeleccionado = item;
+    }
 
     //retrasa la carga de la pagina 100 ms
     public ngOnInit() {
