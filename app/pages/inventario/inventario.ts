@@ -1,41 +1,88 @@
 import {Component,  OnInit, Input, ViewChild } from '@angular/core';
 import {NavController, MenuController, Toast} from 'ionic-angular';
-import {Inventario} from './inventario.model';
 import {MaterializeDirective} from "../../materialize-directive";
 import {Validator} from "validator.ts/Validator";
+import {Persona} from '../persona/persona.model';
+import {Tipo_Movimiento} from '../inventario/movimiento.model';
+import {Movimiento} from '../inventario/movimiento.model';
+import {Movimiento_Detalle} from '../inventario/movimiento_detalle.model';
+import {Ingreso} from '../inventario/ingreso.model';
+import {Salida} from '../inventario/salida.model';
+import {ITEM} from '../item/item.model';
+
 
 @Component({
   templateUrl: 'build/pages/inventario/inventario.html',
   directives: [MaterializeDirective],
 })
+
+
 export class InventarioPage implements OnInit{
     title: string ='Inventario';
 
-    inventarios: Inventario[]=[
-      {id: 1, fecha:'05/07/16', codigo: '0204567890', tipo:'item', nombre: 'resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  detalle: 'Ingreso nuevo', estado:'disponible' ,cantidad:20},
-      {id: 2, fecha:'08/07/16', codigo: '1234456891', tipo:'kit', nombre: 'arduino',  marca: 'Marca 2',  modelo: 'Modelo 2',  detalle: 'Ingreso nuevo',estado:'disponible' ,  cantidad:40},
-      {id: 3, fecha:'10/07/16', codigo: '0956787892', tipo:'item',  nombre: 'capacitor',  marca: 'Marca 3',  modelo: 'Modelo 3',  detalle: 'Ingreso nuevo', estado:'no disponible' , cantidad:20}
-    ];
+    tiposMovimientoIngreso: Tipo_Movimiento = {id:1, nombre: 'ingreso'};
+    tiposMovimientoSalida: Tipo_Movimiento = {id:3, nombre: 'salida'};
 
-    inventarioTemporal: Inventario[]=[];
+    items: ITEM[]=[
+      {id: 1,  Codigo: '1234567890',  Nombre: 'resistencia',  Marca: 'Marca 1',  Modelo: 'Modelo 1',  Descripcion: 'Resistencia100 ', Stock:150, Is_dispositivo: false, Is_kit: false, Images:'', Items:''},
+      {id: 2,  Codigo: '1234456891',  Nombre: 'capacitor',  Marca: 'Marca 2',  Modelo: 'Modelo 2',  Descripcion: 'Capacitor100 ',   Stock:200, Is_dispositivo: false, Is_kit: false, Images:'', Items:''},
+      {id: 3,  Codigo: '0956787892',  Nombre: 'ítem',  Marca: 'Marca 3',  Modelo: 'Modelo 3',  Descripcion: 'Resistencia50 ',  Stock:800, Is_dispositivo: false, Is_kit: false, Images:'', Items:'' }];
+
+    movimientodetalle1: Movimiento_Detalle[] = [{id:1, cantidad:2, Is_DetalleKit: false, item: this.items[0]},
+      {id:2, cantidad:10, Is_DetalleKit: false, item:  this.items[1]},
+      {id:3, cantidad:5, Is_DetalleKit: false, item:  this.items[2]}];
+    movimientodetalle2: Movimiento_Detalle[] = [{id:1, cantidad:5, Is_DetalleKit: false, item: this.items[0]},
+      {id:2, cantidad:8, Is_DetalleKit: false, item:  this.items[2]}];
+    movimientodetalle3: Movimiento_Detalle[] = [{id:1, cantidad:10, Is_DetalleKit: false, item: this.items[0]}];
+    movimientodetalle4: Movimiento_Detalle[] = [{id:1, cantidad:12, Is_DetalleKit: false, item: this.items[0]},
+      {id:2, cantidad:10, Is_DetalleKit: false, item:  this.items[1]},
+      {id:3, cantidad:5, Is_DetalleKit: false, item:  this.items[2]}];
+
+    movimientos: Movimiento[] = [{id: 1,  fecha: '17/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compra de items', movimiento_detalle: this.movimientodetalle1},
+      {id: 2,  fecha: '18/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compras de junio', movimiento_detalle: this.movimientodetalle2},
+      {id: 3,  fecha: '19/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compras', movimiento_detalle: this.movimientodetalle3},
+      {id: 4,  fecha: '20/07/2016', tipo_movimiento: this.tiposMovimientoSalida, observaciones: 'Baja', movimiento_detalle: this.movimientodetalle4}];
+
+    Proveedor1: Persona = {url: '1',  CI:'0912345678', Nombre: 'Adriano',  Apellido: 'Pinargote',  Email: 'a@prueba.com', Telefono: '0959605816', Genero: 'Masculino'};
+    Proveedor2: Persona = {url: '2',  CI:'0965321094',  Nombre: 'Janina', Apellido: 'Costa',  Email: 'j@prueba.com', Telefono: '04-6025888', Genero: 'Femenino'};
+    Proveedores: Persona[]=[{url: '1',  CI:'0912345678', Nombre: 'Adriano',  Apellido: 'Pinargote',  Email: 'a@prueba.com', Telefono: '0959605816', Genero: 'Masculino'},
+      {url: '2',  CI:'0965321094',  Nombre: 'Janina', Apellido: 'Costa',  Email: 'j@prueba.com', Telefono: '04-6025888', Genero: 'Femenino'}];
+
+    ingresos: Ingreso[] = [{id: 1, Acta_entrega: '2016-000123', movimiento: this.movimientos[0], proveedor: this.Proveedor1},
+      {id: 2, Acta_entrega: '2016-000124', movimiento: this.movimientos[1], proveedor: this.Proveedor2},
+      {id: 3, Acta_entrega: '2016-000125', movimiento: this.movimientos[2], proveedor: this.Proveedor1}];
+
+    salidas: Salida[] = [{id:1, No_Acta_Salida:'2016-S00051', movimiento: this.movimientos[3], Motivo_salida: 'Baja contable'}];
+
+
     template: string = 'null';
+    templateMovimiento: string ='ingreso_inventario'
+    idProveedor: string ='';
+    nombreProveedor: string ='NO EXISTE EL PROVEEDOR';
+    descripcionItem: string =''
+    listaFiltradaItem: ITEM[];
+    cantidad=0;
 
-    @Input()
-    inventarioNuevo = new Inventario();
+    @Input() ingresoNuevo = new Ingreso();
+    @Input() salidaNuevo = new Salida();
+    @Input() movimientoNuevo = new Movimiento();
+    @Input() proveedorNuevo = new Persona();
+    @Input() itemNuevo = new ITEM();
 
-    @Input()
-    inventarioSalida = new Inventario();
+    @Input() movimientoMostrar = new Movimiento();
 
-    count=10;
+    countMov=10;
+    countIng=10;
+    countSal=10;
     id=0;
     selected: number[]=[];
-    tipos = ['Elija tipo','ítem','kit'];
-    estados = ['Elija un estado...','disponible','no disponible'];
-    tiposBusquedas = ['código', 'nombre'];
+    //tipos = ['Elija tipo','ítem','kit'];
+    //estados = ['Elija un estado...','disponible','no disponible'];
+    tiposBusquedas = ['Ingreso', 'Salida'];
     busqueda={tipoB: 'código', valor: ''};
 
     constructor( private navController:NavController,private menu: MenuController){
-        this.inventarioTemporal=this.inventarios;
+        //this.inventarioTemporal=this.inventarios;
     }
 
     openMenu(){
@@ -54,77 +101,94 @@ export class InventarioPage implements OnInit{
       this.navController.present(toast);
     }
 
+    goIngresarMovimiento(){
+      this.template='ingresar_movimiento';
+    }
+
     //ingreso a inventario
-    crear(){
+    crearIngreso(){
       let validator = new Validator();
-      console.log(JSON.stringify(validator.validate(this.inventarioNuevo)));
-        console.log(this.inventarioNuevo.tipo);
-        console.log(this.inventarioNuevo.estado);
-      if(!validator.isValid(this.inventarioNuevo)) this.presentToast('Corrija el formulario');
-     else if (this.inventarioNuevo.codigo=='' || this.inventarioNuevo.codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
-     //else if(this.inventarioNuevo.nombre=='') this.presentToast('Nombre vacio');
-     else if(this.inventarioNuevo.estado=='') this.presentToast('Elija un estado');
-     else if(this.inventarioNuevo.detalle=='') this.presentToast('Detalle vacio');
-     else if(this.inventarioNuevo.cantidad < 1 || this.inventarioNuevo.cantidad > 50 || this.inventarioNuevo.cantidad==0) this.presentToast('Cantidad mínima 1 máximo 50');
-     else if(this.inventarioNuevo.estado=='' || this.inventarioNuevo.estado==this.estados[0])this.presentToast('Estado no definido');
-     else if(this.inventarioNuevo.tipo=='' || this.inventarioNuevo.tipo==this.tipos[0])this.presentToast('Tipo no definido');
-
-     else{
-       this.inventarios.push(this.inventarioNuevo);
-       this.template='null';
-       this.count++;
-       this.inventarioNuevo = new Inventario();
+      console.log(JSON.stringify(validator.validate(this.ingresoNuevo)));
+      if (this.validarIngreso()){
+        this.movimientos.push(this.movimientoNuevo);
+        this.ingresos.push(this.ingresoNuevo);
+        this.template='null';
+        this.countMov++;
+        this.countIng++;
+        this.movimientoNuevo = new Movimiento();
+        this.ingresoNuevo = new Ingreso();
+        this.proveedorNuevo = new Persona();
+        this.nombreProveedor = 'NO EXISTE EL PROVEEDOR';
       }
     }
 
-    goIngresoInventario(){
-      this.template='ingresar';
-    }
-
-    //crea un item
-    salida(){
+    crearSalida(){
       let validator = new Validator();
-      console.log(JSON.stringify(validator.validate(this.inventarioSalida)));
-        console.log(this.inventarioSalida.estado);
-      if(!validator.isValid(this.inventarioSalida)) this.presentToast('Corrija el formulario');
-     else if(this.inventarioSalida.cantidad < 1 || this.inventarioSalida.cantidad > 50 || this.inventarioSalida.cantidad==0) this.presentToast('Cantidad mínima 1 máximo 50');
-     //else if(this.inventarioSalida.estado=='' || this.inventarioSalida.estado==this.estados[0])this.presentToast('Estado no definido');
-     //else if(this.inventarioSalida.tipo=='' || this.inventarioSalida.tipo==this.tipos[0])this.presentToast('Tipo no definido');
-     else{
-       let index =this.inventarios.findIndex(inventario => inventario.id == this.id);
-       this.inventarios[index] =JSON.parse(JSON.stringify(this.inventarioSalida));
-       this.template='null';
-       //this.eliminar();
-
-     }
-
+      console.log(JSON.stringify(validator.validate(this.salidaNuevo)));
+      if (this.validarIngreso()){
+        this.movimientos.push(this.movimientoNuevo);
+        this.salidas.push(this.salidaNuevo);
+        this.template='null';
+        this.countMov++;
+        this.countSal++;
+        this.movimientoNuevo = new Movimiento();
+        this.salidaNuevo = new Salida();
+        this.proveedorNuevo = new Persona();
+        this.nombreProveedor = 'NO EXISTE EL PROVEEDOR';
+      }
     }
 
-    goSalida(id: string){
-          this.template='salida_inventario'
+    validarMovimiento() {
+      let validator = new Validator();
+      if (!validator.isValid(this.movimientoNuevo)) this.presentToast('ERROR!');
+      else if (this.movimientoNuevo.fecha=='') this.presentToast ('Seleccione la fecha del movimiento');
+      else return true
+      return false
+    }
+
+    validarIngreso(){
+      this.movimientoNuevo.tipo_movimiento = this.tiposMovimientoIngreso;
+      let validator = new Validator();
+      if (!validator.isValid(this.ingresoNuevo)) this.presentToast('ERROR!');
+      else if (this.ingresoNuevo.Acta_entrega=='') this.presentToast ('Acta de entrega no puede ser vacio');
+      else if (!validator.isValid(this.ingresoNuevo.proveedor)) this.presentToast ('Error en proveedor');
+      else if (!this.validarMovimiento()) this.presentToast('Movimiento invalido');
+      else return true
+      return false
+    }
+
+    validarSalida(){
+      this.movimientoNuevo.tipo_movimiento = this.tiposMovimientoSalida;
+      let validator = new Validator();
+      if (!validator.isValid(this.salidaNuevo)) this.presentToast('ERROR!');
+      else if (this.salidaNuevo.No_Acta_Salida=='') this.presentToast ('Acta de salida no puede ser vacio');
+      else if (this.salidaNuevo.Motivo_salida=='') this.presentToast ('Motivo salida no puede ser vacio');
+      else if (!this.validarMovimiento()) this.presentToast('Movimiento invalido');
+      else return true
+      return false
+    }
+
+    goVerMovimiento(id: string){
+      this.template='ver_movimiento';
       this.id=parseInt(id);
-      let inv = this.inventarios.find(inventario => inventario.id == this.id);
-      for(var i in this.inventarioSalida){
-        this.inventarioSalida[i]=inv[i];
-      }
+      this.movimientoMostrar = JSON.parse(JSON.stringify(this.movimientos.find(movimiento => movimiento.id == this.id)));
+      if (this.movimientoMostrar.tipo_movimiento.id ==1) this.goIngreso();
+      else if (this.movimientoMostrar.tipo_movimiento.id==3) this.goSalida();
+      else this.templateMovimiento ='';
     }
 
-    eliminar(){
-          for(var i in this.selected){
-            console.log(this.selected[i]);
-            let index =this.inventarios.findIndex(inventario => inventario.id==this.selected[i]);
-            console.log(index);
-            this.inventarios.splice(index,1);
-          }
-          this.selected=[];
-      }
+    goIngreso(){
+      this.templateMovimiento = 'ingreso_inventario'
+    }
+
+    goSalida(){
+      this.templateMovimiento = 'salida_inventario'
+    }
 
 
     cancelar(){
       this.template='null';
     }
-
-
 
     select(id: any){
       let index: number;
@@ -134,20 +198,64 @@ export class InventarioPage implements OnInit{
       this.selected.push(parseInt(id));}
       else{this.selected.splice(index,1)};
       console.log(this.selected);
-
     }
 
-    buscar(){
-      let busquedaTemp = this.busqueda;
-      if(busquedaTemp.valor=='') this.inventarios=this.inventarioTemporal;
-      this.inventarios=this.inventarioTemporal.filter(function(inventario){
-        if(busquedaTemp.tipoB=='código') {
-          console.log("codigo");
-          return inventario.codigo.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+    buscarProveedor(){
+      console.log(this.idProveedor);
+      //this.proveedorNuevo = JSON.parse(JSON.stringify(this.Proveedores.find(persona => persona.CI == this.idProveedor)));
+      let proveedorActual: Persona[];
+      let proveedorNuevo: Persona;
+      let id = this.idProveedor;
+      if (this.idProveedor.length==10){
+        console.log('voy a buscar el proveedor');
+        proveedorActual = this.Proveedores.filter(function (proveedor){
+          console.log(id);
+          if (proveedor.CI.toLowerCase().indexOf(id.toLowerCase())>=0){
+            console.log(proveedor.Apellido);
+            proveedorNuevo = proveedor;
+            return true;
+          }
+          console.log('no encontre :(');
+          return false;
+        }.bind(this));
+        if (proveedorActual.length==1){
+          this.proveedorNuevo=proveedorNuevo;
+          this.nombreProveedor = proveedorNuevo.Nombre + ' ' + proveedorNuevo.Apellido;
         }
-        else return inventario.nombre.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
-      })
+      }
     }
+
+    buscarItem(){
+      let itemsFiltro: ITEM[];
+      let busquedaItem = this.descripcionItem;
+      let elementoEncontrado: string;
+
+      if (busquedaItem!==''){
+        itemsFiltro = this.items.filter(function (item){
+          console.log(busquedaItem);
+          if (item.Codigo.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0 ||  item.Nombre.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0){
+            elementoEncontrado= item.Codigo+" - "+item.Nombre;
+            console.log(elementoEncontrado);
+            return true;
+          }
+          return false;
+        }.bind(this));
+        this.listaFiltradaItem = itemsFiltro;
+      }else{
+        this.listaFiltradaItem =[];
+      }
+    }
+
+    seleccionarItem(item: ITEM){
+      console.log(item);
+      console.log(this.itemNuevo);
+      this.itemNuevo=JSON.parse(JSON.stringify(item));
+      console.log(this.itemNuevo);
+      this.descripcionItem = this.itemNuevo.Codigo +' - '+ this.itemNuevo.Nombre;
+      this.listaFiltradaItem=[];
+      //this.itemSeleccionado = item;
+    }
+
     //retrasa la carga de la pagina 100 ms
     public ngOnInit() {
       window.setTimeout(()=>{
