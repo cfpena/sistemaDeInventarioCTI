@@ -18,9 +18,7 @@ import {DatePicker} from 'ionic-native';
 })
 export class ReportesPage {
   title: string ='Reportes';
-  template: string = 'crear';
-  tiposFotos = ['subir foto', 'cámara'];
-  foto={tipo: 'camara', valor: ''};
+  
   constructor( private navController:NavController,private menu: MenuController){
   }
   openMenu(){
