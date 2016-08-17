@@ -10,6 +10,9 @@ export class Persona {
   @IsEmail() Email: string;
   Telefono: string;
   Genero: string;
+  Direccion: string;
+  Matricula: string;
+  Tipo: string;
 
 
   constructor( ) {
@@ -20,5 +23,9 @@ export class Persona {
     this.Email='';
     this.Telefono='';
     this.Genero='';
+    this.Direccion='';
+    this.Tipo='';
+    this.Matricula='';
+
   }
 }

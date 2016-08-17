@@ -3,7 +3,7 @@ export class Url {
   base ='http://162.243.83.72/';
 
   usuario ='api/usuarios/';
-  persona ='api/personas/';
+  persona ='api/prestador/';
   prestamo ='api/prestamos/';
   item ='api/items/';
   token = 'api-token-auth/';

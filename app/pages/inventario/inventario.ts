@@ -23,10 +23,10 @@ export class InventarioPage implements OnInit{
     tiposMovimientoIngreso: Tipo_Movimiento = {id:1, nombre: 'ingreso'};
     tiposMovimientoSalida: Tipo_Movimiento = {id:3, nombre: 'salida'};
 
-    items: ITEM[]=[
+    items: ITEM[]=[/*
       {id: 1,  Codigo: '1234567890',  Nombre: 'resistencia',  Marca: 'Marca 1',  Modelo: 'Modelo 1',  Descripcion: 'Resistencia100 ', Stock:150, Is_dispositivo: false, Is_kit: false, Images:'', Items:''},
       {id: 2,  Codigo: '1234456891',  Nombre: 'capacitor',  Marca: 'Marca 2',  Modelo: 'Modelo 2',  Descripcion: 'Capacitor100 ',   Stock:200, Is_dispositivo: false, Is_kit: false, Images:'', Items:''},
-      {id: 3,  Codigo: '0956787892',  Nombre: 'ítem',  Marca: 'Marca 3',  Modelo: 'Modelo 3',  Descripcion: 'Resistencia50 ',  Stock:800, Is_dispositivo: false, Is_kit: false, Images:'', Items:'' }];
+      {id: 3,  Codigo: '0956787892',  Nombre: 'ítem',  Marca: 'Marca 3',  Modelo: 'Modelo 3',  Descripcion: 'Resistencia50 ',  Stock:800, Is_dispositivo: false, Is_kit: false, Images:'', Items:'' }*/];
 
     movimientodetalle1: Movimiento_Detalle[] = [{id:1, cantidad:2, Is_DetalleKit: false, item: this.items[0]},
       {id:2, cantidad:10, Is_DetalleKit: false, item:  this.items[1]},
@@ -42,7 +42,7 @@ export class InventarioPage implements OnInit{
       {id: 2,  fecha: '18/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compras de junio', movimiento_detalle: this.movimientodetalle2},
       {id: 3,  fecha: '19/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compras', movimiento_detalle: this.movimientodetalle3},
       {id: 4,  fecha: '20/07/2016', tipo_movimiento: this.tiposMovimientoSalida, observaciones: 'Baja', movimiento_detalle: this.movimientodetalle4}];
-
+/*
     Proveedor1: Persona = {url: '1',  CI:'0912345678', Nombre: 'Adriano',  Apellido: 'Pinargote',  Email: 'a@prueba.com', Telefono: '0959605816', Genero: 'Masculino'};
     Proveedor2: Persona = {url: '2',  CI:'0965321094',  Nombre: 'Janina', Apellido: 'Costa',  Email: 'j@prueba.com', Telefono: '04-6025888', Genero: 'Femenino'};
     Proveedores: Persona[]=[{url: '1',  CI:'0912345678', Nombre: 'Adriano',  Apellido: 'Pinargote',  Email: 'a@prueba.com', Telefono: '0959605816', Genero: 'Masculino'},
@@ -255,7 +255,7 @@ export class InventarioPage implements OnInit{
       this.listaFiltradaItem=[];
       //this.itemSeleccionado = item;
     }
-
+*/
     //retrasa la carga de la pagina 100 ms
     public ngOnInit() {
       window.setTimeout(()=>{
