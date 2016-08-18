@@ -43,14 +43,31 @@ export class ItemService {
         });;
     }
 
-    getBuscar(cadena: String) {
-  
+    getBuscarElemento(cadena: String) {
+
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append("Accept","application/json");
 
         return this.usuarioAuthService.getToken().then(token => {
             headers.append('Authorization', 'JWT ' + token);
             return this.http.get(this.url.base + this.url.elemento + this.url.buscar + cadena , { headers: headers }).toPromise();
+
+        }).then(result => {
+          let items = result.json() as ITEM[];
+          return items;
+
+        }).catch(error=>{
+          console.log(error)
+        });
+    }
+    getBuscarDispositivo(cadena: String) {
+
+      let headers = new Headers({ "Content-Type": "application/json" });
+      headers.append("Accept","application/json");
+
+        return this.usuarioAuthService.getToken().then(token => {
+            headers.append('Authorization', 'JWT ' + token);
+            return this.http.get(this.url.base + this.url.dispositivo + this.url.buscar + cadena , { headers: headers }).toPromise();
 
         }).then(result => {
           let items = result.json() as ITEM[];

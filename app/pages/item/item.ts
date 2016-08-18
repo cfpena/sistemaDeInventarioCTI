@@ -142,11 +142,16 @@ export class ItemPage implements OnInit {
 
     buscar() {
         if (this.busqueda.valor.trim() != "") {
-            this.itemService.getBuscar(this.busqueda.valor).then(items => { this.items = items; return items }).then(items => {
+            this.itemService.getBuscarElemento(this.busqueda.valor).then(items => { this.items = items; return items }).then(items => {
+              this.itemService.getBuscarDispositivo(this.busqueda.valor).then(items => {
+                for(var item of items){
+                  this.items.push(item)
+                }
+              })
+
             })
         }
         else { this.listar() }
-        return this.items
     }
 
     //retrasa la carga de la pagina 100 ms
