@@ -7,7 +7,6 @@
   </div>
 </nav>
 
-<!--tabla de personas-->
 
 <ion-content>
 <div *ngIf="template=='null'">
@@ -54,7 +53,6 @@
     </tbody>
   </table>
 </div>
-
 </ion-content>
 
 <!--Botones-->
@@ -69,10 +67,9 @@
     </ul>
   </div>
 </div>
-
   <!--Layout de nuevo préstamo-->
   <div *ngIf="template=='nuevo_prestamo'" style="overflow: scroll;" >
-    <!--nuevo user-->
+    <!--nuevo prestamo-->
     <div materialize id="nuevo_prestamo" class="section">
       <div>
         <div class="row">
@@ -115,7 +112,6 @@
           </div>
 
           <!--Segundo panel para préstamos-->
-
           <div class="col s12 l4 m6 " style="position: relative; left:5%">
             <div class="card blue-grey lighten-5 "> <!--blue-grey darken-1-->
               <div class="card-panel teal lighten-2">Préstamo</div>
@@ -123,14 +119,12 @@
                 <!--<span class="card-title">Préstamo</span>-->
                 <div class="row">
                   <div class="col l12 m12 12 ">
-
                     <div class="input-field">
                       <i class="material-icons prefix">keyboard_arrow_right</i>
                       <select materialize="material_select" [materializeSelectOptions]="selectOptions">
                         <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda">{{tiposBusqueda}}</option>
                       </select>
                     </div>
-
                   </div>
                 </div>
                 <div class="row">
@@ -146,16 +140,11 @@
                   </div>
                 </div>
                 <div class="row">
-                  <!--<div class="col l11 s11 m11 offset-l1 offset-m1 offset-s1">-->
                   <div class="col l6 s11 m6 offset-l1 offset-m1 offset-s1">
                     <label style="font-size: 15px">Kit Arduino disponible 10 unidades</label>
                   </div>
-                <!--</div>
-                <div class="row ">-->
-                  <!--<div class="col l12 m12 s12">-->
                   <div class="col l5 m5 s12">
                     <div class="input-field">
-
                       <input class="black-text"  id="cantidad" type="text">
                       <label class="black-text" for="cantidad" class="active">Cantidad</label>
                     </div>
@@ -187,7 +176,7 @@
               </div>
             </div>
           </div>
-          <!--panel 3> Tabla de prestamos-->
+          <!--panel 3 Lista de prestamos-->
           <div class="col s12 m6 l3 " style="font-size: 15px; position: relative; left:5%">
             <div class="card blue-grey lighten-5 ">
               <div class="card-content grey-text ">

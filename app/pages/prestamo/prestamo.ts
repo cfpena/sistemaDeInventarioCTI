@@ -21,10 +21,7 @@ export class PrestamoPage implements OnInit{
 
   personas: Persona[]=[];
 ITEMS: ITEM[]=[];
-KITS: Kit[]=[
-  {id: 1,  codigo: '1239033567',  nombre: 'arduino',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: ' ', cantidad:20, items: this.ITEMS},
-  //{id: 2,  codigo: '9988444444',  nombre: 'kit2',  marca: 'Marca 1',  modelo: 'Modelo 2',  descripcion: ' ', cantidad:10, items: this.ITEMS}
-  ]
+KITS: Kit[]=[]
 
   prestamos: Prestamo[] = [
     {id: 1, personas:this.personas, items:this.ITEMS, kits: this.KITS, cantidad:8, disponible: true, devuelto:false, fecha_prestamo:'12/05/16', fecha_fin: '12/06/2016'},

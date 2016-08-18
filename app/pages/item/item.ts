@@ -30,6 +30,7 @@ export class ItemPage implements OnInit {
     itemNuevo = new ITEM();
     @Input()
     itemModificar= new ITEM;
+    id=0;
     count=10;
     selected: number[]=[];
     tiposBusquedas = ['código', 'Nombre'];
@@ -88,7 +89,6 @@ export class ItemPage implements OnInit {
       console.log(item)
             this.itemModificar=JSON.parse(JSON.stringify(item))
             this.template='modificar'
-
     }
 
     modificar(){
@@ -146,6 +146,7 @@ export class ItemPage implements OnInit {
       else{this.listar()}
       return this.items
     }
+    
     //retrasa la carga de la pagina 100 ms
     public ngOnInit() {
       this.listar();

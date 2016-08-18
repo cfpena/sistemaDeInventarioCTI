@@ -4,6 +4,7 @@ export class Url {
   usuario ='api/usuarios/';
   persona ='api/personas/';
   item ='api/items/';
+  kit ='api/kits/';
   token = 'api-token-auth/';
   verifyToken= 'api-token-verify/';
   tiposUsuarios = 'api/groups/';
