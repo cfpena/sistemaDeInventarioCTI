@@ -10,7 +10,7 @@ export class Url {
   kit ='api/kits/';
   token = 'api-token-auth/';
   verifyToken= 'api-token-verify/';
-  tiposUsuarios = 'api/groups/';
+  tiposUsuarios = 'api/groupos/';
   header= new Headers();
   password= 'api/password/';
   buscar = '?search='
