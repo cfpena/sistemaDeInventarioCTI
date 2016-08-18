@@ -1,7 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {App, ionicBootstrap, Platform, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
-import {ListPage} from './pages/list/list';
 import {LoginPage} from './pages/login/login';
 import {PrincipalPage} from './pages/principal/principal';
 import {PersonaPage} from './pages/persona/persona';

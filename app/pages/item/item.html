@@ -1,5 +1,3 @@
-
-
 <nav class="light-blue darken-4" >
   <div class="nav-wrapper navbar-fixed" >
     <a href="#" (click)="openMenu()"data-activates="nav-mobile" class="button-collapse show-on-large left"><i class="material-icons left">menu</i></a>
@@ -32,9 +30,11 @@
         <tr>
           <th></th><!--para el select-->
           <!--<th></th> para la imagen-->
+          <th data-field="id"></th>
           <th data-field="id">Código</th>
           <th data-field="nombre">Nombre</th>
           <th data-field="cantidad">Cantidad</th>
+          <th data-field="cantidad">Disponible</th>
           <th></th>
         </tr>
       </thead>
@@ -43,16 +43,16 @@
           <td>
             <!-- evento change y atributo por defecto checked false, se agrega como id el id de la persona
             para luego saber que checkbox le pertenece a cada persona-->
-            <input (change)="select(item)" id={{item.id}} type="checkbox" class="filled-in"/>
-            <label attr.for="{{item.id}}"></label>
+            <input (change)="select(item)" id={{item.Codigo}} type="checkbox" class="filled-in"/>
+            <label attr.for="{{item.Codigo}}"></label>
           </td>
-          <!--foto del ítem
           <td>
-            <a materialize="leanModal" [materializeParams]="[{dismissible: true}]" class='modal-trigger' href='#demoModal'><img src="{{item.Images}}"  alt="" class="circle responsive-img "></a>
-          </td>-->
+            <img materialize src="{{item.Imagen}}"  alt="" class="circle responsive-img materialboxed"  height="42" width="42">
+          </td>
           <td>{{item.Codigo}}</td>
           <td>{{item.Nombre}}</td>
           <td>{{item.Stock}}</td>
+          <td>{{item.Stock_Disponible}}</td>
           <td>
             <a class="button-collapse" (click)="goModificar(item)"><i class="material-icons left">mode_edit</i></a>
           </td>
@@ -68,7 +68,7 @@
   <div class="modal-content" >
     <div class="row">
       <div class="col s12 m7 l7">
-        <img id="img" class="materalboxed" style="margin:0 auto;"  src="http://upload.wikimedia.org/wikipedia/commons/3/33/Resistencia_electrica.jpg">
+        <img id="img" class="materalboxed" style="margin:0 auto;"  src="">
       </div>
     </div>
   </div>
@@ -149,7 +149,7 @@
                 <form action="#">
                   <p>
                     <i class="material-icons prefix" style="color:#9e9e9e">keyboard_arrow_right</i>
-                    <input type="checkbox" id="test01" [(ngModel)]="itemNuevo.Is_dispositivo"/>
+                    <input type="checkbox" id="test01" [(ngModel)]="itemNuevo.Es_Dispositivo"/>
                     <label for="test01">Dispositivo</label>
                   </p>
                 </form>
@@ -178,7 +178,7 @@
                       <div class="file-field input-field">
                         <div class="btn" >
                           <i class="material-icons">camera_enhance</i>
-                          <input type="file" >
+                          <input type="file" [(ngModel)]="itemNuevo.Imagen">
                         </div>
                         <div class="file-path-wrapper">
                           <input class="file-path validate" type="text" >
@@ -263,7 +263,7 @@
                 <form action="#">
                   <p>
                     <i class="material-icons prefix" style="color:#9e9e9e">keyboard_arrow_right</i>
-                    <input type="checkbox" id="test01" disabled="disabled" [(ngModel)]="itemModificar.Is_dispositivo"/>
+                    <input type="checkbox" id="test01" disabled="disabled" [(ngModel)]="itemModificar.Es_Dispositivo"/>
                     <label for="test01">Dispositivo</label>
                   </p>
                 </form>
