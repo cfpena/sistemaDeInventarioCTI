@@ -115,7 +115,7 @@ export class UsuarioPage implements OnInit {
 
               for(var usuario of this.usuariosEliminar){
                 this.usuarioService.eliminarUsuario(usuario).then(result =>
-                  { console.log(result) }).catch(error=> console.log(error))
+                  { this.listar() }).catch(error=> console.log(error))
               }
               //se deja en blanco la lista a eliminar
               this.usuariosEliminar= Array<Usuario>();
