@@ -9,52 +9,52 @@
 
 <!--tabla de personas-->
 <ion-content>
-<div *ngIf="template=='null'">
-  <!--Búsqueda por cedula o nombre-->
-  <div class="row">
-    <div class="col l1 m2 s4 offset-l9 offset-m7 " >
-      <div class="input-field">
-        <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipo">
-          <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
-        </select>
+  <div *ngIf="template=='null'">
+    <!--Búsqueda por cedula o nombre-->
+    <div class="row">
+      <div class="col l1 m2 s4 offset-l9 offset-m7 " >
+        <div class="input-field">
+          <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipo">
+            <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col l2 m3 s8">
+        <div class="input-field">
+          <input (keyup)="buscar()" type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
+          <label class="black-text active" for="identificacion">Búsqueda</label>
+        </div>
       </div>
     </div>
-    <div class="col l2 m3 s8">
-      <div class="input-field">
-        <input (keyup)="buscar()" type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
-        <label class="black-text active" for="identificacion">Búsqueda</label>
-      </div>
-    </div>
+    <table materialize class="centered table centered striped" style="font-size: 15px">
+      <thead>
+        <tr>
+          <th ></th>
+          <th data-field="id">Identificacion</th>
+          <th data-field="nombre">Nombre</th>
+          <th data-field="apellido">Apellido</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- angular 2 for -->
+        <tr *ngFor="let persona of personas">
+          <td>
+            <!-- evento change y atributo por defecto checked false, se agrega como id el id de la persona
+            para luego saber que checkbox le pertenece a cada persona-->
+            <input   (change)="select(persona)" id={{persona.url}} type="checkbox" class="filled-in"/>
+            <label  attr.for="{{persona.url}}"></label>
+          </td>
+          <td>{{persona.CI}}</td>
+          <td>{{persona.Nombre}}</td>
+          <td>{{persona.Apellido}}</td>
+          <td>
+            <a class="button-collapse" (click)="goModificar(persona)"><i class="material-icons left">visibility</i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <table materialize class="centered table centered striped" style="font-size: 15px">
-    <thead>
-      <tr>
-        <th ></th>
-        <th data-field="id">Identificacion</th>
-        <th data-field="nombre">Nombre</th>
-        <th data-field="apellido">Apellido</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- angular 2 for -->
-      <tr *ngFor="let persona of personas">
-        <td>
-          <!-- evento change y atributo por defecto checked false, se agrega como id el id de la persona
-          para luego saber que checkbox le pertenece a cada persona-->
-          <input   (change)="select(persona)" id={{persona.url}} type="checkbox" class="filled-in"/>
-          <label  attr.for="{{persona.url}}"></label>
-        </td>
-        <td>{{persona.CI}}</td>
-        <td>{{persona.Nombre}}</td>
-        <td>{{persona.Apellido}}</td>
-        <td>
-          <a class="button-collapse" (click)="goModificar(persona)"><i class="material-icons left">visibility</i></a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 </ion-content>
 <!--Boton flotante de opciones add, edit, delete-->
 <!-- if de angular, valida si se debe mostrar o no segun la variable template -->
@@ -70,20 +70,16 @@
   </div>
 </div>
 
+
 <div *ngIf="template=='crear'" style="overflow: scroll;">
-
-
   <!--nueva persona-->
-
-
   <div id="nuevo_persona" class="section">
     <div class="container" style="padding-top: 50px">
       <div class="row">
         <!--<form class="col s12 m12 l12 ">-->
-        <div class="card-panel hoverable card-action white">
+        <div class="card-panel blue-grey lighten-5">
           <span>Nueva Persona</span>
           <div class="row">
-
             <div class="col s12 m6 l6">
               <!--primera columna-->
               <div class="input-field">
@@ -109,10 +105,7 @@
 
             </div>
             <div class="col s12 m6 l6">
-
-
               <!--segunda columna-->
-
               <div class="input-field">
                 <i class="material-icons prefix">credit_card</i>
                 <input id="icon_descripcion" type="tel" class="validate" minlength="9" maxlength="9" pattern = "[0-9]*" [(ngModel)]="personaNueva.Matricula">
@@ -123,8 +116,6 @@
                 <input id="icon_descripcion" type="tel" class="validate"  [(ngModel)]="personaNueva.Email">
                 <label for="icon_descripcion">Correo</label>
               </div>
-
-
               <div class="input-field">
                 <i class="material-icons prefix">call</i>
                 <input id="icon_modelo" type="tel" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*" [(ngModel)]="personaNueva.Telefono">
@@ -144,17 +135,17 @@
               </div>
             </div>
 
-          <div class="card-action">
-            <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
-              <i class="material-icons right">send</i>
-            </a>
+            <div class="card-action">
+              <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
+                <i class="material-icons right">send</i>
+              </a>
+            </div>
           </div>
+          <!--</form>-->
         </div>
-        <!--</form>-->
       </div>
     </div>
   </div>
-</div>
 
   <!--boton para cancelar-->
   <div class="section">
@@ -168,69 +159,117 @@
 
 
 <div *ngIf="template=='modificar'" style="overflow: scroll;">
-
-
   <!--modificar persona-->
-
-
   <div id="nuevo_persona" class="section">
     <div class="container" style="padding-top: 50px">
-
       <div class="row">
         <!--<form class="col s12 m12 l12 ">-->
-        <div class="card-panel hoverable card-action white">
+        <div class="card-panel  blue-grey lighten-5">
           <span class="card-title">Modificar Persona</span>
           <div class="row">
-
             <div class="col s12 m6 l6">
               <!--primera columna-->
-              <div class="input-field">
-                <i class="material-icons prefix">label_outline</i>
-                <input id="icon_descripcion" type="tel" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*"  disabled=”disabled”  [(ngModel)]="personaModificar.CI">
-                <label for="icon_descripcion">Cedula</label>
+              <div class="row">
+                <div class="col l10 m10 s10">
+                  <div class="input-field">
+                    <i class="material-icons prefix">label_outline</i>
+                    <input id="icon_cedula" type="tel" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*"  disabled="disabled"  [(ngModel)]="personaModificar.CI">
+                    <label for="icon_cedula">Cedula</label>
+                  </div>
+                </div>
+
               </div>
-              <div class="input-field">
-                <i class="material-icons prefix">account_box</i>
-                <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.Nombre">
-                <label for="icon_descripcion">Nombre</label>
+              <div class="row">
+                <div class="col l10 m10 s10">
+                  <div class="input-field">
+                    <i class="material-icons prefix">account_box</i>
+                    <input id="icon_nombre" disabled="disabled" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.Nombre">
+                    <label for="icon_nombre">Nombre</label>
+                  </div>
+                </div>
+                <div class="col l2 m2 s2">
+                  <a class="button-collapse" onclick="icon_nombre.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                </div>
               </div>
-              <div class="input-field">
-                <i class="material-icons prefix">account_box</i>
-                <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.Apellido">
-                <label for="icon_descripcion">Apellido</label>
+              <div class="row">
+                <div class="col l10 m10 s10">
+                  <div class="input-field">
+                    <i class="material-icons prefix">account_box</i>
+                    <input id="icon_apellido" disabled="disabled" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.Apellido">
+                    <label for="icon_apellido">Apellido</label>
+                  </div>
+                </div>
+                <div class="col l2 m2 s2">
+                  <a class="button-collapse" onclick="icon_apellido.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col l10 m10 s10">
+                  <div class="input-field">
+                    <i class="material-icons prefix">my_location</i>
+                    <input id="icon_direccion" disabled="text" type="tel" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.Direccion">
+                    <label for="icon_direccion">Direccion</label>
+                  </div>
+                </div>
+                <div class="col l2 m2 s2">
+                  <a class="button-collapse" onclick="icon_direccion.disabled = false"><i style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                </div>
               </div>
 
-            <div class="input-field">
-              <i class="material-icons prefix">my_location</i>
-              <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.Direccion">
-              <label for="icon_descripcion">Direccion</label>
             </div>
-            </div>
-                          <!--segunda columna-->
+            <!--segunda columna-->
             <div class="col s12 m6 l6">
-              <div class="input-field">
-                <i class="material-icons prefix">email</i>
-                <input id="icon_descripcion" type="tel" class="validate"  [(ngModel)]="personaModificar.Email">
-                <label for="icon_descripcion">Email</label>
+              <div class="row">
+                <div class="col l10 m10 s10">
+                  <div class="input-field">
+                    <i class="material-icons prefix">email</i>
+                    <input id="icon_descripcion" disabled="disabled" type="text" class="validate"  [(ngModel)]="personaModificar.Email">
+                    <label for="icon_descripcion">Email</label>
+                  </div>
+                </div>
+                <div class="col l2 m2 s2">
+                  <a class="button-collapse" onclick="icon_descripcion.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                </div>
               </div>
-              <div class="input-field">
-                <i class="material-icons prefix">call</i>
-                <input id="icon_modelo" type="tel" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*"  [(ngModel)]="personaModificar.Telefono">
-                <label for="icon_modelo">Teléfono</label>
+              <div class="row">
+                <div class="col l10 m10 s10">
+                  <div class="input-field">
+                    <i class="material-icons prefix">call</i>
+                    <input id="icon_telefono" type="tel" disabled="disabled" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*"  [(ngModel)]="personaModificar.Telefono">
+                    <label for="icon_telefono">Teléfono</label>
+                  </div>
+                </div>
+                <div class="col l2 m2 s2">
+                  <a class="button-collapse" onclick="icon_telefono.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                </div>
               </div>
+              <div class="row">
+                <div class="col l10 m10 s10">
               <div class="input-field">
                 <i class="material-icons prefix">label_outline</i>
-                <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaModificar.Genero">
+                <select materialize="material_select"  [materializeSelectOptions]="selectOptions" id="genero"  [(ngModel)]="personaModificar.Genero">
                   <option *ngFor="let Genero of Generos" [value]="Genero">{{Genero}}</option>
                 </select>
               </div>
-
+              </div>
+              <div class="col l2 m2 s2">
+                <a class="button-collapse" onchange="genero.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col l10 m10 s10">
               <div class="input-field">
                 <i class="material-icons prefix">supervisor_account</i>
                 <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaModificar.Tipo">
                   <option *ngFor="let Tipo of Tipos" [value]="Tipo">{{Tipo}}</option>
                 </select>
               </div>
+              </div>
+              <div class="col l2 m2 s2">
+                <a class="button-collapse" onchange="genero.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+              </div>
+              </div>
+
             </div>
             <div class="col s12">
             </div>
@@ -245,7 +284,6 @@
       </div>
     </div>
   </div>
-
 
   <!--boton para cancelar-->
   <div class="section">
