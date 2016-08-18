@@ -67,10 +67,6 @@ export class UsuarioPage implements OnInit {
     listar() {
       //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
         this.usuarioService.getUsuarios().then(usuarios => { this.usuarios = usuarios; return usuarios }).then(usuarios => {
-          //se itera cada usuario para obtener datos del tipo
-            for (var usuario of this.usuarios) {
-                this.usuarioService.llenarTipo(usuario);
-            }
         })
         return this.usuarios
     }

@@ -151,7 +151,7 @@ export class ItemPage implements OnInit {
 
             })
         }
-        else { this.listar() }
+        else { this.listar() }  
     }
 
     //retrasa la carga de la pagina 100 ms

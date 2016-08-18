@@ -1,6 +1,6 @@
 import {Headers} from '@angular/http';
 export class Url {
-  base ='http://162.243.83.72/';
+  base ='http://localhost:8000/';
 
   usuario ='api/usuarios/';
   persona ='api/prestador/';
@@ -10,7 +10,7 @@ export class Url {
   kit ='api/kits/';
   token = 'api-token-auth/';
   verifyToken= 'api-token-verify/';
-  tiposUsuarios = 'api/groupos/';
+  tiposUsuarios = 'api/grupos/';
   header= new Headers();
   password= 'api/password/';
   buscar = '?search='
