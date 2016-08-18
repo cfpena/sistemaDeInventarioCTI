@@ -177,7 +177,6 @@
                     <label for="icon_cedula">Cedula</label>
                   </div>
                 </div>
-
               </div>
               <div class="row">
                 <div class="col l10 m10 s10">
@@ -245,29 +244,30 @@
               </div>
               <div class="row">
                 <div class="col l10 m10 s10">
-              <div class="input-field">
-                <i class="material-icons prefix">label_outline</i>
-                <select materialize="material_select"  [materializeSelectOptions]="selectOptions" id="genero"  [(ngModel)]="personaModificar.Genero">
-                  <option *ngFor="let Genero of Generos" [value]="Genero">{{Genero}}</option>
-                </select>
+                  <div class="input-field">
+                    <i class="material-icons prefix">label_outline</i>
+                    <select  id="genero" materialize="material_select"  [materializeSelectOptions]="selectOptions"   [(ngModel)]="personaModificar.Genero">
+                      <option *ngFor="let Genero of Generos" [value]="Genero">{{Genero}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col l2 m2 s2">
+                  <a materialize class="button-collapse" onclick="icon_telefono.disabled=true"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                </div>
               </div>
-              </div>
-              <div class="col l2 m2 s2">
-                <a class="button-collapse" onchange="genero.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
-              </div>
-              </div>
+
               <div class="row">
                 <div class="col l10 m10 s10">
-              <div class="input-field">
-                <i class="material-icons prefix">supervisor_account</i>
-                <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaModificar.Tipo">
-                  <option *ngFor="let Tipo of Tipos" [value]="Tipo">{{Tipo}}</option>
-                </select>
-              </div>
-              </div>
-              <div class="col l2 m2 s2">
-                <a class="button-collapse" onchange="genero.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
-              </div>
+                  <div class="input-field">
+                    <i class="material-icons prefix">supervisor_account</i>
+                    <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaModificar.Tipo">
+                      <option *ngFor="let Tipo of Tipos" [value]="Tipo">{{Tipo}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col l2 m2 s2">
+                  <a class="button-collapse" onchange="genero.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                </div>
               </div>
 
             </div>
