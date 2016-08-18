@@ -66,7 +66,11 @@ export class PersonaService {
             Apellido: persona.Apellido,
             Email: persona.Email,
             Telefono: persona.Telefono,
-            Genero: persona.Genero
+            Genero: persona.Genero,
+            CI : persona.CI,
+            Direccion : persona.Direccion,
+            Tipo : persona.Tipo,
+            Matricula : persona.Matricula
           }),{ headers: headers }).toPromise();
         }).then(result=> console.log(result)).catch(error => console.log(error));
     }
@@ -82,7 +86,11 @@ export class PersonaService {
               Apellido: persona.Apellido,
               Email: persona.Email,
               Telefono: persona.Telefono,
-              Genero: persona.Genero
+              Genero: persona.Genero,
+              CI : persona.CI,
+              Direccion : persona.Direccion,
+              Tipo : persona.Tipo,
+              Matricula : persona.Matricula
             }),{ headers: headers }).toPromise();
 
         }).then(result => {return result});

@@ -32,7 +32,8 @@ export class PersonaPage implements OnInit {
   //lista de ids seleccionados por el checkbox
   selected: number[]=[];
   tiposIdentificaciones = ['Tipo de Identificación...', 'cédula', 'Nombre'];
-  Generos = ['Elija un Genero...','F','M'];
+  Generos = ['Elija un Genero...','Femenino','Masculino'];
+  Tipos = ['Elija un Tipo','Estudiante','Trabajador','Externo']
   tiposBusquedas = ['cédula', 'Nombre'];
   busqueda={tipo: 'cédula', valor: ''};
 
@@ -80,9 +81,11 @@ listar() {
     else if(this.personaNueva.Nombre=='')                                                       this.presentToast('Nombre vacio o Incorrecto');
     else if(this.personaNueva.Apellido=='')                                                     this.presentToast('Apellido vacio o Incorrecto');
     else if(this.personaNueva.Email=='')                                                        this.presentToast('Email vacio o Incorrecto');
+    else if(this.personaNueva.Matricula=='' || this.personaNueva.Matricula.length < 9)          this.presentToast('Matricula vacia o Incorrecta');
+    else if(this.personaNueva.Direccion=='' || this.personaNueva.Direccion.length < 2)          this.presentToast('Direccion vacia');
     else if(this.personaNueva.Telefono.length!= 10)                                             this.presentToast('Convencional de 10 numeros. Ejm <09....>');
     else if(this.personaNueva.Genero=='' || this.personaNueva.Genero==this.Generos[0])          this.presentToast('Elija Genero');
-
+    else if(this.personaNueva.Tipo=='' || this.personaNueva.Tipo==this.Tipos[0])                this.presentToast('Elija Tipo')
     else{
     this.personas.push(this.personaNueva);
     let persona = JSON.parse(JSON.stringify(this.personaNueva))
@@ -105,9 +108,11 @@ listar() {
     else if(this.personaModificar.Nombre=='')                                                   this.presentToast('Nombre vacio o Incorrecto');
     else if(this.personaModificar.Apellido=='')                                                 this.presentToast('Apellido vacio o Incorrecto');
     else if(this.personaModificar.Email=='')                                                    this.presentToast('Email vacio o Incorrecto');
+    else if(this.personaModificar.Matricula=='' || this.personaModificar.Matricula.length < 9)  this.presentToast('Matricula vacia o Incorrecta');
+    else if(this.personaModificar.Direccion=='' || this.personaModificar.Direccion.length < 2)  this.presentToast('Direccion vacia');
     else if(this.personaModificar.Telefono.length!= 10)                                         this.presentToast('Convencional de 10 numeros. Ejm <09....>');
     else if(this.personaModificar.Genero=='' || this.personaModificar.Genero==this.Generos[0])  this.presentToast('Elija Genero');
-
+    else if(this.personaModificar.Tipo=='' || this.personaModificar.Tipo==this.Tipos[0])        this.presentToast('Elija Tipo')
     else{
     this.personaService.updatePersona(this.personaModificar).then(result => this.listar());
     this.template='null';

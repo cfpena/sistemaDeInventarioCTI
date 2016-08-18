@@ -49,7 +49,7 @@
         <td>{{persona.Nombre}}</td>
         <td>{{persona.Apellido}}</td>
         <td>
-          <a class="button-collapse" (click)="goModificar(persona)"><i class="material-icons left">mode_edit</i></a>
+          <a class="button-collapse" (click)="goModificar(persona)"><i class="material-icons left">visibility</i></a>
         </td>
       </tr>
     </tbody>
@@ -101,13 +101,23 @@
                 <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.Apellido">
                 <label for="icon_descripcion">Apellido</label>
               </div>
+              <div class="input-field">
+                <i class="material-icons prefix">my_location</i>
+                <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.Direccion">
+                <label for="icon_descripcion">Direccion</label>
+              </div>
+
             </div>
             <div class="col s12 m6 l6">
 
 
               <!--segunda columna-->
 
-
+              <div class="input-field">
+                <i class="material-icons prefix">credit_card</i>
+                <input id="icon_descripcion" type="tel" class="validate" minlength="9" maxlength="9" pattern = "[0-9]*" [(ngModel)]="personaNueva.Matricula">
+                <label for="icon_descripcion">Matricula</label>
+              </div>
               <div class="input-field">
                 <i class="material-icons prefix">email</i>
                 <input id="icon_descripcion" type="tel" class="validate"  [(ngModel)]="personaNueva.Email">
@@ -126,6 +136,12 @@
                   <option *ngFor="let Genero of Generos" [value]="Genero">{{Genero}}</option>
                 </select>
               </div>
+              <div class="input-field">
+                <i class="material-icons prefix">supervisor_account</i>
+                <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaNueva.Tipo">
+                  <option *ngFor="let Tipo of Tipos" [value]="Tipo">{{Tipo}}</option>
+                </select>
+              </div>
             </div>
 
           <div class="card-action">
@@ -142,7 +158,7 @@
 
   <!--boton para cancelar-->
   <div class="section">
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <div class="fixed-action-btn" style="bottom: 35px; right: 30px;">
       <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
         <i class="material-icons">clear</i>
       </a>
@@ -183,8 +199,13 @@
                 <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.Apellido">
                 <label for="icon_descripcion">Apellido</label>
               </div>
-            </div>
 
+            <div class="input-field">
+              <i class="material-icons prefix">my_location</i>
+              <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.Direccion">
+              <label for="icon_descripcion">Direccion</label>
+            </div>
+            </div>
                           <!--segunda columna-->
             <div class="col s12 m6 l6">
               <div class="input-field">
@@ -201,6 +222,13 @@
                 <i class="material-icons prefix">label_outline</i>
                 <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaModificar.Genero">
                   <option *ngFor="let Genero of Generos" [value]="Genero">{{Genero}}</option>
+                </select>
+              </div>
+
+              <div class="input-field">
+                <i class="material-icons prefix">supervisor_account</i>
+                <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaModificar.Tipo">
+                  <option *ngFor="let Tipo of Tipos" [value]="Tipo">{{Tipo}}</option>
                 </select>
               </div>
             </div>
