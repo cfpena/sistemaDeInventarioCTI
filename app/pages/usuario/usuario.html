@@ -59,7 +59,7 @@ Ionic pages and navigation.
         </td>
         <td>{{usuario.Nombre + ' ' + usuario.Apellido}}</td>
         <td>{{usuario.Email}}</td>
-        <td>{{usuario.Usuario.groups[0].name}}</td>
+        <td>{{usuario.groups[0].name}}</td>
         <td>
           <a class="button-collapse" (click)="goModificar(usuario)"><i class="material-icons left">visibility</i></a>
         </td>
@@ -170,8 +170,8 @@ Ionic pages and navigation.
                   </div>
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
-                    <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="usuarioModificar.Usuario.groups[0].name" >
-                      <option *ngFor="let tipo of tipos" [value]="tipo.name" selected="usuarioModificar.Usuario.groups[0].name">{{tipo.name}}</option>
+                    <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="usuarioModificar.groups[0].name" >
+                      <option *ngFor="let tipo of tipos" [value]="tipo.name" selected="usuarioModificar.groups[0].name">{{tipo.name}}</option>
                     </select>
                   </div>
 
