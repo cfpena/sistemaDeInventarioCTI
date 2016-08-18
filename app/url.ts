@@ -5,7 +5,8 @@ export class Url {
   usuario ='api/usuarios/';
   persona ='api/prestador/';
   prestamo ='api/prestamos/';
-  item ='api/items/';
+  elemento ='api/elementos/';
+  dispositivo = 'api/dispositivos/';
   kit ='api/kits/';
   token = 'api-token-auth/';
   verifyToken= 'api-token-verify/';
