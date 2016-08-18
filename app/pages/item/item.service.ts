@@ -44,6 +44,7 @@ export class ItemService {
     }
 
     getBuscar(cadena: String) {
+  
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append("Accept","application/json");
 
@@ -77,7 +78,7 @@ export class ItemService {
     createItem(item: ITEM) {
       let url = this.url.base
       url+= item.Es_Dispositivo ? this.url.dispositivo:this.url.elemento
-      console.log(url)
+
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append('Accept','application/json');
         return this.usuarioAuthService.getToken().then(token => {
