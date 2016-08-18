@@ -1,17 +1,17 @@
 import { Injectable }     from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
-import { Persona } from './persona.model';
+import { Prestamo } from './prestamo.model';
 import {Url} from '../../url';
 import {UsuarioAuthService} from '../usuario/usuario.auth.service';
 
 @Injectable()
-export class PersonaService {
+export class PrestamoService {
     url = new Url();
 
     constructor(private http: Http,
         private usuarioAuthService: UsuarioAuthService) { }
 
-    getPersonas() {
+    getPrestamos() {
       //HEADERS OBLIGATORIOS PARA EL REQUEST DEFINIDOS POR EL ESTANDAR
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append("Accept","application/json");
@@ -22,12 +22,16 @@ export class PersonaService {
             headers.append('Authorization', 'JWT ' + token);
             //se envia el request http de tipo get con la url, y los headers y se la convierte en una promesa
             //si no se hace return, no se puede hacer un then
-            return this.http.get(this.url.base + this.url.persona, { headers: headers }).toPromise();
+            return this.http.get(this.url.base + this.url.prestamo, { headers: headers }).toPromise();
             //cuando la funcion haya terminado de traer los datos pasa a la seccion then()
         }).then(result => {
-          //convertimos el resultado que es un json con las personas a un arreglo del modelo Personas
-          let personas = result.json() as Persona[];
-          return personas;
+          //convertimos el resultado que es un json con las prestamos a un arreglo del modelo prestamos
+          //this.http.get(this.url.base + result.Persona, { headers: headers }).toPromise();
+
+          let prestamos = result.json() as Prestamo[];
+          console.log(prestamos);
+          return prestamos;
+
           //si existe un error, no pasa por then, sino por catch
         }).catch(error=>{
           console.log(error)
@@ -41,10 +45,12 @@ export class PersonaService {
       headers.append("Accept","application/json");
         return this.usuarioAuthService.getToken().then(token => {
             headers.append('Authorization', 'JWT ' + token);
-            return this.http.get(this.url.base + this.url.persona + this.url.buscar + cadena , { headers: headers }).toPromise();
+            return this.http.get(this.url.base + this.url.prestamo + this.url.buscar + cadena , { headers: headers }).toPromise();
         }).then(result => {
-          let personas = result.json() as Persona[];
-          return personas;
+
+          let prestamos = result.json() as Prestamo[];
+          console.log(result.json());
+          return prestamos;
 
         }).catch(error=>{
           console.log(error)
@@ -52,45 +58,45 @@ export class PersonaService {
     }
 
 
-    createPersona(persona: Persona) {
+    createPrestamo(prestamo: Prestamo) {
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append('Accept','application/json');
         return this.usuarioAuthService.getToken().then(token => {
             headers.append('Authorization', 'JWT ' + token);
-            return this.http.post(this.url.base + this.url.persona, JSON.stringify(persona),{ headers: headers }).toPromise();
+            return this.http.post(this.url.base + this.url.prestamo, JSON.stringify(prestamo),{ headers: headers }).toPromise();
 
         }).then(result => {
           //para el metodo post se debe pasar los parametros con formato JSON pero de tipo string
           return this.http.post(this.url.base + this.url.password, JSON.stringify({
-            Nombre: persona.Nombre,
-            Apellido: persona.Apellido,
-            Email: persona.Email,
-            Telefono: persona.Telefono,
-            Genero: persona.Genero,
-            CI : persona.CI,
-            Direccion : persona.Direccion,
-            Tipo : persona.Tipo,
-            Matricula : persona.Matricula
-          }),{ headers: headers }).toPromise();
+
+            Persona: prestamo.Persona,
+            Item: prestamo.Item,
+            Cantidad: prestamo.Cantidad,
+            Fecha: prestamo.Fecha,
+            Fecha_devolucion: prestamo.Fecha_devolucion,
+            Fecha_vencimiento: prestamo.Fecha_vencimiento,
+            Detalle: prestamo.Detalle
+
+            }),{ headers: headers }).toPromise();
         }).then(result=> console.log(result)).catch(error => console.log(error));
     }
 
-    updatePersona(persona: Persona) {
+    updatePrestamo(prestamo: Prestamo) {
 
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append('Accept','application/json');
         return this.usuarioAuthService.getToken().then(token => {
             headers.append('Authorization', 'JWT ' + token);
-            return this.http.patch(String(persona.url), JSON.stringify({
-              Nombre: persona.Nombre,
-              Apellido: persona.Apellido,
-              Email: persona.Email,
-              Telefono: persona.Telefono,
-              Genero: persona.Genero,
-              CI : persona.CI,
-              Direccion : persona.Direccion,
-              Tipo : persona.Tipo,
-              Matricula : persona.Matricula
+            return this.http.patch(String(prestamo.url), JSON.stringify({
+
+              Persona: prestamo.Persona,
+              Item: prestamo.Item,
+              Cantidad: prestamo.Cantidad,
+              Fecha: prestamo.Fecha,
+              Fecha_devolucion: prestamo.Fecha_devolucion,
+              Fecha_vencimiento: prestamo.Fecha_vencimiento,
+              Detalle: prestamo.Detalle
+
             }),{ headers: headers }).toPromise();
 
         }).then(result => {return result});
@@ -98,14 +104,14 @@ export class PersonaService {
 
 
 
-    eliminarPersona(persona: Persona) {
+    eliminarPrestamo(prestamo: Prestamo) {
 
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append("Accept","application/json");
         return this.usuarioAuthService.getToken().then(token => {
             headers.append('Authorization', 'JWT ' + token);
             //request del tipo delete para eliminar, se envia la url que ya la contiene el mismo modelo
-            return this.http.delete(persona.url.toString(), { headers: headers }).toPromise();
+            return this.http.delete(prestamo.url.toString(), { headers: headers }).toPromise();
         }).then(result => {
           return result;
         }).catch(error=> console.log(error));

@@ -77,18 +77,6 @@ export class ItemService {
         }).then(result=> console.log(result)).catch(error => console.log(error));
     }
 
-    /*updateItem(item: ITEM) {
-      item.Items=new Array<ITEM>();
-      let Url = this.url.base + this.url.item + item.id.toString() + '/';
-      console.log(Url)
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append('Accept','application/json');
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            return this.http.patch(Url, JSON.stringify(item),{ headers: headers }).toPromise();
-
-        }).then(result => {return result});
-    }*/
 
     updateItem(item: ITEM) {
       let headers = new Headers({ "Content-Type": "application/json" });
