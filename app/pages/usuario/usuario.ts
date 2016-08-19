@@ -1,12 +1,13 @@
 import { Component, OnInit, Input, ViewChild} from '@angular/core';
-import {NavController, MenuController, Toast} from 'ionic-angular';
-import {Usuario, Group, User} from './usuario.model';
-
+import {NavController,MenuController, Toast} from 'ionic-angular';
+import {Usuario, Group} from './usuario.model';
+import {Load} from '../../loading';
 import {MaterializeDirective} from "../../materialize-directive";
 import {Validator} from "validator.ts/Validator";
 import { Http, Headers } from '@angular/http';
 import {UsuarioService} from './usuario.service';
 import {Url} from '../../url';
+
 
 
 @Component({
@@ -17,7 +18,7 @@ import {Url} from '../../url';
 
 export class UsuarioPage implements OnInit {
     url = new Url();
-
+    load= new Load();
     title: string = 'Usuarios';
     usuarios: Usuario[];
     template: string = 'null';
@@ -66,7 +67,11 @@ export class UsuarioPage implements OnInit {
     }
     listar() {
       //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
-        this.usuarioService.getUsuarios().then(usuarios => { this.usuarios = usuarios; return usuarios }).then(usuarios => {
+
+        this.usuarioService.getUsuarios(this.navController).then(usuarios => { this.usuarios = usuarios; return usuarios }).then(usuarios => {
+          for(var usuario of this.usuarios){
+            this.usuarioService.llenarTipo(usuario,this.navController)
+          }
         })
         return this.usuarios
     }
@@ -81,15 +86,13 @@ export class UsuarioPage implements OnInit {
         else if (this.Tipo == '') this.presentToast('Tipo no definido');
         else {
 
-            this.usuarioNuevo.Usuario = new User();
-            this.usuarioNuevo.Usuario.username = this.usuarioNuevo.Email;
             //se busca el tipo dentro de la lista de tipos por el nombre dado en el select de tipos al crear
             let tipo = this.tipos.find(tipo => this.Tipo == tipo.name);
             //se hace un doble parse para obtener el valor de la variable y no la referencia
             //si no se hace esto al moficiar el usuario nuevo, tambien se modifica el usuario viejo
             let usuario = JSON.parse(JSON.stringify(this.usuarioNuevo))
-            usuario['Usuario']['groups'] = [tipo.url]
-            this.usuarioService.createUsuario(usuario, this.credenciales).then(result => this.listar());
+            usuario['groups'] = [tipo.url]
+            this.usuarioService.createUsuario(usuario, this.credenciales,this.navController).then(result => this.listar());
             this.template = 'null';
             //se vuelve a dejar en blanco el usuarioNuevo para volverlo  a usar luego
             this.usuarioNuevo = new Usuario();
@@ -106,7 +109,7 @@ export class UsuarioPage implements OnInit {
 
     }
     modificar() {
-      this.usuarioService.updateUsuario(this.usuarioModificar).then(result => this.listar());
+      this.usuarioService.updateUsuario(this.usuarioModificar,this.navController).then(result => this.listar());
       this.template='null'
 
 
@@ -114,14 +117,13 @@ export class UsuarioPage implements OnInit {
     eliminar() {
 
               for(var usuario of this.usuariosEliminar){
-                this.usuarioService.eliminarUsuario(usuario).then(result =>
+                this.usuarioService.eliminarUsuario(usuario,this.navController).then(result =>
                   { this.listar() }).catch(error=> console.log(error))
               }
               //se deja en blanco la lista a eliminar
               this.usuariosEliminar= Array<Usuario>();
               //se refrescan los datos del servidor
-              this.listar();
-    }
+              }
     //funcion que agrega los usuarios a la lista para eliminarlos luego
     select(usuario: Usuario) {
         if (!this.usuariosEliminar.some(user => user == usuario)) {
@@ -143,19 +145,19 @@ export class UsuarioPage implements OnInit {
     buscar() {
       //si el valor es diferente de vacio entonces se manda a buscar, sino se listan los datos sin filtros
       if(this.busqueda.valor.trim() != ""){
-      this.usuarioService.getBuscar(this.busqueda.valor).then(usuarios => { this.usuarios = usuarios; return usuarios }).then(usuarios => {
-          for (var usuario of this.usuarios) {
-              this.usuarioService.llenarTipo(usuario);
-          }
-      })}
+      this.usuarioService.getBuscar(this.busqueda.valor,this.navController).then(usuarios => {
+        this.usuarios = usuarios
+        for(var usuario of this.usuarios){
+          this.usuarioService.llenarTipo(usuario,this.navController)
+        }
+      });}
       else{this.listar()}
-      return this.usuarios
     }
     //funcion que se ejecuta al cargar la pagina
     public ngOnInit() {
       //se obtienen los usuarios para llenar la tabla y se obtienen los tipos de usuarioss
         this.listar();
-        this.usuarioService.getTipos().then(tipos => {
+        this.usuarioService.getTipos(this.navController).then(tipos => {
             this.tipos = tipos
         });
     }

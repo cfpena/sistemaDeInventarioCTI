@@ -5,7 +5,9 @@ import {PrincipalPage} from '../principal/principal';
 import {Usuario} from '../usuario/usuario.model';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
-import {Url} from '../../url'
+import {Url} from '../../url';
+
+
 
 @Injectable()
 export class UsuarioAuthService {
