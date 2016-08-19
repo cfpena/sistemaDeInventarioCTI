@@ -13,7 +13,50 @@ export class KitService {
     constructor(private http: Http,
         private usuarioAuthService: UsuarioAuthService) { }
 
-    getKits() {
+
+        getKits() {
+          let headers = new Headers({ "Content-Type": "application/json" });
+          headers.append("Accept","application/json");
+            return this.usuarioAuthService.getToken().then(token => {
+                headers.append('Authorization', 'JWT ' + token);
+                return this.http.get(this.url.base + this.url.kit, { headers: headers }).toPromise();
+            }).then(result => {
+              let kits = result.json() as Kit[];
+              return kits;
+            }).catch(error=>{
+              console.log(error)
+            });;
+        }
+
+      /*  getElementos() {
+          let headers = new Headers({ "Content-Type": "application/json" });
+          headers.append("Accept","application/json");
+            return this.usuarioAuthService.getToken().then(token => {
+                headers.append('Authorization', 'JWT ' + token);
+                return this.http.get(this.url.base + this.url.elemento, { headers: headers }).toPromise();
+            }).then(result => {
+              let kits = result.json() as Kit[];
+              return kits;
+            }).catch(error=>{
+              console.log(error)
+            });;
+        }
+
+        getDispositivos() {
+          let headers = new Headers({ "Content-Type": "application/json" });
+          headers.append("Accept","application/json");
+            return this.usuarioAuthService.getToken().then(token => {
+                headers.append('Authorization', 'JWT ' + token);
+                return this.http.get(this.url.base + this.url.dispositivo, { headers: headers }).toPromise();
+            }).then(result => {
+              let kits = result.json() as Kit[];
+              return kits;
+            }).catch(error=>{
+              console.log(error)
+            });;
+        }
+
+    getKits2() {
       //HEADERS OBLIGATORIOS PARA EL REQUEST DEFINIDOS POR EL ESTANDAR
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append("Accept","application/json");
@@ -35,6 +78,7 @@ export class KitService {
           console.log(error)
         });;
     }
+    */
 
     getBuscar(cadena: String) {
       let headers = new Headers({ "Content-Type": "application/json" });
@@ -71,7 +115,7 @@ export class KitService {
     }
 
     eliminarKit(kit: Kit) {
-      let Url = this.url.base + this.url.kit + kit.id.toString() + '/';
+      //let Url = this.url.base + this.url.kit + kit.id.toString() + '/';
       console.log(Url)
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append("Accept","application/json");
@@ -79,22 +123,24 @@ export class KitService {
         return this.usuarioAuthService.getToken().then(token => {
             headers.append('Authorization', 'JWT ' + token);
             //request del tipo delete para eliminar, se envia la url que ya la contiene el mismo modelo
-            return this.http.delete(Url, { headers: headers }).toPromise();
+            return this.http.delete(String(kit.url), { headers: headers }).toPromise();
+
         }).then(result => {
           return result;
         }).catch(error=> console.log(error));
     }
 
+
     createKit(kit: Kit) {
-      kit.Items = new Array<ITEM>();
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append('Accept','application/json');
         return this.usuarioAuthService.getToken().then(token => {
             headers.append('Authorization', 'JWT ' + token);
             return this.http.post(this.url.base + this.url.kit, JSON.stringify(kit),{ headers: headers }).toPromise();
-
         }).then(result=> console.log(result)).catch(error => console.log(error));
     }
+
+
 
     updateKit(kit: Kit) {
       let Url = this.url.base + this.url.kit + kit.id.toString() + '/';
