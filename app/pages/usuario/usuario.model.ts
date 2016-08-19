@@ -5,11 +5,6 @@ export class Group{
   name: String;
   url: String;
 }
-export class User{
-  username: String;
-  groups: Group[];
-
-}
 
 export class Usuario {
     url: String;
@@ -19,7 +14,8 @@ export class Usuario {
     @IsEmail() Email: string;
     Telefono: String;
     Genero: String;
-    Usuario: User;
+    groups: Group[];
+
 
 constructor( ) {
 

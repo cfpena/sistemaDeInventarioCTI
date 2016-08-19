@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {App, ionicBootstrap, Platform, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {LoginPage} from './pages/login/login';
-import {PrincipalPage} from './pages/principal/principal';
+import {PrincipalPage}  from './pages/principal/principal';
 import {PersonaPage} from './pages/persona/persona';
 import {ItemPage} from './pages/item/item';
 import {InventarioPage} from './pages/inventario/inventario';
@@ -38,7 +38,7 @@ export class MyApp {
     this.pages = [
       { title: 'Inventario',icon: 'import_contacts', component: InventarioPage },
       { title: 'Personas',icon: 'person', component: PersonaPage },
-      { title: 'Items',icon: 'local_offer', component: ItemPage },
+      { title: 'Objetos',icon: 'local_offer', component: ItemPage },
       { title: 'Kits',icon: 'shopping_cart', component: KitPage },
       { title: 'Prestamos',icon: 'swap_horiz', component: PrestamoPage },
       { title: 'Reportes',icon: 'library_books', component: ReportesPage },
