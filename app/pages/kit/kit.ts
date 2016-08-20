@@ -17,24 +17,19 @@ export class KitPage implements OnInit{
 
 title: string ='Kits';
 template: string = 'null';
-items: ITEM[]=[];
-kits: Kit[]=[]
-kitsTemporal: Kit[]=[];
+kits: Array<Kit>=[]
+kitsTemporal: Kit[] = [];
 kitsEliminar: Kit[] = [];
 count=10;
 id=0;
 selected: number[]=[];
-
-
 tiposBusquedas = ['código', 'nombre'];
 busqueda={tipo: 'código', valor: ''};
-
 itemsBusquedas = ['código', 'nombre'];
 busquedaItem={tipo: 'código', valor: ''};
 
 @Input()
 kitNuevo = new Kit();
-
 @Input()
 kitModificar= new Kit;
 
@@ -61,31 +56,34 @@ kitModificar= new Kit;
   }
 
 
+    //funcion listar que lista todos los kits creados
+
     listar() {
-      //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
-        this.kitService.getKits().then(kits => { this.kits = kits; return kits }).then(kits => {
-          console.log(kits);
+      console.log("listando");
+      this.kits =[]
+        this.kitService.getKits().then(kits => { this.kits = kits; return kits }).then(result=>{
+          console.log("listando2");
+
         })
-        return this.kits
     }
+
   //crea un kit
-  crear(){
-    let validator = new Validator();
-    console.log(JSON.stringify(validator.validate(this.kitNuevo)));
-    if(!validator.isValid(this.kitNuevo)) this.presentToast('Corrija el formulario');
-    else if (this.kitNuevo.Codigo=='' || this.kitNuevo.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
-   else if(this.kitNuevo.Nombre=='') this.presentToast('Nombre vacio');
-   else if(this.kitNuevo.Descripcion=='') this.presentToast('Descripción vacio');
-   else if(this.kitNuevo.Marca=='') this.presentToast('Marca vacio');
-   else if(this.kitNuevo.Modelo=='') this.presentToast('Modelo vacio');
-   else{
-     this.kits.push(this.kitNuevo);
-     let kit = JSON.parse(JSON.stringify(this.kitNuevo))
-     this.kitService.createKit(kit).then(result => this.listar());
-     this.template='null';
-     this.count++;
-     this.kitNuevo = new Kit();
-  }
+
+  crear() {
+      let validator = new Validator();
+      if (!validator.isValid(this.kitNuevo)) this.presentToast('Corrija el formulario');
+    //  else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
+      //else if (this.kitNuevo.Nombre == '') this.presentToast('Nombre vacio');
+    //  else if (this.itemNuevo.Descripcion == '') this.presentToast('Descripción vacio');
+      //else if (this.kitNuevo.Stock < 1 || this.kitNuevo.Stock > 50 || this.kitNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
+      else {
+          let kit = JSON.parse(JSON.stringify(this.kitNuevo))
+          this.kitService.createKit(kit).then(result => this.listar());
+          this.template = 'null';
+          this.count++;
+          this.kitNuevo = new Kit();
+      }
+
   }
 
   //abre el html de modificar
@@ -116,13 +114,12 @@ kitModificar= new Kit;
   eliminar(){
     for(var kit of this.kitsEliminar){
       this.kitService.eliminarKit(kit).then(result =>
-        { console.log(result) }).catch(error=> console.log(error))
+        {this.listar() }).catch(error=> console.log(error))
     }
     //se deja en blanco la lista a eliminar
     this.kitsEliminar= Array<Kit>();
     //se refrescan los datos del servidor
-    this.listar();
-    this.listar();
+
   }
 
   select(kit: Kit){

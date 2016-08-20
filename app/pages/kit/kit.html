@@ -31,25 +31,21 @@
           <th></th>
           <th data-field="id">Código</th>
           <th data-field="nombre">Nombre</th>
-          <!--<th data-field="marca">Marca</th>
-          <th data-field="modelo">Modelo</th>
-          <th data-field="descripcion">Descripción</th>-->
           <th data-field="cantidad">Cantidad</th>
+          <th data-field="disponible">Disponible</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor = "let kit of KITS">
+        <tr *ngFor = "let kit of kits">
           <td>
-            <input  [checked]="false" (change)="select(kit.id)" id="{{kit.id}}" type="checkbox" class="filled-in"/>
-            <label  attr.for="{{kit.id}}"></label>
+            <input (change)="select(kit)" id={{kit.Codigo}} type="checkbox" class="filled-in"/>
+            <label attr.for="{{kit.Codigo}}"></label>
           </td>
-          <td >{{kit.codigo}}</td>
-          <td>{{kit.nombre}}</td>
-          <!--<td>{{item.marca}}</td>
-          <td>{{item.modelo}}</td>
-          <td>{{item.descripcion}}</td>-->
-          <td>{{kit.cantidad}}</td>
+          <td >{{kit.Codigo}}</td>
+          <td>{{kit.Nombre}}</td>
+          <td>{{kit.Stock}}</td>
+          <td>{{kit.Stock_Disponible}}</td>
           <td>
             <a class="button-collapse" (click)="goModificar(kit.id)"><i class="material-icons left">visibility</i></a>
           </td>
@@ -91,17 +87,17 @@
                 <!--primera columna-->
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*[a-zA-Z]*"  [(ngModel)]="kitNuevo.codigo">
+                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*[a-zA-Z]*"  [(ngModel)]="kitNuevo.Codigo">
                   <label for="icon_codigo" >Código</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitNuevo.nombre" >
+                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitNuevo.Nombre" >
                   <label for="icon_nombre" >Nombre</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_descripcion" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitNuevo.descripcion">
+                  <input id="icon_descripcion" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitNuevo.Descripcion">
                   <label for="icon_descripcion">Descripción</label>
                 </div>
               </div>
@@ -109,12 +105,12 @@
                 <!--segunda columna-->
                 <div class="input-field ">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_marca" type="text" class="validate" minlength="2" maxlength="15"  [(ngModel)]="kitNuevo.marca">
+                  <input id="icon_marca" type="text" class="validate" minlength="2" maxlength="15"  [(ngModel)]="kitNuevo.Marca">
                   <label for="icon_marca" >Marca</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_modelo" type="text" class="validate" minlength="2" maxlength="15"  [(ngModel)]="kitNuevo.modelo">
+                  <input id="icon_modelo" type="text" class="validate" minlength="2" maxlength="15"  [(ngModel)]="kitNuevo.Modelo">
                   <label for="icon_modelo" >Modelo</label>
                 </div>
                 <!--<div class="input-field">
@@ -125,29 +121,7 @@
             </div>
             <div class="col s12">
               <!--Tabla de ítems-->
-              <table  materialize class="centered table centered striped" style="font-size: 15px">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th data-field="id">Codigo</th>
-                    <th data-field="nombre">Nombre</th>
-                    <th data-field="cantidad">Cantidad</th>
-                  </tr>
-                </thead>
-                <tbody >
-                  <tr *ngFor = "let itemNuevo of ITEMS">
-                    <td>
-                      <input  [checked]="false" (change)="select(itemNuevo.id)" id="nuevo{{itemNuevo.id}}" type="checkbox" class="filled-in"/>
-                      <label  attr.for="nuevo{{itemNuevo.id}}"></label>
-                    </td>
-                    <td>{{itemNuevo.codigo}}</td>
-                    <td>{{itemNuevo.nombre}}</td>
-                    <td class="center-align">
-                      <input class="mdl-textfield__input" type="text" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" id="cantidadItemNuevo">
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+
             </div>
           </div>
         </div>
@@ -187,17 +161,17 @@
                 <!--primera columna-->
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="kitModificar.codigo" disabled>
+                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="kitModificar.Codigo" disabled>
                   <label for="icon_codigo" class="active">Código</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitModificar.nombre" >
+                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitModificar.Nombre" >
                   <label for="icon_nombre" class="active">Nombre</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitModificar.descripcion"><!--[(ngModel)]="selectedItem.descripcion">-->
+                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitModificar.Descripcion"><!--[(ngModel)]="selectedItem.descripcion">-->
                   <label for="icon_descripcion" class="active">Descripción</label>
                 </div>
               </div>
@@ -205,12 +179,12 @@
                 <!--segunda columna-->
                 <div class="input-field ">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15"  [(ngModel)]="kitModificar.marca">
+                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15"  [(ngModel)]="kitModificar.Marca">
                   <label for="icon_marca" class="active">Marca</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
-                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15"  [(ngModel)]="kitModificar.modelo">
+                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15"  [(ngModel)]="kitModificar.Modelo">
                   <label for="icon_modelo" class="active">Modelo</label>
                 </div>
                 <!--<div class="input-field">
@@ -222,27 +196,7 @@
             <div class="col s12">
               <!--Tabla de ítems-->
               <!--<table class="bordered highlight responsive-table">-->
-              <table  materialize class="centered table centered striped" style="font-size: 15px">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th data-field="id">Codigo</th>
-                    <th data-field="nombre">Nombre</th>
-                    <th data-field="cantidad">Cantidad</th>
-                  </tr>
-                </thead>
-                <tbody >
-                  <tr *ngFor = "let item of kitModificar.items">
-                    <td>
-                      <input  [checked]="true" (change)="select(item.id)" id="{{item.id}}" type="checkbox" class="filled-in"/>
-                      <label  attr.for="{{item.id}}"></label>
-                    </td>
-                    <td>{{item.codigo}}</td>
-                    <td>{{item.nombre}}</td>
-                    <td>{{item.cantidad}}</td>
-                  </tr>
-                </tbody>
-              </table>
+
             </div>
           </div>
         </div>
