@@ -3,56 +3,42 @@ import { Http, Headers, Response } from '@angular/http';
 import {Url} from '../../url';
 import {ITEM} from './item.model';
 import {UsuarioAuthService} from '../usuario/usuario.auth.service';
+import {HttpRequest} from '../../httprequest';
+import {NavController} from 'ionic-angular';
+
 
 
 @Injectable()
 export class ItemService {
     url = new Url();
+    httprequest:HttpRequest;
 
     constructor(private http: Http,
-        private usuarioAuthService: UsuarioAuthService) { }
+        private usuarioAuthService: UsuarioAuthService) {
+          this.httprequest = new HttpRequest(http);
+        }
 
-    getElementos() {
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append("Accept","application/json");
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            return this.http.get(this.url.base + this.url.elemento, { headers: headers }).toPromise();
-        }).then(result => {
+    getElementos(nav: NavController) {
+      return this.httprequest.get(this.url.base + this.url.elemento,nav).then(result => {
           let items = result.json() as ITEM[];
           return items;
-        }).catch(error=>{
-          console.log(error)
-        });;
+        })
     }
 
-    getDispositivos() {
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append("Accept","application/json");
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            return this.http.get(this.url.base + this.url.dispositivo, { headers: headers }).toPromise();
-        }).then(result => {
+    getDispositivos(nav: NavController) {
+      return this.httprequest.get(this.url.base + this.url.dispositivo,nav).then(result => {
           let items = result.json() as ITEM[];
           for(var item of items){
             item.Es_Dispositivo=true;
           }
           return items;
-        }).catch(error=>{
-          console.log(error)
-        });;
+        })
     }
 
-    getBuscarElemento(cadena: String) {
+    getBuscarElemento(cadena: String,nav: NavController) {
 
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append("Accept","application/json");
-
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            return this.http.get(this.url.base + this.url.elemento + this.url.buscar + cadena , { headers: headers }).toPromise();
-
-        }).then(result => {
+    return this.httprequest.get(this.url.base + this.url.elemento + this.url.buscar + cadena,nav)
+    .then(result => {
           let items = result.json() as ITEM[];
           return items;
 
@@ -60,16 +46,10 @@ export class ItemService {
           console.log(error)
         });
     }
-    getBuscarDispositivo(cadena: String) {
+    getBuscarDispositivo(cadena: String,nav: NavController) {
 
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append("Accept","application/json");
-
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            return this.http.get(this.url.base + this.url.dispositivo + this.url.buscar + cadena , { headers: headers }).toPromise();
-
-        }).then(result => {
+            return this.httprequest.get(this.url.base + this.url.dispositivo + this.url.buscar + cadena,nav)
+            .then(result => {
           let items = result.json() as ITEM[];
           return items;
 
@@ -77,41 +57,21 @@ export class ItemService {
           console.log(error)
         });
     }
-    eliminarItem(item: ITEM) {
+    eliminarItem(item: ITEM,nav: NavController) {
 
-      console.log(Url)
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append("Accept","application/json");
-
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            //request del tipo delete para eliminar, se envia la url que ya la contiene el mismo modelo
-            return this.http.delete(String(item.url), { headers: headers }).toPromise();
-        }).then(result => {
-          return result;
-        }).catch(error=> console.log(error));
+            return this.httprequest.delete(String(item.url),nav)
     }
 
-    createItem(item: ITEM) {
+    createItem(item: ITEM,nav: NavController) {
       let url = this.url.base
       url+= item.Es_Dispositivo ? this.url.dispositivo:this.url.elemento
-
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append('Accept','application/json');
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            return this.http.post(url, JSON.stringify(item),{ headers: headers }).toPromise();
-
-        }).then(result=> console.log(result)).catch(error => console.log(error));
+          return this.httprequest.post(url, JSON.stringify(item),nav)
     }
 
 
-    updateItem(item: ITEM) {
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append('Accept','application/json');
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            return this.http.patch(String(item.url), JSON.stringify(
+    updateItem(item: ITEM,nav: NavController) {
+
+            return this.httprequest.patch(String(item.url), JSON.stringify(
             {
               Nombre: item.Nombre,
               Marca: item.Marca,
@@ -119,7 +79,7 @@ export class ItemService {
               CodigoEspol: item.CodigoEspol,
               CodigoSenecyt: item.CodigoSenecyt,
               Descripcion: item.Descripcion
-            }),{ headers: headers }).toPromise();
-        }).then(result => {return result});
+            }),nav)
+            .then(result => {return result});
     }
 }
