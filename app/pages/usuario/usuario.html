@@ -1,4 +1,4 @@
-<!--
+  <!--
 Generated template for the UsuarioPage page.
 
 See http://ionicframework.com/docs/v2/components/#navigation for more info on
@@ -84,51 +84,53 @@ Ionic pages and navigation.
 
 <div *ngIf="template=='crear'" >
   <div class="container" style="position: relative; bottom: -50px;">
-    <div class="card-panel blue-grey lighten-5 ">
-      <span class="card-title">Nuevo Usuario</span>
-      <div class="row" style="padding-top: 18px">
-        <!--primera fila-->
-        <div class="col l6 m6 s12">
-          <div class="input-field">
-            <i class="material-icons prefix">email</i>
-            <input id="icon_codigo" type="email" class="validate" maxlength="50"  [(ngModel)]="usuarioNuevo.Email">
-            <label for="icon_codigo">Email</label>
+    <div class="card-panel hoverable card-action white" >
+      <div class="card-content black-text" >
+        <span class="card-title ">Nuevo Usuario</span>
+        <div class="row">
+          <!--primera fila-->
+          <div class="col l6 m6 s12">
+            <div class="input-field">
+              <i class="material-icons prefix">email</i>
+              <input id="icon_codigo" type="email" class="validate" maxlength="50"  [(ngModel)]="usuarioNuevo.Email">
+              <label for="icon_codigo">Email</label>
+            </div>
+            <div class="input-field">
+              <i class="material-icons prefix">account_box</i>
+              <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*"[(ngModel)]="usuarioNuevo.Nombre">
+              <label for="icon_codigo">Nombre</label>
+            </div>
+            <div class="input-field">
+              <i class="material-icons prefix">account_box</i>
+              <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="usuarioNuevo.Apellido">
+              <label for="icon_codigo">Apellido</label>
+            </div>
           </div>
-          <div class="input-field">
-            <i class="material-icons prefix">account_box</i>
-            <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*"[(ngModel)]="usuarioNuevo.Nombre">
-            <label for="icon_codigo">Nombre</label>
-          </div>
-          <div class="input-field">
-            <i class="material-icons prefix">account_box</i>
-            <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="usuarioNuevo.Apellido">
-            <label for="icon_codigo">Apellido</label>
+          <!--segunda fila-->
+          <div class="col l6 m6 s12">
+            <div class="input-field">
+              <i class="material-icons prefix">keyboard_arrow_right</i>
+              <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="Tipo">
+                <option *ngFor="let tipo of tipos" [value]="tipo.name">{{tipo.name}}</option>
+              </select>
+            </div>
+            <div class="input-field" style="padding-top: 18px">
+              <i class="material-icons prefix">vpn_key</i>
+              <input id="icon_codigo" type="password" class="activate"  [(ngModel)]="credenciales.clave">
+              <label for="icon_codigo">Contraseña</label>
+            </div>
+            <div class="input-field">
+              <i class="material-icons prefix">vpn_key</i>
+              <input id="repclave" type="password" class="activate"  [(ngModel)]="credenciales.clave2">
+              <label for="repclave">Repetir contraseña</label>
+            </div>
           </div>
         </div>
-        <!--segunda fila-->
-        <div class="col l6 m6 s12">
-          <div class="input-field">
-            <i class="material-icons prefix">keyboard_arrow_right</i>
-            <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="Tipo">
-              <option *ngFor="let tipo of tipos" [value]="tipo.name">{{tipo.name}}</option>
-            </select>
-          </div>
-          <div class="input-field" style="padding-top: 18px">
-            <i class="material-icons prefix">vpn_key</i>
-            <input id="icon_codigo" type="password" class="activate"  [(ngModel)]="credenciales.clave">
-            <label for="icon_codigo">Contraseña</label>
-          </div>
-          <div class="input-field">
-            <i class="material-icons prefix">vpn_key</i>
-            <input id="repclave" type="password" class="activate"  [(ngModel)]="credenciales.clave2">
-            <label for="repclave">Repetir contraseña</label>
-          </div>
+        <div class="card-action">
+          <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
+            <i class="material-icons right">send</i>
+          </a>
         </div>
-      </div>
-      <div class="card-action">
-        <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
-          <i class="material-icons right">send</i>
-        </a>
       </div>
     </div>
   </div>
@@ -152,45 +154,27 @@ Ionic pages and navigation.
           <div class="row">
             <!--primera ventana-->
             <div class="col s12 m6 l6 offset-l3 offset-m3">
-              <div class="card-panel blue-grey lighten-5 ">
-                <span class="card-title">Modificar Usuario</span>
-                <div style="padding-top: 18px">
-                  <div class="row">
-                    <div class="col l10 m10 s10">
-                      <div class="input-field">
-                        <i class="material-icons prefix">account_box</i>
-                        <input id="icon_nombre" disabled="disabled" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="usuarioModificar.Nombre">
-                        <label for="icon_nombre">Nombre</label>
-                      </div>
-                    </div>
-                    <div class="col l2 m2 s2">
-                      <a class="button-collapse" onclick="icon_nombre.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
-                    </div>
+              <div class="card-panel hoverable card-action white">
+                <div class="card-content black-text">
+                  <span class="card-title">Modificar Usuario</span>
+
+                  <div class="input-field">
+                    <i class="material-icons prefix">label_outline</i>
+                    <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="usuarioModificar.Nombre">
+                    <label for="icon_codigo">Nombre</label>
                   </div>
-                  <div class="row">
-                    <div class="col l10 m10 s10">
-                      <div class="input-field">
-                        <i class="material-icons prefix">account_box</i>
-                        <input id="icon_apellido" disabled="disabled" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="usuarioModificar.Apellido">
-                        <label for="icon_apellido">Apellido</label>
-                      </div>
-                    </div>
-                    <div class="col l2 m2 s2">
-                      <a class="button-collapse" onclick="icon_apellido.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
-                    </div>
+                  <div class="input-field">
+                    <i class="material-icons prefix">label_outline</i>
+                    <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="usuarioModificar.Apellido">
+                    <label for="icon_codigo">Apellido</label>
                   </div>
-                  <div class="row">
-                  <div class="col l12 m12 s12">
-                    <div class="input-field">
-                      <div class="input-field" style="padding-right: 75px">
-                        <i class="material-icons prefix">keyboard_arrow_right</i>
-                        <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="usuarioModificar.groups[0].name" >
-                          <option *ngFor="let tipo of tipos" [value]="tipo.name" selected="usuarioModificar.groups[0].name">{{tipo.name}}</option>
-                        </select>
-                      </div>
-                    </div>
-                    </div>
+                  <div class="input-field">
+                    <i class="material-icons prefix">label_outline</i>
+                    <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="usuarioModificar.groups[0].name" >
+                      <option *ngFor="let tipo of tipos" [value]="tipo.name" selected="usuarioModificar.groups[0].name">{{tipo.name}}</option>
+                    </select>
                   </div>
+
                 </div>
                 <div class="card-action">
                   <a (click)="modificar()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar

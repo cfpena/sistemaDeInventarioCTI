@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild} from '@angular/core';
 import {NavController,MenuController, Toast} from 'ionic-angular';
 import {Usuario, Group} from './usuario.model';
-import {Load} from '../../loading';
 import {MaterializeDirective} from "../../materialize-directive";
 import {Validator} from "validator.ts/Validator";
 import { Http, Headers } from '@angular/http';
@@ -18,7 +17,6 @@ import {Url} from '../../url';
 
 export class UsuarioPage implements OnInit {
     url = new Url();
-    load= new Load();
     title: string = 'Usuarios';
     usuarios: Usuario[];
     template: string = 'null';
