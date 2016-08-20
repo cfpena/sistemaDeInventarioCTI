@@ -98,13 +98,13 @@ export class InventarioPage implements OnInit{
     listarItems() {
       //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
       this.items =[]
-        this.itemService.getElementos().then(items => { this.items = items; return items }).then(result=>{
+        /*this.itemService.getElementos().then(items => { this.items = items; return items }).then(result=>{
           this.itemService.getDispositivos().then(items => {
             for(var item of items){
               this.items.push(item)
             }
           })
-        })
+        })*/
     }
 
     openMenu(){
