@@ -9,10 +9,12 @@ export class Movimiento_Detalle {
   @IsInt() cantidad: number;
   Is_DetalleKit: boolean;
   item: ITEM;
+  serie: string;
 
   constructor( ) {
     this.id=0;
     this.cantidad=0;
     this.Is_DetalleKit= false;
+    this.serie='';
   }
 }
