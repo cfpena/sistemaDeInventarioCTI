@@ -21,6 +21,7 @@ constructor( ) {
   this.Fecha_devolucion='';
   this.Fecha_vencimiento='';
   this.Cantidad=0;
+
 }
 
 }
