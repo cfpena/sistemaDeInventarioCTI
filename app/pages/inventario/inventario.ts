@@ -9,11 +9,15 @@ import {Movimiento_Detalle} from '../inventario/movimiento_detalle.model';
 import {Ingreso} from '../inventario/ingreso.model';
 import {Salida} from '../inventario/salida.model';
 import {ITEM} from '../item/item.model';
+import { Http, Headers } from '@angular/http';
+import {PersonaService} from '../persona/persona.service';
+import {ItemService } from '../item/item.service';
 
 
 @Component({
   templateUrl: 'build/pages/inventario/inventario.html',
   directives: [MaterializeDirective],
+  providers: [PersonaService, ItemService],
 })
 
 
@@ -23,45 +27,43 @@ export class InventarioPage implements OnInit{
     tiposMovimientoIngreso: Tipo_Movimiento = {id:1, nombre: 'ingreso'};
     tiposMovimientoSalida: Tipo_Movimiento = {id:3, nombre: 'salida'};
 
-    items: ITEM[]=[/*
-      {id: 1,  Codigo: '1234567890',  Nombre: 'resistencia',  Marca: 'Marca 1',  Modelo: 'Modelo 1',  Descripcion: 'Resistencia100 ', Stock:150, Is_dispositivo: false, Is_kit: false, Images:'', Items:''},
-      {id: 2,  Codigo: '1234456891',  Nombre: 'capacitor',  Marca: 'Marca 2',  Modelo: 'Modelo 2',  Descripcion: 'Capacitor100 ',   Stock:200, Is_dispositivo: false, Is_kit: false, Images:'', Items:''},
-      {id: 3,  Codigo: '0956787892',  Nombre: 'ítem',  Marca: 'Marca 3',  Modelo: 'Modelo 3',  Descripcion: 'Resistencia50 ',  Stock:800, Is_dispositivo: false, Is_kit: false, Images:'', Items:'' }*/];
+    items: ITEM[]=[];
 
-    movimientodetalle1: Movimiento_Detalle[] = [{id:1, cantidad:2, Is_DetalleKit: false, item: this.items[0]},
-      {id:2, cantidad:10, Is_DetalleKit: false, item:  this.items[1]},
-      {id:3, cantidad:5, Is_DetalleKit: false, item:  this.items[2]}];
-    movimientodetalle2: Movimiento_Detalle[] = [{id:1, cantidad:5, Is_DetalleKit: false, item: this.items[0]},
-      {id:2, cantidad:8, Is_DetalleKit: false, item:  this.items[2]}];
-    movimientodetalle3: Movimiento_Detalle[] = [{id:1, cantidad:10, Is_DetalleKit: false, item: this.items[0]}];
-    movimientodetalle4: Movimiento_Detalle[] = [{id:1, cantidad:12, Is_DetalleKit: false, item: this.items[0]},
-      {id:2, cantidad:10, Is_DetalleKit: false, item:  this.items[1]},
-      {id:3, cantidad:5, Is_DetalleKit: false, item:  this.items[2]}];
+    movimientodetalle1: Movimiento_Detalle[] = [{id:1, cantidad:2, Is_DetalleKit: false, item: this.items[0],serie:''},
+      {id:2, cantidad:10,Is_DetalleKit: false, item:  this.items[1], serie:''},
+      {id:3, cantidad:5, Is_DetalleKit: false, item:  this.items[2], serie:''}];
+    movimientodetalle2: Movimiento_Detalle[] = [{id:1, cantidad:5, Is_DetalleKit: false, item: this.items[0], serie:''},
+      {id:2, cantidad:8, Is_DetalleKit: false, item:  this.items[2], serie:''}];
+    movimientodetalle3: Movimiento_Detalle[] = [{id:1, cantidad:10, Is_DetalleKit: false, item: this.items[0], serie:''}];
+    movimientodetalle4: Movimiento_Detalle[] = [{id:1, cantidad:12, Is_DetalleKit: false, item: this.items[0], serie:''},
+      {id:2, cantidad:10, Is_DetalleKit: false, item:  this.items[1], serie:''},
+      {id:3, cantidad:5, Is_DetalleKit: false, item:  this.items[2], serie:''}];
 
     movimientos: Movimiento[] = [{id: 1,  fecha: '17/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compra de items', movimiento_detalle: this.movimientodetalle1},
-      {id: 2,  fecha: '18/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compras de junio', movimiento_detalle: this.movimientodetalle2},
-      {id: 3,  fecha: '19/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compras', movimiento_detalle: this.movimientodetalle3},
-      {id: 4,  fecha: '20/07/2016', tipo_movimiento: this.tiposMovimientoSalida, observaciones: 'Baja', movimiento_detalle: this.movimientodetalle4}];
-/*
-    Proveedor1: Persona = {url: '1',  CI:'0912345678', Nombre: 'Adriano',  Apellido: 'Pinargote',  Email: 'a@prueba.com', Telefono: '0959605816', Genero: 'Masculino'};
-    Proveedor2: Persona = {url: '2',  CI:'0965321094',  Nombre: 'Janina', Apellido: 'Costa',  Email: 'j@prueba.com', Telefono: '04-6025888', Genero: 'Femenino'};
-    Proveedores: Persona[]=[{url: '1',  CI:'0912345678', Nombre: 'Adriano',  Apellido: 'Pinargote',  Email: 'a@prueba.com', Telefono: '0959605816', Genero: 'Masculino'},
-      {url: '2',  CI:'0965321094',  Nombre: 'Janina', Apellido: 'Costa',  Email: 'j@prueba.com', Telefono: '04-6025888', Genero: 'Femenino'}];
+      {id: 2,  fecha: '18/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compras de junio', movimiento_detalle: this.movimientodetalle1},
+      {id: 3,  fecha: '19/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compras', movimiento_detalle: this.movimientodetalle1},
+      {id: 4,  fecha: '20/07/2016', tipo_movimiento: this.tiposMovimientoSalida, observaciones: 'Baja', movimiento_detalle: this.movimientodetalle1}];
 
-    ingresos: Ingreso[] = [{id: 1, Acta_entrega: '2016-000123', movimiento: this.movimientos[0], proveedor: this.Proveedor1},
-      {id: 2, Acta_entrega: '2016-000124', movimiento: this.movimientos[1], proveedor: this.Proveedor2},
-      {id: 3, Acta_entrega: '2016-000125', movimiento: this.movimientos[2], proveedor: this.Proveedor1}];
+
+    Proveedores: Persona[]=[];
+
+    ingresos: Ingreso[] = [{id: 1, Acta_entrega: '2016-000123', movimiento: this.movimientos[0], proveedor: this.Proveedores[0]},
+      {id: 2, Acta_entrega: '2016-000124', movimiento: this.movimientos[1], proveedor: this.Proveedores[0]},
+      {id: 3, Acta_entrega: '2016-000125', movimiento: this.movimientos[2], proveedor: this.Proveedores[0]}];
 
     salidas: Salida[] = [{id:1, No_Acta_Salida:'2016-S00051', movimiento: this.movimientos[3], Motivo_salida: 'Baja contable'}];
 
 
     template: string = 'null';
     templateMovimiento: string ='ingreso_inventario'
+    templateItem: string='null';
     idProveedor: string ='';
     nombreProveedor: string ='NO EXISTE EL PROVEEDOR';
     descripcionItem: string =''
     listaFiltradaItem: ITEM[];
+    listaMovimientoDet: Movimiento_Detalle[]=[];
     cantidad=0;
+    serie: string='';
 
     @Input() ingresoNuevo = new Ingreso();
     @Input() salidaNuevo = new Salida();
@@ -80,9 +82,33 @@ export class InventarioPage implements OnInit{
     //estados = ['Elija un estado...','disponible','no disponible'];
     tiposBusquedas = ['Ingreso', 'Salida'];
     busqueda={tipoB: 'código', valor: ''};
+    itemSeleccionado: boolean = false;
 
-    constructor( private navController:NavController,private menu: MenuController){
+    constructor( private navController:NavController,private menu: MenuController,
+      private personaService: PersonaService, private itemService: ItemService,
+      private http: Http){
         //this.inventarioTemporal=this.inventarios;
+        //this.listarProveedores();
+        //this.listarItems();
+    }
+
+    listarProveedores() {
+      //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
+        this.personaService.getPersonas().then(personas => { this.Proveedores = personas; return personas }).then(personas => {
+        })
+        return this.Proveedores
+    }
+
+    listarItems() {
+      //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
+        this.itemService.getElementos(this.navController).then(items => { this.items = items; return items }).then(result=>{
+          this.itemService.getDispositivos(this.navController).then(items => {
+            for(var item of items){
+              this.items.push(item)
+            }
+          })
+        })
+        return this.items
     }
 
     openMenu(){
@@ -201,6 +227,7 @@ export class InventarioPage implements OnInit{
     }
 
     buscarProveedor(){
+      this.listarProveedores();
       console.log(this.idProveedor);
       //this.proveedorNuevo = JSON.parse(JSON.stringify(this.Proveedores.find(persona => persona.CI == this.idProveedor)));
       let proveedorActual: Persona[];
@@ -226,11 +253,14 @@ export class InventarioPage implements OnInit{
     }
 
     buscarItem(){
+      console.log('buscar item');
+      this.listarItems();
       let itemsFiltro: ITEM[];
       let busquedaItem = this.descripcionItem;
       let elementoEncontrado: string;
 
       if (busquedaItem!==''){
+        console.log('buscar item1');
         itemsFiltro = this.items.filter(function (item){
           console.log(busquedaItem);
           if (item.Codigo.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0 ||  item.Nombre.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0){
@@ -253,9 +283,37 @@ export class InventarioPage implements OnInit{
       console.log(this.itemNuevo);
       this.descripcionItem = this.itemNuevo.Codigo +' - '+ this.itemNuevo.Nombre;
       this.listaFiltradaItem=[];
+      if (item.Es_Dispositivo){
+        this.templateItem='Dispositivo';
+        this.cantidad=1;
+      }else{
+        this.templateItem='Elemento';
+      }
+      this.itemSeleccionado =true;
       //this.itemSeleccionado = item;
     }
-*/
+
+    agregarItem(){
+      console.log('voy a agregar item');
+      if (this.itemSeleccionado){
+        console.log('si existe item seleccionado');
+        if (this.itemNuevo.Es_Dispositivo){
+          console.log('es dispositivo');
+          for(var _i = 0; _i < this.cantidad; _i++){
+            this.listaMovimientoDet.push({id:0, cantidad: 1, Is_DetalleKit: false, item: this.itemNuevo, serie:''});
+          }
+        }else{
+          console.log('es elemento');
+          this.listaMovimientoDet.push({id:0, cantidad: this.cantidad, Is_DetalleKit: false, item: this.itemNuevo, serie:''});
+        }
+        console.log('les agregue infor al mov det');
+        this.movimientoNuevo.movimiento_detalle=this.listaMovimientoDet;
+        this.itemNuevo = new ITEM();
+        this.cantidad=0;
+        this.itemSeleccionado = false;
+      }
+    }
+
     //retrasa la carga de la pagina 100 ms
     public ngOnInit() {
       window.setTimeout(()=>{

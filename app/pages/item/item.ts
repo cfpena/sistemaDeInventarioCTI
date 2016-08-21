@@ -61,8 +61,8 @@ export class ItemPage implements OnInit {
 
     listar() {
       this.items =[]
-        this.itemService.getElementos().then(items => { this.items = items; return items }).then(result=>{
-          this.itemService.getDispositivos().then(items => {
+        this.itemService.getElementos(this.navController).then(items => { this.items = items; return items }).then(result=>{
+          this.itemService.getDispositivos(this.navController).then(items => {
             for(var item of items){
               this.items.push(item)
             }
@@ -79,7 +79,7 @@ export class ItemPage implements OnInit {
         else if (this.itemNuevo.Stock < 1 || this.itemNuevo.Stock > 50 || this.itemNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
             let item = JSON.parse(JSON.stringify(this.itemNuevo))
-            this.itemService.createItem(item).then(result => this.listar());
+            this.itemService.createItem(item,this.navController).then(result => this.listar());
             this.template = 'null';
             this.count++;
             this.itemNuevo = new ITEM();
@@ -103,7 +103,7 @@ export class ItemPage implements OnInit {
         //else if (this.itemModificar.Stock < 1 || this.itemModificar.Stock > 50 || this.itemModificar.Stock == 0)
           //  this.presentToast('Cantidad mínima 1 máximo 50');
         else {
-            this.itemService.updateItem(this.itemModificar).then(result => this.listar());
+            this.itemService.updateItem(this.itemModificar,this.navController).then(result => this.listar());
             this.template = 'null';
         }
 
@@ -112,7 +112,7 @@ export class ItemPage implements OnInit {
     eliminar() {
 
         for (var item of this.itemsEliminar) {
-            this.itemService.eliminarItem(item).then(result =>
+            this.itemService.eliminarItem(item,this.navController).then(result =>
             { this.listar()}).catch(error => console.log(error))
         }
         //se deja en blanco la lista a eliminar
@@ -142,8 +142,8 @@ export class ItemPage implements OnInit {
 
     buscar() {
         if (this.busqueda.valor.trim() != "") {
-            this.itemService.getBuscarElemento(this.busqueda.valor).then(items => { this.items = items; return items }).then(items => {
-              this.itemService.getBuscarDispositivo(this.busqueda.valor).then(items => {
+            this.itemService.getBuscarElemento(this.busqueda.valor,this.navController).then(items => { this.items = items; return items }).then(items => {
+              this.itemService.getBuscarDispositivo(this.busqueda.valor,this.navController).then(items => {
                 for(var item of items){
                   this.items.push(item)
                 }

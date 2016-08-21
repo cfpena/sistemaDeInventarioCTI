@@ -3,7 +3,6 @@ import {Validator} from "validator.ts/Validator";
 import {Contains, IsInt, IsLength, IsEmail, IsAlpha} from "validator.ts/decorator/Validation";
 
 export class Kit {
-  id:number
   url: number;
   Codigo: string;
   CodigoEspol: string;
@@ -12,11 +11,12 @@ export class Kit {
   Marca: string;
   Modelo: string;
   Descripcion: string;
-  Stock: number;
-  Stock_Disponible: number;
-  Is_kit: boolean;
   //Imagen: any;
   Items: any;
+  Elementos: ITEM;
+  Dispositivos: ITEM;
+
+
 
 constructor() {
   this.Codigo='';
@@ -26,9 +26,8 @@ constructor() {
   this.Marca='';
   this.Modelo='';
   this.Descripcion='';
-  //this.Stock;
-  this.Is_kit=true;
+
   this.Items;
-  this.Stock_Disponible;
+  this.Dispositivos;
 }
 }

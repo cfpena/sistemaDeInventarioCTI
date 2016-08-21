@@ -83,52 +83,52 @@
             <div class="col s12 m6 l6">
               <!--primera columna-->
               <div class="input-field">
-                <i class="material-icons prefix">label_outline</i>
-                <input id="icon_descripcion" type="tel" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaNueva.CI">
-                <label for="icon_descripcion">Cedula</label>
+                <i class="material-icons prefix" style="color:#009688">label_outline</i>
+                <input id="cedula" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaNueva.CI">
+                <label for="cedula">Cedula</label>
               </div>
               <div class="input-field">
-                <i class="material-icons prefix">account_box</i>
-                <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.Nombre">
-                <label for="icon_descripcion">Nombre</label>
+                <i class="material-icons prefix" style="color:#009688">account_box</i>
+                <input id="nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.Nombre">
+                <label for="nombre">Nombre</label>
               </div>
               <div class="input-field">
-                <i class="material-icons prefix">account_box</i>
-                <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.Apellido">
-                <label for="icon_descripcion">Apellido</label>
+                <i class="material-icons prefix" style="color:#009688">account_box</i>
+                <input id="apellido" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.Apellido">
+                <label for="apellido">Apellido</label>
               </div>
               <div class="input-field">
-                <i class="material-icons prefix">my_location</i>
-                <input id="icon_descripcion" type="tel" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.Direccion">
-                <label for="icon_descripcion">Direccion</label>
+                <i class="material-icons prefix" style="color:#009688">my_location</i>
+                <input id="direccion" type="text" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.Direccion">
+                <label for="direccion">Direccion</label>
               </div>
 
             </div>
             <div class="col s12 m6 l6">
               <!--segunda columna-->
               <div class="input-field">
-                <i class="material-icons prefix">credit_card</i>
-                <input id="icon_descripcion" type="tel" class="validate" minlength="9" maxlength="9" pattern = "[0-9]*" [(ngModel)]="personaNueva.Matricula">
-                <label for="icon_descripcion">Matricula</label>
+                <i class="material-icons prefix" style="color:#009688">credit_card</i>
+                <input id="matricula" type="text" class="validate" minlength="9" maxlength="9" pattern = "[0-9]*" [(ngModel)]="personaNueva.Matricula">
+                <label for="matricula">Matricula</label>
               </div>
               <div class="input-field">
-                <i class="material-icons prefix">email</i>
-                <input id="icon_descripcion" type="tel" class="validate"  [(ngModel)]="personaNueva.Email">
-                <label for="icon_descripcion">Correo</label>
+                <i class="material-icons prefix" style="color:#009688">email</i>
+                <input id="correo" type="text" class="validate"  [(ngModel)]="personaNueva.Email">
+                <label for="correo">Correo</label>
               </div>
               <div class="input-field">
-                <i class="material-icons prefix">call</i>
-                <input id="icon_modelo" type="tel" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*" [(ngModel)]="personaNueva.Telefono">
-                <label for="icon_modelo">Teléfono</label>
+                <i class="material-icons prefix" style="color:#009688">call</i>
+                <input id="telefono" type="text" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*" [(ngModel)]="personaNueva.Telefono">
+                <label for="telefono">Teléfono</label>
               </div>
               <div class="input-field">
-                <i class="material-icons prefix">label_outline</i>
+                <i class="material-icons prefix" style="color:#009688">label_outline</i>
                 <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaNueva.Genero">
                   <option *ngFor="let Genero of Generos" [value]="Genero">{{Genero}}</option>
                 </select>
               </div>
               <div class="input-field">
-                <i class="material-icons prefix">supervisor_account</i>
+                <i class="material-icons prefix" style="color:#009688">supervisor_account</i>
                 <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaNueva.Tipo">
                   <option *ngFor="let Tipo of Tipos" [value]="Tipo">{{Tipo}}</option>
                 </select>
@@ -156,7 +156,6 @@
     </div>
   </div>
 </div>
-
 
 <div *ngIf="template=='modificar'" style="overflow: scroll;">
   <!--modificar persona-->
@@ -222,8 +221,8 @@
                 <div class="col l10 m10 s10">
                   <div class="input-field">
                     <i class="material-icons prefix">email</i>
-                    <input id="icon_descripcion" disabled="disabled" type="text" class="validate"  [(ngModel)]="personaModificar.Email">
-                    <label for="icon_descripcion">Email</label>
+                    <input id="correo" disabled="disabled" type="text" class="validate"  [(ngModel)]="personaModificar.Email">
+                    <label for="correo">Email</label>
                   </div>
                 </div>
                 <div class="col l2 m2 s2">
@@ -245,7 +244,7 @@
               <div class="row">
                 <div class="col l10 m10 s10">
                   <div class="input-field">
-                    <i class="material-icons prefix">label_outline</i>
+                    <i class="material-icons prefix" style="color:#009688">label_outline</i>
                     <select  id="genero" materialize="material_select"  [materializeSelectOptions]="selectOptions"   [(ngModel)]="personaModificar.Genero">
                       <option *ngFor="let Genero of Generos" [value]="Genero">{{Genero}}</option>
                     </select>
@@ -255,7 +254,7 @@
               <div class="row">
                 <div class="col l10 m10 s10">
                   <div class="input-field">
-                    <i class="material-icons prefix">supervisor_account</i>
+                    <i class="material-icons prefix" style="color:#009688">supervisor_account</i>
                     <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaModificar.Tipo">
                       <option *ngFor="let Tipo of Tipos" [value]="Tipo">{{Tipo}}</option>
                     </select>
