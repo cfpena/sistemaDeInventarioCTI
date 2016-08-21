@@ -92,25 +92,6 @@ export class InventarioPage implements OnInit{
         //this.listarItems();
     }
 
-    listarProveedores() {
-      //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
-        this.personaService.getPersonas().then(personas => { this.Proveedores = personas; return personas }).then(personas => {
-        })
-        return this.Proveedores
-    }
-
-    listarItems() {
-      //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
-        this.itemService.getElementos(this.navController).then(items => { this.items = items; return items }).then(result=>{
-          this.itemService.getDispositivos(this.navController).then(items => {
-            for(var item of items){
-              this.items.push(item)
-            }
-          })
-        })
-        return this.items
-    }
-
     openMenu(){
       this.menu.open();
     }
@@ -120,7 +101,6 @@ export class InventarioPage implements OnInit{
       message: text,
       duration: 3000
     });
-
     toast.onDismiss(() => {
       console.log('Dismissed toast');
     });
@@ -227,50 +207,30 @@ export class InventarioPage implements OnInit{
     }
 
     buscarProveedor(){
-      this.listarProveedores();
       console.log(this.idProveedor);
       //this.proveedorNuevo = JSON.parse(JSON.stringify(this.Proveedores.find(persona => persona.CI == this.idProveedor)));
-      let proveedorActual: Persona[];
-      let proveedorNuevo: Persona;
-      let id = this.idProveedor;
       if (this.idProveedor.length==10){
         console.log('voy a buscar el proveedor');
-        proveedorActual = this.Proveedores.filter(function (proveedor){
-          console.log(id);
-          if (proveedor.CI.toLowerCase().indexOf(id.toLowerCase())>=0){
-            console.log(proveedor.Apellido);
-            proveedorNuevo = proveedor;
-            return true;
-          }
-          console.log('no encontre :(');
-          return false;
-        }.bind(this));
-        if (proveedorActual.length==1){
-          this.proveedorNuevo=proveedorNuevo;
-          this.nombreProveedor = proveedorNuevo.Nombre + ' ' + proveedorNuevo.Apellido;
+        this.personaService.getBuscar(this.idProveedor).then(personas => {this.Proveedores = personas; return personas }).then(personas => {    })
+        if (this.Proveedores.length==1){
+          console.log('voy a buscar el proveedor');
+          this.proveedorNuevo=this.Proveedores[0];
+          this.nombreProveedor = this.proveedorNuevo.Nombre + ' ' + this.proveedorNuevo.Apellido;
         }
       }
     }
 
     buscarItem(){
       console.log('buscar item');
-      this.listarItems();
-      let itemsFiltro: ITEM[];
-      let busquedaItem = this.descripcionItem;
-      let elementoEncontrado: string;
-
-      if (busquedaItem!==''){
+      if (this.descripcionItem!==''){
         console.log('buscar item1');
-        itemsFiltro = this.items.filter(function (item){
-          console.log(busquedaItem);
-          if (item.Codigo.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0 ||  item.Nombre.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0){
-            elementoEncontrado= item.Codigo+" - "+item.Nombre;
-            console.log(elementoEncontrado);
-            return true;
-          }
-          return false;
-        }.bind(this));
-        this.listaFiltradaItem = itemsFiltro;
+        this.itemService.getBuscarElemento(this.descripcionItem,this.navController).then(items => { this.listaFiltradaItem = items; return items }).then(items => {
+          this.itemService.getBuscarDispositivo(this.descripcionItem,this.navController).then(items => {
+            for(var item of items){
+              this.listaFiltradaItem.push(item)
+            }
+          })
+        })
       }else{
         this.listaFiltradaItem =[];
       }
@@ -283,30 +243,20 @@ export class InventarioPage implements OnInit{
       console.log(this.itemNuevo);
       this.descripcionItem = this.itemNuevo.Codigo +' - '+ this.itemNuevo.Nombre;
       this.listaFiltradaItem=[];
-      if (item.Es_Dispositivo){
-        this.templateItem='Dispositivo';
-        this.cantidad=1;
-      }else{
-        this.templateItem='Elemento';
-      }
       this.itemSeleccionado =true;
       //this.itemSeleccionado = item;
     }
 
     agregarItem(){
-      console.log('voy a agregar item');
       if (this.itemSeleccionado){
-        console.log('si existe item seleccionado');
         if (this.itemNuevo.Es_Dispositivo){
           console.log('es dispositivo');
           for(var _i = 0; _i < this.cantidad; _i++){
             this.listaMovimientoDet.push({id:0, cantidad: 1, Is_DetalleKit: false, item: this.itemNuevo, serie:''});
           }
         }else{
-          console.log('es elemento');
           this.listaMovimientoDet.push({id:0, cantidad: this.cantidad, Is_DetalleKit: false, item: this.itemNuevo, serie:''});
         }
-        console.log('les agregue infor al mov det');
         this.movimientoNuevo.movimiento_detalle=this.listaMovimientoDet;
         this.itemNuevo = new ITEM();
         this.cantidad=0;
