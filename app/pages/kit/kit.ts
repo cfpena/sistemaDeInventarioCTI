@@ -15,7 +15,6 @@ import {ItemService} from '../item/item.service';
   providers: [KitService,ItemService],
 })
 export class KitPage implements OnInit{
-
 title: string ='Kits';
 template: string = 'null';
 kits: Array<Kit>=[]
@@ -27,8 +26,10 @@ id=0;
 selected: number[]=[];
 tiposBusquedas = ['código', 'nombre'];
 busqueda={tipo: 'código', valor: ''};
+
 itemsBusquedas = ['código', 'nombre'];
 busquedaItem={valor: ''};
+itemsKits: ITEM[] = [];
 @Input()
 kitNuevo = new Kit();
 @Input()
@@ -60,10 +61,9 @@ kitModificar= new Kit;
     //funcion listar que lista todos los kits creados
     listar() {
       this.kits =[]
-        this.kitService.getKits().then(kits => { this.kits = kits; return kits }).then(result=>{
-          console.log("listando2");
-
-        })
+        this.kitService.getKits(this.navController).then(kits => { this.kits = kits ; return kits  }).then(result=>{
+            console.log("listando kits");
+          })
     }
 
   //crea un kit
@@ -76,13 +76,17 @@ kitModificar= new Kit;
       //else if (this.kitNuevo.Stock < 1 || this.kitNuevo.Stock > 50 || this.kitNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
       else {
           let kit = JSON.parse(JSON.stringify(this.kitNuevo))
-          this.kitService.createKit(kit).then(result => this.listar());
+          this.kitService.createKit(kit,this.navController).then(result => this.listar());
           this.template = 'null';
+          this.count++;
           this.kitNuevo = new Kit();
       }
 
   }
 
+ agregarItem(item: ITEM){
+
+}
   //abre el html de modificar
   goModificar(kit: Kit) {
           this.kitModificar=JSON.parse(JSON.stringify(kit))
@@ -92,7 +96,6 @@ kitModificar= new Kit;
 
   //modifica el usario
   modificar(){
-
     let validator = new Validator();
     console.log(this.kitModificar);
   //  if(!validator.isValid(this.kitModificar)) this.presentToast('Corrija el formulario');
@@ -102,14 +105,15 @@ kitModificar= new Kit;
   //else if(this.kitModificar.Marca=='') this.presentToast('Marca vacio');
   //else if(this.kitModificar.Modelo=='') this.presentToast('Modelo vacio');
   //else{
-    this.kitService.updateKit(this.kitModificar).then(result => this.listar());
-    this.template='null';
+
+    this.kitService.updateKit(this.kitModificar,this.navController).then(result => this.listar());
+    this.template = 'null';
   //}
   }
 
   eliminar(){
     for(var kit of this.kitsEliminar){
-      this.kitService.eliminarKit(kit).then(result =>
+      this.kitService.eliminarKit(kit, this.navController).then(result =>
         {this.listar() }).catch(error=> console.log(error))
     }
     //se deja en blanco la lista a eliminar
@@ -135,64 +139,32 @@ kitModificar= new Kit;
     this.template='null';
   }
 
-  buscar(){
-    if(this.busqueda.valor.trim() != ""){
-    this.kitService.getBuscar(this.busqueda.valor).then(kits => { this.kits = kits; return kits }).then(kits => {
-    })}
-    else{this.listar()}
-    return this.kits
-  }
 
-  listarItems() {
-    this.items =[]
-      this.itemService.getElementos().then(items => { this.items = items; return items }).then(result=>{
-        this.itemService.getDispositivos().then(items => {
-          for(var item of items){
-            this.items.push(item)
-          }
-        })
-      })
-  }
-
-  buscarItem(){
-    if (this.busquedaItem.valor.trim() != "") {
-        this.itemService.getBuscarElemento(this.busquedaItem.valor).then(items => { this.items = items; return items }).then(items => {
-        this.itemService.getBuscarDispositivo(this.busquedaItem.valor).then(items => {
-            for(var item of items){
-              this.items.push(item)
-            }
+  buscar() {
+      if (this.busqueda.valor.trim() != "") {
+          this.kitService.getBuscar(this.busqueda.valor,this.navController).then(kits => { this.kits = kits; return kits }).then(kits => {
           })
-        })
-    }
-    else {}
+      }
+      else { this.listar() }
   }
 
-  agregarItem(item: ITEM){
-
-
+  buscarItem() {
+      if (this.busquedaItem.valor.trim()!= "") {
+          this.itemService.getBuscarElemento(this.busquedaItem.valor,this.navController).then(items => { this.items = items; return items }).then(items => {
+            this.itemService.getBuscarDispositivo(this.busquedaItem.valor,this.navController).then(items => {
+              for(var item of items){
+                this.items.push(item)
+                console.log("busca")
+              }
+            })
+          })
+      }
+      else {console.log("vacio")}
   }
-
-
-   removeItem(kit: Kit) {
-    var index = this.kits.indexOf(kit);
-    if (index === -1) {
-      return;
-    }
-
-    console.log(`Index about to remove: ${index} this.items length: ${this.kits.length}`);
-    this.kits.slice(index, 1);
-    console.log(`this.items length: ${this.kits.length}`);
-
-    this.kits=  this.kits.splice(index, 1);
-}
-
-
 
     //retrasa la carga de la pagina 100 ms
     public ngOnInit() {
           this.listar();
   }
-
-
 
 }

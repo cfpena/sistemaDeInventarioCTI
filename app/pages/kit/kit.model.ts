@@ -11,12 +11,11 @@ export class Kit {
   Marca: string;
   Modelo: string;
   Descripcion: string;
-  Is_kit: boolean;
   //Imagen: any;
   Items: any;
   Elementos: ITEM;
   Dispositivos: ITEM;
-  
+
 
 
 constructor() {
@@ -27,8 +26,7 @@ constructor() {
   this.Marca='';
   this.Modelo='';
   this.Descripcion='';
-  //this.Stock;
-  this.Is_kit=true;
+
   this.Items;
   this.Dispositivos;
 }

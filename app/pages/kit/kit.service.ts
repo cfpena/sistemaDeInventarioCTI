@@ -4,42 +4,31 @@ import {Url} from '../../url';
 import {Kit} from './kit.model';
 import {ITEM} from '../item/item.model';
 import {UsuarioAuthService} from '../usuario/usuario.auth.service';
-
+import {HttpRequest} from '../../httprequest';
+import {NavController} from 'ionic-angular';
 
 @Injectable()
 export class KitService {
     url = new Url();
+    httprequest:HttpRequest;
 
     constructor(private http: Http,
-        private usuarioAuthService: UsuarioAuthService) { }
-
-
-        getKits() {
-          let headers = new Headers({ "Content-Type": "application/json" });
-          headers.append("Accept","application/json");
-            return this.usuarioAuthService.getToken().then(token => {
-                headers.append('Authorization', 'JWT ' + token);
-                return this.http.get(this.url.base + this.url.kit, { headers: headers }).toPromise();
-            }).then(result => {
-              let kits = result.json() as Kit[];
-              return kits;
-            }).catch(error=>{
-              console.log(error)
-            });;
+        private usuarioAuthService: UsuarioAuthService) {
+          this.httprequest = new HttpRequest(http);
         }
 
+        getKits(nav: NavController) {
+          return this.httprequest.get(this.url.base + this.url.kit,nav).then(result => {
+              let kits = result.json() as Kit[];
+              return kits;
+            })
+        }
 
-    getBuscar(cadena: String) {
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append("Accept","application/json");
-
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            return this.http.get(this.url.base + this.url.kit + this.url.buscar + cadena , { headers: headers }).toPromise();
-
-        }).then(result => {
-          let kits = result.json() as Kit[];
-          return kits;
+    getBuscar(cadena: String, nav: NavController) {
+    return this.httprequest.get(this.url.base + this.url.kit + this.url.buscar + cadena,nav)
+    .then(result => {
+      let kits = result.json() as Kit[];
+      return kits;
 
         }).catch(error=>{
           console.log(error)
@@ -47,25 +36,40 @@ export class KitService {
     }
 
 
-
-    eliminarKit(kit: Kit) {
-      //let Url = this.url.base + this.url.kit + kit.id.toString() + '/';
-      console.log(Url)
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append("Accept","application/json");
-
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            //request del tipo delete para eliminar, se envia la url que ya la contiene el mismo modelo
-            return this.http.delete(String(kit.url), { headers: headers }).toPromise();
-
-        }).then(result => {
-          return result;
-        }).catch(error=> console.log(error));
+    eliminarKit(kit: Kit, nav: NavController) {
+            return this.httprequest.delete(String(kit.url),nav)
     }
 
 
-    createKit(kit: Kit) {
+    /*
+    createKit(kit: Kit,nav: NavController) {
+          return this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav)
+    }*/
+
+    createKit(kit: Kit,nav: NavController) {
+      let item = kit.Dispositivos
+      item.Es_Dispositivo ? this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav):
+      this.httprequest.post(this.url.base + this.url.kitelemento, JSON.stringify(kit),nav)
+
+      return this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav)
+
+    }
+
+
+    updateKit(kit: Kit, nav: NavController) {
+            return this.httprequest.patch(String(kit.url), JSON.stringify(
+            {
+              Nombre: kit.Nombre,
+              Marca: kit.Marca,
+              Modelo: kit.Modelo,
+              CodigoEspol: kit.CodigoEspol,
+              CodigoSenecyt: kit.CodigoSenecyt,
+              Descripcion: kit.Descripcion
+            }),nav)
+            .then(result => {return result});
+    }
+
+  /*  agregarItem(item: ITEM, nav: NavController){
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append('Accept','application/json');
         return this.usuarioAuthService.getToken().then(token => {
@@ -74,30 +78,7 @@ export class KitService {
         }).then(result=> console.log(result)).catch(error => console.log(error));
     }
 
-
-    agregarItem(item: ITEM) {
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append('Accept','application/json');
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            return this.http.post(this.url.base + this.url.kitelemento, JSON.stringify(item),{ headers: headers }).toPromise();
-        }).then(result=> console.log(result)).catch(error => console.log(error));
-    }
-
-    updateKit(kit: Kit) {
-
-      console.log(Url)
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append('Accept','application/json');
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            return this.http.patch(String(kit.url), JSON.stringify({
-            Nombre: kit.Nombre,Descripcion: kit.Descripcion, Marca: kit.Marca, Modelo: kit.Modelo}),{ headers: headers }).toPromise();
-
-        }).then(result => {return result});
-
-
-    }
+*/
 
 
 }
