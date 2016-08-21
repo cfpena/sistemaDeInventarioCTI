@@ -78,7 +78,6 @@ kitModificar= new Kit;
           let kit = JSON.parse(JSON.stringify(this.kitNuevo))
           this.kitService.createKit(kit).then(result => this.listar());
           this.template = 'null';
-          this.count++;
           this.kitNuevo = new Kit();
       }
 
@@ -86,7 +85,6 @@ kitModificar= new Kit;
 
   //abre el html de modificar
   goModificar(kit: Kit) {
-    console.log(kit)
           this.kitModificar=JSON.parse(JSON.stringify(kit))
           this.template='modificar'
 
@@ -96,17 +94,17 @@ kitModificar= new Kit;
   modificar(){
 
     let validator = new Validator();
-    console.log(JSON.stringify(validator.validate(this.kitModificar)));
-    if(!validator.isValid(this.kitModificar)) this.presentToast('Corrija el formulario');
-    else if (this.kitModificar.Codigo=='' || this.kitModificar.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
-  else if(this.kitModificar.Nombre=='') this.presentToast('Nombre vacio');
-  else if(this.kitModificar.Descripcion=='') this.presentToast('Descripción vacio');
-  else if(this.kitModificar.Marca=='') this.presentToast('Marca vacio');
-  else if(this.kitModificar.Modelo=='') this.presentToast('Modelo vacio');
-  else{
+    console.log(this.kitModificar);
+  //  if(!validator.isValid(this.kitModificar)) this.presentToast('Corrija el formulario');
+    //else if (this.kitModificar.Codigo=='' || this.kitModificar.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
+  //else if(this.kitModificar.Nombre=='') this.presentToast('Nombre vacio');
+//  else if(this.kitModificar.Descripcion=='') this.presentToast('Descripción vacio');
+  //else if(this.kitModificar.Marca=='') this.presentToast('Marca vacio');
+  //else if(this.kitModificar.Modelo=='') this.presentToast('Modelo vacio');
+  //else{
     this.kitService.updateKit(this.kitModificar).then(result => this.listar());
     this.template='null';
-  }
+  //}
   }
 
   eliminar(){

@@ -6,6 +6,8 @@ import {Usuario} from '../usuario/usuario.model';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 import {Url} from '../../url';
+import {HttpRequest} from '../../httprequest';
+
 
 
 
@@ -14,8 +16,11 @@ export class UsuarioAuthService {
     loggedIn: Boolean = false;
     local: Storage = new Storage(LocalStorage);
     url= new Url()
+    httprequest:HttpRequest;
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+      this.httprequest = new HttpRequest(http);
+     }
     logout() {
         this.local.remove('auth');
     }

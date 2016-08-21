@@ -9,11 +9,15 @@ import {Movimiento_Detalle} from '../inventario/movimiento_detalle.model';
 import {Ingreso} from '../inventario/ingreso.model';
 import {Salida} from '../inventario/salida.model';
 import {ITEM} from '../item/item.model';
+import { Http, Headers } from '@angular/http';
+import {PersonaService} from '../persona/persona.service';
+import {ItemService } from '../item/item.service';
 
 
 @Component({
   templateUrl: 'build/pages/inventario/inventario.html',
   directives: [MaterializeDirective],
+  providers: [PersonaService, ItemService],
 })
 
 
@@ -23,10 +27,7 @@ export class InventarioPage implements OnInit{
     tiposMovimientoIngreso: Tipo_Movimiento = {id:1, nombre: 'ingreso'};
     tiposMovimientoSalida: Tipo_Movimiento = {id:3, nombre: 'salida'};
 
-    items: ITEM[]=[/*
-      {id: 1,  Codigo: '1234567890',  Nombre: 'resistencia',  Marca: 'Marca 1',  Modelo: 'Modelo 1',  Descripcion: 'Resistencia100 ', Stock:150, Is_dispositivo: false, Is_kit: false, Images:'', Items:''},
-      {id: 2,  Codigo: '1234456891',  Nombre: 'capacitor',  Marca: 'Marca 2',  Modelo: 'Modelo 2',  Descripcion: 'Capacitor100 ',   Stock:200, Is_dispositivo: false, Is_kit: false, Images:'', Items:''},
-      {id: 3,  Codigo: '0956787892',  Nombre: 'ítem',  Marca: 'Marca 3',  Modelo: 'Modelo 3',  Descripcion: 'Resistencia50 ',  Stock:800, Is_dispositivo: false, Is_kit: false, Images:'', Items:'' }*/];
+    items: ITEM[]=[];
 
     movimientodetalle1: Movimiento_Detalle[] = [{id:1, cantidad:2, Is_DetalleKit: false, item: this.items[0]},
       {id:2, cantidad:10, Is_DetalleKit: false, item:  this.items[1]},
@@ -39,18 +40,16 @@ export class InventarioPage implements OnInit{
       {id:3, cantidad:5, Is_DetalleKit: false, item:  this.items[2]}];
 
     movimientos: Movimiento[] = [{id: 1,  fecha: '17/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compra de items', movimiento_detalle: this.movimientodetalle1},
-      {id: 2,  fecha: '18/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compras de junio', movimiento_detalle: this.movimientodetalle2},
-      {id: 3,  fecha: '19/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compras', movimiento_detalle: this.movimientodetalle3},
-      {id: 4,  fecha: '20/07/2016', tipo_movimiento: this.tiposMovimientoSalida, observaciones: 'Baja', movimiento_detalle: this.movimientodetalle4}];
-/*
-    Proveedor1: Persona = {url: '1',  CI:'0912345678', Nombre: 'Adriano',  Apellido: 'Pinargote',  Email: 'a@prueba.com', Telefono: '0959605816', Genero: 'Masculino'};
-    Proveedor2: Persona = {url: '2',  CI:'0965321094',  Nombre: 'Janina', Apellido: 'Costa',  Email: 'j@prueba.com', Telefono: '04-6025888', Genero: 'Femenino'};
-    Proveedores: Persona[]=[{url: '1',  CI:'0912345678', Nombre: 'Adriano',  Apellido: 'Pinargote',  Email: 'a@prueba.com', Telefono: '0959605816', Genero: 'Masculino'},
-      {url: '2',  CI:'0965321094',  Nombre: 'Janina', Apellido: 'Costa',  Email: 'j@prueba.com', Telefono: '04-6025888', Genero: 'Femenino'}];
+      {id: 2,  fecha: '18/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compras de junio', movimiento_detalle: this.movimientodetalle1},
+      {id: 3,  fecha: '19/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compras', movimiento_detalle: this.movimientodetalle1},
+      {id: 4,  fecha: '20/07/2016', tipo_movimiento: this.tiposMovimientoSalida, observaciones: 'Baja', movimiento_detalle: this.movimientodetalle1}];
 
-    ingresos: Ingreso[] = [{id: 1, Acta_entrega: '2016-000123', movimiento: this.movimientos[0], proveedor: this.Proveedor1},
-      {id: 2, Acta_entrega: '2016-000124', movimiento: this.movimientos[1], proveedor: this.Proveedor2},
-      {id: 3, Acta_entrega: '2016-000125', movimiento: this.movimientos[2], proveedor: this.Proveedor1}];
+
+    Proveedores: Persona[]=[];
+
+    ingresos: Ingreso[] = [{id: 1, Acta_entrega: '2016-000123', movimiento: this.movimientos[0], proveedor: this.Proveedores[0]},
+      {id: 2, Acta_entrega: '2016-000124', movimiento: this.movimientos[1], proveedor: this.Proveedores[0]},
+      {id: 3, Acta_entrega: '2016-000125', movimiento: this.movimientos[2], proveedor: this.Proveedores[0]}];
 
     salidas: Salida[] = [{id:1, No_Acta_Salida:'2016-S00051', movimiento: this.movimientos[3], Motivo_salida: 'Baja contable'}];
 
@@ -81,8 +80,31 @@ export class InventarioPage implements OnInit{
     tiposBusquedas = ['Ingreso', 'Salida'];
     busqueda={tipoB: 'código', valor: ''};
 
-    constructor( private navController:NavController,private menu: MenuController){
+    constructor( private navController:NavController,private menu: MenuController,
+      private personaService: PersonaService, private itemService: ItemService,
+      private http: Http){
         //this.inventarioTemporal=this.inventarios;
+        this.listarProveedores();
+        this.listarItems();
+    }
+
+    listarProveedores() {
+      //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
+        this.personaService.getPersonas().then(personas => { this.Proveedores = personas; return personas }).then(personas => {
+        })
+        return this.Proveedores
+    }
+
+    listarItems() {
+      //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
+      this.items =[]
+        /*this.itemService.getElementos().then(items => { this.items = items; return items }).then(result=>{
+          this.itemService.getDispositivos().then(items => {
+            for(var item of items){
+              this.items.push(item)
+            }
+          })
+        })*/
     }
 
     openMenu(){
@@ -255,7 +277,7 @@ export class InventarioPage implements OnInit{
       this.listaFiltradaItem=[];
       //this.itemSeleccionado = item;
     }
-*/
+
     //retrasa la carga de la pagina 100 ms
     public ngOnInit() {
       window.setTimeout(()=>{

@@ -7,8 +7,7 @@ export class Url {
   prestamo ='api/prestamos/';
   elemento ='api/elementos/';
   dispositivo = 'api/dispositivos/';
-  kit = 'api/kits/';
-  kitelemento='api/kitelemento'
+  kit ='api/kits/';
   token = 'api-token-auth/';
   verifyToken= 'api-token-verify/';
   tiposUsuarios = 'api/grupos/';

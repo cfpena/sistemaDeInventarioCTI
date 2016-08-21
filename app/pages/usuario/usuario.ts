@@ -6,6 +6,7 @@ import {Validator} from "validator.ts/Validator";
 import { Http, Headers } from '@angular/http';
 import {UsuarioService} from './usuario.service';
 import {Url} from '../../url';
+import {Load} from '../../loading';
 
 
 
@@ -20,6 +21,7 @@ export class UsuarioPage implements OnInit {
     title: string = 'Usuarios';
     usuarios: Usuario[];
     template: string = 'null';
+    
     //usuario temporal para mantener los datos para modificar
     @Input()
     usuarioModificar= new Usuario;

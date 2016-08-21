@@ -3,7 +3,6 @@ import {Validator} from "validator.ts/Validator";
 import {Contains, IsInt, IsLength, IsEmail, IsAlpha} from "validator.ts/decorator/Validation";
 
 export class Kit {
-  id:number
   url: number;
   Codigo: string;
   CodigoEspol: string;
