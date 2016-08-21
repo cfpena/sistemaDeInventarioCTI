@@ -16,43 +16,43 @@ Ionic pages and navigation.
   <div *ngIf="template=='null'">
     <!--Búsqueda por codigo o nombre
     <div class="row">
-      <div class="col l1 m2 s4 offset-l9 offset-m7 " >
-        <div class="input-field">
-          <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipoB">
-            <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="col l2 m3 s8">
-        <div class="input-field">
-          <input (keyup)="buscar()" type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
-          <label class="black-text active" for="identificacion">Búsqueda</label>
-        </div>
-      </div>
-    </div>-->
-    <!--Tabla de inventario-->
-    <table  materialize class="centered table centered striped" style="font-size: 15px">
-      <thead>
-        <tr>
-          <th data-field="id">ID</th>
-          <th data-field="fecha">Fecha</th>
-          <th data-field="tipo">Tipo</th>
-          <th data-field="descripcion">Descripción</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor = "let movimiento of movimientos">
-          <td >{{movimiento.id}}</td>
-          <td >{{movimiento.fecha}}</td>
-          <td>{{movimiento.tipo_movimiento.nombre}}</td>
-          <td>{{movimiento.observaciones}}</td>
-          <td>
-            <a (click)="goVerMovimiento(movimiento.id)" class="button-collapse "><i class="material-icons left">description</i></a>
-          </td>
-        </tr>
-    </table>
-  </div>
+    <div class="col l1 m2 s4 offset-l9 offset-m7 " >
+    <div class="input-field">
+    <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipoB">
+    <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
+  </select>
+</div>
+</div>
+<div class="col l2 m3 s8">
+<div class="input-field">
+<input (keyup)="buscar()" type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
+<label class="black-text active" for="identificacion">Búsqueda</label>
+</div>
+</div>
+</div>-->
+<!--Tabla de inventario-->
+<table  materialize class="centered table centered striped" style="font-size: 15px">
+  <thead>
+    <tr>
+      <th data-field="id">ID</th>
+      <th data-field="fecha">Fecha</th>
+      <th data-field="tipo">Tipo</th>
+      <th data-field="descripcion">Descripción</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor = "let movimiento of movimientos">
+      <td >{{movimiento.id}}</td>
+      <td >{{movimiento.fecha}}</td>
+      <td>{{movimiento.tipo_movimiento.nombre}}</td>
+      <td>{{movimiento.observaciones}}</td>
+      <td>
+        <a (click)="goVerMovimiento(movimiento.id)" class="button-collapse "><i class="material-icons left">description</i></a>
+      </td>
+    </tr>
+  </table>
+</div>
 </ion-content>
 
 
@@ -66,13 +66,17 @@ Ionic pages and navigation.
   </div>
 </div>
 
+
+
+
 <!--layout de ingreso de movimiento a inventario-->
 <div *ngIf="template=='ingresar_movimiento'" style="overflow: scroll;">
   <div id="ingreso_movimiento" class="section" >
-    <div class="container" style="padding-bottom: 60px">
+    <div >
+      <!--primer panel-->
       <div class="row">
-        <div class="card-panel hoverable card-action white">
-          <div class="card-content black-text">
+        <div class="col l6 m6 s12">
+          <div class="card-panel blue-grey lighten-5 ">
             <span class="card-title">Movimiento de Inventario</span>
             <p class="center">
               <input class="with-gap" name="group1" type="radio" id="test1" checked="checked" (click)="goIngreso()"/>
@@ -80,10 +84,10 @@ Ionic pages and navigation.
               <input class="with-gap" name="group1" type="radio" id="test2" (click)="goSalida()" />
               <label for="test2">Salida</label>
             </p>
-            <div style="padding-top: 15px"></div>
+            <!--<div style="padding-top: 7px"></div>-->
             <!--Cabecera de movimiento-->
             <div class="row" >
-              <div class="col s12 m6 l6" *ngIf="templateMovimiento=='ingreso_inventario'">
+              <div class="col s12 m12 l12" *ngIf="templateMovimiento=='ingreso_inventario'">
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
                   <input  (keyup)="buscarProveedor()" type="text" id="identificacion"  [(ngModel)]="idProveedor" type="text" class="validate" minlength="10" maxlength="10"  >
@@ -101,7 +105,7 @@ Ionic pages and navigation.
                 </div>
               </div>
 
-              <div class="col s12 m6 l6" *ngIf="templateMovimiento=='salida_inventario'">
+              <div class="col s12 m12 l12" *ngIf="templateMovimiento=='salida_inventario'">
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
                   <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"  [(ngModel)]="salidaNuevo.Motivo_salida" >
@@ -114,7 +118,7 @@ Ionic pages and navigation.
                 </div>
               </div>
 
-              <div class="col s12 m6 l6" >
+              <div class="col s12 m12 l12" >
                 <div class="input-field">
                   <i class="material-icons prefix">label_outline</i>
                   <input  type="date" id="fecha"  [(ngModel)]="movimientoNuevo.fecha" class="datepicker"  style="padding-top: 16px" >
@@ -126,45 +130,55 @@ Ionic pages and navigation.
                   <input id="icon_codigo" type="text" class="validate" minlength="1" maxlength="250"   [(ngModel)]="movimientoNuevo.observaciones" >
                   <label for="icon_codigo" class="active">Descripción</label>
                 </div>
+                <div class="divider"></div>
+                <div class="input-field col s12 m6 l6">
+                  <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
+                  <label for="itemLista">Buscar item/kit</label>
+                </div>
+                <div class="input-field col s6 m2 l2">
+                  <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=itemNuevo.Stock disabled="true">
+                  <label for="itemLista" class="active">Stock</label>
+                </div>
+                <div class="input-field col s6 m2 l2" >
+                  <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
+                  <label for="itemLista" class="active">Cantidad</label>
+                </div>
+                <div class="input-field col s6 m2 l2" >
+                  <a class="btn-floating btn-small waves-effect waves-light green right">
+                    <i class="material-icons">add</i>
+                  </a>
+                </div>
+                <div class="suggestions col s12 m6 l6" ><!--*ngIf="listaFiltradaItem.length > 0"-->
+                  <ul *ngFor="let item of listaFiltradaItem" >
+                    <li >
+                      <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}}</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div>
-              <div class="input-field col s12 m6 l6">
-                <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
-                <label for="itemLista">Item/Kit</label>
-              </div>
-              <div class="input-field col s6 m3 l3">
-                <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=itemNuevo.Stock disabled="true">
-                <label for="itemLista" class="active">Stock</label>
-              </div>
-              <div class="input-field col s6 m3 l3" *ngIf="templateItem=='Elemento'">
-                <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
-                <label for="itemLista" class="active">Cantidad</label>
-              </div>
-              <div class="input-field col s6 m3 l3" *ngIf="templateItem=='Dispositivo'">
-                <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" disabled="true" >
-                <label for="itemLista" class="active">Cantidad</label>
-              </div>
-              <div class="input-field col s6 m3 l3" *ngIf="templateItem=='Dispositivo'" >
-                <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=serie >
-                <label for="itemLista" class="active">Serie/MAC</label>
-              </div>
-              <div class="suggestions col s12 m6 l6" ><!--*ngIf="listaFiltradaItem.length > 0"-->
-                <ul *ngFor="let item of listaFiltradaItem" >
-                    <li >
-                        <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}}</a>
-                    </li>
-                </ul>
+          </div>
+        </div>
+        <!--segundo panel-->
+        <div class="col l6 m6 s12  ">
+          <div class="card-panel blue-grey lighten-5 ">
+            <span class="card-title">Detalle del movimiento</span>
+            <div style="padding-top: 7%;"></div>
+            <div >
+              <div class="card-content grey-text" style="font-size: 15px">
+                <div><a class="btn-floating btn-small waves-effect waves-light red right">
+                  <i class="material-icons">clear</i>
+                </a></div>
+                <li >Resistencia 100 </li>
               </div>
             </div>
           </div>
           <div class="card-action">
-            <a  (click)="cancelar()" class="btn waves-effect waves-light center"  style="font-size: 17px">Aceptar
+            <a (click)="cancelar()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
               <i class="material-icons right">send</i>
             </a>
           </div>
         </div>
-        <!--</form>-->
       </div>
     </div>
   </div>
