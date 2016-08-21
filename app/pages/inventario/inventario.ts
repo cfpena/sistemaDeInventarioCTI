@@ -29,15 +29,15 @@ export class InventarioPage implements OnInit{
 
     items: ITEM[]=[];
 
-    movimientodetalle1: Movimiento_Detalle[] = [{id:1, cantidad:2, Is_DetalleKit: false, item: this.items[0]},
-      {id:2, cantidad:10, Is_DetalleKit: false, item:  this.items[1]},
-      {id:3, cantidad:5, Is_DetalleKit: false, item:  this.items[2]}];
-    movimientodetalle2: Movimiento_Detalle[] = [{id:1, cantidad:5, Is_DetalleKit: false, item: this.items[0]},
-      {id:2, cantidad:8, Is_DetalleKit: false, item:  this.items[2]}];
-    movimientodetalle3: Movimiento_Detalle[] = [{id:1, cantidad:10, Is_DetalleKit: false, item: this.items[0]}];
-    movimientodetalle4: Movimiento_Detalle[] = [{id:1, cantidad:12, Is_DetalleKit: false, item: this.items[0]},
-      {id:2, cantidad:10, Is_DetalleKit: false, item:  this.items[1]},
-      {id:3, cantidad:5, Is_DetalleKit: false, item:  this.items[2]}];
+    movimientodetalle1: Movimiento_Detalle[] = [{id:1, cantidad:2, Is_DetalleKit: false, item: this.items[0],serie:''},
+      {id:2, cantidad:10,Is_DetalleKit: false, item:  this.items[1], serie:''},
+      {id:3, cantidad:5, Is_DetalleKit: false, item:  this.items[2], serie:''}];
+    movimientodetalle2: Movimiento_Detalle[] = [{id:1, cantidad:5, Is_DetalleKit: false, item: this.items[0], serie:''},
+      {id:2, cantidad:8, Is_DetalleKit: false, item:  this.items[2], serie:''}];
+    movimientodetalle3: Movimiento_Detalle[] = [{id:1, cantidad:10, Is_DetalleKit: false, item: this.items[0], serie:''}];
+    movimientodetalle4: Movimiento_Detalle[] = [{id:1, cantidad:12, Is_DetalleKit: false, item: this.items[0], serie:''},
+      {id:2, cantidad:10, Is_DetalleKit: false, item:  this.items[1], serie:''},
+      {id:3, cantidad:5, Is_DetalleKit: false, item:  this.items[2], serie:''}];
 
     movimientos: Movimiento[] = [{id: 1,  fecha: '17/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compra de items', movimiento_detalle: this.movimientodetalle1},
       {id: 2,  fecha: '18/07/2016', tipo_movimiento: this.tiposMovimientoIngreso, observaciones: 'Compras de junio', movimiento_detalle: this.movimientodetalle1},
@@ -56,11 +56,14 @@ export class InventarioPage implements OnInit{
 
     template: string = 'null';
     templateMovimiento: string ='ingreso_inventario'
+    templateItem: string='null';
     idProveedor: string ='';
     nombreProveedor: string ='NO EXISTE EL PROVEEDOR';
     descripcionItem: string =''
     listaFiltradaItem: ITEM[];
+    listaMovimientoDet: Movimiento_Detalle[]=[];
     cantidad=0;
+    serie: string='';
 
     @Input() ingresoNuevo = new Ingreso();
     @Input() salidaNuevo = new Salida();
@@ -79,13 +82,14 @@ export class InventarioPage implements OnInit{
     //estados = ['Elija un estado...','disponible','no disponible'];
     tiposBusquedas = ['Ingreso', 'Salida'];
     busqueda={tipoB: 'código', valor: ''};
+    itemSeleccionado: boolean = false;
 
     constructor( private navController:NavController,private menu: MenuController,
       private personaService: PersonaService, private itemService: ItemService,
       private http: Http){
         //this.inventarioTemporal=this.inventarios;
-        this.listarProveedores();
-        this.listarItems();
+        //this.listarProveedores();
+        //this.listarItems();
     }
 
     listarProveedores() {
@@ -97,14 +101,14 @@ export class InventarioPage implements OnInit{
 
     listarItems() {
       //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
-      this.items =[]
-        /*this.itemService.getElementos().then(items => { this.items = items; return items }).then(result=>{
-          this.itemService.getDispositivos().then(items => {
+        this.itemService.getElementos(this.navController).then(items => { this.items = items; return items }).then(result=>{
+          this.itemService.getDispositivos(this.navController).then(items => {
             for(var item of items){
               this.items.push(item)
             }
           })
-        })*/
+        })
+        return this.items
     }
 
     openMenu(){
@@ -223,6 +227,7 @@ export class InventarioPage implements OnInit{
     }
 
     buscarProveedor(){
+      this.listarProveedores();
       console.log(this.idProveedor);
       //this.proveedorNuevo = JSON.parse(JSON.stringify(this.Proveedores.find(persona => persona.CI == this.idProveedor)));
       let proveedorActual: Persona[];
@@ -248,11 +253,14 @@ export class InventarioPage implements OnInit{
     }
 
     buscarItem(){
+      console.log('buscar item');
+      this.listarItems();
       let itemsFiltro: ITEM[];
       let busquedaItem = this.descripcionItem;
       let elementoEncontrado: string;
 
       if (busquedaItem!==''){
+        console.log('buscar item1');
         itemsFiltro = this.items.filter(function (item){
           console.log(busquedaItem);
           if (item.Codigo.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0 ||  item.Nombre.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0){
@@ -275,7 +283,35 @@ export class InventarioPage implements OnInit{
       console.log(this.itemNuevo);
       this.descripcionItem = this.itemNuevo.Codigo +' - '+ this.itemNuevo.Nombre;
       this.listaFiltradaItem=[];
+      if (item.Es_Dispositivo){
+        this.templateItem='Dispositivo';
+        this.cantidad=1;
+      }else{
+        this.templateItem='Elemento';
+      }
+      this.itemSeleccionado =true;
       //this.itemSeleccionado = item;
+    }
+
+    agregarItem(){
+      console.log('voy a agregar item');
+      if (this.itemSeleccionado){
+        console.log('si existe item seleccionado');
+        if (this.itemNuevo.Es_Dispositivo){
+          console.log('es dispositivo');
+          for(var _i = 0; _i < this.cantidad; _i++){
+            this.listaMovimientoDet.push({id:0, cantidad: 1, Is_DetalleKit: false, item: this.itemNuevo, serie:''});
+          }
+        }else{
+          console.log('es elemento');
+          this.listaMovimientoDet.push({id:0, cantidad: this.cantidad, Is_DetalleKit: false, item: this.itemNuevo, serie:''});
+        }
+        console.log('les agregue infor al mov det');
+        this.movimientoNuevo.movimiento_detalle=this.listaMovimientoDet;
+        this.itemNuevo = new ITEM();
+        this.cantidad=0;
+        this.itemSeleccionado = false;
+      }
     }
 
     //retrasa la carga de la pagina 100 ms
