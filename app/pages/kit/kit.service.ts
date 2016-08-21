@@ -143,13 +143,14 @@ export class KitService {
 
 
     updateKit(kit: Kit) {
-      let Url = this.url.base + this.url.kit + kit.id.toString() + '/';
+
       console.log(Url)
       let headers = new Headers({ "Content-Type": "application/json" });
       headers.append('Accept','application/json');
         return this.usuarioAuthService.getToken().then(token => {
             headers.append('Authorization', 'JWT ' + token);
-            return this.http.patch(Url, JSON.stringify(kit),{ headers: headers }).toPromise();
+            return this.http.patch(String(kit.url), JSON.stringify({
+            Nombre: kit.Nombre,Descripcion: kit.Descripcion, Marca: kit.Marca, Modelo: kit.Modelo}),{ headers: headers }).toPromise();
 
         }).then(result => {return result});
 
