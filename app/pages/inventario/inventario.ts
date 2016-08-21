@@ -56,11 +56,13 @@ export class InventarioPage implements OnInit{
 
     template: string = 'null';
     templateMovimiento: string ='ingreso_inventario'
+    templateItem: string='null';
     idProveedor: string ='';
     nombreProveedor: string ='NO EXISTE EL PROVEEDOR';
     descripcionItem: string =''
     listaFiltradaItem: ITEM[];
     cantidad=0;
+    serie: string='';
 
     @Input() ingresoNuevo = new Ingreso();
     @Input() salidaNuevo = new Salida();
@@ -84,8 +86,8 @@ export class InventarioPage implements OnInit{
       private personaService: PersonaService, private itemService: ItemService,
       private http: Http){
         //this.inventarioTemporal=this.inventarios;
-        this.listarProveedores();
-        this.listarItems();
+        //this.listarProveedores();
+        //this.listarItems();
     }
 
     listarProveedores() {
@@ -97,14 +99,14 @@ export class InventarioPage implements OnInit{
 
     listarItems() {
       //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
-      this.items =[]
-        /*this.itemService.getElementos().then(items => { this.items = items; return items }).then(result=>{
-          this.itemService.getDispositivos().then(items => {
+        this.itemService.getElementos(this.navController).then(items => { this.items = items; return items }).then(result=>{
+          this.itemService.getDispositivos(this.navController).then(items => {
             for(var item of items){
               this.items.push(item)
             }
           })
-        })*/
+        })
+        return this.items
     }
 
     openMenu(){
@@ -223,6 +225,7 @@ export class InventarioPage implements OnInit{
     }
 
     buscarProveedor(){
+      this.listarProveedores();
       console.log(this.idProveedor);
       //this.proveedorNuevo = JSON.parse(JSON.stringify(this.Proveedores.find(persona => persona.CI == this.idProveedor)));
       let proveedorActual: Persona[];
@@ -248,11 +251,14 @@ export class InventarioPage implements OnInit{
     }
 
     buscarItem(){
+      console.log('buscar item');
+      this.listarItems();
       let itemsFiltro: ITEM[];
       let busquedaItem = this.descripcionItem;
       let elementoEncontrado: string;
 
       if (busquedaItem!==''){
+        console.log('buscar item1');
         itemsFiltro = this.items.filter(function (item){
           console.log(busquedaItem);
           if (item.Codigo.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0 ||  item.Nombre.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0){
@@ -275,6 +281,13 @@ export class InventarioPage implements OnInit{
       console.log(this.itemNuevo);
       this.descripcionItem = this.itemNuevo.Codigo +' - '+ this.itemNuevo.Nombre;
       this.listaFiltradaItem=[];
+      if (item.Es_Dispositivo){
+        this.templateItem='Dispositivo';
+        this.cantidad=1;
+      }else{
+        this.templateItem='Elemento';
+      }
+
       //this.itemSeleccionado = item;
     }
 

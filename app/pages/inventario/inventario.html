@@ -137,9 +137,17 @@ Ionic pages and navigation.
                 <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=itemNuevo.Stock disabled="true">
                 <label for="itemLista" class="active">Stock</label>
               </div>
-              <div class="input-field col s6 m3 l3">
-                <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*">
+              <div class="input-field col s6 m3 l3" *ngIf="templateItem=='Elemento'">
+                <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
                 <label for="itemLista" class="active">Cantidad</label>
+              </div>
+              <div class="input-field col s6 m3 l3" *ngIf="templateItem=='Dispositivo'">
+                <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" disabled="true" >
+                <label for="itemLista" class="active">Cantidad</label>
+              </div>
+              <div class="input-field col s6 m3 l3" *ngIf="templateItem=='Dispositivo'" >
+                <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=serie >
+                <label for="itemLista" class="active">Serie/MAC</label>
               </div>
               <div class="suggestions col s12 m6 l6" ><!--*ngIf="listaFiltradaItem.length > 0"-->
                 <ul *ngFor="let item of listaFiltradaItem" >
