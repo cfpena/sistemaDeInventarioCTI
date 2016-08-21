@@ -12,11 +12,13 @@ export class Kit {
   Marca: string;
   Modelo: string;
   Descripcion: string;
-  Stock: number;
-  Stock_Disponible: number;
   Is_kit: boolean;
   //Imagen: any;
   Items: any;
+  Elementos: ITEM;
+  Dispositivos: ITEM;
+  
+
 
 constructor() {
   this.Codigo='';
@@ -29,6 +31,6 @@ constructor() {
   //this.Stock;
   this.Is_kit=true;
   this.Items;
-  this.Stock_Disponible;
+  this.Dispositivos;
 }
 }

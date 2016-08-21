@@ -7,17 +7,19 @@ import {Kit} from '../kit/kit.model';
 import {Url} from '../../url'
 import {Http, Headers} from '@angular/http';
 import {KitService} from './kit.service';
+import {ItemService} from '../item/item.service';
 
 @Component({
   templateUrl: 'build/pages/kit/kit.html',
   directives: [MaterializeDirective],
-  providers: [KitService],
+  providers: [KitService,ItemService],
 })
 export class KitPage implements OnInit{
 
 title: string ='Kits';
 template: string = 'null';
 kits: Array<Kit>=[]
+items: Array<ITEM>=[]
 kitsTemporal: Kit[] = [];
 kitsEliminar: Kit[] = [];
 count=10;
@@ -26,8 +28,7 @@ selected: number[]=[];
 tiposBusquedas = ['código', 'nombre'];
 busqueda={tipo: 'código', valor: ''};
 itemsBusquedas = ['código', 'nombre'];
-busquedaItem={tipo: 'código', valor: ''};
-
+busquedaItem={valor: ''};
 @Input()
 kitNuevo = new Kit();
 @Input()
@@ -35,6 +36,7 @@ kitModificar= new Kit;
 
   constructor(private navController:NavController,private menu: MenuController,
     private kitService: KitService,
+    private itemService: ItemService,
     private http: Http) {
     this.kitsTemporal=this.kits;
   }
@@ -55,11 +57,8 @@ kitModificar= new Kit;
     this.navController.present(toast);
   }
 
-
     //funcion listar que lista todos los kits creados
-
     listar() {
-      console.log("listando");
       this.kits =[]
         this.kitService.getKits().then(kits => { this.kits = kits; return kits }).then(result=>{
           console.log("listando2");
@@ -68,7 +67,6 @@ kitModificar= new Kit;
     }
 
   //crea un kit
-
   crear() {
       let validator = new Validator();
       if (!validator.isValid(this.kitNuevo)) this.presentToast('Corrija el formulario');
@@ -147,13 +145,35 @@ kitModificar= new Kit;
     return this.kits
   }
 
-  buscarItem(){
-    if(this.busqueda.valor.trim() != ""){
-    this.kitService.getBuscarItem(this.busqueda.valor).then(kits => { this.kits = kits; return kits }).then(kits => {
-    })}
-    else{this.listar()}
-    return this.kits
+  listarItems() {
+    this.items =[]
+      this.itemService.getElementos().then(items => { this.items = items; return items }).then(result=>{
+        this.itemService.getDispositivos().then(items => {
+          for(var item of items){
+            this.items.push(item)
+          }
+        })
+      })
   }
+
+  buscarItem(){
+    if (this.busquedaItem.valor.trim() != "") {
+        this.itemService.getBuscarElemento(this.busquedaItem.valor).then(items => { this.items = items; return items }).then(items => {
+        this.itemService.getBuscarDispositivo(this.busquedaItem.valor).then(items => {
+            for(var item of items){
+              this.items.push(item)
+            }
+          })
+        })
+    }
+    else {}
+  }
+
+  agregarItem(item: ITEM){
+
+
+  }
+
 
    removeItem(kit: Kit) {
     var index = this.kits.indexOf(kit);
