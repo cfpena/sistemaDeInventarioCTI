@@ -4,6 +4,7 @@ import {ITEM} from '../item/item.model';
 import {MaterializeDirective} from "../../materialize-directive";
 import {Validator} from "validator.ts/Validator";
 import {Kit} from '../kit/kit.model';
+import {KITELEMENTO} from '../kit/kitelemento.model';
 import {Url} from '../../url'
 import {Http, Headers} from '@angular/http';
 import {KitService} from './kit.service';
@@ -26,14 +27,22 @@ id=0;
 selected: number[]=[];
 tiposBusquedas = ['código', 'nombre'];
 busqueda={tipo: 'código', valor: ''};
-
+descripcionItem: string ='';
 itemsBusquedas = ['código', 'nombre'];
 busquedaItem={valor: ''};
 itemsKits: ITEM[] = [];
+templateItem: string='null';
+cantidad=0;
+itemSeleccionado: boolean = false;
+listaFiltradaItem: ITEM[];
+listakitelementos: KITELEMENTO[]=[];
+
 @Input()
 kitNuevo = new Kit();
 @Input()
 kitModificar= new Kit;
+
+@Input() itemNuevo = new ITEM();
 
   constructor(private navController:NavController,private menu: MenuController,
     private kitService: KitService,
@@ -84,9 +93,7 @@ kitModificar= new Kit;
 
   }
 
- agregarItem(item: ITEM){
 
-}
   //abre el html de modificar
   goModificar(kit: Kit) {
           this.kitModificar=JSON.parse(JSON.stringify(kit))
@@ -147,7 +154,7 @@ kitModificar= new Kit;
       }
       else { this.listar() }
   }
-
+/*
   buscarItem() {
       if (this.busquedaItem.valor.trim()!= "") {
           this.itemService.getBuscarElemento(this.busquedaItem.valor,this.navController).then(items => { this.items = items; return items }).then(items => {
@@ -161,6 +168,81 @@ kitModificar= new Kit;
       }
       else {console.log("vacio")}
   }
+*/
+listarItems() {
+  //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
+    this.itemService.getElementos(this.navController).then(items => { this.items = items; return items }).then(result=>{
+      this.itemService.getDispositivos(this.navController).then(items => {
+        for(var item of items){
+          this.items.push(item)
+        }
+      })
+    })
+    return this.items
+}
+
+buscarItem(){
+  console.log('buscar item');
+  this.listarItems();
+  let itemsFiltro: ITEM[];
+  let busquedaItem = this.descripcionItem;
+  let elementoEncontrado: string;
+
+  if (busquedaItem!==''){
+    console.log('buscar item1');
+    itemsFiltro = this.items.filter(function (item){
+      console.log(busquedaItem);
+      if (item.Codigo.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0 ||  item.Nombre.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0){
+        elementoEncontrado= item.Codigo+" - "+item.Nombre;
+        console.log(elementoEncontrado);
+        return true;
+      }
+      return false;
+    }.bind(this));
+    this.listaFiltradaItem = itemsFiltro;
+  }else{
+    this.listaFiltradaItem =[];
+  }
+}
+  seleccionarItem(item: ITEM){
+    console.log(item);
+
+    this.itemNuevo=JSON.parse(JSON.stringify(item));
+    console.log(this.itemNuevo);
+    this.descripcionItem = this.itemNuevo.Codigo +' - '+ this.itemNuevo.Nombre;
+    this.listaFiltradaItem=[];
+    if (item.Es_Dispositivo){
+      this.templateItem='Dispositivo';
+      this.cantidad=1;
+    }else{
+      this.templateItem='Elemento';
+    }
+    this.itemSeleccionado =true;
+    //this.itemSeleccionado = item;
+  }
+
+  agregarItem(){
+    console.log('voy a agregar item');
+    if (this.itemSeleccionado){
+      console.log('si existe item seleccionado');
+      if (this.itemNuevo.Es_Dispositivo){
+        console.log('es dispositivo');
+        for(var _i = 0; _i < this.cantidad; _i++){
+          this.listakitelementos.push({id:0, cantidad: 1, Is_Dispositivo: true, item: this.itemNuevo,kit: this.kitNuevo});
+        }
+      }else{
+        console.log('es elemento');
+        this.listakitelementos.push({id:0, cantidad: this.cantidad, Is_Dispositivo: false, item: this.itemNuevo,kit: this.kitNuevo});
+      }
+      console.log('ingreso de item al kit');
+      this.itemNuevo = new ITEM();
+      this.cantidad=0;
+      this.itemSeleccionado = false;
+    }
+  }
+
+
+
 
     //retrasa la carga de la pagina 100 ms
     public ngOnInit() {
