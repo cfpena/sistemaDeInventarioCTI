@@ -8,6 +8,7 @@ import {PersonaService} from './persona.service';
 import {Url} from '../../url';
 
 
+
 @Component({
   templateUrl: 'build/pages/persona/persona.html',
   directives: [MaterializeDirective],

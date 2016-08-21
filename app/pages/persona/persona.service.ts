@@ -3,13 +3,17 @@ import { Http, Headers, Response } from '@angular/http';
 import { Persona } from './persona.model';
 import {Url} from '../../url';
 import {UsuarioAuthService} from '../usuario/usuario.auth.service';
+import {HttpRequest} from '../../httprequest';
+import {NavController} from 'ionic-angular';
 
 @Injectable()
 export class PersonaService {
     url = new Url();
+    httprequest:HttpRequest;
 
     constructor(private http: Http,
-        private usuarioAuthService: UsuarioAuthService) { }
+        private usuarioAuthService: UsuarioAuthService) {
+        this.httprequest = new HttpRequest(http);}
 
     getPersonas() {
       //HEADERS OBLIGATORIOS PARA EL REQUEST DEFINIDOS POR EL ESTANDAR

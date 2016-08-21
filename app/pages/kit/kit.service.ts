@@ -35,11 +35,9 @@ export class KitService {
         });
     }
 
-
     eliminarKit(kit: Kit, nav: NavController) {
             return this.httprequest.delete(String(kit.url),nav)
     }
-
 
     /*
     createKit(kit: Kit,nav: NavController) {

@@ -7,52 +7,55 @@
   </div>
 </nav>
 
-
 <ion-content>
-<div *ngIf="template=='null'">
-  <!--Búsqueda por codigo o nombre-->
-  <div class="row">
-    <div class="col l1 m2 s4 offset-l9 offset-m7 " >
-      <div class="input-field">
-        <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipo">
-          <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
-        </select>
+  <div *ngIf="template=='null'">
+    <!--Búsqueda por codigo o nombre-->
+    <div class="row">
+      <div class="col l1 m2 s4 offset-l9 offset-m7 " >
+        <div class="input-field">
+          <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipo">
+            <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col l2 m3 s8">
+        <div class="input-field">
+          <input  type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
+          <label class="black-text active" for="identificacion">Búsqueda</label>
+        </div>
       </div>
     </div>
-    <div class="col l2 m3 s8">
-      <div class="input-field">
-        <input (keyup)="buscar()" type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
-        <label class="black-text active" for="identificacion">Búsqueda</label>
-      </div>
-    </div>
+    <table materialize class="centered table centered striped" style="font-size: 15px">
+      <thead>
+        <tr>
+          <th data-field="Nombre">Nombre</th>
+          <!--  <th data-field="Ítem_Nombre">Ítem</th> -->
+          <th data-field="Cantidad">cantidad</th>
+          <th data-field="fecha_prestamo">fecha ini.</th>
+          <th data-field="fecha_devuelto">fecha fin.</th>
+          <th data-field="devuelto">devuelto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let prestamo of prestamos">
+          <td>
+            <!-- evento change y atributo por defecto checked false, se agrega como id el id de la persona
+            para luego saber que checkbox le pertenece a cada persona-->
+            <input (change)="select(prestamo)" id={{prestamo.url}} type="checkbox" class="filled-in"/>
+            <label attr.for="{{prestamo.url}}"></label>
+          </td>
+          <td>{{prestamo.Persona.Nombre}} {{prestamo.Persona.Apellido}}</td>
+          <td>{{prestamo.Cantidad}}</td>
+          <td>{{prestamo.Fecha}}</td>
+          <td>{{prestamo.Fecha_vencimiento}}</td>
+          <td>{{prestamo.Fecha_devolucion}}</td>
+          <td>
+            <a class="button-collapse"><i class="material-icons left">visibility</i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <table materialize class="centered table centered striped" style="font-size: 15px">
-    <thead>
-      <tr>
-        <th data-field="Nombre">Nombre</th>
-
-      <!--  <th data-field="Ítem_Nombre">Ítem</th> -->
-        <th data-field="Cantidad">cantidad</th>
-        <th data-field="fecha_prestamo">fecha ini.</th>
-        <th data-field="fecha_devuelto">fecha fin.</th>
-        <th data-field="devuelto">devuelto</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor = "let prestamo of prestamos">
-        <td>{{prestamo.Persona.Nombre}} {{prestamo.Persona.Apellido}}</td>
-      <!--  <td *ngFor ="let item of prestamo.items">{{item.Nombre}}</td> -->
-        <td>{{prestamo.Cantidad}}</td>
-        <td>{{prestamo.Fecha}}</td>
-        <td>{{prestamo.Fecha_vencimiento}}</td>
-        <td>{{prestamo.Fecha_devolucion}}</td>
-        <td>
-          <a class="button-collapse"><i class="material-icons left">visibility</i></a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 </ion-content>
 
 <!--Botones-->
@@ -67,139 +70,113 @@
     </ul>
   </div>
 </div>
-  <!--Layout de nuevo préstamo-->
-  <div *ngIf="template=='nuevo_prestamo'" style="overflow: scroll;" >
-    <!--nuevo prestamo-->
-    <div materialize id="nuevo_prestamo" class="section">
-      <div>
-        <div class="row">
-          <div class="col s12 m6 l4" style="position: relative; left:5%">
-            <div class="card blue-grey lighten-5 ">
-              <div class="card-panel teal lighten-2 black-text ">Persona</div>
-              <div class="card-content black-text">
-                <div class="row">
-                  <div class="col l12 m12 s12">
-                    <div class="input-field">
-                      <i class="material-icons prefix">account_box</i>
-                      <select materialize="material_select" [materializeSelectOptions]="selectOptions">
-                        <option *ngFor="let tiposIdentificacion of tiposIdentificaciones" [value]="tiposIdentificacion">{{tiposIdentificacion}}</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col l9 m9 s8">
-                    <div class="input-field">
-                      <i class="material-icons prefix">account_box</i>
-                      <input type="text" id="identificacion">
-                      <label class="black-text" for="identificacion" class="active">Identificación</label>
-                    </div>
-                  </div>
-                  <div class="col l3 m3 s3" style="padding-top: 22px">
-                    <a class="waves-effect waves-light btn"><i class="material-icons right ">search</i></a>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col l11 s11 m11 offset-l1 offset-m1 offset-s1">
-                    <label style="font-size: 12px" >nombre persona - existe</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row ">
-                <div materialize class="col s6 m4 l5 offset-l1 offset-m1">
-                  <div class="input-field">
-                    <label for="Fecha" class="active">desde</label>
-                    <input  id="today" type="date" class="datepicker" style="padding-top: 14px">
-<script>
-
-
-                    document.getElementById("today").valueAsDate = new Date()
-                    </script>
-                  </div>
-                </div>
-                <div materialize class="col s6 m4 l5 offset-m1 offset-l1">
-                  <div class="input-field">
-                    <label for="Fecha_vencimiento" class="active" >hasta</label>
-                    <input id="Fecha_vencimiento" type="date" class="datepicker" style="padding-top: 14px">
-                    <script>
-                    new Datepicker('.datepicker');
-                    </script>
-                  </div>
+<!--Layout de nuevo préstamo-->
+<div *ngIf="template=='nuevo_prestamo'" style="overflow: scroll;" >
+  <!--nuevo prestamo-->
+  <div materialize id="nuevo_prestamo" class="section">
+      <div class="row">
+        <div class="col s12 m6 l4" >
+          <div class="card-panel blue-grey lighten-5 ">
+            <span class="card-title">Persona</span>
+            <div style="padding-top: 7%;"></div>
+            <div class="row">
+              <div class="col l12 m12 s12">
+                <div class="input-field">
+                  <i class="material-icons prefix" style="color:#009688">account_box</i>
+                  <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+                    <option *ngFor="let tiposIdentificacion of tiposIdentificaciones" [value]="tiposIdentificacion">{{tiposIdentificacion}}</option>
+                  </select>
                 </div>
               </div>
             </div>
-
-          </div>
-
-          <!--Segundo panel para préstamos-->
-          <div class="col s12 l4 m6 " style="position: relative; left:5%">
-            <div class="card blue-grey lighten-5 "> <!--blue-grey darken-1-->
-              <div class="card-panel teal lighten-2">Préstamo</div>
-              <div class="card-content black-text">
-                <!--<span class="card-title">Préstamo</span>-->
-                <div class="row">
-                  <div class="col l12 m12 12 ">
-                    <div class="input-field">
-                      <i class="material-icons prefix">keyboard_arrow_right</i>
-                      <select materialize="material_select" [materializeSelectOptions]="selectOptions">
-                        <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda">{{tiposBusqueda}}</option>
-                      </select>
-                    </div>
-                  </div>
+            <div class="row">
+              <div class="col l12 m12 s12">
+                <div class="input-field">
+                  <i class="material-icons prefix" style="color:#009688">account_box</i>
+                  <input type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
+                  <label class="black-text" for="identificacion" class="active">Identificación</label>
                 </div>
-                <div class="row">
-                  <div class="col l9 m9 s8 ">
-                    <div class="input-field">
-                      <i class="material-icons prefix">keyboard_arrow_right</i>
-                      <input class="black-text"  id="busqueda" type="text">
-                      <label class="black-text" for="busqueda" class="active">Búsqueda</label>
-                    </div>
-                  </div>
-                  <div class="col l3 m3 s3" style="padding-top: 22px">
-                    <a class="waves-effect waves-light btn"><i class="material-icons right">search</i></a>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col l6 s11 m6 offset-l1 offset-m1 offset-s1">
-                    <label style="font-size: 15px">Kit Arduino disponible 10 unidades</label>
-                  </div>
-                  <div class="col l5 m5 s12">
-                    <div class="input-field">
-                      <input class="black-text"  id="cantidad" type="text">
-                      <label class="black-text" for="cantidad" class="active">Cantidad</label>
-                    </div>
-                  </div>
-                </div>
-
               </div>
-              <div class="card-action">
-                <a class="waves-effect waves-light btn ">Prestar</a>
+            </div>
+            <div class="row ">
+              <div materialize class="col s6 m4 l5 offset-l1 offset-m1">
+                <div class="input-field">
+                  <label for="Fecha" class="active">desde</label>
+                  <input  id="today" type="date" class="datepicker" style="padding-top: 14px">
+                  <script>
+                  document.getElementById("today").valueAsDate = new Date()
+                  </script>
+                </div>
+              </div>
+              <div materialize class="col s6 m4 l5 offset-m1 offset-l1">
+                <div class="input-field">
+                  <label for="Fecha_vencimiento" class="active" >hasta</label>
+                  <input id="Fecha_vencimiento" type="date" class="datepicker" style="padding-top: 14px">
+                  <script>
+                  new Datepicker('.datepicker');
+                  </script>
+                </div>
               </div>
             </div>
           </div>
-
-          <!--panel 3> Tabla de prestamos-->
-          <div class="col s12 m6 l3 " style="position: relative; left:5%">
-            <div class="card blue-grey lighten-5 "> <!--blue-grey darken-1-->
-              <div class="card-panel teal lighten-2">A Prestar</div>
-
-              <div class="card-content grey-text ">
-                <ul *ngFor = "let prestamo of prestamos">
-                  <li><a class="button-collapse "><i class="material-icons right" style="color:	#e57373">remove_circle</i></a></li>
-                  <li *ngFor ="let item of prestamo.items">{{item.Nombre}}</li>
+        </div>
+        <!--segundo panel-->
+        <div class="col s12 l4 m6 " >
+          <div class="card-panel blue-grey lighten-5 ">
+            <span class="card-title">Buscar Ítems</span>
+            <div style="padding-top: 7%;"></div>
+            <div class="input-field ">
+              <i class="material-icons prefix">search</i>
+              <input (keyup)="buscarItem()" id="icon_marca" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="busquedaItem.valor" >
+              <label for="icon_marca">Búsqueda</label>
+            </div>
+            <div *ngFor = "let item of items">
+              <div class="divider"></div>
+              <div class="row">
+                <ul>
+                  <div class="col l6 m7 s7" style="color:#424242; font-size: 65%">
+                    <li id="nombre">Nombre: {{item.Nombre}}</li>
+                    <li id="codigo">Código: {{item.Codigo}}</li>
+                    <li id="cantidad">Cant.: {{item.Stock}}</li>
+                  </div>
+                  <div class="col l3 m3 s3">
+                    <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center"></li>
+                  </div>
+                  <div class="col l2 m2 s2 offset-l1">
+                    <li> <a  class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons ">add</i> </a> </li>
+                  </div>
                 </ul>
               </div>
             </div>
           </div>
         </div>
+
+        <!--panel 3> Tabla de prestamos-->
+        <div class="col s12 m6 l4 ">
+          <div class="card-panel blue-grey lighten-5 ">
+            <span class="card-title">Items Prestados</span>
+            <div style="padding-top: 7%;"></div>
+            <div class="card-content grey-text ">
+              <ul *ngFor = "let prestamo of prestamos">
+                <li>  <a  class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons ">clear</i> </a></li>
+                <li *ngFor ="let item of prestamo.items">{{item.Nombre}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-action right">
+          <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
+            <i class="material-icons right">send</i>
+          </a>
+        </div>
       </div>
-    </div>
-    <!--boton para cancelar-->
-    <div *ngIf="template=='nuevo_prestamo'" class="section">
-      <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
-          <i class="material-icons">clear</i>
-        </a>
-      </div>
+  </div>
+  <!--boton para cancelar-->
+  <div *ngIf="template=='nuevo_prestamo'" class="section">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+        <i class="material-icons">clear</i>
+      </a>
     </div>
   </div>
+</div>

@@ -10,13 +10,14 @@ import {DatePicker} from 'ionic-native';
 import {PrestamoService} from './prestamo.service';
 import {Url} from '../../url';
 import { Http, Headers } from '@angular/http';
-
-
+import {ItemService} from '../item/item.service';
+import {PersonaService} from '../persona/persona.service';
+import { Validator } from "validator.ts/Validator";
 
 @Component({
   templateUrl: 'build/pages/prestamo/prestamo.html',
   directives: [MaterializeDirective],
-  providers: [PrestamoService],
+  providers: [PrestamoService, ,ItemService, PersonaService],
 
 })
 export class PrestamoPage implements OnInit{
@@ -24,11 +25,25 @@ export class PrestamoPage implements OnInit{
 
   Personas: Persona[]=[];
   ITEMS: ITEM[]=[];
-  prestamos: Prestamo[] = [];
 
   template: string = 'null';
   prestamosTemporal: Prestamo[]=[];
   prestamosEliminar: Prestamo[]=[];
+
+  items: Array<ITEM>=[]
+  busquedaItem={valor: ''};
+  personas: Array<Persona>=[]
+  prestamos:  Array<Prestamo> =[]
+
+
+  //variable para asignar id incremental para personas locales
+  count=10;
+  //usado para mantener el id del prestamo que se esta modificando o eliminando
+  id=0;
+  //lista de ids seleccionados por el checkbox
+  selected: number[]=[];
+  tiposIdentificaciones = ['cédula', 'Nombre'];
+  busqueda={tipo: 'cédula', valor: ''};
 
   @Input()
   prestamoNuevo = new Prestamo();
@@ -37,6 +52,8 @@ export class PrestamoPage implements OnInit{
   prestamoModificar= new Prestamo;
   constructor( private navController:NavController,private menu: MenuController,
     private prestamoService: PrestamoService,
+      private itemService: ItemService,
+      private personaService: PersonaService,
     private http: Http) {
       this.prestamosTemporal=this.prestamos;
   }
@@ -64,22 +81,12 @@ export class PrestamoPage implements OnInit{
   }
 
 
-
-  //variable para asignar id incremental para personas locales
-  count=10;
-  //usado para mantener el id del prestamo que se esta modificando o eliminando
-  id=0;
-  //lista de ids seleccionados por el checkbox
-  selected: number[]=[];
-  tiposIdentificaciones = ['Tipo de Identificación...', 'cédula', 'nombre'];
-  tiposBusquedas = ['código', 'nombre'];
-  busqueda={tipo: 'código', valor: ''};
-
+  //funcion listar que lista todos los kits creados
   listar() {
-    //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
-      this.prestamoService.getPrestamos().then(prestamos => { this.prestamos = prestamos; return prestamos }).then(prestamos => {
-      })
-      return this.prestamos
+    this.prestamos =[]
+      this.prestamoService.getPrestamos(this.navController).then(prestamos => { this.prestamos = prestamos ; return prestamos}).then(result=>{
+          console.log("listando pressts");
+        })
   }
 
   select(prestamo: Prestamo) {
@@ -91,18 +98,57 @@ export class PrestamoPage implements OnInit{
       };
 
   }
-    /*
-    buscar(){
-      let busquedaTemp = this.busqueda;
-      if(busquedaTemp.valor=='') this.prestamos=this.prestamosTemporal;
-      this.prestamos=this.prestamosTemporal.filter(function(prestamo){
-        if(busquedaTemp.tipo=='código') {
-          console.log("codigo");
-          return prestamo.codigo.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
+
+/*
+  //funcion listar que lista las personas
+  listarPersonas() {
+    this.personas =[]
+      this.personaService.getPersonas(this.navController).then(kits => { this.personas = personas ; return personas  }).then(result=>{
+          console.log("listando personas");
+        })
+  }
+*/
+
+
+    modificar() {
+        let validator = new Validator();
+        if (!validator.isValid(this.prestamoModificar)) this.presentToast('Corrija el formulario');
+
+        else {
+            this.prestamoService.updatePrestamo(this.prestamoModificar,this.navController).then(result => this.listar());
+            this.template = 'null';
         }
-        else return prestamo.nombre.toLowerCase().indexOf(busquedaTemp.valor.toLowerCase())>=0;
-      })
-    }*/
+
+    }
+
+//busca el ítem
+  buscarItem() {
+      if (this.busquedaItem.valor.trim()!= "") {
+          this.itemService.getBuscarElemento(this.busquedaItem.valor,this.navController).then(items => { this.items = items; return items }).then(items => {
+            this.itemService.getBuscarDispositivo(this.busquedaItem.valor,this.navController).then(items => {
+              for(var item of items){
+                this.items.push(item)
+                console.log("busca")
+              }
+            })
+          })
+      }
+      else {console.log("vacio")}
+  }
+
+
+      presentToast(text: string) {
+          let toast = Toast.create({
+              message: text,
+              duration: 3000
+          });
+
+          toast.onDismiss(() => {
+              console.log('Dismissed toast');
+          });
+          this.navController.present(toast);
+      }
+
     public ngOnInit() {
       this.listar();
     }

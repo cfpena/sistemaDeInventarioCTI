@@ -7,7 +7,7 @@ import { Url } from './url';
 import {Load} from './loading';
 
 export class HttpRequest {
-    
+
     url = new Url();
     local: Storage = new Storage(LocalStorage);
     constructor(private http: Http) {}
