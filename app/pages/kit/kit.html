@@ -132,30 +132,19 @@
             <div *ngFor = "let item of items">
               <div class="divider"></div>
               <div class="row">
-                <ul>
-                  <div class="col l6 m7 s7" style="color:#424242; font-size: 65%">
-                    <li id="nombre">Nombre: {{item.Nombre}}</li>
-                    <li id="codigo">Código: {{item.Codigo}}</li>
-                    <li id="cantidad">Cant.: {{item.Stock}}</li>
-                  </div>
-
-
-                  <div class="input-field col s6 m2 l2" >
-                    <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
-                      <i class="material-icons">add</i>
-                    </a>
-                  </div>
-                  <div class="suggestions col s12 m6 l6" ><!--*ngIf="listaFiltradaItem.length > 0"-->
-                    <ul *ngFor="let item of listaFiltradaItem" >
-                      <li >
-                        <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}}</a>
-                      </li>
+                    <ul>
+                      <div class="col l6 m7 s7" style="color:#424242; font-size: 65%">
+                        <li id="nombre">Nombre: {{item.Nombre}}</li>
+                        <li id="codigo">Código: {{item.Codigo}}</li>
+                      </div>
+                      <div class="col l3 m3 s3">
+                        <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center" [(ngModel)]="itemsKits.cantidad" ></li>
+                      </div>
+                      <div class="col l2 m2 s2 offset-l1">
+                        <li> <a (click)="agregarItem(item)" class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons ">add</i> </a> </li>
+                      </div>
                     </ul>
                   </div>
-
-
-                </ul>
-              </div>
             </div>
           </div>
         </div>
@@ -179,7 +168,6 @@
                 <tr *ngFor = "let listakitelemento of listakitelementos">
                   <td>{{listakitelemento.item.Nombre}}</td>
                   <td>{{listakitelemento.item.Codigo}}</td>
-              
                   <td>
                     <div class="input-field">
                       <input id="icon_codigo" type="text" class="validate" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="listakitelemento.item.Cantidad" >

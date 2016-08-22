@@ -181,6 +181,8 @@ listarItems() {
     return this.items
 }
 
+
+
 buscarItem(){
   console.log('buscar item');
   this.listarItems();
@@ -206,7 +208,6 @@ buscarItem(){
 }
   seleccionarItem(item: ITEM){
     console.log(item);
-
     this.itemNuevo=JSON.parse(JSON.stringify(item));
     console.log(this.itemNuevo);
     this.descripcionItem = this.itemNuevo.Codigo +' - '+ this.itemNuevo.Nombre;
