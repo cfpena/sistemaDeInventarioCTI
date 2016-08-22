@@ -36,16 +36,14 @@ export class MyApp {
     this.initializeApp();
         // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Inventario',icon: 'import_contacts', component: InventarioPage },
-      { title: 'Personas',icon: 'person', component: PersonaPage },
-      { title: 'Objetos',icon: 'local_offer', component: ItemPage },
-      { title: 'Kits',icon: 'shopping_cart', component: KitPage },
+      { title: 'Inventario',icon: 'library_books', component: InventarioPage },
+      { title: 'Personas',icon: 'people', component: PersonaPage },
+      { title: 'Objetos',icon: 'keyboard_arrow_right', component: ItemPage },
+      { title: 'Kits',icon: 'keyboard_arrow_right', component: KitPage },
       { title: 'Prestamos',icon: 'swap_horiz', component: PrestamoPage },
-      { title: 'Reportes',icon: 'library_books', component: ReportesPage },
-      { title: 'Usuarios',icon: 'library_books', component: UsuarioPage },
-      { title: 'Cerrar Sesion',icon: 'library_books', component: LoginPage },
-
-
+      { title: 'Reportes',icon: 'insert_drive_file', component: ReportesPage },
+      { title: 'Usuarios',icon: 'account_box', component: UsuarioPage },
+      { title: 'Cerrar Sesion',icon: 'power_settings_new', component: LoginPage },
 
     ];
 
