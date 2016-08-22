@@ -31,24 +31,23 @@
           <th data-field="Nombre">Nombre</th>
           <!--  <th data-field="Ítem_Nombre">Ítem</th> -->
           <th data-field="Cantidad">cantidad</th>
-          <th data-field="fecha_prestamo">fecha ini.</th>
+          <th data-field="fecha_inicial">fecha ini.</th>
           <th data-field="fecha_devuelto">fecha fin.</th>
-          <th data-field="devuelto">devuelto</th>
+          <!--   <th data-field="devuelto">devuelto</th> -->
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor = "let prestamo of prestamos">
+        <tr *ngFor = "let acta of actas">
           <td>
             <!-- evento change y atributo por defecto checked false, se agrega como id el id de la persona
             para luego saber que checkbox le pertenece a cada persona-->
-            <input (change)="select(prestamo)" id={{prestamo.url}} type="checkbox" class="filled-in"/>
-            <label attr.for="{{prestamo.url}}"></label>
+            <input (change)="select(acta)" id={{acta.url}} type="checkbox" class="filled-in"/>
+            <label attr.for="{{acta.url}}"></label>
           </td>
-          <td>{{prestamo.Persona.Nombre}} {{prestamo.Persona.Apellido}}</td>
-          <td>{{prestamo.Cantidad}}</td>
-          <td>{{prestamo.Fecha}}</td>
-          <td>{{prestamo.Fecha_vencimiento}}</td>
-          <td>{{prestamo.Fecha_devolucion}}</td>
+          <td>{{acta.Persona.Nombre}} {{acta.Persona.Apellido}}</td>
+          <td>{{acta.Cantidad}}</td>
+          <td>{{acta.Fecha}}</td>
+          <td>{{acta.Fecha_vencimiento}}</td>
           <td>
             <a class="button-collapse"><i class="material-icons left">visibility</i></a>
           </td>

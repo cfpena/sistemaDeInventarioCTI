@@ -16,7 +16,7 @@ export class PersonaService {
         this.httprequest = new HttpRequest(http);}
 
         getPersonas(nav: NavController) {
-          console.log('get persona')
+  //        console.log('get persona')
           return this.httprequest.get(this.url.base + this.url.persona,nav).then(result => {
               let personas = result.json() as Persona[];
               return personas;

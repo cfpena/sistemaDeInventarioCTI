@@ -13,6 +13,8 @@ import { Http, Headers } from '@angular/http';
 import {ItemService} from '../item/item.service';
 import {PersonaService} from '../persona/persona.service';
 import { Validator } from "validator.ts/Validator";
+import { Acta } from './acta.model';
+import { Devolucion } from './devolucion.model';
 
 @Component({
   templateUrl: 'build/pages/prestamo/prestamo.html',
@@ -29,11 +31,14 @@ export class PrestamoPage implements OnInit{
   template: string = 'null';
   prestamosTemporal: Prestamo[]=[];
   prestamosEliminar: Prestamo[]=[];
+  actaTemporal: Acta[]=[];
+  actaEliminar: Acta[]=[];
 
   items: Array<ITEM>=[]
   busquedaItem={valor: ''};
   personas: Array<Persona>=[]
   prestamos:  Array<Prestamo> =[]
+  actas:  Array<Acta> =[]
 
 
   //variable para asignar id incremental para personas locales
@@ -82,10 +87,10 @@ export class PrestamoPage implements OnInit{
 
 
   //funcion listar que lista todos los kits creados
-  listar() {
-    this.prestamos =[]
-      this.prestamoService.getPrestamos(this.navController).then(prestamos => { this.prestamos = prestamos ; return prestamos}).then(result=>{
-          console.log("listando pressts");
+  listar_actas() {
+    this.actas =[]
+      this.prestamoService.getActas(this.navController).then(actas => { this.actas = actas ; return actas}).then(result=>{
+          console.log("listando actas");
         })
   }
 
@@ -115,7 +120,7 @@ export class PrestamoPage implements OnInit{
         if (!validator.isValid(this.prestamoModificar)) this.presentToast('Corrija el formulario');
 
         else {
-            this.prestamoService.updatePrestamo(this.prestamoModificar,this.navController).then(result => this.listar());
+            this.prestamoService.updatePrestamo(this.prestamoModificar,this.navController).then(result => this.listar_actas());
             this.template = 'null';
         }
 
@@ -150,7 +155,10 @@ export class PrestamoPage implements OnInit{
       }
 
     public ngOnInit() {
-      this.listar();
+      this.listar_actas();
+      this.prestamoService.getPrestador(this.navController).then(personas => {
+          this.personas = personas
+      });
     }
 
 
