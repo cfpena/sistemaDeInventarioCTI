@@ -232,11 +232,18 @@ export class InventarioPage implements OnInit{
           })
         })
       }else{
-        this.listaFiltradaItem =[];
+        this.itemService.getElementos(this.navController).then(items => { this.listaFiltradaItem = items; return items }).then(items => {
+          this.itemService.getDispositivos(this.navController).then(items => {
+            for(var item of items){
+              this.listaFiltradaItem.push(item)
+            }
+          })
+        })
       }
     }
 
     seleccionarItem(item: ITEM){
+      console.log('estoy en seleccionar item');
       console.log(item);
       console.log(this.itemNuevo);
       this.itemNuevo=JSON.parse(JSON.stringify(item));
@@ -255,6 +262,7 @@ export class InventarioPage implements OnInit{
             this.listaMovimientoDet.push({id:0, cantidad: 1, Is_DetalleKit: false, item: this.itemNuevo, serie:''});
           }
         }else{
+          console.log('es elemento');
           this.listaMovimientoDet.push({id:0, cantidad: this.cantidad, Is_DetalleKit: false, item: this.itemNuevo, serie:''});
         }
         this.movimientoNuevo.movimiento_detalle=this.listaMovimientoDet;
