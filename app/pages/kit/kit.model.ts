@@ -27,5 +27,6 @@ constructor() {
   this.Descripcion='';
   this.Dispositivos =[]
   this.Elementos=[]
+
 }
 }
