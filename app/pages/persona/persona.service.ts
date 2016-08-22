@@ -15,77 +15,41 @@ export class PersonaService {
         private usuarioAuthService: UsuarioAuthService) {
         this.httprequest = new HttpRequest(http);}
 
-    getPersonas() {
-      //HEADERS OBLIGATORIOS PARA EL REQUEST DEFINIDOS POR EL ESTANDAR
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append("Accept","application/json");
-        //FUNCION ASINCRONICA QUE OBTIENE EL TOKEN DE LAS COOKIE
-        // token => {} token es el valor obtenido y es pasado por referencia a la funncion por definir dentro de {}
-        return this.usuarioAuthService.getToken().then(token => {
-          //se agrega el header Authorization con el token respectivo para la autenticacion
-            headers.append('Authorization', 'JWT ' + token);
-            //se envia el request http de tipo get con la url, y los headers y se la convierte en una promesa
-            //si no se hace return, no se puede hacer un then
-            return this.http.get(this.url.base + this.url.persona, { headers: headers }).toPromise();
-            //cuando la funcion haya terminado de traer los datos pasa a la seccion then()
-        }).then(result => {
-          //convertimos el resultado que es un json con las personas a un arreglo del modelo Personas
+        getPersonas(nav: NavController) {
+          console.log('get persona')
+          return this.httprequest.get(this.url.base + this.url.persona,nav).then(result => {
+              let personas = result.json() as Persona[];
+              return personas;
+            })
+        }
+
+
+    getBuscar(cadena: String, nav) {
+
+      return this.httprequest.get(this.url.base + this.url.persona + this.url.buscar + cadena.toString(),nav).then(result => {
           let personas = result.json() as Persona[];
           return personas;
-          //si existe un error, no pasa por then, sino por catch
-        }).catch(error=>{
-          console.log(error)
-        });;
+        })
     }
 
+    createPersona(persona: Persona,nav: NavController) {
+      return this.httprequest.post(String(persona.url), JSON.stringify({
+                Nombre: persona.Nombre,
+                Apellido: persona.Apellido,
+                Email: persona.Email,
+                Telefono: persona.Telefono,
+                Genero: persona.Genero,
+                CI : persona.CI,
+                Direccion : persona.Direccion,
+                Tipo : persona.Tipo,
+                Matricula : persona.Matricula
+              }),nav)
+              .then(result => {return result});
+             }
 
-    getBuscar(cadena: String) {
+    updatePersona(persona: Persona,nav: NavController) {
 
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append("Accept","application/json");
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            return this.http.get(this.url.base + this.url.persona + this.url.buscar + cadena , { headers: headers }).toPromise();
-        }).then(result => {
-          let personas = result.json() as Persona[];
-          return personas;
-
-        }).catch(error=>{
-          console.log(error)
-        });
-    }
-
-
-    createPersona(persona: Persona) {
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append('Accept','application/json');
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            return this.http.post(this.url.base + this.url.persona, JSON.stringify(persona),{ headers: headers }).toPromise();
-
-        }).then(result => {
-          //para el metodo post se debe pasar los parametros con formato JSON pero de tipo string
-          return this.http.post(this.url.base + this.url.password, JSON.stringify({
-            Nombre: persona.Nombre,
-            Apellido: persona.Apellido,
-            Email: persona.Email,
-            Telefono: persona.Telefono,
-            Genero: persona.Genero,
-            CI : persona.CI,
-            Direccion : persona.Direccion,
-            Tipo : persona.Tipo,
-            Matricula : persona.Matricula
-          }),{ headers: headers }).toPromise();
-        }).then(result=> console.log(result)).catch(error => console.log(error));
-    }
-
-    updatePersona(persona: Persona) {
-
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append('Accept','application/json');
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            return this.http.patch(String(persona.url), JSON.stringify({
+    return this.httprequest.patch(String(persona.url), JSON.stringify({
               Nombre: persona.Nombre,
               Apellido: persona.Apellido,
               Email: persona.Email,
@@ -95,24 +59,15 @@ export class PersonaService {
               Direccion : persona.Direccion,
               Tipo : persona.Tipo,
               Matricula : persona.Matricula
-            }),{ headers: headers }).toPromise();
-
-        }).then(result => {return result});
-    }
-
+            }),nav)
+            .then(result => {return result});
+           }
 
 
-    eliminarPersona(persona: Persona) {
 
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append("Accept","application/json");
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            //request del tipo delete para eliminar, se envia la url que ya la contiene el mismo modelo
-            return this.http.delete(persona.url.toString(), { headers: headers }).toPromise();
-        }).then(result => {
-          return result;
-        }).catch(error=> console.log(error));
+    eliminarPersona(persona: Persona,nav:NavController) {
+
+      return this.httprequest.delete(persona.url.toString(),nav)
     }
 
 
