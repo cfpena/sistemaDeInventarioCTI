@@ -89,17 +89,17 @@ Ionic pages and navigation.
             <div class="row" >
               <div class="col s12 m12 l12" *ngIf="templateMovimiento=='ingreso_inventario'">
                 <div class="input-field">
-                  <i class="material-icons prefix">label_outline</i>
+                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
                   <input  (keyup)="buscarProveedor()" type="text" id="identificacion"  [(ngModel)]="idProveedor" type="text" class="validate" minlength="10" maxlength="10"  >
                   <label for="icon_codigo">Identificacion Proveedor</label>
                 </div>
                 <div class="input-field">
-                  <i class="material-icons prefix">label_outline</i>
+                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
                   <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"   [(ngModel)]="nombreProveedor" disabled="true"  >
                   <label for="icon_codigo" class="active">Proveedor</label>
                 </div>
                 <div class="input-field">
-                  <i class="material-icons prefix">label_outline</i>
+                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
                   <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"  [(ngModel)]="ingresoNuevo.Acta_entrega" >
                   <label for="icon_codigo">No. Acta de Entrega/Recepción</label>
                 </div>
@@ -107,12 +107,12 @@ Ionic pages and navigation.
 
               <div class="col s12 m12 l12" *ngIf="templateMovimiento=='salida_inventario'">
                 <div class="input-field">
-                  <i class="material-icons prefix">label_outline</i>
+                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
                   <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"  [(ngModel)]="salidaNuevo.Motivo_salida" >
                   <label for="icon_codigo">Motivo de Salida</label>
                 </div>
                 <div class="input-field">
-                  <i class="material-icons prefix">label_outline</i>
+                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
                   <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"  [(ngModel)]="salidaNuevo.No_Acta_Salida" >
                   <label for="icon_codigo">No. Acta de Salida</label>
                 </div>
@@ -120,13 +120,13 @@ Ionic pages and navigation.
 
               <div class="col s12 m12 l12" >
                 <div class="input-field">
-                  <i class="material-icons prefix">label_outline</i>
+                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
                   <input  type="date" id="fecha"  [(ngModel)]="movimientoNuevo.fecha" class="datepicker"  style="padding-top: 16px" >
                   <label for="fecha" class="active">Fecha</label>
                   <script> new Datepicker('.datepicker');</script>
                 </div>
                 <div class="input-field">
-                  <i class="material-icons prefix">label_outline</i>
+                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
                   <input id="icon_codigo" type="text" class="validate" minlength="1" maxlength="250"   [(ngModel)]="movimientoNuevo.observaciones" >
                   <label for="icon_codigo" class="active">Descripción</label>
                 </div>
@@ -230,7 +230,7 @@ Ionic pages and navigation.
             </div>
           </div>
           <div class="card-action">
-            <a (click)="cancelar()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
+            <a (click)="crearMovimiento()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
               <i class="material-icons right">send</i>
             </a>
           </div>
