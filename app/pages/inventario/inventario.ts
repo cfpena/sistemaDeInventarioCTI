@@ -220,7 +220,7 @@ export class InventarioPage implements OnInit{
     }
 
     buscarProveedor(){
-      console.log(this.idProveedor);
+    /*  console.log(this.idProveedor);
       //this.proveedorNuevo = JSON.parse(JSON.stringify(this.Proveedores.find(persona => persona.CI == this.idProveedor)));
       if (this.idProveedor.length==10){
         console.log('voy a buscar el proveedor');
@@ -230,7 +230,7 @@ export class InventarioPage implements OnInit{
           this.proveedorNuevo=this.Proveedores[0];
           this.nombreProveedor = this.proveedorNuevo.Nombre + ' ' + this.proveedorNuevo.Apellido;
         }
-      }
+      }*/
     }
 
     buscarItem(){

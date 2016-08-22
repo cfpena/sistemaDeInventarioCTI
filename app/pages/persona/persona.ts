@@ -6,7 +6,7 @@ import {Validator} from "validator.ts/Validator";
 import { Http, Headers } from '@angular/http';
 import {PersonaService} from './persona.service';
 import {Url} from '../../url';
-
+import {Load} from '../../loading';
 
 
 @Component({
@@ -65,11 +65,11 @@ toast.onDismiss(() => {
 
 listar() {
   //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
-    this.personaService.getPersonas().then(personas => { this.personas = personas; return personas }).then(personas => {
-    })
-    return this.personas
-}
+  this.personaService.getPersonas(this.navController).then(personas => { this.personas = personas; return personas }).then(personas => {
 
+  })
+  return this.personas
+}
 
 //CI: '',Nombre: '', Apellido: "", Email:'',Telefono:"",Genero:''
 //crea una persona nueva
@@ -90,7 +90,7 @@ listar() {
     else{
     this.personas.push(this.personaNueva);
     let persona = JSON.parse(JSON.stringify(this.personaNueva))
-    this.personaService.createPersona(persona).then(result => this.listar());
+    this.personaService.createPersona(persona,this.navController).then(result => this.listar());
     this.template='null';
     this.count++;
     this.personaNueva = new Persona();
@@ -115,7 +115,7 @@ listar() {
     else if(this.personaModificar.Genero=='' || this.personaModificar.Genero==this.Generos[0])  this.presentToast('Elija Genero');
     else if(this.personaModificar.Tipo=='' || this.personaModificar.Tipo==this.Tipos[0])        this.presentToast('Elija Tipo')
     else{
-    this.personaService.updatePersona(this.personaModificar).then(result => this.listar());
+    this.personaService.updatePersona(this.personaModificar,this.navController).then(result => this.listar());
     this.template='null';
     this.listar();
   }
@@ -127,7 +127,7 @@ listar() {
   eliminar(){
 
     for(var persona of this.personasEliminar){
-      this.personaService.eliminarPersona(persona).then(result =>
+      this.personaService.eliminarPersona(persona,this.navController).then(result =>
         { console.log(result) }).catch(error=> console.log(error))  }
     //se deja en blanco la lista a eliminar
     this.personasEliminar= Array<Persona>();
@@ -169,7 +169,7 @@ select(persona: Persona) {
   buscar(){
     //si el valor es diferente de vacio entonces se manda a buscar, sino se listan los datos sin filtros
     if(this.busqueda.valor.trim() != ""){
-        this.personaService.getBuscar(this.busqueda.valor).then(personas => { this.personas = personas; return personas }).then(personas => {    })}
+        this.personaService.getBuscar(this.busqueda.valor,this.navController).then(personas => { this.personas = personas; return personas }).then(personas => {    })}
     else{this.listar()}
         return this.personas
   }

@@ -220,6 +220,11 @@
               <div class="row">
                 <div class="col l10 m10 s10">
                   <div class="input-field">
+                    <i class="material-icons prefix" style="color:#009688">credit_card</i>
+                    <input id="matricula" type="text" class="validate" minlength="9" maxlength="9" pattern = "[0-9]*" [(ngModel)]="personaModificar.Matricula">
+                    <label for="matricula">Matricula</label>
+                  </div>
+                  <div class="input-field">
                     <i class="material-icons prefix">email</i>
                     <input id="correo" disabled="disabled" type="text" class="validate"  [(ngModel)]="personaModificar.Email">
                     <label for="correo">Email</label>
