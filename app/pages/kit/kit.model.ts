@@ -26,7 +26,6 @@ constructor() {
   this.Marca='';
   this.Modelo='';
   this.Descripcion='';
-
   this.Items;
   this.Dispositivos;
 }

@@ -63,6 +63,7 @@ export class KitService {
               CodigoEspol: kit.CodigoEspol,
               CodigoSenecyt: kit.CodigoSenecyt,
               Descripcion: kit.Descripcion
+
             }),nav)
             .then(result => {return result});
     }
