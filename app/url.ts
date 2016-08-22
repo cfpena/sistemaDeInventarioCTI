@@ -6,6 +6,8 @@ export class Url {
   persona ='api/prestador/';
   prestamo ='api/prestamos/';
   elemento ='api/elementos/';
+  acta ='api/actas/';
+  devolucion ='api/devoluciones/';
   dispositivo = 'api/dispositivos/';
   kit ='api/kits/';
   kitelemento='api/kitelemento/';

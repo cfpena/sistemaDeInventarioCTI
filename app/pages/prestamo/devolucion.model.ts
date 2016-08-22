@@ -4,18 +4,16 @@ import {ITEM} from '../item/item.model';
 import {Kit} from '../kit/kit.model';
 import {Persona} from '../persona/persona.model';
 
-export class Prestamo {
-    url: String;
+
+export class Devolucion {
+    url: string;
     @IsInt() Cantidad: number;
-    Acta: string;
-    Fecha: String;
-    Objeto: String;
-    Detalle: String;
+    Prestamo: string;
+    Detalle: string;
 
 
 constructor( ) {
   this.Detalle='';
-  this.Fecha='';
   this.Cantidad=0;
 
 }

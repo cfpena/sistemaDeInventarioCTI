@@ -1,10 +1,13 @@
 import { Injectable }     from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Prestamo } from './prestamo.model';
+import { Acta } from './acta.model';
+import { Devolucion } from './devolucion.model';
 import {Url} from '../../url';
 import {UsuarioAuthService} from '../usuario/usuario.auth.service';
 import {NavController} from 'ionic-angular';
 import {HttpRequest} from '../../httprequest';
+import {Persona} from '../persona/persona.model';
 
 @Injectable()
 export class PrestamoService {
@@ -16,6 +19,20 @@ export class PrestamoService {
           this.httprequest = new HttpRequest(http);
         }
 
+        getActas(nav: NavController) {
+          return this.httprequest.get(this.url.base + this.url.acta, nav).then(result => {
+              let actas = result.json() as Acta[];
+              return actas;
+            })
+        }
+
+        getPrestador(nav: NavController) {
+              console.log('get tipos')
+                return this.httprequest.get(this.prestamo.Persona,nav).then(result => {
+              let personas = result.json() as Persona[];
+              return personas;
+            });
+        }
 
     getPrestamos(nav: NavController) {
       return this.httprequest.get(this.url.base + this.url.prestamo, nav).then(result => {
@@ -44,8 +61,6 @@ export class PrestamoService {
         {
           Cantidad: prestamo.Cantidad,
           Fecha: prestamo.Fecha,
-          Fecha_vencimiento: prestamo.Fecha_vencimiento,
-          Fecha_devolucion: prestamo.Fecha_devolucion,
           Detalle: prestamo.Detalle
 
         }),nav)
