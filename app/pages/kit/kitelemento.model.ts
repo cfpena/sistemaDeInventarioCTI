@@ -6,15 +6,11 @@ import {Movimiento} from '../inventario/movimiento.model';
 
 
 export class KITELEMENTO {
-  @IsInt() id: number;
   @IsInt() cantidad: number;
-  Is_Dispositivo: boolean;
-  item: ITEM;
-  kit: Kit;
+  Elemento: string;
+  Kit: string;
 
   constructor( ) {
-    this.id=0;
     this.cantidad=0;
-    this.Is_Dispositivo= false;
   }
 }

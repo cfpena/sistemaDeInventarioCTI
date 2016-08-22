@@ -46,7 +46,7 @@ export class HttpRequest {
         return this.getHeaders(nav).then(headers => {
           console.log(headers)
             return this.http.post(url, params, { headers: headers }).toPromise().catch(error => { this.presentToast(error, nav) });
-        }).then(result=>{}).catch(error => { this.presentToast('Ocurrio un error en el requerimiento', nav) })
+        }).then(result=>{return result}).catch(error => { this.presentToast('Ocurrio un error en el requerimiento', nav) })
 
     }
     patch(url: string, params: string, nav: NavController) {

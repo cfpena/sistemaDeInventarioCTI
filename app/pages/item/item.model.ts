@@ -3,7 +3,7 @@ import {Contains, IsInt, IsLength, IsEmail, IsAlpha} from "validator.ts/decorato
 
 
 export class ITEM {
-  url: number;
+  url: string;
   Stock: number;
   Stock_Disponible: number;
   Codigo: string;

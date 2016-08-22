@@ -6,6 +6,7 @@ import {ITEM} from '../item/item.model';
 import {UsuarioAuthService} from '../usuario/usuario.auth.service';
 import {HttpRequest} from '../../httprequest';
 import {NavController} from 'ionic-angular';
+import {KITELEMENTO} from './kitelemento.model';
 
 @Injectable()
 export class KitService {
@@ -44,12 +45,18 @@ export class KitService {
           return this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav)
     }*/
 
-    createKit(kit: Kit,nav: NavController) {
-      let item = kit.Dispositivos
-      item.Es_Dispositivo ? this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav):
-      this.httprequest.post(this.url.base + this.url.kitelemento, JSON.stringify(kit),nav)
+    createKit(kit: Kit,lista: KITELEMENTO[],nav: NavController) {
+    //  this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav):
+      //this.httprequest.post(this.url.base + this.url.kitelemento, JSON.stringify(kit),nav)
 
-      return this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav)
+      return this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav).then(result=>{
+          let kit = result.json() as Kit
+          for(let kitelemento of lista){
+            kitelemento.Kit=kit.url
+            console.log(JSON.stringify(kitelemento))
+            this.httprequest.post(this.url.base + this.url.kitelemento,JSON.stringify(kitelemento),nav)
+          }
+      })
 
     }
 

@@ -38,6 +38,8 @@ itemSeleccionado: boolean = false;
 listaFiltradaItem: ITEM[];
 listakitelementos: KITELEMENTO[]=[];
 
+itemsAgregados=[]
+
 @Input()
 kitNuevo = new Kit();
 @Input()
@@ -78,6 +80,7 @@ kitModificar= new Kit;
 
   //crea un kit
   crear() {
+    console.log('crear')
       let validator = new Validator();
       if (!validator.isValid(this.kitNuevo)) this.presentToast('Corrija el formulario');
     //  else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
@@ -85,10 +88,16 @@ kitModificar= new Kit;
     //  else if (this.itemNuevo.Descripcion == '') this.presentToast('Descripción vacio');
       //else if (this.kitNuevo.Stock < 1 || this.kitNuevo.Stock > 50 || this.kitNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
       else {
+        for(let item of this.itemsAgregados){
+          if(item.Es_Dispositivo){
+            console.log(item)
+            this.kitNuevo.Dispositivos.push(item.url)
+          }
+        }
           let kit = JSON.parse(JSON.stringify(this.kitNuevo))
-          this.kitService.createKit(kit,this.navController).then(result => this.listar());
+          console.log(JSON.stringify(kit))
+          this.kitService.createKit(kit,this.listakitelementos,this.navController).then(result => this.listar());
           this.template = 'null';
-          this.count++;
           this.kitNuevo = new Kit();
       }
 
@@ -188,23 +197,34 @@ kitModificar= new Kit;
     //this.itemSeleccionado = item;
   }
 
-  agregarItem(){
-    console.log('voy a agregar item');
-    if (this.itemSeleccionado){
-      console.log('si existe item seleccionado');
-      if (this.itemNuevo.Es_Dispositivo){
-        console.log('es dispositivo');
-        for(var _i = 0; _i < this.cantidad; _i++){
-          this.listakitelementos.push({id:0, cantidad: 1, Is_Dispositivo: true, item: this.itemNuevo,kit: this.kitNuevo});
+  agregarItem(item: ITEM){
+    if(item.Es_Dispositivo)
+    this.itemsAgregados.push(item)
+    else{
+      let kitelemento= new KITELEMENTO()
+      kitelemento.cantidad = this.cantidad
+      kitelemento.Elemento = item.url
+      this.listakitelementos.push(kitelemento)
+      this.itemsAgregados.push(item)
+    }
+  }
+  eliminarItem(item: ITEM){
+    if(item.Es_Dispositivo){
+    let index=this.itemsAgregados.indexOf(item)
+    this.itemsAgregados.splice(index,1)}
+    else{
+      let index=-1
+      for (let kitelemto of this.listakitelementos){
+        if(kitelemto.Elemento==item.url) {
+          index = this.listakitelementos.indexOf(kitelemto)
+          break;
         }
-      }else{
-        console.log('es elemento');
-        this.listakitelementos.push({id:0, cantidad: this.cantidad, Is_Dispositivo: false, item: this.itemNuevo,kit: this.kitNuevo});
+
       }
-      console.log('ingreso de item al kit');
-      this.itemNuevo = new ITEM();
-      this.cantidad=0;
-      this.itemSeleccionado = false;
+      if(index!=-1){
+        this.listakitelementos.splice(index,1)
+
+      }
     }
   }
 
