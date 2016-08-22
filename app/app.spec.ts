@@ -3,13 +3,18 @@ import {
 }                               from '@angular/platform-browser-dynamic/testing';
 import { setBaseTestProviders , describe, beforeEach, it,expect,inject} from '@angular/core/testing';
 import { MyApp } from './app';
-import {UsuarioService} from './pages/usuario/usuario.auth.service';
+import {UsuarioAuthService} from './pages/usuario/usuario.auth.service';
+import {UsuarioService} from './pages/usuario/usuario.service';
+import {ItemService} from './pages/item/item.service';
+import {KitService} from './pages/kit/kit.service';
 import {Http, Headers} from '@angular/http';
 import {NavController,MenuController} from 'ionic-angular';
 import {LoginPage} from './pages/login/login';
 import {UsuarioPage} from './pages/usuario/usuario';
 import {PersonaPage} from './pages/persona/persona';
+import {PersonaService} from './pages/persona/persona.service';
 import {InventarioPage} from './pages/inventario/inventario';
+//import {InventarioService} from './pages/inventario/inventario.service';
 import {KitPage} from './pages/kit/kit';
 import {ItemPage} from './pages/item/item';
 
@@ -36,7 +41,7 @@ describe('Aplicacion principal', () => {
 
   beforeEach(function() {
     let platform = (<any>new MockClass());
-    let usuarioServ: UsuarioService;
+    let usuarioServ: UsuarioAuthService;
 
     myApp = new MyApp(platform,usuarioServ);
   });
@@ -50,7 +55,7 @@ describe('Aplicacion principal', () => {
 describe('logg in', () => {
 
   beforeEach(function() {
-    var usuarioServ: UsuarioService;
+    var usuarioServ: UsuarioAuthService;
     var http: Http;
     var nav: NavController;
 
@@ -73,7 +78,7 @@ describe('Usuarios', () => {
     var http: Http;
     var nav: NavController;
     var menu: MenuController;
-    usuarioPage = new UsuarioPage(nav,menu);
+    usuarioPage = new UsuarioPage(nav,menu,usuarioServ,http);
   });
 
   it('listar usuarios', () => {
@@ -116,11 +121,11 @@ describe('Usuarios', () => {
 describe('Personas', () => {
 
   beforeEach(function() {
-
+    var personaServ: PersonaService;
     var http: Http;
     var nav: NavController;
     var menu: MenuController;
-    personaPage = new PersonaPage(nav,menu);
+    personaPage = new PersonaPage(nav,menu,personaServ,http);
   });
 
   it('listar personas', () => {
@@ -161,11 +166,11 @@ describe('Personas', () => {
   });
 });
 
-
+/*
 describe('Inventarios', () => {
 
   beforeEach(function() {
-
+    var
     var http: Http;
     var nav: NavController;
     var menu: MenuController;
@@ -196,15 +201,16 @@ describe('Inventarios', () => {
   });
 
 });
-
+*/
 describe('Kits', () => {
 
   beforeEach(function() {
-
+    var kitServ: KitService;
+    var itemServ: ItemService;
     var http: Http;
     var nav: NavController;
     var menu: MenuController;
-    kitPage = new KitPage(nav,menu);
+    kitPage = new KitPage(nav,menu,kitServ,itemServ,http);
   });
 
   it('listar kits', () => {
