@@ -18,10 +18,8 @@ import {DatePicker} from 'ionic-native';
 })
 export class ReportesPage {
   title: string ='Reportes';
-  tiposBusquedas = ['código', 'Nombre'];
-  busqueda={tipo: 'codigo', valor: ''};
-  tiposFotos = ['archivo', 'cámara'];
-  foto={tipo: 'camara', valor: ''};
+  tiposBusquedas = ['Resporte existencias', 'Reporte Préstamos'];
+  busqueda={tipo: '', valor: ''};
 
   constructor( private navController:NavController,private menu: MenuController){
   }

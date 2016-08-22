@@ -8,110 +8,65 @@
 </nav>
 
 <!--Layout para crear un nuevo kit-->
-
-
 <div>
-  <div id="nuevo_item" class="section">
-    <div>
-      <!--primer panel-->
-      <div class="row ">
-        <div class="col l5 m5 s12">
-          <div class="card-panel blue-grey lighten-5 ">
-            <span class="card-title">Modificar Kit</span>
-            <div style="padding-top: 7%;"></div>
-            <div class="row">
-              <div>
-                <!--primera columna-->
-              <div class="col l6 m6 s12">
-                <div class="input-field ">
-                  <i class="material-icons prefix" style="color:#9e9e9e">keyboard_arrow_right</i>
-                  <input id="icon_codigo" disabled="disabled" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="kitModificar.Codigo" >
-                  <label for="icon_codigo"> *  Código</label>
-                </div>
-                <div class="input-field">
-                  <i class="material-icons prefix" style="color:#9e9e9e">keyboard_arrow_right</i>
-                  <input id="CodigoEspol" disabled="disabled" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="kitModificar.Nombre" >
-                  <label for="CodigoEspol">Código Espol</label>
-                </div>
-                <div class="input-field">
-                  <i class="material-icons prefix" style="color:#9e9e9e">keyboard_arrow_right</i>
-                  <input id="CodigoSenecyt" disabled="disabled" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*"  >
-                  <label for="CodigoSenecyt">Código Senecyt</label>
-                </div>
-                <div class="input-field">
-                  <i class="material-icons prefix" style="color:#9e9e9e" >keyboard_arrow_right</i>
-                  <input id="icon_nombre" disabled="disabled" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="kitModificar.Nombre" >
-                  <label for="icon_nombre"> *  Nombre</label>
-                </div>
-              </div>
-              <!--segunda columna-->
-              <div class="col l6 m6 s12">
-                <div class="input-field">
-                  <i class="material-icons prefix" style="color:#9e9e9e" >keyboard_arrow_right</i>
-                  <input id="icon_modelo" disabled="disabled" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="kitModificar.Modelo" >
-                  <label for="icon_modelo">Modelo</label>
-                </div>
-                <div class="input-field ">
-                  <i class="material-icons prefix" style="color:#9e9e9e">keyboard_arrow_right</i>
-                  <input id="icon_marca" disabled="disabled" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="kitModificar.Marca">
-                  <label for="icon_marca">Marca</label>
-                </div>
-                <div class="input-field col s12">
-                  <i class="material-icons prefix" style="color:#9e9e9e">keyboard_arrow_right</i>
-                  <textarea id="textarea1" disabled="disabled" class="materialize-textarea" [(ngModel)]="kitModificar.Descripcion"></textarea>
-                  <label for="textarea1"> *  Descripción</label>
-                </div>
-              </div>
-            </div>
+  <div id="reportes" class="section">
+    <div class="container">
+      <div class="row">
+        <div class="col l2 m2 s6 offset-l1">
+          <div materialize>
+            <div class="input-field">
+              <label for="Fecha" class="active">desde</label>
+              <input  id="today" type="date" class="datepicker" style="padding-top: 14px">
+              <script>
+              document.getElementById("today").valueAsDate = new Date()
+              </script>
             </div>
           </div>
         </div>
-        <!--segundo panel-->
-        <div class="col l4 m4 s12">
-          <div class="card-panel blue-grey lighten-5 ">
-            <span class="card-title">Buscar Ítems</span>
-            <div style="padding-top: 7%;"></div>
-            <div class="input-field ">
-              <i class="material-icons prefix">search</i>
-              <input id="icon_marca" type="text" class="validate"  minlength="5" maxlength="10" >
-              <label for="icon_marca">Búsqueda</label>
-            </div>
-            <div class="center">
-              <label id="buscar" style="font-size: 16px">NOMBRE ÍTEM</label>
-              <a class="btn-floating btn-small waves-effect waves-light green right">
-                <i class="material-icons">add</i>
-              </a>
+        <div class="col l2 m2 s6">
+          <div materialize>
+            <div class="input-field">
+              <label for="Fecha_vencimiento" class="active" >hasta</label>
+              <input id="Fecha_vencimiento" type="date" class="datepicker" style="padding-top: 14px">
+              <script>
+              new Datepicker('.datepicker');
+              </script>
             </div>
           </div>
         </div>
-        <!--tercer panel-->
-        <div class="col l3 m3 s12">
-          <div class="card-panel blue-grey lighten-5 ">
-            <span class="card-title">Ítems</span>
-            <div style="padding-top: 7%;"></div>
-            <div >
-              <div class="card-content grey-text" style="font-size: 15px">
-                <div><a class="btn-floating btn-small waves-effect waves-light red right">
-                  <i class="material-icons">clear</i>
-                </a></div>
-                <li >Resistencia 100 </li>
-              </div>
-            </div>
+        <div class="col l4 m4 s9" style="padding-top: 12px">
+          <div class="input-field">
+            <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+              <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda">{{tiposBusqueda}}</option>
+            </select>
           </div>
-          <div class="card-action">
-            <a  class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
+        </div>
+        <div class="col l2 m2 s2">
+          <div class="right" style="padding-top: 25%; padding-right: 6%;">
+            <a  class="btn waves-effect waves-light"  style="font-size: 16px">Crear
               <i class="material-icons right">send</i>
             </a>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="section">
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a class="btn-floating btn-large waves-effect waves-light red right">
-        <i class="material-icons">clear</i>
-      </a>
-    </div>
+    <table  materialize class="centered table centered striped" style="font-size: 15px">
+      <thead>
+        <tr>
+          <th></th>
+          <th data-field="id"></th>
+          <th data-field="id">Fecha</th>
+          <th data-field="nombre">Nombre</th>
+          <th data-field="cantidad">Cantidad</th>
+          <th data-field="cantidad">Disponible</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
