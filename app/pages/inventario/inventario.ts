@@ -109,10 +109,20 @@ export class InventarioPage implements OnInit{
 
     goIngresarMovimiento(){
       this.template='ingresar_movimiento';
+      this.movimientoNuevo.tipo_movimiento = this.tiposMovimientoIngreso;
     }
 
+    crearMovimiento(){
+      console.log('voy a crear mov');
+      if (this.movimientoNuevo.tipo_movimiento==this.tiposMovimientoIngreso){
+        this.crearIngreso();
+      }else if (this.movimientoNuevo.tipo_movimiento==this.tiposMovimientoSalida){
+        this.crearSalida();
+      }
+    }
     //ingreso a inventario
     crearIngreso(){
+      console.log('voy a crear ing');
       let validator = new Validator();
       console.log(JSON.stringify(validator.validate(this.ingresoNuevo)));
       if (this.validarIngreso()){
@@ -129,9 +139,10 @@ export class InventarioPage implements OnInit{
     }
 
     crearSalida(){
+      console.log('voy a crear sal');
       let validator = new Validator();
       console.log(JSON.stringify(validator.validate(this.salidaNuevo)));
-      if (this.validarIngreso()){
+      if (this.validarSalida()){
         this.movimientos.push(this.movimientoNuevo);
         this.salidas.push(this.salidaNuevo);
         this.template='null';
@@ -157,7 +168,7 @@ export class InventarioPage implements OnInit{
       let validator = new Validator();
       if (!validator.isValid(this.ingresoNuevo)) this.presentToast('ERROR!');
       else if (this.ingresoNuevo.Acta_entrega=='') this.presentToast ('Acta de entrega no puede ser vacio');
-      else if (!validator.isValid(this.ingresoNuevo.proveedor)) this.presentToast ('Error en proveedor');
+      //else if (!validator.isValid(this.ingresoNuevo.proveedor)) this.presentToast ('Error en proveedor');
       else if (!this.validarMovimiento()) this.presentToast('Movimiento invalido');
       else return true
       return false
@@ -185,10 +196,12 @@ export class InventarioPage implements OnInit{
 
     goIngreso(){
       this.templateMovimiento = 'ingreso_inventario'
+      this.movimientoNuevo.tipo_movimiento=this.tiposMovimientoIngreso;
     }
 
     goSalida(){
       this.templateMovimiento = 'salida_inventario'
+      this.movimientoNuevo.tipo_movimiento=this.tiposMovimientoSalida;
     }
 
 
@@ -207,7 +220,7 @@ export class InventarioPage implements OnInit{
     }
 
     buscarProveedor(){
-      console.log(this.idProveedor);
+    /*  console.log(this.idProveedor);
       //this.proveedorNuevo = JSON.parse(JSON.stringify(this.Proveedores.find(persona => persona.CI == this.idProveedor)));
       if (this.idProveedor.length==10){
         console.log('voy a buscar el proveedor');
@@ -217,7 +230,7 @@ export class InventarioPage implements OnInit{
           this.proveedorNuevo=this.Proveedores[0];
           this.nombreProveedor = this.proveedorNuevo.Nombre + ' ' + this.proveedorNuevo.Apellido;
         }
-      }
+      }*/
     }
 
     buscarItem(){
@@ -232,13 +245,7 @@ export class InventarioPage implements OnInit{
           })
         })
       }else{
-        this.itemService.getElementos(this.navController).then(items => { this.listaFiltradaItem = items; return items }).then(items => {
-          this.itemService.getDispositivos(this.navController).then(items => {
-            for(var item of items){
-              this.listaFiltradaItem.push(item)
-            }
-          })
-        })
+        this.listaFiltradaItem=[];
       }
     }
 
