@@ -34,6 +34,7 @@ itemsKits: ITEM[] = [];
 templateItem: string='null';
 cantidad=0;
 itemSeleccionado: boolean = false;
+
 listaFiltradaItem: ITEM[];
 listakitelementos: KITELEMENTO[]=[];
 
@@ -146,7 +147,7 @@ kitModificar= new Kit;
     this.template='null';
   }
 
-
+//Busqueda de Kits en la tabla principal
   buscar() {
       if (this.busqueda.valor.trim() != "") {
           this.kitService.getBuscar(this.busqueda.valor,this.navController).then(kits => { this.kits = kits; return kits }).then(kits => {
@@ -154,7 +155,8 @@ kitModificar= new Kit;
       }
       else { this.listar() }
   }
-/*
+
+//Busqueda de item para agregar al kit
   buscarItem() {
       if (this.busquedaItem.valor.trim()!= "") {
           this.itemService.getBuscarElemento(this.busquedaItem.valor,this.navController).then(items => { this.items = items; return items }).then(items => {
@@ -168,44 +170,8 @@ kitModificar= new Kit;
       }
       else {console.log("vacio")}
   }
-*/
-listarItems() {
-  //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
-    this.itemService.getElementos(this.navController).then(items => { this.items = items; return items }).then(result=>{
-      this.itemService.getDispositivos(this.navController).then(items => {
-        for(var item of items){
-          this.items.push(item)
-        }
-      })
-    })
-    return this.items
-}
 
 
-
-buscarItem(){
-  console.log('buscar item');
-  this.listarItems();
-  let itemsFiltro: ITEM[];
-  let busquedaItem = this.descripcionItem;
-  let elementoEncontrado: string;
-
-  if (busquedaItem!==''){
-    console.log('buscar item1');
-    itemsFiltro = this.items.filter(function (item){
-      console.log(busquedaItem);
-      if (item.Codigo.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0 ||  item.Nombre.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0){
-        elementoEncontrado= item.Codigo+" - "+item.Nombre;
-        console.log(elementoEncontrado);
-        return true;
-      }
-      return false;
-    }.bind(this));
-    this.listaFiltradaItem = itemsFiltro;
-  }else{
-    this.listaFiltradaItem =[];
-  }
-}
   seleccionarItem(item: ITEM){
     console.log(item);
     this.itemNuevo=JSON.parse(JSON.stringify(item));
@@ -242,8 +208,54 @@ buscarItem(){
     }
   }
 
+/*
+  seleccionarItem2(item: ITEM){
+        console.log(item);
+        console.log(this.itemNuevo);
+        this.itemNuevo=JSON.parse(JSON.stringify(item));
+        console.log(this.itemNuevo);
+        this.descripcionItem = this.itemNuevo.Codigo +' - '+ this.itemNuevo.Nombre;
+        this.listaFiltradaItem=[];
+        this.itemSeleccionado =true;
+        //this.itemSeleccionado = item;
+      }
 
+      listarItems() {
+        //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
+          this.itemService.getElementos(this.navController).then(items => { this.items = items; return items }).then(result=>{
+            this.itemService.getDispositivos(this.navController).then(items => {
+              for(var item of items){
+                this.items.push(item)
+              }
+            })
+          })
+          return this.items
+      }
 
+      buscarItem2(){
+        console.log('buscar item');
+        this.listarItems();
+        let itemsFiltro: ITEM[];
+        let busquedaItem = this.descripcionItem;
+        let elementoEncontrado: string;
+
+        if (busquedaItem!==''){
+          console.log('buscar item1');
+          itemsFiltro = this.items.filter(function (item){
+            console.log(busquedaItem);
+            if (item.Codigo.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0 ||  item.Nombre.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0){
+              elementoEncontrado= item.Codigo+" - "+item.Nombre;
+              console.log(elementoEncontrado);
+              return true;
+            }
+            return false;
+          }.bind(this));
+          this.listaFiltradaItem = itemsFiltro;
+        }else{
+          this.listaFiltradaItem =[];
+        }
+      }
+*/
 
     //retrasa la carga de la pagina 100 ms
     public ngOnInit() {

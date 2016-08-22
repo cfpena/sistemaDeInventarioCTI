@@ -67,16 +67,7 @@ export class KitService {
             .then(result => {return result});
     }
 
-  /*  agregarItem(item: ITEM, nav: NavController){
-      let headers = new Headers({ "Content-Type": "application/json" });
-      headers.append('Accept','application/json');
-        return this.usuarioAuthService.getToken().then(token => {
-            headers.append('Authorization', 'JWT ' + token);
-            return this.http.post(this.url.base + this.url.kit, JSON.stringify(kit),{ headers: headers }).toPromise();
-        }).then(result=> console.log(result)).catch(error => console.log(error));
-    }
 
-*/
 
 
 }
