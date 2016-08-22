@@ -154,7 +154,7 @@
           <div class="card-panel blue-grey lighten-5 ">
             <span class="card-title">Ítems</span>
             <div style="padding-top: 7%;"></div>
-            <div *ngFor = "let listakitelemento of listakitelementos">
+            <div *ngFor = "let item of itemsAgregados">
               <div class="divider"></div>
               <div class="row">
                 <ul>
@@ -167,7 +167,7 @@
                     <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center" [(ngModel)]="itemsKits.cantidad" ></li>
                   </div>
                   <div class="col l2 m2 s2 offset-l1">
-                    <li> <a (click)="agregarItem(item)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a> </li>
+                    <li> <a (click)="eliminarItem(item)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a> </li>
                   </div>
                 </ul>
               </div>

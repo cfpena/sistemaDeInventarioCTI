@@ -3,7 +3,7 @@ import {Validator} from "validator.ts/Validator";
 import {Contains, IsInt, IsLength, IsEmail, IsAlpha} from "validator.ts/decorator/Validation";
 
 export class Kit {
-  url: number;
+  url: string;
   Codigo: string;
   CodigoEspol: string;
   CodigoSenecyt: string;
@@ -11,10 +11,9 @@ export class Kit {
   Marca: string;
   Modelo: string;
   Descripcion: string;
-  //Imagen: any;
-  Items: any;
-  Elementos: ITEM;
-  Dispositivos: ITEM;
+  Imagen: any;
+  Elementos: string[];
+  Dispositivos: string[];
 
 
 
@@ -26,7 +25,8 @@ constructor() {
   this.Marca='';
   this.Modelo='';
   this.Descripcion='';
-  this.Items;
-  this.Dispositivos;
+  this.Dispositivos =[]
+  this.Elementos=[]
+
 }
 }

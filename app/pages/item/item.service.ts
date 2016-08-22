@@ -51,6 +51,9 @@ export class ItemService {
             return this.httprequest.get(this.url.base + this.url.dispositivo + this.url.buscar + cadena,nav)
             .then(result => {
           let items = result.json() as ITEM[];
+          for(let item of items){
+            item.Es_Dispositivo=true
+          }
           return items;
 
         }).catch(error=>{
