@@ -85,6 +85,7 @@ describe('Usuarios', () => {
 
 
   it('crear usuarios', () => {
+
     let usuariosAntes=0
     usuarioPage.listar().then(()=>{//se lo trata de manera asincronica
       return usuariosAntes=usuarioPage.usuarios.length // se retorna para poder hacer otro theb
@@ -101,11 +102,6 @@ describe('Usuarios', () => {
     }).then(()=>{
       expect(usuarioPage.usuarios.length -1 ).toBe(usuariosAntes) //se verifica que la cantidad de antes es igual a la de ahora -1
     })
-
-
-    //suarioPage.listar().then(()=>{expect(usuarioPage.usuarios.length).toBe(1)})
-
-
 
   });
 /*
