@@ -27,11 +27,13 @@ export class PrestamoService {
         }
 
         getPrestador(nav: NavController) {
+
               console.log('get tipos')
-                return this.httprequest.get(this.prestamo.Persona,nav).then(result => {
+          /*      return this.httprequest.get(this.prestamo.Persona,nav).then(result => {
               let personas = result.json() as Persona[];
               return personas;
             });
+            */
         }
 
     getPrestamos(nav: NavController) {
