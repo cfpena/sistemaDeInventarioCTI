@@ -90,7 +90,7 @@
               </div>
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*"  [(ngModel)]="kitNuevo.Nombre" >
+                <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15"  [(ngModel)]="kitNuevo.Nombre" >
                 <label for="icon_nombre"> *  Nombre</label>
               </div>
               <div class="input-field ">
@@ -105,7 +105,7 @@
               </div>
               <div class="input-field col s12">
                 <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                <textarea id="textarea1" class="materialize-textarea" minlength="5" maxlength="50" [(ngModel)]="kitNuevo.Descripcion"></textarea>
+                <textarea id="textarea1" class="materialize-textarea" minlength="5" maxlength="40" [(ngModel)]="kitNuevo.Descripcion"></textarea>
                 <label for="textarea1"> *  Descripción</label>
               </div>
             </div>
@@ -219,7 +219,7 @@
                 <div class="col l10 m10 s10">
                   <div class="input-field ">
                     <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                    <input id="icon_codigo" disabled="disabled" type="text" class="validate" minlength="5" maxlength="10"  pattern = "[0-9]*"  >
+                    <input id="icon_codigo" disabled="disabled" type="text" class="validate" minlength="5" maxlength="10"   >
                     <label for="icon_codigo"> *  Código</label>
                   </div>
                 </div>
@@ -228,7 +228,7 @@
                 <div class="col l10 m10 s10">
                   <div class="input-field">
                     <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                    <input id="icon_nombre" disabled="disabled" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*"  [(ngModel)]="kitModificar.Nombre"  >
+                    <input id="icon_nombre" disabled="disabled" type="text" class="validate" minlength="2" maxlength="15"  [(ngModel)]="kitModificar.Nombre"  >
                     <label for="icon_nombre" class="active"> *  Nombre</label>
                   </div>
                 </div>
@@ -264,7 +264,7 @@
                 <div class="col l10 m10 s10">
                   <div class="input-field col s12">
                     <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                    <textarea id="textarea1" disabled="disabled" class="materialize-textarea" minlength="5" maxlength="50" [(ngModel)]="kitModificar.Descripcion"></textarea>
+                    <textarea id="textarea1" disabled="disabled" class="materialize-textarea" minlength="5" maxlength="40" [(ngModel)]="kitModificar.Descripcion"></textarea>
                     <label for="textarea1" class="active"> *  Descripción</label>
                   </div>
                 </div>
