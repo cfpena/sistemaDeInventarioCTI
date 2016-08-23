@@ -194,51 +194,16 @@ describe('Personas', () => {
   });
 });
 
-/*
-describe('Inventarios', () => {
-
-  beforeEach(function() {
-    var inventarioServ: InventarioService;
-    var personaServ: PersonaService;
-    var http: Http;
-    var nav: NavController;
-    var menu: MenuController;
-    inventarioPage = new InventarioPage(nav,menu);
-  });
-
-  it('listar inventarios', () => {
-    expect(inventarioPage.inventarios).toBeTruthy();
-  });
-
-  it('ingresar inventario', () => {
-    let inventarios = inventarioPage.inventarios;
-    let inventarioNuevo = inventarioPage.inventarioNuevo;
-    inventarioNuevo =
-        {
-            id: 10,  fecha: '15/07/2016',
-            codigo:'0924268915', tipo:'Kit',
-            nombre: 'Arduino',  marca: 'Marca1',
-            modelo: 'Modelo1', detalle:'Ingreso por compra',
-            cantidad: 20, estado: 'disponible'
-
-          };
-    inventarios.push(inventarioNuevo);
-    let index = inventarios.length -1;
-    let inventario= inventarios[index];
-
-    expect(inventario.id).toBe(10);
-  });
-
-});
-*/
 describe('Kits', () => {
 
+  let http: Http;
+  let usuarioAuth= new UsuarioAuthService(http) //antes var usuarioAuth: UsuarioAuthService
+  let kitServ= new KitService(http,usuarioAuth)
+  let itemServ= new ItemService(http,usuarioAuth)
+  let nav: NavController;
+  let menu: MenuController;
   beforeEach(function() {
-    var kitServ: KitService;
-    var itemServ: ItemService;
-    var http: Http;
-    var nav: NavController;
-    var menu: MenuController;
+
     kitPage = new KitPage(nav,menu,kitServ,itemServ,http);
   });
 
@@ -246,36 +211,49 @@ describe('Kits', () => {
 
       expect(kitPage.kits).toBeTruthy();
   });
-/*
+
   it('crear kits', () => {
-    let kits = kitPage.KITS;
-    let kitNuevo = kitPage.kitNuevo;
-    kitNuevo =
-        {id: 10,  codigo: 'Kit0000004',
-        nombre: 'Kit 4',  marca: 'Marca 4',
-        modelo: 'Modelo 4',  descripcion: 'kit 4 de marca 4 modelo 4',
-        cantidad:10, items: this.ITEMS=[
-          {id: 1,  codigo: '1234567890',  nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:20, esDispositivo:true, image:''},
-          {id: 2,  codigo: '1234456891',  nombre: 'Capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:70, esDispositivo:true, image:''},
-          {id: 3,  codigo: '0956787892',  nombre: 'Ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:16, esDispositivo:true, image:''}
+    let kitsAntes=0
+    kitPage.listar().then(()=>{//se lo trata de manera asincronica
+      return kitsAntes=kitPage.kits.length // se retorna para poder hacer otro theb
+    }).then(()=>{
+      let kitNuevo =
+          {Codigo: 'KIT001',
+          CodigoEspol: '09241235',
+          CodigoSenecyt: '123456',
+          Nombre: 'KITPRUEBA',
+          Marca: 'POWERDUDE',
+          Modelo: 'ACTIOM',
+          Descripcion: 'KIT DE PRUEBA',
+          Imagen: '',
+          Elementos: [],
+          Dispositivos: []
+      }; //se crea el kit
+      kitPage.kitNuevo = kitNuevo //se le agrega el kit nuevo a la pagina
+      return kitPage.crear() //se ejecuta la funcion crear
 
-        ]
-          };
-    kits.push(kitNuevo);
-    let index = kits.length -1;
-    let kit= kits[index];
+    }).then(()=>{
+      expect(kitPage.kits.length -1 ).toBe(kitsAntes) //se verifica que la cantidad de antes es igual a la de ahora -1
+    })
 
-    expect(kit.id).toBe(10);
   });
 
   it('eliminar kits', () => {
-    let kits = kitPage.KITS;
-    for (var index in kits){
-      kitPage.selected.push(index);
-    }
-    kitPage.eliminar();
-    expect(kits.length).toBe(0);
-  });*/
+    let kitsAntes=0
+    kitPage.listar().then(()=>{//se lo trata de manera asincronica
+      return kitsAntes=kitPage.kits.length // se retorna para poder hacer otro theb
+    }).then(()=>{
+      let kitNuevo =
+          {
+      };
+      return kitPage.eliminar() //se ejecuta la funcion eliminar
+
+    }).then(()=>{
+      expect(kitPage.kits.length -1 ).toBe(0) //se verifica que la cantidad de antes es igual a la de ahora -1
+    })
+
+  });
+
   it('modificar kits', () => {
     let kits = kitPage.KITS;
     kitPage.id=10;
@@ -286,15 +264,15 @@ describe('Kits', () => {
 });
 
 
-
 describe('Items', () => {
 
+  let http: Http;
+  let usuarioAuth= new UsuarioAuthService(http) //antes var usuarioAuth: UsuarioAuthService
+  let itemServ= new ItemService(http,usuarioAuth)
+  let nav: NavController;
+  let menu: MenuController;
   beforeEach(function() {
 
-    var itemServ: ItemService;
-    var http: Http;
-    var nav: NavController;
-    var menu: MenuController;
     itemPage = new ItemPage(nav,menu,itemServ,http);
   });
 
@@ -302,41 +280,47 @@ describe('Items', () => {
 
       expect(itemPage.items).toBeTruthy();
   });
-/*
-  it('crear kits', () => {
-    let kits = kitPage.KITS;
-    let kitNuevo = kitPage.kitNuevo;
-    kitNuevo =
-        {id: 10,  codigo: 'Kit0000004',
-        nombre: 'Kit 4',  marca: 'Marca 4',
-        modelo: 'Modelo 4',  descripcion: 'kit 4 de marca 4 modelo 4',
-        cantidad:10, items: this.ITEMS=[
-          {id: 1,  codigo: '1234567890',  nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:20, esDispositivo:true, image:''},
-          {id: 2,  codigo: '1234456891',  nombre: 'Capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:70, esDispositivo:true, image:''},
-          {id: 3,  codigo: '0956787892',  nombre: 'Ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:16, esDispositivo:true, image:''}
 
-        ]
-          };
-    kits.push(kitNuevo);
-    let index = kits.length -1;
-    let kit= kits[index];
+  it('crear items', () => {
+    let itemsAntes=0
+    itemPage.listar().then(()=>{//se lo trata de manera asincronica
+      return itemsAntes=itemPage.items.length // se retorna para poder hacer otro theb
+    }).then(()=>{
+      let itemNuevo =
+          {Nombre: 'Resistencia 560 OHM' ,
+          Marca: 'RoHS',
+          Modelo: 'ModeloHS'
+      }; //se crea el kit
+      itemPage.itemNuevo = itemNuevo //se le agrega el kit nuevo a la pagina
+      return itemPage.crear() //se ejecuta la funcion crear
 
-    expect(kit.id).toBe(10);
+    }).then(()=>{
+      expect(itemPage.items.length -1 ).toBe(itemsAntes) //se verifica que la cantidad de antes es igual a la de ahora -1
+    })
+
   });
 
-  it('eliminar kits', () => {
-    let kits = kitPage.KITS;
-    for (var index in kits){
-      kitPage.selected.push(index);
-    }
-    kitPage.eliminar();
-    expect(kits.length).toBe(0);
-  });*/
+  it('eliminar items', () => {
+    let itemsAntes=0
+    itemPage.listar().then(()=>{//se lo trata de manera asincronica
+      return itemsAntes=itemPage.items.length // se retorna para poder hacer otro theb
+    }).then(()=>{
+      let itemNuevo =
+          {
+      };
+      return itemPage.eliminar() //se ejecuta la funcion eliminar
+
+    }).then(()=>{
+      expect(itemPage.items.length -1 ).toBe(0) //se verifica que la cantidad de antes es igual a la de ahora -1
+    })
+
+  });
+
   it('modificar items', () => {
-    let items = kitPage.ITEMS;
+    let items = itemPage.items;
     itemPage.id=10;
-    itemPage.itemModificar.codigo = 'Item000003';
-    expect(itemPage.itemModificar.codigo).toBe('Item000003');
+    itemPage.itemModificar.Codigo = 'RES001';
+    expect(itemPage.itemModificar.Codigo).toBe('RES001');
   });
 
 });
