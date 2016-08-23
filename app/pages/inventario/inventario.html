@@ -69,6 +69,7 @@ Ionic pages and navigation.
 
 
 
+
 <!--layout de ingreso de movimiento a inventario-->
 <div *ngIf="template=='ingresar_movimiento'" style="overflow: scroll;">
   <div id="ingreso_movimiento" class="section" >
@@ -145,21 +146,38 @@ Ionic pages and navigation.
           <div class="card-panel blue-grey lighten-5 ">
             <span class="card-title">Detalle del movimiento</span>
             <div style="padding-top: 5%;"></div>
-            <div class="col s12 m6 l6">
-              <div class="row">
-                <div class="col l12 m12 s12">
-                  <div class="input-field">
-                    <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=descripcionItem (keyup)=buscarItem() >
-                    <label for="itemLista">Buscar item/kit</label>
-                  </div>
+
+            <div class="row">
+              <div class="col l6 m6 s12">
+                <div class="input-field">
+                  <i class="material-icons prefix" style="color:#009688">search</i>
+                  <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=descripcionItem (keyup)=buscarItem() >
+                  <label for="itemLista">Buscar item/kit</label>
+                  <ul class="dropdown-content active"  style="opacity: 1; display: block;">
+                    <li *ngFor="let item of listaFiltradaItem">
+                      <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}}</a>
+                    </li>
+                  </ul>
                 </div>
               </div>
-              <div >
-                    <ul class="dropdown-content active"  style="opacity: 1; display: block;">
-                      <li *ngFor="let item of listaFiltradaItem">
-                        <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}}</a>
-                      </li>
-                    </ul>
+              <div class="col l2 m2 s4 ">
+                <div class="input-field">
+                  <input id="itemStock" type="text" class="validate filter-input  center" [(ngModel)]=itemNuevo.Stock disabled="true">
+                  <label for="itemStock" class="active">Stock</label>
+                </div>
+              </div>
+              <div class="col l2 m2 s4 offset-s1">
+                <div class="input-field" >
+                  <input id="itemCant" type="text" class="validate filter-input  center" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
+                  <label for="itemCant" class="active">Cantidad</label>
+                </div>
+              </div>
+              <div class="col l1 m2 s2 offset-s1 ">
+                <div class="input-field">
+                  <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
+                    <i class="material-icons">add</i>
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -167,117 +185,100 @@ Ionic pages and navigation.
             <datalist id="items" *ngFor="let item of listaFiltradaItem">
             <option value="{{item.Codigo}} - {{item.Nombre}}"></option>
           </datalist>-->
-          <div class="input-field col s6 m2 l2">
-            <input id="itemStock" type="text" class="validate filter-input" [(ngModel)]=itemNuevo.Stock disabled="true">
-            <label for="itemStock" class="active">Stock</label>
-          </div>
-          <div class="input-field col s6 m2 l2" >
-            <input id="itemCant" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
-            <label for="itemCant" class="active">Cantidad</label>
-          </div>
-          <div class="input-field col s6 m2 l2" >
-            <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
-              <i class="material-icons">add</i>
-            </a>
-          </div>
-          <div style="padding-top: 7%;" class="input-field col s12 m6 l6"></div>
 
-            <!--lista-->
+          <!--lista-->
+          <div class="divider"></div>
+          <div class="row" style="color:#424242; font-size: 60%">
+            <div class="col l6 m6 s4 ">
+              <h6 class="center">Ítem</h6>
+            </div>
+            <div class="col l2 m2 s4 ">
+              <h6 class="center">Cantidad</h6>
+            </div>
+            <div class="col l2 m2 s4">
+              <h6 class="center">Serie/Mac</h6>
+            </div>
+          </div>
+
+          <div *ngFor = "let movimiento_det of movimientoNuevo.movimiento_detalle">
             <div class="divider"></div>
             <div class="row">
               <ul>
-                <div class="col l6 m7 s7" style="color:#424242; font-size: 65%">
-                  Item
+                <div class="col l6 m7 s5" style="color:#424242; font-size: 65%">
+                  <li id="nombre">Nombre: {{movimiento_det.item.Nombre}}</li>
+                  <li id="codigo">Código: {{movimiento_det.item.Codigo}}</li>
+                  <li id="cantidad">Cant.: {{movimiento_det.item.Stock}}</li>
                 </div>
-                <div class="col l2 m2 s2" style="color:#424242; font-size: 65%">
-                    Cantidad
-                </div>
-                <div class="col l2 m2 s2" style="color:#424242; font-size: 65%">
+                <div class="col l2 m2 s3">
                   <li>
-                    Serie/MAC
+                    <input id="cantidad" type="text" class="validate  center" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.cantidad" >
+                  </li>
+                </div>
+                <div class="col l3 m3 s3">
+                  <li>
+                    <input id="serie" type="text" class="validate  center" minlength="1" maxlength="30"   [(ngModel)]="movimiento_det.serie" >
+                  </li>
+                </div>
+                <div class="col l1 m2 s1">
+                  <li>
+                    <a (click)="eliminarItem(item)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a>
                   </li>
                 </div>
               </ul>
             </div>
-            <div *ngFor = "let movimiento_det of movimientoNuevo.movimiento_detalle">
-              <div class="divider"></div>
-              <div class="row">
-                <ul>
-                  <div class="col l6 m7 s5" style="color:#424242; font-size: 65%">
-                    <li id="nombre">Nombre: {{movimiento_det.item.Nombre}}</li>
-                    <li id="codigo">Código: {{movimiento_det.item.Codigo}}</li>
-                    <li id="cantidad">Cant.: {{movimiento_det.item.Stock}}</li>
-                  </div>
-                  <div class="col l2 m2 s3">
-                    <li>
-                      <input id="cantidad" type="text" class="validate" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.cantidad" >
-                    </li>
-                  </div>
-                  <div class="col l3 m3 s3">
-                    <li>
-                      <input id="serie" type="text" class="validate" minlength="1" maxlength="30"   [(ngModel)]="movimiento_det.serie" >
-                    </li>
-                  </div>
-                  <div class="col l1 m2 s1">
-                    <li>
-                      <a (click)="eliminarItem(item)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a>
-                    </li>
-                  </div>
-                </ul>
-              </div>
-            </div>
-            <!--tabla-->
-            <!--
-            <div>
-            <table  materialize class="centered table centered striped" style="font-size: 15px">
-              <thead>
-                <tr>
-                  <th data-field="id">Código</th>
-                  <th data-field="fecha">Descripción</th>
-                  <th data-field="tipo">Cantidad</th>
-                  <th data-field="descripcion">Serie/MAC</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor = "let movimiento_det of movimientoNuevo.movimiento_detalle">
-                  <td>{{movimiento_det.item.Codigo}}</td>
-                  <td>{{movimiento_det.item.Descripcion}}</td>
-                  <td>
-                    <div class="input-field">
-                      <input id="icon_codigo" type="text" class="validate" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.cantidad" >
-                    </div>
-                  </td>
-                  <td>
-                    <div class="input-field">
-                      <input id="icon_codigo" type="text" class="validate" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.serie" >
-                    </div>
-                  </td>
-                  <td>
-                    <div>
-                      <a (click)="eliminarItem()" class="btn-floating btn-small waves-effect waves-light red right">
-                        <i class="material-icons">clear</i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>-->
           </div>
-          <div class="card-action">
-            <a (click)="crearMovimiento()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
-              <i class="material-icons right">send</i>
-            </a>
-          </div>
-        </div>
-      </div>
+          <!--tabla-->
+          <!--
+          <div>
+          <table  materialize class="centered table centered striped" style="font-size: 15px">
+          <thead>
+          <tr>
+          <th data-field="id">Código</th>
+          <th data-field="fecha">Descripción</th>
+          <th data-field="tipo">Cantidad</th>
+          <th data-field="descripcion">Serie/MAC</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor = "let movimiento_det of movimientoNuevo.movimiento_detalle">
+      <td>{{movimiento_det.item.Codigo}}</td>
+      <td>{{movimiento_det.item.Descripcion}}</td>
+      <td>
+      <div class="input-field">
+      <input id="icon_codigo" type="text" class="validate" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.cantidad" >
     </div>
+  </td>
+  <td>
+  <div class="input-field">
+  <input id="icon_codigo" type="text" class="validate" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.serie" >
+</div>
+</td>
+<td>
+<div>
+<a (click)="eliminarItem()" class="btn-floating btn-small waves-effect waves-light red right">
+<i class="material-icons">clear</i>
+</a>
+</div>
+</td>
+</tr>
+</table>
+</div>-->
+<div class="card-action">
+  <a (click)="crearMovimiento()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
+    <i class="material-icons right">send</i>
+  </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section">
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+      <i class="material-icons">clear</i>
+    </a>
   </div>
-  <div class="section">
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
-        <i class="material-icons">clear</i>
-      </a>
-    </div>
-  </div>
+</div>
 </div>

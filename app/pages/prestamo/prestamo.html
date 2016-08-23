@@ -86,16 +86,15 @@
                 <i class="material-icons prefix" style="color:#009688">account_box</i>
                 <input id="personaLista" type="text" class="validate filter-input" [(ngModel)]=descripcionPersona (keyup)=buscarPersona()>
                 <label for="personaLista">Persona</label>
+                <ul class="dropdown-content active"  style="opacity: 1; display: block;">
+                  <li *ngFor="let persona of listaFiltradaPersona">
+                    <a (click)="seleccionarPersona(persona)">{{persona.CI}} - {{persona.Nombre}} {{persona.Apellido}} </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-          <div>
-            <ul class="dropdown-content active"  style="opacity: 1; display: block;">
-              <li *ngFor="let persona of listaFiltradaPersona">
-                <a (click)="seleccionarPersona(persona)">{{persona.CI}} - {{persona.Nombre}} {{persona.Apellido}} </a>
-              </li>
-            </ul>
-          </div>
+
           <div class="row">
             <div class="col l12 m12 s12">
               <div class="input-field">
@@ -133,50 +132,46 @@
           <span class="card-title">Items Prestados</span>
           <div style="padding-top: 5%;"></div>
 
-            <div class="col l8 m8 s12">
+          <div class="row">
+            <div class="col l6 m6 s12">
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">search</i>
                 <input id="item" type="text" class="validate filter-input" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
                 <label for="item">Item</label>
+                <ul class="dropdown-content active"  style="opacity: 1; display: block;">
+                  <li *ngFor="let item of listaFiltradaItem">
+                    <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}}</a>
+                  </li>
+                </ul>
               </div>
             </div>
-          <div>
-            <ul class="dropdown-content active"  style="opacity: 1; display: block;">
-              <li *ngFor="let item of listaFiltradaItem">
-                <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}}</a>
-              </li>
-            </ul>
-          </div>
-          <div class="row">
-            <div class="input-field col s6 m12 l2" >
-              <input id="itemCant" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
-              <label for="itemCant" class="active">Cantidad</label>
+            <div class="col l2 m2 s7  offset-s2">
+              <div class="input-field" >
+                <input id="itemCant" type="text" class="validate filter-input center" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
+                <label for="itemCant" class="active">Cantidad</label>
+              </div>
             </div>
-            <div class="input-field col s6 m12 l2" >
-              <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
-                <i class="material-icons">add</i>
-              </a>
+            <div class="col l1 m1 s2 offset-s1 offset-l1 offset-m1">
+              <div class="input-field col s6 m12 l2" >
+                <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
+                  <i class="material-icons">add</i>
+                </a>
+              </div>
             </div>
           </div>
-
-          <div style="padding-top: 7%;" class="input-field col s12 m12 l12"></div>
 
           <!--lista-->
           <div class="divider"></div>
-          <div class="row">
-            <ul>
-              <div class="col l6 m7 s7" style="color:#424242; font-size: 65%">
-                Item
-              </div>
-              <div class="col l2 m2 s2" style="color:#424242; font-size: 65%">
-                Cantidad
-              </div>
-              <div class="col l2 m2 s2" style="color:#424242; font-size: 65%">
-                <li>
-                  Serie/MAC
-                </li>
-              </div>
-            </ul>
+          <div class="row" style="color:#424242; font-size: 60%">
+            <div class="col l6 m6 s4 ">
+              <h6 class="center">Ítem</h6>
+            </div>
+            <div class="col l2 m2 s4 ">
+              <h6 class="center">Cantidad</h6>
+            </div>
+            <div class="col l2 m2 s4">
+              <h6 class="center">Serie/Mac</h6>
+            </div>
           </div>
           <div *ngFor = "let prestamo of listaPrestamos">
             <div class="divider"></div>
@@ -189,7 +184,7 @@
                 </div>
                 <div class="col l2 m2 s3">
                   <li>
-                    <input id="cantidad" type="text" class="validate" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="prestamo.Cantidad" >
+                    <input id="cantidad" type="text" class="validate center" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="prestamo.Cantidad" >
                   </li>
                 </div>
                 <div class="col l3 m3 s3">
@@ -204,6 +199,11 @@
                 </div>
               </ul>
             </div>
+          </div>
+          <div class="card-action">
+            <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
+              <i class="material-icons right">send</i>
+            </a>
           </div>
         </div>
       </div>
@@ -251,11 +251,7 @@
 </div>
 </div>
 </div>-->
-<div class="card-action right">
-  <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
-    <i class="material-icons right">send</i>
-  </a>
-</div>
+
 </div>
 </div>
 <!--boton para cancelar-->
