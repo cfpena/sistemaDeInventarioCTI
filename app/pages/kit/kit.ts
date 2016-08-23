@@ -76,7 +76,7 @@ kitModificar= new Kit;
     //funcion listar que lista todos los kits creados
     listar() {
       this.kits =[]
-        this.kitService.getKits(this.navController).then(kits => { this.kits = kits ; return kits  }).then(result=>{
+      return  this.kitService.getKits(this.navController).then(kits => { this.kits = kits ; return kits  }).then(result=>{
             console.log("listando kits");
           })
     }

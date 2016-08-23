@@ -61,7 +61,7 @@ export class ItemPage implements OnInit {
 
     listar() {
       this.items =[]
-        this.itemService.getElementos(this.navController).then(items => { this.items = items; return items }).then(result=>{
+      return  this.itemService.getElementos(this.navController).then(items => { this.items = items; return items }).then(result=>{
           this.itemService.getDispositivos(this.navController).then(items => {
             for(var item of items){
               this.items.push(item)
