@@ -62,16 +62,16 @@ export class KitService {
 
 
     updateKit(kit: Kit, nav: NavController) {
-            return this.httprequest.patch(String(kit.url), JSON.stringify(
-            {
-              Nombre: kit.Nombre,
-              Marca: kit.Marca,
-              Modelo: kit.Modelo,
-              CodigoEspol: kit.CodigoEspol,
-              CodigoSenecyt: kit.CodigoSenecyt,
-              Descripcion: kit.Descripcion
+      let json=JSON.stringify(
+      {
+        Nombre: kit.Nombre,
+        Marca: kit.Marca,
+        Modelo: kit.Modelo,
+        Descripcion: kit.Descripcion,
+        Dispositivos: kit.Dispositivos
 
-            }),nav)
+      })
+            return this.httprequest.patch(String(kit.url),json ,nav)
             .then(result => {return result});
     }
 
