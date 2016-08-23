@@ -65,10 +65,8 @@ toast.onDismiss(() => {
 
 listar() {
   //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
-  this.personaService.getPersonas(this.navController).then(personas => { this.personas = personas; return personas }).then(personas => {
-
-  })
-  return this.personas
+  return  this.personaService.getPersonas(this.navController).then(personas => { this.personas = personas; return personas }).then(personas => {
+    })
 }
 
 //CI: '',Nombre: '', Apellido: "", Email:'',Telefono:"",Genero:''
@@ -91,10 +89,18 @@ listar() {
     this.personas.push(this.personaNueva);
     let persona = JSON.parse(JSON.stringify(this.personaNueva))
     this.personaService.createPersona(persona,this.navController).then(result => this.listar());
+    let result=this.personaService.createPersona(persona,this.navController).then(result => {this.listar();return true}).catch(err=> {return false});
+
     this.template='null';
     this.count++;
-    this.personaNueva = new Persona();
     this.listar();
+    this.personaNueva = new Persona();
+
+    result.then(ok=>{
+      if(ok) return true
+      else return false
+
+    })
 
   }
 }
@@ -128,7 +134,7 @@ listar() {
 
     for(var persona of this.personasEliminar){
       this.personaService.eliminarPersona(persona,this.navController).then(result =>
-        { console.log(result) }).catch(error=> console.log(error))  }
+        { this.listar() }).catch(error=> console.log(error))}
     //se deja en blanco la lista a eliminar
     this.personasEliminar= Array<Persona>();
     //se refrescan los datos del servidor

@@ -99,7 +99,7 @@ kitModificar= new Kit;
         }
           let kit = JSON.parse(JSON.stringify(this.kitNuevo))
           console.log(JSON.stringify(kit))
-          this.kitService.createKit(kit,this.listakitelementos,this.navController).then(result => this.listar());
+          let result=this.kitService.createKit(kit,this.listakitelementos,this.navController).then(result => {this.listar()}).catch(err=> {return false});
           this.template = 'null';
           this.kitNuevo = new Kit();
       }
@@ -133,8 +133,9 @@ kitModificar= new Kit;
 
   eliminar(){
     for(var kit of this.kitsEliminar){
-      this.kitService.eliminarKit(kit, this.navController).then(result =>
-        {this.listar() }).catch(error=> console.log(error))
+      this.kitService.eliminarKit(kit,this.navController).then(result =>
+        { this.listar() }).catch(error=> console.log(error))
+
     }
     //se deja en blanco la lista a eliminar
     this.kitsEliminar= Array<Kit>();

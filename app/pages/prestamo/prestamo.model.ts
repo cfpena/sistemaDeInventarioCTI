@@ -3,13 +3,14 @@ import {Contains, IsInt, IsLength, IsEmail, IsAlpha} from "validator.ts/decorato
 import {ITEM} from '../item/item.model';
 import {Kit} from '../kit/kit.model';
 import {Persona} from '../persona/persona.model';
+import {Acta} from '../prestamo/acta.model';
 
 export class Prestamo {
     url: String;
     @IsInt() Cantidad: number;
-    Acta: string;
+    Acta: any;
     Fecha: String;
-    Objeto: String;
+    Objeto: ITEM;
     Detalle: String;
 
 
