@@ -10,11 +10,7 @@ export class Prestamo {
     @IsInt() Cantidad: number;
     Acta: Acta;
     Fecha: String;
-<<<<<<< HEAD
     Objeto: ITEM;
-=======
-    Objeto: any;
->>>>>>> 6a5d00185f7f6337e2f413fd194ce6caa2ee9203
     Detalle: String;
 
 
