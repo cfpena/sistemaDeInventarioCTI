@@ -112,7 +112,7 @@ describe('Usuarios', () => {
     }).then(()=>{
       let usuarioNuevo =
           {
-      }; 
+      };
       return usuarioPage.eliminar() //se ejecuta la funcion eliminar
 
     }).then(()=>{
@@ -130,12 +130,15 @@ describe('Usuarios', () => {
 });
 
 describe('Personas', () => {
+  let http: Http;
+  let usuarioAuth= new UsuarioAuthService(http) //antes var usuarioAuth: UsuarioAuthService
+  let personaServ= new PersonaService(http,usuarioAuth) //antes var personaServ: PersonaService
+  let nav: NavController;
+  let menu: MenuController;
 
   beforeEach(function() {
-    var personaServ: PersonaService;
-    var http: Http;
-    var nav: NavController;
-    var menu: MenuController;
+    //antes las instancias estaban aqui
+
     personaPage = new PersonaPage(nav,menu,personaServ,http);
   });
 

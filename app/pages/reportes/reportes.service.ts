@@ -18,5 +18,9 @@ export class ReporteService {
       return this.httprequest.post(this.url.base + this.url.reporteInventario,JSON.stringify(reporte),nav)
 
     }
+    getReportePrestamo(reporte: Reporte,nav: NavController){
+      return this.httprequest.post(this.url.base + this.url.reportePrestamo,JSON.stringify(reporte),nav)
+
+    }
 
 }

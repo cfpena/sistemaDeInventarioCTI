@@ -9,7 +9,7 @@ export class Prestamo {
     @IsInt() Cantidad: number;
     Acta: string;
     Fecha: String;
-    Objeto: String;
+    Objeto: any;
     Detalle: String;
 
 

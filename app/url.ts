@@ -18,5 +18,6 @@ export class Url {
   password= 'api/password/';
   buscar = '?search='
   reporteInventario = 'api/reporteinventario/'
+  reportePrestamo = 'api/reporteprestamo/'
 
 }
