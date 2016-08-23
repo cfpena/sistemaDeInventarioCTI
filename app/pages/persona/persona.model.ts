@@ -5,8 +5,8 @@ import {Contains, IsInt, IsLength, IsEmail, IsAlpha} from "validator.ts/decorato
 export class Persona {
   url: String;
   CI: string;
-  Nombre: string;
-  Apellido: string;
+  @IsAlpha() Nombre: string;
+  @IsAlpha() Apellido: string;
   @IsEmail() Email: string;
   Telefono: string;
   Genero: string;

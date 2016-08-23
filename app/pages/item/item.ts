@@ -73,9 +73,9 @@ export class ItemPage implements OnInit {
     crear() {
         let validator = new Validator();
         if (!validator.isValid(this.itemNuevo)) this.presentToast('Corrija el formulario');
-      //  else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
+        else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 10) this.presentToast('Código debe ser de longitud 10');
         else if (this.itemNuevo.Nombre == '') this.presentToast('Nombre vacio');
-      //  else if (this.itemNuevo.Descripcion == '') this.presentToast('Descripción vacio');
+        else if (this.itemNuevo.Descripcion == '') this.presentToast('Descripción vacio');
         else if (this.itemNuevo.Stock < 1 || this.itemNuevo.Stock > 50 || this.itemNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
             let item = JSON.parse(JSON.stringify(this.itemNuevo))
@@ -97,11 +97,10 @@ export class ItemPage implements OnInit {
     modificar() {
         let validator = new Validator();
         if (!validator.isValid(this.itemModificar)) this.presentToast('Corrija el formulario');
-        //else if (this.itemModificar.Codigo == '' || this.itemModificar.Codigo.length < 10)    this.presentToast('Código debe tener 10 dígitos');
+        //else if (this.itemModificar.Codigo == '' || this.itemModificar.Codigo.length < 10)    this.presentToast('Código debe ser ');
         else if (this.itemModificar.Nombre == '') this.presentToast('Nombre vacio');
-        //else if (this.itemModificar.Descripcion == '') this.presentToast('Descripción vacio');
-        //else if (this.itemModificar.Stock < 1 || this.itemModificar.Stock > 50 || this.itemModificar.Stock == 0)
-          //  this.presentToast('Cantidad mínima 1 máximo 50');
+        else if (this.itemModificar.Descripcion == '') this.presentToast('Descripción vacio');
+        else if (this.itemModificar.Stock < 1 || this.itemModificar.Stock > 50 || this.itemModificar.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
             this.itemService.updateItem(this.itemModificar,this.navController).then(result => this.listar());
             this.template = 'null';

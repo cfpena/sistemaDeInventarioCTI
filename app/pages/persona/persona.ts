@@ -111,7 +111,7 @@ listar() {
   modificar(){
     let validator = new Validator();
     if (!validator.isValid(this.personaModificar))                                              this.presentToast('Corrija el formulario');
-    else if (this.personaModificar.CI=='' || this.personaModificar.CI.length < 10)              this.presentToast('Cedula vacia o Incompleta');
+    //else if (this.personaModificar.CI=='' || this.personaModificar.CI.length < 10)              this.presentToast('Cedula vacia o Incompleta');
     else if(this.personaModificar.Nombre=='')                                                   this.presentToast('Nombre vacio o Incorrecto');
     else if(this.personaModificar.Apellido=='')                                                 this.presentToast('Apellido vacio o Incorrecto');
     else if(this.personaModificar.Email=='')                                                    this.presentToast('Email vacio o Incorrecto');

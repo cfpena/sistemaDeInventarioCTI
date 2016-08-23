@@ -18,7 +18,7 @@
       </div>
       <div class="col l2 m3 s8">
         <div class="input-field">
-          <input (keyup)="buscar()" type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
+          <input (keyup)="buscar()" type="text" id="identificacion"  minlength="0" maxlength="20" [(ngModel)]="busqueda.valor">
           <label class="black-text active" for="identificacion">Búsqueda</label>
         </div>
       </div>
@@ -109,18 +109,8 @@
           <div class="col l4 m4 s12">
             <div class="input-field ">
               <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-              <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="itemNuevo.Codigo">
+              <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" [(ngModel)]="itemNuevo.Codigo">
               <label for="icon_codigo"> *  Código</label>
-            </div>
-            <div class="input-field">
-              <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-              <input id="CodigoEspol" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="itemNuevo.CodigoEspol">
-              <label for="CodigoEspol">Código Espol</label>
-            </div>
-            <div class="input-field">
-              <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-              <input id="CodigoSenecyt" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="itemNuevo.CodigoSenecyt">
-              <label for="CodigoSenecyt">Código Senecyt</label>
             </div>
             <div class="input-field">
               <i class="material-icons prefix" style="color:#009688" >keyboard_arrow_right</i>
@@ -132,14 +122,14 @@
               <input id="icon_marca" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="itemNuevo.Marca" >
               <label for="icon_marca">   Marca</label>
             </div>
-          </div>
-          <!--segunda columna-->
-          <div class="col l4 m4 s12">
             <div class="input-field">
               <i class="material-icons prefix" style="color:#009688" >keyboard_arrow_right</i>
               <input id="icon_modelo" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="itemNuevo.Modelo">
               <label for="icon_modelo">   Modelo</label>
             </div>
+          </div>
+          <!--segunda columna-->
+          <div class="col l4 m4 s12">
             <div class="input-field">
               <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
               <input id="icon_descripcion" type="text" class="validate" minlength="5" maxlength="30" [(ngModel)]="itemNuevo.Descripcion">
@@ -158,7 +148,7 @@
               <div class="input-field" >
                 <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
                 <input id="icon_cantidad" type="text" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" [(ngModel)]="itemNuevo.Stock" >
-                <label for="icon_cantidad" > *  Cantidad</label>
+                <label for="icon_cantidad" > Cantidad</label>
               </div>
             </div>
           </div>
@@ -225,35 +215,12 @@
               <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" disabled="disabled" [(ngModel)]="itemModificar.Codigo">
               <label for="icon_codigo"> *  Código</label>
             </div>
-            <div class="row">
-              <div class="col l10 m10 s10">
-                <div class="input-field">
-                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                  <input id="CodigoEspol" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" disabled="disabled"  [(ngModel)]="itemModificar.CodigoEspol">
-                  <label for="CodigoEspol">Código Espol</label>
-                </div>
-              </div>
-              <div class="col l2 m2 s2">
-                <a class="button-collapse" onclick="CodigoEspol.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col l10 m10 s10">
-                <div class="input-field">
-                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                  <input id="CodigoSenecyt" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*"  disabled="disabled" [(ngModel)]="itemModificar.CodigoSenecyt">
-                  <label for="CodigoSenecyt">Código Senecyt</label>
-                </div>
-              </div>
-              <div class="col l2 m2 s2">
-                <a class="button-collapse" onclick="CodigoSenecyt.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
-              </div>
-            </div>
+
             <div class="row">
               <div class="col l10 m10 s10">
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688" >keyboard_arrow_right</i>
-                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" disabled="disabled" [(ngModel)]="itemModificar.Nombre">
+                  <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15"  disabled="disabled" [(ngModel)]="itemModificar.Nombre">
                   <label for="icon_nombre"> *  Nombre</label>
                 </div>
               </div>
@@ -273,9 +240,6 @@
                 <a class="button-collapse" onclick="icon_modelo.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
               </div>
             </div>
-          </div>
-          <!--segunda columna-->
-          <div class="col l4 m4 s12">
             <div class="row">
               <div class="col l10 m10 s10">
                 <div class="input-field ">
@@ -288,6 +252,10 @@
                 <a class="button-collapse" onclick="icon_marca.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
               </div>
             </div>
+          </div>
+          <!--segunda columna-->
+          <div class="col l4 m4 s12">
+
             <div class="row">
               <div class="col l10 m10 s10">
                 <div class="input-field">

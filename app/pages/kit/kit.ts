@@ -86,9 +86,9 @@ kitModificar= new Kit;
     console.log('crear')
       let validator = new Validator();
       if (!validator.isValid(this.kitNuevo)) this.presentToast('Corrija el formulario');
-    //  else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
-      //else if (this.kitNuevo.Nombre == '') this.presentToast('Nombre vacio');
-    //  else if (this.itemNuevo.Descripcion == '') this.presentToast('Descripción vacio');
+      else if (this.kitNuevo.Codigo == '' || this.kitNuevo.Codigo.length < 10) this.presentToast('Código debe ser de lengitud 10');
+       else if (this.kitNuevo.Nombre == '') this.presentToast('Nombre vacio');
+      else if (this.kitNuevo.Descripcion == '') this.presentToast('Descripción vacio');
       //else if (this.kitNuevo.Stock < 1 || this.kitNuevo.Stock > 50 || this.kitNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
       else {
         for(let item of this.itemsAgregados){
@@ -119,18 +119,18 @@ kitModificar= new Kit;
   modificar(){
     let validator = new Validator();
     console.log(this.kitModificar);
-  //  if(!validator.isValid(this.kitModificar)) this.presentToast('Corrija el formulario');
-    //else if (this.kitModificar.Codigo=='' || this.kitModificar.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
-  //else if(this.kitModificar.Nombre=='') this.presentToast('Nombre vacio');
-//  else if(this.kitModificar.Descripcion=='') this.presentToast('Descripción vacio');
-  //else if(this.kitModificar.Marca=='') this.presentToast('Marca vacio');
-  //else if(this.kitModificar.Modelo=='') this.presentToast('Modelo vacio');
-  //else{
+    if(!validator.isValid(this.kitModificar)) this.presentToast('Corrija el formulario');
+    //else if (this.kitModificar.Codigo=='' || this.kitModificar.Codigo.length < 10) this.presentToast('Código debe ser de lengitud 10');
+    else if(this.kitModificar.Nombre=='') this.presentToast('Nombre vacio');
+    else if(this.kitModificar.Descripcion=='') this.presentToast('Descripción vacio');
+    //else if(this.kitModificar.Marca=='') this.presentToast('Marca vacio');
+    //else if(this.kitModificar.Modelo=='') this.presentToast('Modelo vacio');
+  else{
 
     this.kitService.updateKit(this.kitModificar,this.navController).then(result => this.listar());
     this.template = 'null';
     this.kitNuevo= new Kit()
-  //}
+  }
   }
 
   eliminar(){

@@ -9,8 +9,8 @@ export class Group{
 export class Usuario {
     url: String;
     CI: String;
-    Nombre:String;
-    Apellido: String;
+    @IsAlpha() Nombre:String;
+    @IsAlpha() Apellido: String;
     @IsEmail() Email: string;
     Telefono: String;
     Genero: String;

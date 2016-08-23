@@ -20,7 +20,7 @@
       </div>
       <div class="col l2 m3 s8">
         <div class="input-field">
-          <input (keyup)="buscar()" type="text" id="identificacion"  [(ngModel)]="busqueda.valor">
+          <input (keyup)="buscar()" type="text" id="identificacion" minlength="0" maxlength="20" [(ngModel)]="busqueda.valor">
           <label class="black-text active" for="identificacion" >Búsqueda</label>
         </div>
       </div>
@@ -85,7 +85,7 @@
             <div class="col l12 m12 s12">
               <div class="input-field ">
                 <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*"  [(ngModel)]="kitNuevo.Codigo" >
+                <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"  [(ngModel)]="kitNuevo.Codigo" >
                 <label for="icon_codigo"> *  Código</label>
               </div>
               <div class="input-field">
@@ -124,7 +124,7 @@
               <div class="col l6 m6 s12">
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">search</i>
-                  <input id="item" type="text" class="validate filter-input" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
+                  <input id="item" type="text" class="validate filter-input" minlength="0" maxlength="20" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
                   <label for="item">Búsqueda de ítems</label>
                   <ul class="dropdown-content active"  style="opacity: 1; display: block;">
                     <li *ngFor="let item of listaFiltradaItem">
@@ -289,7 +289,7 @@
               <div class="col l6 m6 s12">
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">search</i>
-                  <input id="item" type="text" class="validate filter-input" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
+                  <input id="item" type="text" class="validate filter-input" minlength="0" maxlength="20" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
                   <label for="item">Búsqueda de ítems</label>
                   <ul class="dropdown-content active"  style="opacity: 1; display: block;">
                     <li *ngFor="let item of listaFiltradaItem">
