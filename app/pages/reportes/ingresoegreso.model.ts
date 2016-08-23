@@ -4,6 +4,6 @@ export class IngresoEgreso{
     "Cantidad": number;
     "Detalle": String;
     "Tipo": String;
-    "Objeto": string
+    "Objeto": any
 
 }

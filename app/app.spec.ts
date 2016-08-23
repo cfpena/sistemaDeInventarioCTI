@@ -104,12 +104,23 @@ describe('Usuarios', () => {
     })
 
   });
-/*
+
   it('eliminar usuarios', () => {
-    let usuarios = usuarioPage.usuarios;
-    usuarioPage.eliminar();
-    expect(usuarios.length).toBe(0);
-  });*/
+    let usuariosAntes=0
+    usuarioPage.listar().then(()=>{//se lo trata de manera asincronica
+      return usuariosAntes=usuarioPage.usuarios.length // se retorna para poder hacer otro theb
+    }).then(()=>{
+      let usuarioNuevo =
+          {
+      };
+      return usuarioPage.eliminar() //se ejecuta la funcion eliminar
+
+    }).then(()=>{
+      expect(usuarioPage.usuarios.length -1 ).toBe(0) //se verifica que la cantidad de antes es igual a la de ahora -1
+    })
+
+  });
+
   it('modificar usuarios', () => {
     let usuarios = usuarioPage.usuarios;
     usuarioPage.Nombre='Adriano';
@@ -119,46 +130,62 @@ describe('Usuarios', () => {
 });
 
 describe('Personas', () => {
+  let http: Http;
+  let usuarioAuth= new UsuarioAuthService(http) //antes var usuarioAuth: UsuarioAuthService
+  let personaServ= new PersonaService(http,usuarioAuth) //antes var personaServ: PersonaService
+  let nav: NavController;
+  let menu: MenuController;
 
   beforeEach(function() {
-    var personaServ: PersonaService;
-    var http: Http;
-    var nav: NavController;
-    var menu: MenuController;
+    //antes las instancias estaban aqui
+
     personaPage = new PersonaPage(nav,menu,personaServ,http);
   });
 
   it('listar personas', () => {
     expect(personaPage.personas).toBeTruthy();
   });
-/*
-  it('crear personas', () => {
-    let personas = personaPage.personas;
-    let personaNueva = personaPage.personaNueva;
-    personaNueva =
-        {
-            CI:'0924268915',
-            Nombre: 'Xavier',  Apellido: 'Vera',
-            Email: 'x@prueba.com', Telefono: '0986009274',
-            celular: '0987654321', Genero: 'Masculino',
-            Direccion: 'General Villamil', Matricula: '201345612' ,
-            Tipo:'Estudiante'
-          };
-    personas.push(personaNueva);
-    let index = personas.length -1;
-    let persona= personas[index];
 
-    expect(persona.CI).toBe(0924268915);
+  it('crear personas', () => {
+
+    let personasAntes=0
+    personaPage.listar().then(()=>{//se lo trata de manera asincronica
+      return personasAntes=personaPage.personas.length // se retorna para poder hacer otro theb
+    }).then(()=>{
+      let personaNueva =
+          {CI:'0924268915',
+          Nombre: 'Xavier',  Apellido: 'Vera',
+          Email: 'x@prueba.com', Telefono: '0986009274',
+          celular: '0987654321', Genero: 'Masculino',
+          Direccion: 'General Villamil', Matricula: '201345612' ,
+          Tipo:'Estudiante'
+      }; //se crea la persona
+      personaPage.personaNueva = personaNueva //se le agrega el usuario nuevo a la pagina
+      return personaPage.crear() //se ejecuta la funcion crear
+
+    }).then(()=>{
+      expect(personaPage.personas.length -1 ).toBe(personasAntes) //se verifica que la cantidad de antes es igual a la de ahora -1
+    })
+
   });
 
+
   it('eliminar personas', () => {
-    let personas = personaPage.personas;
-    for (var index in personas){
-      personaPage.select(index);
-    }
-    personaPage.eliminar();
-    expect(personas.length).toBe(0);
-  });*/
+    let personasAntes=0
+    personaPage.listar().then(()=>{//se lo trata de manera asincronica
+      return personasAntes=personaPage.personas.length // se retorna para poder hacer otro theb
+    }).then(()=>{
+      let personaNuevo =
+          {
+      };
+      return personaPage.eliminar() //se ejecuta la funcion eliminar
+
+    }).then(()=>{
+      expect(personaPage.personas.length -1 ).toBe(0) //se verifica que la cantidad de antes es igual a la de ahora -1
+    })
+
+  });
+
   it('modificar personas', () => {
     let personas = personaPage.personas;
     personaPage.CI='0924268915';

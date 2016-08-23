@@ -92,15 +92,11 @@ export class UsuarioPage implements OnInit {
             //si no se hace esto al moficiar el usuario nuevo, tambien se modifica el usuario viejo
             let usuario = JSON.parse(JSON.stringify(this.usuarioNuevo))
             usuario['groups'] = [tipo.url]
-            let result=this.usuarioService.createUsuario(usuario, this.credenciales,this.navController).then(result => {this.listar();return true}).catch(err=> {return false});
+            let result=this.usuarioService.createUsuario(usuario, this.credenciales,this.navController).then(result => {this.listar()}).catch(err=> {return false});
             this.template = 'null';
             //se vuelve a dejar en blanco el usuarioNuevo para volverlo  a usar luego
             this.usuarioNuevo = new Usuario();
-            result.then(ok=>{
-              if(ok) return true
-              else return false
 
-            })
 
         }
     }
