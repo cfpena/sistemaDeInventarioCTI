@@ -34,21 +34,17 @@ Ionic pages and navigation.
 <table  materialize class="centered table centered striped" style="font-size: 15px">
   <thead>
     <tr>
-      <th data-field="id">ID</th>
       <th data-field="fecha">Fecha</th>
-      <th data-field="tipo">Tipo</th>
       <th data-field="descripcion">Descripción</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor = "let movimiento of movimientos">
-      <td >{{movimiento.id}}</td>
-      <td >{{movimiento.fecha}}</td>
-      <td>{{movimiento.tipo_movimiento.nombre}}</td>
-      <td>{{movimiento.observaciones}}</td>
+      <td >{{movimiento.Fecha}}</td>
+      <td>{{movimiento.Descripcion}}</td>
       <td>
-        <a (click)="goVerMovimiento(movimiento.id)" class="button-collapse "><i class="material-icons left">description</i></a>
+        <a (click)="goVerMovimiento(movimiento)" class="button-collapse "><i class="material-icons left">description</i></a>
       </td>
     </tr>
   </table>
@@ -105,36 +101,24 @@ Ionic pages and navigation.
                     </li>
                   </ul>
                 </div>
-                <div class="input-field">
-                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"  [(ngModel)]="ingresoNuevo.Acta_entrega" >
-                  <label for="icon_codigo">No. Acta de Entrega/Recepción</label>
-                </div>
-              </div>
 
-              <div class="col s12 m12 l12" *ngIf="templateMovimiento=='salida_inventario'">
-                <div class="input-field">
-                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"  [(ngModel)]="salidaNuevo.Motivo_salida" >
-                  <label for="icon_codigo">Motivo de Salida</label>
-                </div>
-                <div class="input-field">
-                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"  [(ngModel)]="salidaNuevo.No_Acta_Salida" >
-                  <label for="icon_codigo">No. Acta de Salida</label>
-                </div>
               </div>
 
               <div class="col s12 m12 l12" >
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                  <input  type="date" id="fecha"  [(ngModel)]="movimientoNuevo.fecha" class="datepicker"  style="padding-top: 16px" >
+                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"  [(ngModel)]="movimientoNuevo.Acta" >
+                  <label for="icon_codigo">No. Acta de Entrega/Recepción</label>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                  <input  type="date" id="fecha"  [(ngModel)]="movimientoNuevo.Fecha" class="datepicker"  style="padding-top: 16px" >
                   <label for="fecha" class="active">Fecha</label>
                   <script> new Datepicker('.datepicker');</script>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                  <input id="icon_codigo" type="text" class="validate" minlength="1" maxlength="250"   [(ngModel)]="movimientoNuevo.observaciones" >
+                  <input id="icon_codigo" type="text" class="validate" minlength="1" maxlength="250"   [(ngModel)]="movimientoNuevo.Descripcion" >
                   <label for="icon_codigo" class="active">Descripción</label>
                 </div>
               </div>
@@ -200,28 +184,28 @@ Ionic pages and navigation.
             </div>
           </div>
 
-          <div *ngFor = "let movimiento_det of movimientoNuevo.movimiento_detalle">
+          <div *ngFor = "let movimiento_det of movimientoNuevo.IngresoEgreso">
             <div class="divider"></div>
             <div class="row">
               <ul>
                 <div class="col l6 m7 s5" style="color:#424242; font-size: 65%">
-                  <li id="nombre">Nombre: {{movimiento_det.item.Nombre}}</li>
-                  <li id="codigo">Código: {{movimiento_det.item.Codigo}}</li>
-                  <li id="cantidad">Cant.: {{movimiento_det.item.Stock}}</li>
+                  <li id="nombre">Nombre: {{movimiento_det.Objeto.Nombre}}</li>
+                  <li id="codigo">Código: {{movimiento_det.Objeto.Codigo}}</li>
+                  <li id="cantidad">Cant.: {{movimiento_det.Objeto.Stock}}</li>
                 </div>
                 <div class="col l2 m2 s3">
                   <li>
-                    <input id="cantidad" type="text" class="validate  center" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.cantidad" >
+                    <input id="cantidad" type="text" class="validate  center" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.Cantidad" >
                   </li>
                 </div>
                 <div class="col l3 m3 s3">
                   <li>
-                    <input id="serie" type="text" class="validate  center" minlength="1" maxlength="30"   [(ngModel)]="movimiento_det.serie" >
+                    <input id="serie" type="text" class="validate  center" minlength="1" maxlength="30"   [(ngModel)]="movimiento_det.Detalle" >
                   </li>
                 </div>
                 <div class="col l1 m2 s1">
                   <li>
-                    <a (click)="eliminarItem(item)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a>
+                    <a (click)="eliminarMovimientoDet(movimiento_det)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a>
                   </li>
                 </div>
               </ul>

@@ -48,25 +48,27 @@ describe('Aplicacion principal', () => {
   });
 });
 
-/*
-describe('logg in', () => {
 
+describe('Intregracion 1 logg in', () => {
+  let http: Http;
+  let nav: NavController;
+  let menu: MenuController;
+  let usuarioAuth= new UsuarioAuthService(http)
+  let usuarioServ= new UsuarioService(http,usuarioAuth)
   beforeEach(function() {
-    var usuarioServ: UsuarioAuthService;
-    var http: Http;
-    var nav: NavController;
 
-    loginPage = new LoginPage(http,nav,usuarioServ);
+
+    loginPage = new LoginPage(http,nav,usuarioAuth);
   });
-
+/*
   it('iniciar sesion', () => {
     loginPage.setUsuario('admin','001122admin');
   //  login.login();
     loginPage.login();
     expect(loginPage.isAuthenticated()).toBe(true);
-  });
+  });*/
 });
-*/
+
 
 describe('Usuarios', () => {
   let http: Http;
@@ -251,8 +253,41 @@ describe('Kits', () => {
     }).then(()=>{
       expect(kitPage.kits.length -1 ).toBe(0) //se verifica que la cantidad de antes es igual a la de ahora -1
     })
-
   });
+
+    it('Integracion 3 crear item e ingresarlo en un kit', () => {
+      let kitsAntes=0
+      kitPage.listar().then(()=>{//se lo trata de manera asincronica
+        return kitsAntes=kitPage.kits.length // se retorna para poder hacer otro theb
+      }).then(()=>{
+        let kitNuevo =
+            {Codigo: 'KIT001',
+            CodigoEspol: '09241235',
+            CodigoSenecyt: '123456',
+            Nombre: 'KITPRUEBA',
+            Marca: 'POWERDUDE',
+            Modelo: 'ACTIOM',
+            Descripcion: 'KIT DE PRUEBA',
+            Imagen: '',
+            Elementos: [],
+            Dispositivos: []
+        }; //se crea el kit
+        let itemNuevo =
+            {Nombre: 'Resistencia 560 OHM' ,
+            Marca: 'RoHS',
+            Modelo: 'ModeloHS'
+        }; //se crea el kit
+        itemPage.itemNuevo = itemNuevo //se le agrega el kit nuevo a la pagina
+        kitPage.kitNuevo = kitNuevo //se le agrega el kit nuevo a la pagina
+        return kitPage.crear() //se ejecuta la funcion crear
+
+      }).then(()=>{
+        expect(kitPage.kits.length -1 ).toBe(kitsAntes) //se verifica que la cantidad de antes es igual a la de ahora -1
+      })
+
+    });
+
+
 
   it('modificar kits', () => {
     let kits = kitPage.KITS;
@@ -321,6 +356,99 @@ describe('Items', () => {
     itemPage.id=10;
     itemPage.itemModificar.Codigo = 'RES001';
     expect(itemPage.itemModificar.Codigo).toBe('RES001');
+  });
+
+});
+
+
+
+describe('Inventario', () => {
+
+  let http: Http;
+  let usuarioAuth= new UsuarioAuthService(http) //antes var usuarioAuth: UsuarioAuthService
+  let itemServ= new ItemService(http,usuarioAuth)
+  let personaServ= new PersonaService(http,usuarioAuth) //antes var personaServ: PersonaService
+  let nav: NavController;
+  let menu: MenuController;
+  beforeEach(function() {
+
+    inventarioPage = new InventarioPage(nav,menu,personaServ,itemServ,http);
+  });
+
+  it('listar inventario ingresos', () => {
+
+      expect(inventarioPage.ingresos).toBeTruthy();
+  });
+
+  it('listar inventario salidas', () => {
+
+      expect(inventarioPage.salidas).toBeTruthy();
+  });
+
+  it('ingresar inventario', () => {
+    let ingreso=0
+    itemPage.listar().then(()=>{//se lo trata de manera asincronica
+      return ingreso=inventarioPage.ingresos.length // se retorna para poder hacer otro theb
+    }).then(()=>{
+      let ingreso =
+          {id: 1,
+            Acta_entrega: '2016-000123',
+            movimiento: '',
+            proveedor: ''
+      }; //se crea el kit
+      inventarioPage.ingreso = ingreso //se le agrega el kit nuevo a la pagina
+      return inventarioPage.crearIngreso() //se ejecuta la funcion crear
+
+    }).then(()=>{
+      expect(inventarioPage.ingresos.length -1 ).toBe(ingreso) //se verifica que la cantidad de antes es igual a la de ahora -1
+    })
+
+  });
+
+  it('salida inventario', () => {
+    let salida=0
+    itemPage.listar().then(()=>{//se lo trata de manera asincronica
+      return salida=inventarioPage.salidas.length // se retorna para poder hacer otro theb
+    }).then(()=>{
+      let salida =
+          {id: 1,
+            Acta_entrega: '2016-000123',
+            movimiento: '',
+            proveedor: ''
+      }; //se crea el kit
+      inventarioPage.salida = salida //se le agrega el kit nuevo a la pagina
+      return inventarioPage.crearSalida() //se ejecuta la funcion crear
+
+    }).then(()=>{
+      expect(inventarioPage.salidas.length -1 ).toBe(salida) //se verifica que la cantidad de antes es igual a la de ahora -1
+    })
+
+  });
+
+  it('Integracion 4 ingreso de inventario y creacion de item', () => {
+    let ingreso=0
+    itemPage.listar().then(()=>{//se lo trata de manera asincronica
+      return ingreso=inventarioPage.ingresos.length // se retorna para poder hacer otro theb
+    }).then(()=>{
+      let ingreso =
+          {id: 1,
+            Acta_entrega: '2016-000123',
+            movimiento: '',
+            proveedor: ''
+      }; //se crea el kit
+      let itemNuevo =
+          {Nombre: 'Resistencia 560 OHM' ,
+          Marca: 'RoHS',
+          Modelo: 'ModeloHS'
+      }; //se crea el kit
+      itemPage.itemNuevo = itemNuevo //se le agrega el kit nuevo a la pagina
+      inventarioPage.ingreso = ingreso //se le agrega el kit nuevo a la pagina
+      return inventarioPage.crearIngreso() //se ejecuta la funcion crear
+
+    }).then(()=>{
+      expect(inventarioPage.ingresos.length -1 ).toBe(ingreso) //se verifica que la cantidad de antes es igual a la de ahora -1
+    })
+
   });
 
 });
