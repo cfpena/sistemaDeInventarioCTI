@@ -97,6 +97,7 @@ kitModificar= new Kit;
             this.kitNuevo.Dispositivos.push(item.url)
           }
         }
+
           let kit = JSON.parse(JSON.stringify(this.kitNuevo))
           console.log(JSON.stringify(kit))
           let result=this.kitService.createKit(kit,this.listakitelementos,this.navController).then(result => {this.listar()}).catch(err=> {return false});
@@ -128,6 +129,7 @@ kitModificar= new Kit;
 
     this.kitService.updateKit(this.kitModificar,this.navController).then(result => this.listar());
     this.template = 'null';
+    this.kitNuevo= new Kit()
   //}
   }
 
@@ -219,8 +221,11 @@ kitModificar= new Kit;
   }*/
 
   agregarItem(){
+    console.log(this.itemsAgregados)
+    console.log(this.listakitelementos)
+
     if (this.itemSeleccionado){
-      if (this.itemNuevo.Es_Dispositivo){
+      if (this.itemSeleccionado.Es_Dispositivo){
         console.log('es dispositivo');
         this.itemsAgregados.push(this.itemSeleccionado)
       }else{
