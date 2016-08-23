@@ -36,6 +36,7 @@ let usuarioPage = null;
 let personaPage = null;
 let inventarioPage = null;
 let kitPage = null;
+let itemPage = null;
 
 describe('Aplicacion principal', () => {
 
@@ -85,7 +86,7 @@ describe('Usuarios', () => {
     expect(usuarioPage.usuarios).toBeTruthy();
   });
 
-
+/*
   it('crear usuarios', () => {
     let usuarios = usuarioPage.usuarios;
     let usuarioNuevo = usuarioPage.usuarioNuevo;
@@ -100,18 +101,18 @@ describe('Usuarios', () => {
 
     expect(usuarioNuevo.Nombre).toBe('Adriano');
   });
-/*
+
   it('eliminar usuarios', () => {
     let usuarios = usuarioPage.usuarios;
     usuarioPage.eliminar();
     expect(usuarios.length).toBe(0);
-  });
+  });*/
   it('modificar usuarios', () => {
     let usuarios = usuarioPage.usuarios;
     usuarioPage.Nombre='Adriano';
     usuarioPage.usuarioModificar.Nombre = 'Adriano';
     expect(usuarioPage.usuarioModificar.Nombre).toBe('Adriano');
-  });*/
+  });
 });
 
 describe('Personas', () => {
@@ -146,15 +147,15 @@ describe('Personas', () => {
 
     expect(persona.CI).toBe(0924268915);
   });
-*/
+
   it('eliminar personas', () => {
     let personas = personaPage.personas;
     for (var index in personas){
-      personaPage.select.push(index);
+      personaPage.select(index);
     }
     personaPage.eliminar();
     expect(personas.length).toBe(0);
-  });
+  });*/
   it('modificar personas', () => {
     let personas = personaPage.personas;
     personaPage.CI='0924268915';
@@ -167,7 +168,8 @@ describe('Personas', () => {
 describe('Inventarios', () => {
 
   beforeEach(function() {
-    var
+    var inventarioServ: InventarioService;
+    var personaServ: PersonaService;
     var http: Http;
     var nav: NavController;
     var menu: MenuController;
@@ -198,7 +200,7 @@ describe('Inventarios', () => {
   });
 
 });
-
+*/
 describe('Kits', () => {
 
   beforeEach(function() {
@@ -212,9 +214,9 @@ describe('Kits', () => {
 
   it('listar kits', () => {
 
-      expect(kitPage.KITS).toBeTruthy();
+      expect(kitPage.kits).toBeTruthy();
   });
-
+/*
   it('crear kits', () => {
     let kits = kitPage.KITS;
     let kitNuevo = kitPage.kitNuevo;
@@ -243,7 +245,7 @@ describe('Kits', () => {
     }
     kitPage.eliminar();
     expect(kits.length).toBe(0);
-  });
+  });*/
   it('modificar kits', () => {
     let kits = kitPage.KITS;
     kitPage.id=10;
@@ -252,4 +254,59 @@ describe('Kits', () => {
   });
 
 });
-*/
+
+
+
+describe('Items', () => {
+
+  beforeEach(function() {
+
+    var itemServ: ItemService;
+    var http: Http;
+    var nav: NavController;
+    var menu: MenuController;
+    itemPage = new ItemPage(nav,menu,itemServ,http);
+  });
+
+  it('listar items', () => {
+
+      expect(itemPage.items).toBeTruthy();
+  });
+/*
+  it('crear kits', () => {
+    let kits = kitPage.KITS;
+    let kitNuevo = kitPage.kitNuevo;
+    kitNuevo =
+        {id: 10,  codigo: 'Kit0000004',
+        nombre: 'Kit 4',  marca: 'Marca 4',
+        modelo: 'Modelo 4',  descripcion: 'kit 4 de marca 4 modelo 4',
+        cantidad:10, items: this.ITEMS=[
+          {id: 1,  codigo: '1234567890',  nombre: 'Resistencia',  marca: 'Marca 1',  modelo: 'Modelo 1',  descripcion: 'Resistencia100 ', cantidad:20, esDispositivo:true, image:''},
+          {id: 2,  codigo: '1234456891',  nombre: 'Capacitor',  marca: 'Marca 2',  modelo: 'Modelo 2',  descripcion: 'Capacitor100 ', cantidad:70, esDispositivo:true, image:''},
+          {id: 3,  codigo: '0956787892',  nombre: 'Ítem',  marca: 'Marca 3',  modelo: 'Modelo 3',  descripcion: 'Resistencia50 ', cantidad:16, esDispositivo:true, image:''}
+
+        ]
+          };
+    kits.push(kitNuevo);
+    let index = kits.length -1;
+    let kit= kits[index];
+
+    expect(kit.id).toBe(10);
+  });
+
+  it('eliminar kits', () => {
+    let kits = kitPage.KITS;
+    for (var index in kits){
+      kitPage.selected.push(index);
+    }
+    kitPage.eliminar();
+    expect(kits.length).toBe(0);
+  });*/
+  it('modificar items', () => {
+    let items = kitPage.ITEMS;
+    itemPage.id=10;
+    itemPage.itemModificar.codigo = 'Item000003';
+    expect(itemPage.itemModificar.codigo).toBe('Item000003');
+  });
+
+});
