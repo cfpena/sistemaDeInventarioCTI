@@ -50,7 +50,7 @@ describe('Aplicacion principal', () => {
     expect(myApp).not.toBeNull();
   });
 });
-
+/*
 
 describe('logg in', () => {
 
@@ -89,15 +89,16 @@ describe('Usuarios', () => {
     let usuarios = usuarioPage.usuarios;
     let usuarioNuevo = usuarioPage.usuarioNuevo;
     usuarioNuevo =
-        {id: 10, email: 'mail@info.com',
-        provider:"", uid:'mail@info.com',
-        name:'mail',nickname:"",image:'',
-        type:'admin'};
+        {Email: 'apinargo@espol.edu.ec',
+        Nombre:'Adriano',
+        Apellido: 'Pinargote',
+        Tipo: 'Ayudante',
+};
     usuarios.push(usuarioNuevo);
     let index = usuarios.length -1;
     let usuario= usuarios[index];
 
-    expect(usuario.id).toBe(10);
+    expect(usuario.Nombre).toBe('Adriano');
   });
 
   it('eliminar usuarios', () => {
@@ -110,13 +111,11 @@ describe('Usuarios', () => {
   });
   it('modificar usuarios', () => {
     let usuarios = usuarioPage.usuarios;
-    usuarioPage.id=10;
-    usuarioPage.usuarioModificar.name = 'Jose';
-    expect(usuarioPage.usuarioModificar.name).toBe('Jose');
+    usuarioPage.Nombre='Adriano';
+    usuarioPage.usuarioModificar.Nombre = 'Adriano';
+    expect(usuarioPage.usuarioModificar.Nombre).toBe('Adriano');
   });
 });
-
-
 
 describe('Personas', () => {
 
@@ -137,17 +136,18 @@ describe('Personas', () => {
     let personaNueva = personaPage.personaNueva;
     personaNueva =
         {
-            id: 10,  cedula:'0924268915',
-            nombre: 'Xavier',  apellido: 'Vera',
-            correo: 'x@prueba.com', funcion:'estudiante',
-            telefono: '0986009274', celular: '0987654321',
-            genero: 'M'
+            CI:'0924268915',
+            Nombre: 'Xavier',  Apellido: 'Vera',
+            Email: 'x@prueba.com', Telefono: '0986009274',
+            celular: '0987654321', Genero: 'Masculino',
+            Direccion: 'General Villamil', Matricula: '201345612' ,
+            Tipo:'Estudiante'
           };
     personas.push(personaNueva);
     let index = personas.length -1;
     let persona= personas[index];
 
-    expect(persona.id).toBe(10);
+    expect(persona.CI).toBe(0924268915);
   });
 
   it('eliminar personas', () => {
@@ -160,9 +160,9 @@ describe('Personas', () => {
   });
   it('modificar personas', () => {
     let personas = personaPage.personas;
-    personaPage.id=10;
-    personaPage.personaModificar.nombre = 'Adriano';
-    expect(personaPage.personaModificar.nombre).toBe('Adriano');
+    personaPage.CI='0924268915';
+    personaPage.personaModificar.Nombre = 'Xavier';
+    expect(personaPage.personaModificar.Nombre).toBe('Xavier');
   });
 });
 
@@ -201,7 +201,7 @@ describe('Inventarios', () => {
   });
 
 });
-*/
+
 describe('Kits', () => {
 
   beforeEach(function() {
@@ -255,3 +255,4 @@ describe('Kits', () => {
   });
 
 });
+*/

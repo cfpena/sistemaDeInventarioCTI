@@ -25,7 +25,7 @@ export class PrestamoService {
               return actas;
             })
         }
-
+/*
         getPrestador(nav: NavController) {
 
               console.log('get tipos')
@@ -35,7 +35,7 @@ export class PrestamoService {
             });
             */
         }
-
+*/
     getPrestamos(nav: NavController) {
       return this.httprequest.get(this.url.base + this.url.prestamo, nav).then(result => {
           let prestamos = result.json() as Prestamo[];
