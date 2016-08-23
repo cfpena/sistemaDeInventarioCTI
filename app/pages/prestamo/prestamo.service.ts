@@ -33,9 +33,9 @@ export class PrestamoService {
               let personas = result.json() as Persona[];
               return personas;
             });
-            */
+
         }
-*/
+  */
     getPrestamos(nav: NavController) {
       return this.httprequest.get(this.url.base + this.url.prestamo, nav).then(result => {
           let prestamos = result.json() as Prestamo[];

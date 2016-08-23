@@ -85,7 +85,6 @@ describe('Usuarios', () => {
     expect(usuarioPage.usuarios).toBeTruthy();
   });
 
-
   it('crear usuarios', () => {
     let usuarios = usuarioPage.usuarios;
     let usuarioNuevo = usuarioPage.usuarioNuevo;
@@ -96,8 +95,6 @@ describe('Usuarios', () => {
         Tipo: 'Ayudante',
     };
     usuarioPage.crear();
-
-
     expect(usuarioNuevo.Nombre).toBe('Adriano');
   });
 /*
