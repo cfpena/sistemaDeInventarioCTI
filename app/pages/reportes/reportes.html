@@ -16,7 +16,7 @@
           <div materialize>
             <div class="input-field">
               <label for="Fecha" class="active">desde</label>
-              <input  id="today" type="date" class="datepicker" style="padding-top: 14px">
+              <input  id="today" type="date" class="datepicker" style="padding-top: 14px" [(ngModel)]="reporte.Fecha_Inicial">
               <script>
               document.getElementById("today").valueAsDate = new Date()
               </script>
@@ -27,7 +27,7 @@
           <div materialize>
             <div class="input-field">
               <label for="Fecha_vencimiento" class="active" >hasta</label>
-              <input id="Fecha_vencimiento" type="date" class="datepicker" style="padding-top: 14px">
+              <input id="Fecha_vencimiento" type="date" class="datepicker" style="padding-top: 14px" [(ngModel)]="reporte.Fecha_Final">
               <script>
               new Datepicker('.datepicker');
               </script>
@@ -36,14 +36,14 @@
         </div>
         <div class="col l4 m4 s9" style="padding-top: 12px">
           <div class="input-field">
-            <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+            <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda">
               <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda">{{tiposBusqueda}}</option>
             </select>
           </div>
         </div>
         <div class="col l2 m2 s2">
           <div class="right" style="padding-top: 25%; padding-right: 6%;">
-            <a  class="btn waves-effect waves-light"  style="font-size: 16px">Crear
+            <a  (click)="crear()" class="btn waves-effect waves-light"  style="font-size: 16px">Crear
               <i class="material-icons right">send</i>
             </a>
           </div>
