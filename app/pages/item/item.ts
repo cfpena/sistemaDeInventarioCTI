@@ -74,8 +74,10 @@ export class ItemPage implements OnInit {
         let validator = new Validator();
         if (!validator.isValid(this.itemNuevo)) this.presentToast('Corrija el formulario');
         else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 10) this.presentToast('Código debe ser de longitud 10');
-        else if (this.itemNuevo.Nombre == '') this.presentToast('Nombre vacio');
-        else if (this.itemNuevo.Descripcion == '') this.presentToast('Descripción vacio');
+        else if (this.itemNuevo.Nombre == '' || this.itemNuevo.Nombre.length < 2) this.presentToast('Nombre vacio o pequeño');
+        else if (this.itemNuevo.Marca == '' || this.itemNuevo.Marca.length < 5 || this.itemNuevo.Marca.length > 10) this.presentToast('Marca vacia o pequeña');
+        else if (this.itemNuevo.Modelo == '' || this.itemNuevo.Modelo.length < 5 || this.itemNuevo.Modelo.length > 10) this.presentToast('Modelo vacio o pequeño');
+        else if (this.itemNuevo.Descripcion == '' || this.itemNuevo.Descripcion.length < 5) this.presentToast('Descripción vacia o muy pequeño');
         else if (this.itemNuevo.Stock < 1 || this.itemNuevo.Stock > 50 || this.itemNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
             let item = JSON.parse(JSON.stringify(this.itemNuevo))
@@ -98,8 +100,11 @@ export class ItemPage implements OnInit {
         let validator = new Validator();
         if (!validator.isValid(this.itemModificar)) this.presentToast('Corrija el formulario');
         //else if (this.itemModificar.Codigo == '' || this.itemModificar.Codigo.length < 10)    this.presentToast('Código debe ser ');
-        else if (this.itemModificar.Nombre == '') this.presentToast('Nombre vacio');
-        else if (this.itemModificar.Descripcion == '') this.presentToast('Descripción vacio');
+        else if (this.itemModificar.Codigo == '' || this.itemModificar.Codigo.length < 10) this.presentToast('Código debe ser de longitud 10');
+        else if (this.itemModificar.Nombre == '' || this.itemModificar.Nombre.length < 2) this.presentToast('Nombre vacio o pequeño');
+        else if (this.itemModificar.Marca == '' || this.itemModificar.Marca.length < 5 || this.itemModificar.Marca.length > 10) this.presentToast('Marca vacia o pequeña');
+        else if (this.itemModificar.Modelo == '' || this.itemModificar.Modelo.length < 5 || this.itemModificar.Modelo.length > 10) this.presentToast('Modelo vacio o pequeño');
+        else if (this.itemModificar.Descripcion == '' || this.itemModificar.Descripcion.length < 5) this.presentToast('Descripción vacia o muy pequeño');
         else if (this.itemModificar.Stock < 1 || this.itemModificar.Stock > 50 || this.itemModificar.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
             this.itemService.updateItem(this.itemModificar,this.navController).then(result => this.listar());
