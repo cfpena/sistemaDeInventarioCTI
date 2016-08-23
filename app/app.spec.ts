@@ -1,6 +1,3 @@
-import {
-  TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS, TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS,
-}                               from '@angular/platform-browser-dynamic/testing';
 import { setBaseTestProviders , describe, beforeEach, it,expect,inject} from '@angular/core/testing';
 import { MyApp } from './app';
 import {UsuarioAuthService} from './pages/usuario/usuario.auth.service';
@@ -19,7 +16,6 @@ import {KitPage} from './pages/kit/kit';
 import {ItemPage} from './pages/item/item';
 
 // this needs doing _once_ for the entire test suite, hence it's here
-setBaseTestProviders(TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS, TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS);
 
 // Mock out Ionic's platform class
 class MockClass {
@@ -73,12 +69,13 @@ describe('logg in', () => {
 */
 
 describe('Usuarios', () => {
+  let http: Http;
+  let nav: NavController;
+  let menu: MenuController;
+  let usuarioAuth= new UsuarioAuthService(http)
+  let usuarioServ= new UsuarioService(http,usuarioAuth)
 
   beforeEach(function() {
-    var usuarioServ: UsuarioService;
-    var http: Http;
-    var nav: NavController;
-    var menu: MenuController;
     usuarioPage = new UsuarioPage(nav,menu,usuarioServ,http);
   });
 
@@ -86,22 +83,32 @@ describe('Usuarios', () => {
     expect(usuarioPage.usuarios).toBeTruthy();
   });
 
-/*
+
   it('crear usuarios', () => {
-    let usuarios = usuarioPage.usuarios;
-    let usuarioNuevo = usuarioPage.usuarioNuevo;
-    usuarioNuevo =
-        {Email: 'apinargo@espol.edu.ec',
-        Nombre:'Adriano',
-        Apellido: 'Pinargote',
-        Tipo: 'Ayudante',
-    };
-    usuarioPage.crear();
+    let usuariosAntes=0
+    usuarioPage.listar().then(()=>{//se lo trata de manera asincronica
+      return usuariosAntes=usuarioPage.usuarios.length // se retorna para poder hacer otro theb
+    }).then(()=>{
+      let usuarioNuevo =
+          {Email: 'apinargo@espol.edu.ec',
+          Nombre:'Adriano',
+          Apellido: 'Pinargote',
+          Tipo: 'Ayudante',
+      }; //se crea el usuario
+      usuarioPage.usuarioNuevo = usuarioNuevo //se le agrega el usuario nuevo a la pagina
+      return usuarioPage.crear() //se ejecuta la funcion crear
+
+    }).then(()=>{
+      expect(usuarioPage.usuarios.length -1 ).toBe(usuariosAntes) //se verifica que la cantidad de antes es igual a la de ahora -1
+    })
 
 
-    expect(usuarioNuevo.Nombre).toBe('Adriano');
+    //suarioPage.listar().then(()=>{expect(usuarioPage.usuarios.length).toBe(1)})
+
+
+
   });
-
+/*
   it('eliminar usuarios', () => {
     let usuarios = usuarioPage.usuarios;
     usuarioPage.eliminar();

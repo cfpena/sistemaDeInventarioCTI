@@ -21,7 +21,7 @@ export class UsuarioPage implements OnInit {
     title: string = 'Usuarios';
     usuarios: Usuario[]=[];
     template: string = 'null';
-    
+
     //usuario temporal para mantener los datos para modificar
     @Input()
     usuarioModificar= new Usuario;
@@ -68,12 +68,12 @@ export class UsuarioPage implements OnInit {
     listar() {
       //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
 
-        this.usuarioService.getUsuarios(this.navController).then(usuarios => { this.usuarios = usuarios; return usuarios }).then(usuarios => {
+      return  this.usuarioService.getUsuarios(this.navController).then(usuarios => { this.usuarios = usuarios; return usuarios }).then(usuarios => {
           for(var usuario of this.usuarios){
             this.usuarioService.llenarTipo(usuario,this.navController)
           }
         })
-        return this.usuarios
+
     }
     crear() {
 
@@ -92,11 +92,15 @@ export class UsuarioPage implements OnInit {
             //si no se hace esto al moficiar el usuario nuevo, tambien se modifica el usuario viejo
             let usuario = JSON.parse(JSON.stringify(this.usuarioNuevo))
             usuario['groups'] = [tipo.url]
-            this.usuarioService.createUsuario(usuario, this.credenciales,this.navController).then(result => this.listar());
+            let result=this.usuarioService.createUsuario(usuario, this.credenciales,this.navController).then(result => {this.listar();return true}).catch(err=> {return false});
             this.template = 'null';
             //se vuelve a dejar en blanco el usuarioNuevo para volverlo  a usar luego
             this.usuarioNuevo = new Usuario();
+            result.then(ok=>{
+              if(ok) return true
+              else return false
 
+            })
 
         }
     }
@@ -153,6 +157,8 @@ export class UsuarioPage implements OnInit {
       });}
       else{this.listar()}
     }
+
+
     //funcion que se ejecuta al cargar la pagina
     public ngOnInit() {
       //se obtienen los usuarios para llenar la tabla y se obtienen los tipos de usuarioss
