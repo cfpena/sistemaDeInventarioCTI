@@ -49,13 +49,23 @@ export class PrestamoPage implements OnInit{
   selected: number[]=[];
   tiposIdentificaciones = ['cédula', 'Nombre'];
   busqueda={tipo: 'cédula', valor: ''};
+
   estaSeleccionadaPersona=false;
   descripcionPersona: string ='';
   personaSeleccionada=new Persona();
   listaFiltradaPersona:Persona[]=[];
 
+  descripcionItem: string ='';
+  itemSeleccionado= new ITEM();
+  estaSeleccionadoItem: boolean=false;
+  listaFiltradaItem: ITEM[]=[];
+  cantidad=0;
+
+  listaPrestamos: Prestamo[]=[];
+
   @Input()
   prestamoNuevo = new Prestamo();
+  @Input() actaNuevo = new Acta();
 
   @Input()
   prestamoModificar= new Prestamo;
@@ -123,19 +133,56 @@ export class PrestamoPage implements OnInit{
 
     }
 
-    //busca el ítem
-    buscarItem() {
-      if (this.busquedaItem.valor.trim()!= "") {
-        this.itemService.getBuscarElemento(this.busquedaItem.valor,this.navController).then(items => { this.items = items; return items }).then(items => {
-          this.itemService.getBuscarDispositivo(this.busquedaItem.valor,this.navController).then(items => {
+    buscarItem(){
+      console.log('buscar item');
+      if (this.descripcionItem!==''){
+        console.log('buscar item1');
+        this.itemService.getBuscarElemento(this.descripcionItem,this.navController).then(items => { this.listaFiltradaItem = items; return items }).then(items => {
+          this.itemService.getBuscarDispositivo(this.descripcionItem,this.navController).then(items => {
             for(var item of items){
-              this.items.push(item)
-              console.log("busca")
+              this.listaFiltradaItem.push(item)
             }
           })
         })
+      }else{
+        this.listaFiltradaItem=[];
       }
-      else {console.log("vacio")}
+    }
+
+    seleccionarItem(item: ITEM){
+      console.log('estoy en seleccionar item');
+      console.log(item);
+      console.log(this.itemSeleccionado);
+      this.itemSeleccionado=JSON.parse(JSON.stringify(item));
+      console.log(this.itemSeleccionado);
+      this.descripcionItem = this.itemSeleccionado.Codigo +' - '+ this.itemSeleccionado.Nombre;
+      this.listaFiltradaItem=[];
+      this.estaSeleccionadoItem =true;
+      //this.itemSeleccionado = item;
+    }
+
+    agregarItem(){
+      if (this.itemSeleccionado){
+        if (this.itemSeleccionado.Es_Dispositivo){
+          console.log('es dispositivo');
+          for(var _i = 0; _i < this.cantidad; _i++){
+            //this.listaMovimientoDet.push({id:0, cantidad: 1, Is_DetalleKit: false, item: this.itemNuevo, serie:''});
+            this.listaPrestamos.push({url:'', Cantidad: 1, Fecha:'',  Detalle: '', Objeto: this.itemSeleccionado, Acta: this.actaNuevo});
+          }
+        }else{
+          console.log('es elemento');
+          this.listaPrestamos.push({url:'', Cantidad: this.cantidad, Fecha:'',  Detalle: '', Objeto: this.itemSeleccionado, Acta: this.actaNuevo});
+        }
+        this.descripcionItem = '';
+        this.itemSeleccionado = new ITEM();
+        this.cantidad=0;
+        this.estaSeleccionadoItem = false;
+      }
+    }
+
+    eliminarPrestamo(prestamo: Prestamo){
+      let index=this.listaPrestamos.indexOf(prestamo)
+      this.listaPrestamos.splice(index,1)
     }
 
     buscarPersona(){
