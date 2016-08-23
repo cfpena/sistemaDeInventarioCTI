@@ -205,7 +205,6 @@
                       </div>
                     </div>
                   </div>
-
                   <div class="row">
                     <div class="col l10 m10 s10">
                       <div class="input-field">
@@ -259,32 +258,20 @@
           </div>
         </div>
         <!--segundo panel-->
-        <div class="col l4 m5 s12 ">
+        <div class="col l4 m4 s12">
           <div class="card-panel blue-grey lighten-5 ">
             <span class="card-title">Buscar Ítems</span>
             <div style="padding-top: 7%;"></div>
             <div class="input-field ">
               <i class="material-icons prefix">search</i>
-              <input (keyup)="buscarItem()" id="icon_marca" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="busquedaItem.valor">
-              <label for="icon_marca">Búsqueda</label>
+              <input id="buscar_modificar" (keyup)="buscarItem()"  type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="busquedaItem.valor" >
+              <label for="buscar_modificar">Búsqueda</label>
             </div>
-            <div *ngFor = "let item of items">
-              <div class="divider"></div>
-              <div class="row">
-                <ul>
-                  <div class="col l6 m7 s7" style="color:#424242; font-size: 65%">
-                    <li id="nombre">Nombre: {{item.Nombre}}</li>
-                    <li id="codigo">Código: {{item.Codigo}}</li>
-                    <li id="cantidad">Cant.: {{item.Stock}}</li>
-                  </div>
-                  <div class="col l3 m3 s3">
-                    <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center" [(ngModel)]="itemsKits.cantidad" ></li>
-                  </div>
-                  <div class="col l2 m2 s2 offset-l1">
-                    <li> <a (click)="agregarItem(item)" class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons ">add</i> </a> </li>
-                  </div>
-                </ul>
-              </div>
+            <div class="center">
+              <label id="buscar" style="font-size: 16px">NOMBRE ÍTEM</label>
+              <a class="btn-floating btn-small waves-effect waves-light green right">
+                <i class="material-icons">add</i>
+              </a>
             </div>
           </div>
         </div>
