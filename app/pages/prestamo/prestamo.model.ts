@@ -8,9 +8,9 @@ import {Acta} from '../prestamo/acta.model';
 export class Prestamo {
     url: String;
     @IsInt() Cantidad: number;
-    Acta: Acta;
+    Acta: any;
     Fecha: String;
-    Objeto: ITEM;
+    Objeto: any;
     Detalle: String;
 
 

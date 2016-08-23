@@ -26,6 +26,24 @@ export class PrestamoService {
       })
     }
 
+    createActa1(acta: Acta, nav:NavController){
+      console.log (acta)
+      return this.httprequest.post(this.url.base + this.url.acta, JSON.stringify(acta),nav).then(result => {return result});
+    }
+
+    createActa(acta: Acta, listaPrestamo: Prestamo[], nav:NavController){
+      return this.httprequest.post(this.url.base + this.url.acta, JSON.stringify(acta),nav).then(result=>{
+          let acta = result.json() as Acta
+          for(let prestamo of listaPrestamo){
+            prestamo.Cantidad = Number(prestamo.Cantidad)
+            prestamo.Acta = acta.url
+            prestamo.Objeto=prestamo.Objeto.url
+            console.log(JSON.stringify(prestamo))
+            this.httprequest.post(this.url.base + this.url.prestamo,JSON.stringify(prestamo),nav)
+          }
+      })
+    }
+
     llenarPrestador(acta: Acta,nav: NavController){
       console.log('llenar prestador')
       return this.httprequest.get(String(acta.Prestador),nav).then(prestador=>{
@@ -34,18 +52,6 @@ export class PrestamoService {
 
     }
 
-/*
-        getPrestador(nav: NavController) {
-
-              console.log('get tipos')
-          /*      return this.httprequest.get(this.prestamo.Persona,nav).then(result => {
-              let personas = result.json() as Persona[];
-              return personas;
-            });
->>>>>>> d7dd4c0b05251df835ca0bdd51cc62db4a5e5a12
-
-        }
-  */
     getPrestamos(nav: NavController) {
       return this.httprequest.get(this.url.base + this.url.prestamo, nav).then(result => {
         let prestamos = result.json() as Prestamo[];
@@ -67,6 +73,8 @@ export class PrestamoService {
     createPrestamo(prestamo: Prestamo, nav: NavController) {
       return this.httprequest.post(this.url.base + this.url.prestamo, JSON.stringify(prestamo),nav)
     }
+
+
 
     updatePrestamo(prestamo: Prestamo,nav: NavController) {
       return this.httprequest.patch(String(prestamo.url), JSON.stringify(
