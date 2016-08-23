@@ -27,15 +27,18 @@ id=0;
 selected: number[]=[];
 tiposBusquedas = ['código', 'nombre'];
 busqueda={tipo: 'código', valor: ''};
-descripcionItem: string ='';
 itemsBusquedas = ['código', 'nombre'];
 busquedaItem={valor: ''};
 itemsKits: ITEM[] = [];
 templateItem: string='null';
 cantidad=0;
-itemSeleccionado: boolean = false;
 
-listaFiltradaItem: ITEM[];
+
+descripcionItem: string ='';
+itemSeleccionado= new ITEM();
+estaSeleccionadoItem: boolean=false;
+listaFiltradaItem: ITEM[]=[];
+
 listakitelementos: KITELEMENTO[]=[];
 
 itemsAgregados=[]
@@ -167,25 +170,30 @@ kitModificar= new Kit;
 
 //Busqueda de item para agregar al kit
   buscarItem() {
-      if (this.busquedaItem.valor.trim()!= "") {
-          this.itemService.getBuscarElemento(this.busquedaItem.valor,this.navController).then(items => { this.items = items; return items }).then(items => {
-            this.itemService.getBuscarDispositivo(this.busquedaItem.valor,this.navController).then(items => {
+    console.log("buscar item");
+      if (this.descripcionItem.trim()!= "") {
+        console.log("buscar item2");
+          this.itemService.getBuscarElemento(this.descripcionItem,this.navController).then(items => { this.listaFiltradaItem = items; return items }).then(items => {
+            this.itemService.getBuscarDispositivo(this.descripcionItem,this.navController).then(items => {
               for(var item of items){
-                this.items.push(item)
+                this.listaFiltradaItem.push(item)
                 console.log("busca")
               }
             })
           })
       }
-      else {console.log("vacio")}
+      else {
+        this.listaFiltradaItem=[];
+        console.log("vacio");
+      }
   }
 
 
   seleccionarItem(item: ITEM){
     console.log(item);
-    this.itemNuevo=JSON.parse(JSON.stringify(item));
+    this.itemSeleccionado=JSON.parse(JSON.stringify(item));
     console.log(this.itemNuevo);
-    this.descripcionItem = this.itemNuevo.Codigo +' - '+ this.itemNuevo.Nombre;
+    this.descripcionItem = this.itemSeleccionado.Codigo +' - '+ this.itemSeleccionado.Nombre;
     this.listaFiltradaItem=[];
     if (item.Es_Dispositivo){
       this.templateItem='Dispositivo';
@@ -193,11 +201,11 @@ kitModificar= new Kit;
     }else{
       this.templateItem='Elemento';
     }
-    this.itemSeleccionado =true;
+    this.estaSeleccionadoItem =true;
     //this.itemSeleccionado = item;
   }
-
-  agregarItem(item: ITEM){
+/*
+  agregarItem(){
     if(item.Es_Dispositivo)
     this.itemsAgregados.push(item)
     else{
@@ -207,7 +215,26 @@ kitModificar= new Kit;
       this.listakitelementos.push(kitelemento)
       this.itemsAgregados.push(item)
     }
+  }*/
+
+  agregarItem(){
+    if (this.itemSeleccionado){
+      if (this.itemNuevo.Es_Dispositivo){
+        console.log('es dispositivo');
+        this.itemsAgregados.push(this.itemSeleccionado)
+      }else{
+        let kitelemento= new KITELEMENTO()
+        kitelemento.cantidad = this.cantidad
+        kitelemento.Elemento = this.itemSeleccionado.url
+        this.listakitelementos.push(kitelemento)
+        this.itemsAgregados.push(this.itemSeleccionado)
+      }
+      this.itemSeleccionado = new ITEM();
+      this.cantidad=0;
+      this.estaSeleccionadoItem = false;
+    }
   }
+
   eliminarItem(item: ITEM){
     if(item.Es_Dispositivo){
     let index=this.itemsAgregados.indexOf(item)
