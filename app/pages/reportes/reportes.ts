@@ -57,6 +57,9 @@ export class ReportesPage {
                       this.service.httprequest.get(String(prestamo.Objeto), this.navController).then(result => {
                           prestamo.Objeto = result.json() as ITEM
                       })
+                      this.service.httprequest.get(String(prestamo.Acta), this.navController).then(result => {
+                          prestamo.Acta = result.json()['Codigo']
+                      })
                   }
 
               }).then(()=>{
