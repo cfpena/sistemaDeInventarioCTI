@@ -164,7 +164,6 @@
                 </ul>
               </div>
             </div>
-
           </div>
           <div class="card-action">
             <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
@@ -206,17 +205,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col l10 m10 s10">
-                      <div class="input-field">
-                        <input id="senecyt" disabled="disabled" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="kitModificar.CodigoSenecyt" >
-                        <label for="senecyt" class="active" >Código Senecyt</label>
-                      </div>
-                    </div>
-                    <div class="col l2 m2 s2">
-                      <a class="button-collapse" onclick="senecyt.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
-                    </div>
-                  </div>
+
                   <div class="row">
                     <div class="col l10 m10 s10">
                       <div class="input-field">
@@ -240,17 +229,6 @@
                     </div>
                     <div class="col l2 m2 s2">
                       <a class="button-collapse" onclick="icon_nombre.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col l10 m10 s10">
-                      <div class="input-field">
-                        <input id="CodigoEspol" disabled="disabled" type="text" class="validate " minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="kitModificar.Nombre" >
-                        <label for="CodigoEspol" class="active">Código Espol</label>
-                      </div>
-                    </div>
-                    <div class="col l2 m2 s2">
-                      <a class="button-collapse" onclick="CodigoEspol.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
                     </div>
                   </div>
                   <div class="row">
@@ -281,20 +259,32 @@
           </div>
         </div>
         <!--segundo panel-->
-        <div class="col l4 m4 s12">
+        <div class="col l4 m5 s12 ">
           <div class="card-panel blue-grey lighten-5 ">
             <span class="card-title">Buscar Ítems</span>
             <div style="padding-top: 7%;"></div>
             <div class="input-field ">
               <i class="material-icons prefix">search</i>
-              <input id="icon_marca" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="busquedaItem.valor" >
+              <input (keyup)="buscarItem()" id="icon_marca" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="busquedaItem.valor">
               <label for="icon_marca">Búsqueda</label>
             </div>
-            <div class="center">
-              <label id="buscar" style="font-size: 16px">NOMBRE ÍTEM</label>
-              <a class="btn-floating btn-small waves-effect waves-light green right">
-                <i class="material-icons">add</i>
-              </a>
+            <div *ngFor = "let item of items">
+              <div class="divider"></div>
+              <div class="row">
+                <ul>
+                  <div class="col l6 m7 s7" style="color:#424242; font-size: 65%">
+                    <li id="nombre">Nombre: {{item.Nombre}}</li>
+                    <li id="codigo">Código: {{item.Codigo}}</li>
+                    <li id="cantidad">Cant.: {{item.Stock}}</li>
+                  </div>
+                  <div class="col l3 m3 s3">
+                    <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center" [(ngModel)]="itemsKits.cantidad" ></li>
+                  </div>
+                  <div class="col l2 m2 s2 offset-l1">
+                    <li> <a (click)="agregarItem(item)" class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons ">add</i> </a> </li>
+                  </div>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -303,12 +293,22 @@
           <div class="card-panel blue-grey lighten-5 ">
             <span class="card-title">Ítems</span>
             <div style="padding-top: 7%;"></div>
-            <div >
-              <div class="card-content grey-text" style="font-size: 15px">
-                <div><a class="btn-floating btn-small waves-effect waves-light red right">
-                  <i class="material-icons">clear</i>
-                </a></div>
-                <li >Resistencia 100 </li>
+            <div *ngFor = "let item of itemsAgregados">
+              <div class="divider"></div>
+              <div class="row">
+                <ul>
+                  <div class="col l6 m7 s7" style="color:#424242; font-size: 65%">
+                    <li id="nombre">Nombre: {{item.Nombre}}</li>
+                    <li id="codigo">Código: {{item.Codigo}}</li>
+                    <li id="cantidad">Cant.: {{item.Stock}}</li>
+                  </div>
+                  <div class="col l3 m3 s3">
+                    <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center" [(ngModel)]="itemsKits.cantidad" ></li>
+                  </div>
+                  <div class="col l2 m2 s2 offset-l1">
+                    <li> <a (click)="eliminarItem(item)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a> </li>
+                  </div>
+                </ul>
               </div>
             </div>
           </div>
