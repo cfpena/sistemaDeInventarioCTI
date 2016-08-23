@@ -122,7 +122,7 @@ kitModificar= new Kit;
     let validator = new Validator();
     console.log(this.kitModificar);
     if(!validator.isValid(this.kitModificar)) this.presentToast('Corrija el formulario');
-    else if (this.kitModificar.Codigo == '' || this.kitModificar.Codigo.length < 10) this.presentToast('Código debe ser de lengitud 10');
+    else if (this.kitModificar.Codigo == '' || this.kitModificar.Codigo.length < 5) this.presentToast('Código debe ser de lengitud 10');
     else if (this.kitModificar.Nombre == '' || this.kitModificar.Nombre.length < 2) this.presentToast('Nombre vacio o pequeño');
     else if (this.kitModificar.Marca == '' || this.kitModificar.Marca.length < 5 || this.kitModificar.Marca.length > 10) this.presentToast('Marca vacia o pequeña');
     else if (this.kitModificar.Modelo == '' || this.kitModificar.Modelo.length < 5 || this.kitModificar.Modelo.length > 10) this.presentToast('Modelo vacio o pequeño');
