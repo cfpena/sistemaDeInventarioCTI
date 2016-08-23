@@ -170,10 +170,15 @@ export class PrestamoPage implements OnInit{
 
     public ngOnInit() {
       this.listar_actas();
+<<<<<<< HEAD
       this.personaService.getPersonas(this.navController).then(personas => {
         this.personas = personas
+=======
+    /*  this.prestamoService.getPrestador(this.navController).then(personas => {
+          this.personas = personas
+>>>>>>> d7dd4c0b05251df835ca0bdd51cc62db4a5e5a12
       });
-    }
+*/    }
 
 
 

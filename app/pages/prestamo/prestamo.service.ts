@@ -23,6 +23,7 @@ export class PrestamoService {
       return this.httprequest.get(this.url.base + this.url.acta, nav).then(result => {
         let actas = result.json() as Acta[];
 
+<<<<<<< HEAD
         return actas;
       })
     }
@@ -34,7 +35,25 @@ export class PrestamoService {
       });
 
     }
+=======
+        getActas(nav: NavController) {
+          return this.httprequest.get(this.url.base + this.url.acta, nav).then(result => {
+              let actas = result.json() as Acta[];
+              return actas;
+            })
+        }
+/*
+        getPrestador(nav: NavController) {
 
+              console.log('get tipos')
+          /*      return this.httprequest.get(this.prestamo.Persona,nav).then(result => {
+              let personas = result.json() as Persona[];
+              return personas;
+            });
+>>>>>>> d7dd4c0b05251df835ca0bdd51cc62db4a5e5a12
+
+        }
+  */
     getPrestamos(nav: NavController) {
       return this.httprequest.get(this.url.base + this.url.prestamo, nav).then(result => {
         let prestamos = result.json() as Prestamo[];
