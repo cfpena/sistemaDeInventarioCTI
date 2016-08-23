@@ -37,8 +37,10 @@ export class KitService {
     }
 
     eliminarKit(kit: Kit, nav: NavController) {
-            return this.httprequest.delete(String(kit.url),nav)
+            //return this.httprequest.delete(String(kit.url),nav)
+            return this.httprequest.delete(kit.url.toString(),nav)
     }
+
 
     /*
     createKit(kit: Kit,nav: NavController) {
