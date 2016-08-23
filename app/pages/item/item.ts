@@ -73,7 +73,7 @@ export class ItemPage implements OnInit {
     crear() {
         let validator = new Validator();
         if (!validator.isValid(this.itemNuevo)) this.presentToast('Corrija el formulario');
-        else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 10) this.presentToast('Código longitud entre 5 y 10 caracteres');
+        else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 5 || this.itemNuevo.Codigo.length > 10) this.presentToast('Código longitud entre 5 y 10 caracteres');
         else if (this.itemNuevo.Nombre == '' || this.itemNuevo.Nombre.length < 2) this.presentToast('Nombre vacio o pequeño');
         else if (this.itemNuevo.Descripcion == '' || this.itemNuevo.Descripcion.length < 5) this.presentToast('Descripción vacia o muy pequeño');
         else if (this.itemNuevo.Stock < 1 || this.itemNuevo.Stock > 50 || this.itemNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
