@@ -38,7 +38,10 @@ export class LoginPage implements OnInit {
 
     login() {
 
-        this.http.post(this.url.base + this.url.token, JSON.stringify({username: this.usuario.usuario,password: this.usuario.clave }), { headers: this.url.header })
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Accept','application/json')
+        this.http.post(this.url.base + this.url.token, JSON.stringify({username: this.usuario.usuario,password: this.usuario.clave }), { headers: headers })
             .map(res => res)
             .subscribe(
             data => this.authSuccess(data),

@@ -86,10 +86,9 @@ kitModificar= new Kit;
     console.log('crear')
       let validator = new Validator();
       if (!validator.isValid(this.kitNuevo)) this.presentToast('Corrija el formulario');
-      else if (this.kitNuevo.Codigo == '' || this.kitNuevo.Codigo.length < 10) this.presentToast('Código debe ser de lengitud 10');
-       else if (this.kitNuevo.Nombre == '') this.presentToast('Nombre vacio');
-      else if (this.kitNuevo.Descripcion == '') this.presentToast('Descripción vacio');
-      //else if (this.kitNuevo.Stock < 1 || this.kitNuevo.Stock > 50 || this.kitNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
+      else if (this.kitNuevo.Codigo == '' || this.kitNuevo.Codigo.length < 10) this.presentToast('Código longitud entre 5 y 10 caracteres');
+      else if (this.kitNuevo.Nombre == '' || this.kitNuevo.Nombre.length < 2) this.presentToast('Nombre vacio o pequeño');
+      else if (this.kitNuevo.Descripcion == '' || this.kitNuevo.Descripcion.length < 5) this.presentToast('Descripción vacia o muy pequeño');
       else {
         for(let item of this.itemsAgregados){
           if(item.Es_Dispositivo){
@@ -120,11 +119,8 @@ kitModificar= new Kit;
     let validator = new Validator();
     console.log(this.kitModificar);
     if(!validator.isValid(this.kitModificar)) this.presentToast('Corrija el formulario');
-    //else if (this.kitModificar.Codigo=='' || this.kitModificar.Codigo.length < 10) this.presentToast('Código debe ser de lengitud 10');
-    else if(this.kitModificar.Nombre=='') this.presentToast('Nombre vacio');
-    else if(this.kitModificar.Descripcion=='') this.presentToast('Descripción vacio');
-    //else if(this.kitModificar.Marca=='') this.presentToast('Marca vacio');
-    //else if(this.kitModificar.Modelo=='') this.presentToast('Modelo vacio');
+    else if (this.kitModificar.Nombre == '' || this.kitModificar.Nombre.length < 2) this.presentToast('Nombre vacio o pequeño');
+    else if (this.kitModificar.Descripcion == '' || this.kitModificar.Descripcion.length < 5) this.presentToast('Descripción vacio o muy pequeño');
   else{
 
     this.kitService.updateKit(this.kitModificar,this.navController).then(result => this.listar());
