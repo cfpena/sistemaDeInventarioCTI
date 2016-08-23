@@ -22,8 +22,6 @@ export class PrestamoService {
     getActas(nav: NavController) {
       return this.httprequest.get(this.url.base + this.url.acta, nav).then(result => {
         let actas = result.json() as Acta[];
-
-<<<<<<< HEAD
         return actas;
       })
     }
@@ -35,13 +33,7 @@ export class PrestamoService {
       });
 
     }
-=======
-        getActas(nav: NavController) {
-          return this.httprequest.get(this.url.base + this.url.acta, nav).then(result => {
-              let actas = result.json() as Acta[];
-              return actas;
-            })
-        }
+
 /*
         getPrestador(nav: NavController) {
 
