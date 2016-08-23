@@ -49,6 +49,10 @@ export class PrestamoPage implements OnInit{
   selected: number[]=[];
   tiposIdentificaciones = ['cédula', 'Nombre'];
   busqueda={tipo: 'cédula', valor: ''};
+  estaSeleccionadaPersona=false;
+  descripcionPersona: string ='';
+  personaSeleccionada=new Persona();
+  listaFiltradaPersona:Persona[]=[];
 
   @Input()
   prestamoNuevo = new Prestamo();
@@ -57,107 +61,122 @@ export class PrestamoPage implements OnInit{
   prestamoModificar= new Prestamo;
   constructor( private navController:NavController,private menu: MenuController,
     private prestamoService: PrestamoService,
-      private itemService: ItemService,
-      private personaService: PersonaService,
+    private itemService: ItemService,
+    private personaService: PersonaService,
     private http: Http) {
       this.prestamosTemporal=this.prestamos;
-  }
-
-  openMenu(){
-    this.menu.open();
-  }
-
-  goCrearPersona(){
-      //this._navController.push(PersonaPage,{});
-      this.template='crear';
-  }
-
-  goNuevoPrestamo(){
-    this.template='nuevo_prestamo';
-  }
-  goModificar(prestamo: Prestamo) {
-      console.log(prestamo)
-            this.prestamoModificar=JSON.parse(JSON.stringify(prestamo))
-            this.template='modificar'
     }
 
-  cancelar(){
-    this.template='null';
-  }
+    openMenu(){
+      this.menu.open();
+    }
+
+    goCrearPersona(){
+      //this._navController.push(PersonaPage,{});
+      this.template='crear';
+    }
+
+    goNuevoPrestamo(){
+      this.template='nuevo_prestamo';
+    }
+    goModificar(prestamo: Prestamo) {
+      console.log(prestamo)
+      this.prestamoModificar=JSON.parse(JSON.stringify(prestamo))
+      this.template='modificar'
+    }
+
+    cancelar(){
+      this.template='null';
+    }
 
 
-  //funcion listar que lista todos los kits creados
-  listar_actas() {
-    this.actas =[]
+    //funcion listar que lista todos los kits creados
+    listar_actas() {
+      this.actas =[]
       this.prestamoService.getActas(this.navController).then(actas => { this.actas = actas ; return actas}).then(result=>{
-          console.log("listando actas");
-        })
-  }
+        console.log("listando actas");
+        for(var acta of this.actas){
+          this.prestamoService.llenarPrestador(acta,this.navController)
+        }
+      })
+    }
 
-  select(prestamo: Prestamo) {
+    select(prestamo: Prestamo) {
       if (!this.prestamosEliminar.some(prestamo => prestamo == prestamo)) {
-          this.prestamosEliminar.push(prestamo);
+        this.prestamosEliminar.push(prestamo);
       }else {
-          let index = this.prestamosEliminar.findIndex(x => x == prestamo)
-          this.prestamosEliminar.splice(index, 1)
+        let index = this.prestamosEliminar.findIndex(x => x == prestamo)
+        this.prestamosEliminar.splice(index, 1)
       };
 
-  }
-
-/*
-  //funcion listar que lista las personas
-  listarPersonas() {
-    this.personas =[]
-      this.personaService.getPersonas(this.navController).then(kits => { this.personas = personas ; return personas  }).then(result=>{
-          console.log("listando personas");
-        })
-  }
-*/
+    }
 
 
     modificar() {
-        let validator = new Validator();
-        if (!validator.isValid(this.prestamoModificar)) this.presentToast('Corrija el formulario');
+      let validator = new Validator();
+      if (!validator.isValid(this.prestamoModificar)) this.presentToast('Corrija el formulario');
 
-        else {
-            this.prestamoService.updatePrestamo(this.prestamoModificar,this.navController).then(result => this.listar_actas());
-            this.template = 'null';
-        }
+      else {
+        this.prestamoService.updatePrestamo(this.prestamoModificar,this.navController).then(result => this.listar_actas());
+        this.template = 'null';
+      }
 
     }
 
-//busca el ítem
-  buscarItem() {
+    //busca el ítem
+    buscarItem() {
       if (this.busquedaItem.valor.trim()!= "") {
-          this.itemService.getBuscarElemento(this.busquedaItem.valor,this.navController).then(items => { this.items = items; return items }).then(items => {
-            this.itemService.getBuscarDispositivo(this.busquedaItem.valor,this.navController).then(items => {
-              for(var item of items){
-                this.items.push(item)
-                console.log("busca")
-              }
-            })
+        this.itemService.getBuscarElemento(this.busquedaItem.valor,this.navController).then(items => { this.items = items; return items }).then(items => {
+          this.itemService.getBuscarDispositivo(this.busquedaItem.valor,this.navController).then(items => {
+            for(var item of items){
+              this.items.push(item)
+              console.log("busca")
+            }
           })
+        })
       }
       else {console.log("vacio")}
-  }
+    }
 
-
-      presentToast(text: string) {
-          let toast = Toast.create({
-              message: text,
-              duration: 3000
-          });
-
-          toast.onDismiss(() => {
-              console.log('Dismissed toast');
-          });
-          this.navController.present(toast);
+    buscarPersona(){
+      console.log('buscar persona');
+      if (this.descripcionPersona!==''){
+        console.log('buscar persona1');
+        this.personaService.getBuscar(this.descripcionPersona, this.navController).then(personas => {this.listaFiltradaPersona=personas; return personas})
+      }else{
+        this.listaFiltradaPersona=[];
       }
+    }
+
+    seleccionarPersona(persona: Persona){
+      this.personaSeleccionada = JSON.parse(JSON.stringify(persona));
+      this.descripcionPersona = this.personaSeleccionada.Nombre + ' ' +this.personaSeleccionada.Apellido;
+      this.estaSeleccionadaPersona=true;
+      this.listaFiltradaPersona=[];
+    }
+
+
+    presentToast(text: string) {
+      let toast = Toast.create({
+        message: text,
+        duration: 3000
+      });
+
+      toast.onDismiss(() => {
+        console.log('Dismissed toast');
+      });
+      this.navController.present(toast);
+    }
 
     public ngOnInit() {
       this.listar_actas();
+<<<<<<< HEAD
+      this.personaService.getPersonas(this.navController).then(personas => {
+        this.personas = personas
+=======
     /*  this.prestamoService.getPrestador(this.navController).then(personas => {
           this.personas = personas
+>>>>>>> d7dd4c0b05251df835ca0bdd51cc62db4a5e5a12
       });
 */    }
 

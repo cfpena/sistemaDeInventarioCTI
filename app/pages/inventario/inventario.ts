@@ -59,7 +59,7 @@ export class InventarioPage implements OnInit{
     templateItem: string='null';
     idProveedor: string ='';
     nombreProveedor: string ='NO EXISTE EL PROVEEDOR';
-    descripcionItem: string =''
+    descripcionItem: string ='';
     listaFiltradaItem: ITEM[];
     listaMovimientoDet: Movimiento_Detalle[]=[];
     cantidad=0;

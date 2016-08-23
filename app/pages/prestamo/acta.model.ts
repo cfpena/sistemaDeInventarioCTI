@@ -6,6 +6,6 @@ import {Persona} from '../persona/persona.model';
 
 export class Acta {
     url: String;
-    Prestador: String;
+    Prestador: Persona;
     Fecha_vencimiento: String;
 }
