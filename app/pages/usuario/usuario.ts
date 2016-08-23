@@ -19,7 +19,7 @@ import {Load} from '../../loading';
 export class UsuarioPage implements OnInit {
     url = new Url();
     title: string = 'Usuarios';
-    usuarios: Usuario[];
+    usuarios: Usuario[]=[];
     template: string = 'null';
     
     //usuario temporal para mantener los datos para modificar
