@@ -99,6 +99,19 @@ export class PrestamoPage implements OnInit{
       this.template='null';
     }
 
+    crear(){
+      console.log('crear')
+        let validator = new Validator();
+        if (!validator.isValid(this.actaNuevo)) this.presentToast('Corrija el formulario');
+      //  else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
+        //else if (this.kitNuevo.Nombre == '') this.presentToast('Nombre vacio');
+      //  else if (this.itemNuevo.Descripcion == '') this.presentToast('Descripción vacio');
+        //else if (this.kitNuevo.Stock < 1 || this.kitNuevo.Stock > 50 || this.kitNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
+        else {
+          this.actaNuevo.Prestador=this.personaSeleccionada.url;
+          this.prestamoService.createActa(this.actaNuevo, this.listaPrestamos,this.navController).then(result => {this.listar_actas()});
+        }
+    }
 
     //funcion listar que lista todos los kits creados
     listar_actas() {
