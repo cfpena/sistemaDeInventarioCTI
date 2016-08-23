@@ -76,7 +76,7 @@
     <div>
       <!--primer panel-->
       <div class="row ">
-        <div class="col l5 m7 s12">
+        <div class="col l5 m6 s12">
           <div class="card-panel blue-grey lighten-5 ">
             <span class="card-title">Nuevo Kit</span>
             <div class="divider"></div>
@@ -112,7 +112,7 @@
           </div>
         </div>
         <!--segundo panel-->
-        <div class="col l4 m5 s12 ">
+      <!--  <div class="col l4 m5 s12 ">
           <div class="card-panel blue-grey lighten-5 ">
             <span class="card-title">Buscar Ítems</span>
             <div style="padding-top: 7%;"></div>
@@ -140,12 +140,39 @@
               </div>
             </div>
           </div>
-        </div>
-        <!--tercer panel MUESTRA LOS ITEM AGREGADOS-->
-        <div class="col l3 m6 s12  ">
+        </div>-->
+        <!--2do panel MUESTRA LOS ITEM AGREGADOS-->
+        <div class="col l7 m6 s12  ">
           <div class="card-panel blue-grey lighten-5 ">
             <span class="card-title">Ítems</span>
             <div style="padding-top: 7%;"></div>
+
+              <div class="col l8 m8 s12">
+                <div class="input-field">
+                  <i class="material-icons prefix" style="color:#009688">search</i>
+                  <input id="item" type="text" class="validate filter-input" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
+                  <label for="item">Búsqueda de ítems</label>
+                </div>
+              </div>
+            
+            <div>
+              <ul class="dropdown-content active"  style="opacity: 1; display: block;">
+                <li *ngFor="let item of listaFiltradaItem">
+                  <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}} </a>
+                </li>
+              </ul>
+            </div>
+            <div class="input-field col s6 m2 l2" >
+              <input id="itemCant" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
+              <label for="itemCant" class="active">Cantidad</label>
+            </div>
+            <div class="input-field col s6 m2 l2" >
+              <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
+                <i class="material-icons">add</i>
+              </a>
+            </div>
+            <div style="padding-top: 7%;" class="input-field col s12 m12 l12"></div>
+
             <div *ngFor = "let item of itemsAgregados">
               <div class="divider"></div>
               <div class="row">

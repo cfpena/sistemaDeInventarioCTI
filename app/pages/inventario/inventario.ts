@@ -57,8 +57,12 @@ export class InventarioPage implements OnInit{
     template: string = 'null';
     templateMovimiento: string ='ingreso_inventario'
     templateItem: string='null';
-    idProveedor: string ='';
-    nombreProveedor: string ='NO EXISTE EL PROVEEDOR';
+
+    descripcionProveedor: string ='';
+    listaFiltradaProveedor: Persona[] =[];
+    proveedorSeleccionado= new Persona();
+    estaSeleccionadoProveedor: boolean=false;
+
     descripcionItem: string ='';
     listaFiltradaItem: ITEM[];
     listaMovimientoDet: Movimiento_Detalle[]=[];
@@ -68,7 +72,6 @@ export class InventarioPage implements OnInit{
     @Input() ingresoNuevo = new Ingreso();
     @Input() salidaNuevo = new Salida();
     @Input() movimientoNuevo = new Movimiento();
-    @Input() proveedorNuevo = new Persona();
     @Input() itemNuevo = new ITEM();
 
     @Input() movimientoMostrar = new Movimiento();
@@ -133,8 +136,8 @@ export class InventarioPage implements OnInit{
         this.countIng++;
         this.movimientoNuevo = new Movimiento();
         this.ingresoNuevo = new Ingreso();
-        this.proveedorNuevo = new Persona();
-        this.nombreProveedor = 'NO EXISTE EL PROVEEDOR';
+        this.proveedorSeleccionado = new Persona();
+        this.descripcionProveedor ='';
       }
     }
 
@@ -150,8 +153,8 @@ export class InventarioPage implements OnInit{
         this.countSal++;
         this.movimientoNuevo = new Movimiento();
         this.salidaNuevo = new Salida();
-        this.proveedorNuevo = new Persona();
-        this.nombreProveedor = 'NO EXISTE EL PROVEEDOR';
+        this.proveedorSeleccionado = new Persona();
+        this.descripcionProveedor='';
       }
     }
 
@@ -220,17 +223,20 @@ export class InventarioPage implements OnInit{
     }
 
     buscarProveedor(){
-    /*  console.log(this.idProveedor);
-      //this.proveedorNuevo = JSON.parse(JSON.stringify(this.Proveedores.find(persona => persona.CI == this.idProveedor)));
-      if (this.idProveedor.length==10){
-        console.log('voy a buscar el proveedor');
-        this.personaService.getBuscar(this.idProveedor).then(personas => {this.Proveedores = personas; return personas }).then(personas => {    })
-        if (this.Proveedores.length==1){
-          console.log('voy a buscar el proveedor');
-          this.proveedorNuevo=this.Proveedores[0];
-          this.nombreProveedor = this.proveedorNuevo.Nombre + ' ' + this.proveedorNuevo.Apellido;
-        }
-      }*/
+      console.log('buscar persona');
+      if (this.descripcionProveedor!==''){
+        console.log('buscar persona1');
+        this.personaService.getBuscar(this.descripcionProveedor, this.navController).then(personas => {this.listaFiltradaProveedor=personas; return personas})
+      }else{
+        this.listaFiltradaProveedor=[];
+      }
+    }
+
+    seleccionarProveedor(persona: Persona){
+      this.proveedorSeleccionado = JSON.parse(JSON.stringify(persona));
+      this.descripcionProveedor = this.proveedorSeleccionado.Nombre + ' ' +this.proveedorSeleccionado.Apellido;
+      this.estaSeleccionadoProveedor=true;
+      this.listaFiltradaProveedor=[];
     }
 
     buscarItem(){
