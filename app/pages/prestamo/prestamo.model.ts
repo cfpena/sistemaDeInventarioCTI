@@ -7,7 +7,7 @@ import {Persona} from '../persona/persona.model';
 export class Prestamo {
     url: String;
     @IsInt() Cantidad: number;
-    Acta: string;
+    Acta: any;
     Fecha: String;
     Objeto: any;
     Detalle: String;
