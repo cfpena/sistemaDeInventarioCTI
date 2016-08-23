@@ -91,6 +91,9 @@ export class PrestamoPage implements OnInit{
     this.actas =[]
       this.prestamoService.getActas(this.navController).then(actas => { this.actas = actas ; return actas}).then(result=>{
           console.log("listando actas");
+          for(var acta of this.actas){
+            this.prestamoService.llenarPrestador(acta,this.navController)
+          }
         })
   }
 
@@ -156,7 +159,7 @@ export class PrestamoPage implements OnInit{
 
     public ngOnInit() {
       this.listar_actas();
-      this.prestamoService.getPrestador(this.navController).then(personas => {
+      this.personaService.getPersonas(this.navController).then(personas => {
           this.personas = personas
       });
     }

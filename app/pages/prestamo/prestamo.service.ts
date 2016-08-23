@@ -11,53 +11,54 @@ import {Persona} from '../persona/persona.model';
 
 @Injectable()
 export class PrestamoService {
-    url = new Url();
-    httprequest:HttpRequest;
+  url = new Url();
+  httprequest:HttpRequest;
 
-    constructor(private http: Http,
-        private usuarioAuthService: UsuarioAuthService) {
-          this.httprequest = new HttpRequest(http);
-        }
+  constructor(private http: Http,
+    private usuarioAuthService: UsuarioAuthService) {
+      this.httprequest = new HttpRequest(http);
+    }
 
-        getActas(nav: NavController) {
-          return this.httprequest.get(this.url.base + this.url.acta, nav).then(result => {
-              let actas = result.json() as Acta[];
-              return actas;
-            })
-        }
+    getActas(nav: NavController) {
+      return this.httprequest.get(this.url.base + this.url.acta, nav).then(result => {
+        let actas = result.json() as Acta[];
 
-        getPrestador(nav: NavController) {
-              console.log('get tipos')
-                return this.httprequest.get(this.prestamo.Persona,nav).then(result => {
-              let personas = result.json() as Persona[];
-              return personas;
-            });
-        }
+        return actas;
+      })
+    }
+
+    llenarPrestador(acta: Acta,nav: NavController){
+      console.log('llenar prestador')
+      return this.httprequest.get(String(acta.Prestador),nav).then(prestador=>{
+        acta.Prestador =  prestador.json() as Persona;
+      });
+
+    }
 
     getPrestamos(nav: NavController) {
       return this.httprequest.get(this.url.base + this.url.prestamo, nav).then(result => {
-          let prestamos = result.json() as Prestamo[];
-          return prestamos;
-        })
+        let prestamos = result.json() as Prestamo[];
+        return prestamos;
+      })
     }
 
     getBuscar(cadena: String, nav: NavController) {
-    return this.httprequest.get(this.url.base + this.url.prestamo + this.url.buscar + cadena,nav)
-    .then(result => {
-      let prestamos = result.json() as Prestamo[];
-      return prestamos;
+      return this.httprequest.get(this.url.base + this.url.prestamo + this.url.buscar + cadena,nav)
+      .then(result => {
+        let prestamos = result.json() as Prestamo[];
+        return prestamos;
 
-        }).catch(error=>{
-          console.log(error)
-        });
+      }).catch(error=>{
+        console.log(error)
+      });
     }
 
-      createPrestamo(prestamo: Prestamo, nav: NavController) {
-          return this.httprequest.post(this.url.base + this.url.prestamo, JSON.stringify(prestamo),nav)
-        }
+    createPrestamo(prestamo: Prestamo, nav: NavController) {
+      return this.httprequest.post(this.url.base + this.url.prestamo, JSON.stringify(prestamo),nav)
+    }
 
     updatePrestamo(prestamo: Prestamo,nav: NavController) {
-        return this.httprequest.patch(String(prestamo.url), JSON.stringify(
+      return this.httprequest.patch(String(prestamo.url), JSON.stringify(
         {
           Cantidad: prestamo.Cantidad,
           Fecha: prestamo.Fecha,
@@ -68,7 +69,7 @@ export class PrestamoService {
       }
 
       eliminarPrestamo(prestamo: Prestamo, nav: NavController) {
-              return this.httprequest.delete(String(prestamo.url),nav)
+        return this.httprequest.delete(String(prestamo.url),nav)
       }
 
-}
+    }
