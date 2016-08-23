@@ -14,10 +14,10 @@ export class Url {
   token = 'api-token-auth/';
   verifyToken= 'api-token-verify/';
   tiposUsuarios = 'api/grupos/';
-  header= new Headers();
   password= 'api/password/';
   buscar = '?search='
   reporteInventario = 'api/reporteinventario/'
   reportePrestamo = 'api/reporteprestamo/'
+
 
 }
