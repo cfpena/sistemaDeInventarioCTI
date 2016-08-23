@@ -75,42 +75,45 @@
   <div id="nuevo_kit" class="section">
     <div class="row ">
       <!--primer panel-->
-      <div class="col l5 m6 s12">
+      <div class="col l4 m4 s12">
         <div class="card-panel blue-grey lighten-5 ">
           <span class="card-title">Nuevo Kit</span>
           <div class="divider"></div>
           <div style="padding-top: 7%;"></div>
           <div class="row">
             <!--primera columna-->
-            <div class="col l6 m6 s12">
+            <div class="col l12 m12 s12">
               <div class="input-field ">
+                <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
                 <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*"  [(ngModel)]="kitNuevo.Codigo" >
                 <label for="icon_codigo"> *  Código</label>
               </div>
-              <div class="input-field ">
-                <input id="icon_marca" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="kitNuevo.Marca">
-                <label for="icon_marca">Marca</label>
-              </div>
-            </div>
-            <div class="col l6 m6 s12">
               <div class="input-field">
+                <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
                 <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*"  [(ngModel)]="kitNuevo.Nombre" >
                 <label for="icon_nombre"> *  Nombre</label>
               </div>
+              <div class="input-field ">
+                <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                <input id="icon_marca" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="kitNuevo.Marca">
+                <label for="icon_marca">Marca</label>
+              </div>
               <div class="input-field">
+                <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
                 <input id="icon_modelo" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="kitNuevo.Modelo">
                 <label for="icon_modelo">Modelo</label>
               </div>
-            </div>
-            <div class="input-field col s12">
-              <textarea id="textarea1" class="materialize-textarea" [(ngModel)]="kitNuevo.Descripcion"></textarea>
-              <label for="textarea1"> *  Descripción</label>
+              <div class="input-field col s12">
+                <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                <textarea id="textarea1" class="materialize-textarea" [(ngModel)]="kitNuevo.Descripcion"></textarea>
+                <label for="textarea1"> *  Descripción</label>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <!--segundo panel-->
-      <div class="col l7 m7 s12">
+      <div class="col l8 m8 s12">
         <div class="card-panel blue-grey lighten-5 ">
           <span class="card-title">Ítems</span>
           <div class="divider"></div>
@@ -137,11 +140,23 @@
                 </div>
               </div>
               <div class="col l2 m2 s3">
-              <div class="input-field" >
-                <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
-                  <i class="material-icons">add</i>
-                </a>
+                <div class="input-field" >
+                  <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
+                    <i class="material-icons">add</i>
+                  </a>
+                </div>
               </div>
+            </div>
+            <div class="divider"></div>
+            <div class="row" style="color:#424242; font-size: 60%">
+              <div class="col l6 m6 s4 ">
+                <h6 class="center">Ítem</h6>
+              </div>
+              <div class="col l2 m2 s4 ">
+                <h6 class="center">Cantidad</h6>
+              </div>
+              <div class="col l2 m2 s4">
+                <h6 class="center">Serie/Mac</h6>
               </div>
             </div>
             <!--lista de items-->
@@ -163,13 +178,11 @@
                 </ul>
               </div>
             </div>
-
             <div class="card-action">
               <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
                 <i class="material-icons right">send</i>
               </a>
             </div>
-
           </div>
         </div>
       </div>
@@ -194,36 +207,71 @@
   <div id="modificar_kit"  class="section">
     <div class="row ">
       <!--primer panel-->
-      <div class="col l5 m6 s12">
+      <div class="col l4 m6 s12">
         <div class="card-panel blue-grey lighten-5 ">
           <span class="card-title">Modificar Kit</span>
           <div class="divider"></div>
           <div style="padding-top: 7%;"></div>
           <div class="row">
             <!--primera columna-->
-            <div class="col l6 m6 s12">
-              <div class="input-field ">
-                <input id="icon_codigo" disabled="disabled" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*"  >
-                <label for="icon_codigo"> *  Código</label>
+            <div class="col l12 m12 s12">
+              <div class="row">
+                <div class="col l10 m10 s10">
+                  <div class="input-field ">
+                    <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                    <input id="icon_codigo" disabled="disabled" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*"  >
+                    <label for="icon_codigo"> *  Código</label>
+                  </div>
+                </div>
               </div>
-              <div class="input-field ">
-                <input id="icon_marca" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="kitModificar.Marca">
-                <label for="icon_marca">Marca</label>
+              <div class="row">
+                <div class="col l10 m10 s10">
+                  <div class="input-field">
+                    <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                    <input id="icon_nombre" disabled="disabled" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*"  [(ngModel)]="kitModificar.Nombre"  >
+                    <label for="icon_nombre" class="active"> *  Nombre</label>
+                  </div>
+                </div>
+                <div class="col l2 m2 s2">
+                  <a class="button-collapse" onclick="icon_nombre.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                </div>
               </div>
-            </div>
-            <div class="col l6 m6 s12">
-              <div class="input-field">
-                <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*"  [(ngModel)]="kitModificar.Nombre"  >
-                <label for="icon_nombre"> *  Nombre</label>
+              <div class="row">
+                <div class="col l10 m10 s10">
+                  <div class="input-field ">
+                    <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                    <input id="icon_marca" type="text" disabled="disabled" class="validate"  minlength="5" maxlength="10" [(ngModel)]="kitModificar.Marca">
+                    <label for="icon_marca" class="active">Marca</label>
+                  </div>
+                </div>
+                <div class="col l2 m2 s2">
+                  <a class="button-collapse" onclick="icon_marca.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                </div>
               </div>
-              <div class="input-field">
-                <input id="icon_modelo" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="kitModificar.Modelo">
-                <label for="icon_modelo">Modelo</label>
+              <div class="row">
+                <div class="col l10 m10 s10">
+                  <div class="input-field">
+                    <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                    <input id="icon_modelo" type="text" disabled="disabled" class="validate"  minlength="5" maxlength="10" [(ngModel)]="kitModificar.Modelo">
+                    <label for="icon_modelo" class="active">Modelo</label>
+                  </div>
+                </div>
+                <div class="col l2 m2 s2">
+                  <a class="button-collapse" onclick="icon_modelo.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                </div>
               </div>
-            </div>
-            <div class="input-field col s12">
-              <textarea id="textarea1" class="materialize-textarea" [(ngModel)]="kitModificar.Descripcion"></textarea>
-              <label for="textarea1"> *  Descripción</label>
+              <div class="row">
+                <div class="col l10 m10 s10">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                    <textarea id="textarea1" disabled="disabled" class="materialize-textarea" [(ngModel)]="kitModificar.Descripcion"></textarea>
+                    <label for="textarea1" class="active"> *  Descripción</label>
+                  </div>
+                </div>
+                <div class="col l2 m2 s2">
+                  <a class="button-collapse" onclick="textarea1.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -231,7 +279,7 @@
 
       <!--segundo panel-->
 
-      <div class="col l7 m7 s12">
+      <div class="col l8 m8 s12">
         <div class="card-panel blue-grey lighten-5 ">
           <span class="card-title">Ítems</span>
           <div class="divider"></div>
@@ -257,11 +305,11 @@
                 </div>
               </div>
               <div class="col l2 m2 s3">
-              <div class="input-field" >
-                <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
-                  <i class="material-icons">add</i>
-                </a>
-              </div>
+                <div class="input-field" >
+                  <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
+                    <i class="material-icons">add</i>
+                  </a>
+                </div>
               </div>
             </div>
             <!--lista de items-->
