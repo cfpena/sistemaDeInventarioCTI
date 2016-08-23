@@ -74,116 +74,196 @@
 <div *ngIf="template=='nuevo_prestamo'" style="overflow: scroll;" >
   <!--nuevo prestamo-->
   <div materialize id="nuevo_prestamo" class="section">
-      <div class="row">
-        <!--panel 1-->
-        <div class="col l3 m4 s12" >
-          <div class="card-panel blue-grey lighten-5 ">
-            <span class="card-title">Prestamo</span>
-            <div style="padding-top: 5%;"></div>
-            <div class="row">
-              <div class="col l12 m12 s12">
-                <div class="input-field">
-                  <i class="material-icons prefix" style="color:#009688">account_box</i>
-                  <input id="personaLista" type="text" class="validate filter-input" [(ngModel)]=descripcionPersona (keyup)=buscarPersona()>
-                  <label for="personaLista">Persona</label>
-                </div>
-              </div>
-            </div>
-            <div>
-              <ul class="dropdown-content active"  style="opacity: 1; display: block;">
-                <li *ngFor="let persona of listaFiltradaPersona">
-                  <a (click)="seleccionarPersona(persona)">{{persona.CI}} - {{persona.Nombre}} {{persona.Apellido}} </a>
-                </li>
-              </ul>
-            </div>
-            <div class="row">
-              <div class="col l12 m12 s12">
-                <div class="input-field">
-                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                  <input id="noActa" type="text" class="validate filter-input" >
-                  <label for="noActa">No. Acta</label>
-                </div>
-              </div>
-              <div materialize class="col l12 m12 s12">
-                <div class="input-field">
-                  <i class="material-icons prefix" style="color:#009688">today</i>
-                  <label for="Fecha" class="active">Desde</label>
-                  <input  id="today" type="date" class="datepicker" style="padding-top: 14px">
-                  <script>
-                  document.getElementById("today").valueAsDate = new Date()
-                  </script>
-                </div>
-              </div>
-              <div materialize class="col l12 m12 s12">
-                <div class="input-field">
-                  <i class="material-icons prefix" style="color:#009688">today</i>
-                  <label for="Fecha_vencimiento" class="active" >Hasta</label>
-                  <input id="Fecha_vencimiento" type="date" class="datepicker" style="padding-top: 14px">
-                  <script>
-                  new Datepicker('.datepicker');
-                  </script>
-                </div>
+    <div class="row">
+      <!--panel 1-->
+      <div class="col l4 m4 s12" >
+        <div class="card-panel blue-grey lighten-5 ">
+          <span class="card-title">Prestamo</span>
+          <div style="padding-top: 5%;"></div>
+          <div class="row">
+            <div class="col l12 m12 s12">
+              <div class="input-field">
+                <i class="material-icons prefix" style="color:#009688">account_box</i>
+                <input id="personaLista" type="text" class="validate filter-input" [(ngModel)]=descripcionPersona (keyup)=buscarPersona()>
+                <label for="personaLista">Persona</label>
               </div>
             </div>
           </div>
-        </div>
-        <!--segundo panel-->
-        <div class="col s12 l4 m6 " >
-          <div class="card-panel blue-grey lighten-5 ">
-            <span class="card-title">Buscar Ítems</span>
-            <div style="padding-top: 7%;"></div>
-            <div class="input-field ">
-              <i class="material-icons prefix">search</i>
-              <input (keyup)="buscarItem()" id="icon_marca" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="busquedaItem.valor" >
-              <label for="icon_marca">Búsqueda</label>
+          <div>
+            <ul class="dropdown-content active"  style="opacity: 1; display: block;">
+              <li *ngFor="let persona of listaFiltradaPersona">
+                <a (click)="seleccionarPersona(persona)">{{persona.CI}} - {{persona.Nombre}} {{persona.Apellido}} </a>
+              </li>
+            </ul>
+          </div>
+          <div class="row">
+            <div class="col l12 m12 s12">
+              <div class="input-field">
+                <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                <input id="noActa" type="text" class="validate filter-input" >
+                <label for="noActa">No. Acta</label>
+              </div>
             </div>
-            <div *ngFor = "let item of items">
-              <div class="divider"></div>
-              <div class="row">
-                <ul>
-                  <div class="col l6 m7 s7" style="color:#424242; font-size: 65%">
-                    <li id="nombre">Nombre: {{item.Nombre}}</li>
-                    <li id="codigo">Código: {{item.Codigo}}</li>
-                    <li id="cantidad">Cant.: {{item.Stock}}</li>
-                  </div>
-                  <div class="col l3 m3 s3">
-                    <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center"></li>
-                  </div>
-                  <div class="col l2 m2 s2 offset-l1">
-                    <li> <a  class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons ">add</i> </a> </li>
-                  </div>
-                </ul>
+            <div materialize class="col l12 m12 s12">
+              <div class="input-field">
+                <i class="material-icons prefix" style="color:#009688">today</i>
+                <label for="Fecha" class="active">Desde</label>
+                <input  id="today" type="date" class="datepicker" style="padding-top: 14px">
+                <script>
+                document.getElementById("today").valueAsDate = new Date()
+                </script>
+              </div>
+            </div>
+            <div materialize class="col l12 m12 s12">
+              <div class="input-field">
+                <i class="material-icons prefix" style="color:#009688">today</i>
+                <label for="Fecha_vencimiento" class="active" >Hasta</label>
+                <input id="Fecha_vencimiento" type="date" class="datepicker" style="padding-top: 14px">
+                <script>
+                new Datepicker('.datepicker');
+                </script>
               </div>
             </div>
           </div>
-        </div>
-
-        <!--panel 3> Tabla de prestamos-->
-        <div class="col s12 m6 l4 ">
-          <div class="card-panel blue-grey lighten-5 ">
-            <span class="card-title">Items Prestados</span>
-            <div style="padding-top: 7%;"></div>
-            <div class="card-content grey-text ">
-              <ul *ngFor = "let prestamo of prestamos">
-                <li>  <a  class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons ">clear</i> </a></li>
-                <li *ngFor ="let item of prestamo.items">{{item.Nombre}}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="card-action right">
-          <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
-            <i class="material-icons right">send</i>
-          </a>
         </div>
       </div>
-  </div>
-  <!--boton para cancelar-->
-  <div *ngIf="template=='nuevo_prestamo'" class="section">
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
-        <i class="material-icons">clear</i>
-      </a>
+      <!--segundo panel-->
+      <div class="col l8 m8 s12" >
+        <div class="card-panel blue-grey lighten-5 ">
+          <span class="card-title">Items Prestados</span>
+          <div style="padding-top: 5%;"></div>
+
+            <div class="col l8 m8 s12">
+              <div class="input-field">
+                <i class="material-icons prefix" style="color:#009688">search</i>
+                <input id="item" type="text" class="validate filter-input" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
+                <label for="item">Item</label>
+              </div>
+            </div>
+          <div>
+            <ul class="dropdown-content active"  style="opacity: 1; display: block;">
+              <li *ngFor="let item of listaFiltradaItem">
+                <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}}</a>
+              </li>
+            </ul>
+          </div>
+          <div class="row">
+            <div class="input-field col s6 m12 l2" >
+              <input id="itemCant" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
+              <label for="itemCant" class="active">Cantidad</label>
+            </div>
+            <div class="input-field col s6 m12 l2" >
+              <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
+                <i class="material-icons">add</i>
+              </a>
+            </div>
+          </div>
+
+          <div style="padding-top: 7%;" class="input-field col s12 m12 l12"></div>
+
+          <!--lista-->
+          <div class="divider"></div>
+          <div class="row">
+            <ul>
+              <div class="col l6 m7 s7" style="color:#424242; font-size: 65%">
+                Item
+              </div>
+              <div class="col l2 m2 s2" style="color:#424242; font-size: 65%">
+                Cantidad
+              </div>
+              <div class="col l2 m2 s2" style="color:#424242; font-size: 65%">
+                <li>
+                  Serie/MAC
+                </li>
+              </div>
+            </ul>
+          </div>
+          <div *ngFor = "let prestamo of listaPrestamos">
+            <div class="divider"></div>
+            <div class="row">
+              <ul>
+                <div class="col l6 m7 s5" style="color:#424242; font-size: 65%">
+                  <li id="nombre">Nombre: {{prestamo.Objeto.Nombre}}</li>
+                  <li id="codigo">Código: {{prestamo.Objeto.Codigo}}</li>
+                  <li id="cantidad">Cant.: {{prestamo.Objeto.Stock}}</li>
+                </div>
+                <div class="col l2 m2 s3">
+                  <li>
+                    <input id="cantidad" type="text" class="validate" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="prestamo.Cantidad" >
+                  </li>
+                </div>
+                <div class="col l3 m3 s3">
+                  <li>
+                    <input id="serie" type="text" class="validate" minlength="1" maxlength="30"   [(ngModel)]="prestamo.Detalle" >
+                  </li>
+                </div>
+                <div class="col l1 m2 s1">
+                  <li>
+                    <a (click)="eliminarPrestamo(prestamo)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a>
+                  </li>
+                </div>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--
+      <div class="col s12 l4 m6 " >
+      <div class="card-panel blue-grey lighten-5 ">
+      <span class="card-title">Buscar Ítems</span>
+      <div style="padding-top: 7%;"></div>
+      <div class="input-field ">
+      <i class="material-icons prefix">search</i>
+      <input (keyup)="buscarItem()" id="icon_marca" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="busquedaItem.valor" >
+      <label for="icon_marca">Búsqueda</label>
     </div>
+    <div *ngFor = "let item of items">
+    <div class="divider"></div>
+    <div class="row">
+    <ul>
+    <div class="col l6 m7 s7" style="color:#424242; font-size: 65%">
+    <li id="nombre">Nombre: {{item.Nombre}}</li>
+    <li id="codigo">Código: {{item.Codigo}}</li>
+    <li id="cantidad">Cant.: {{item.Stock}}</li>
   </div>
+  <div class="col l3 m3 s3">
+  <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center"></li>
+</div>
+<div class="col l2 m2 s2 offset-l1">
+<li> <a  class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons ">add</i> </a> </li>
+</div>
+</ul>
+</div>
+</div>
+</div>
+</div>-->
+
+<!--panel 3> Tabla de prestamos
+<div class="col s12 m6 l4 ">
+<div class="card-panel blue-grey lighten-5 ">
+<span class="card-title">Items Prestados</span>
+<div style="padding-top: 7%;"></div>
+<div class="card-content grey-text ">
+<ul *ngFor = "let prestamo of listaPrestamos">
+<li>  <a  class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons ">clear</i> </a></li>
+<li *ngFor ="let item of prestamo.items">{{item.Nombre}}</li>
+</ul>
+</div>
+</div>
+</div>-->
+<div class="card-action right">
+  <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
+    <i class="material-icons right">send</i>
+  </a>
+</div>
+</div>
+</div>
+<!--boton para cancelar-->
+<div *ngIf="template=='nuevo_prestamo'" class="section">
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+      <i class="material-icons">clear</i>
+    </a>
+  </div>
+</div>
 </div>
