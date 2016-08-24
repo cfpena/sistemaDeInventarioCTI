@@ -1,5 +1,5 @@
 import {Validator} from "validator.ts/Validator";
-import {Contains, IsInt, IsLength, IsEmail, IsAlpha} from "validator.ts/decorator/Validation";
+import {Contains, IsInt, IsLength, IsEmail, IsAlpha, IsAlphanumeric, Matches, NotEmpty} from "validator.ts/decorator/Validation";
 
 export class Group{
   name: String;
@@ -8,12 +8,12 @@ export class Group{
 
 export class Usuario {
     url: String;
-    CI: String;
-    @IsAlpha() Nombre:String;
-    @IsAlpha() Apellido: String;
-    @IsEmail() Email: string;
-    Telefono: String;
-    Genero: String;
+    @Matches(new RegExp("[0-9]*")) CI: String;
+    @NotEmpty() @Matches(new RegExp("[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*")) @IsLength(2, 30) Nombre: string;
+    @NotEmpty() @Matches(new RegExp("[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*")) @IsLength(2, 30) Apellido: string;
+    @NotEmpty() @IsEmail()                                                        Email: string;
+    @Matches(new RegExp("[0-9]*"))                                                Telefono: string;
+    Genero: string;
     groups: Group[];
 
 
@@ -25,5 +25,6 @@ constructor( ) {
   this.Email='';
   this.Telefono='';
   this.Genero='';
+//  this.groups= [];
 }
 }
