@@ -52,11 +52,11 @@ content: `
 constructor(){};
 
 present(nav: NavController){
-  nav.present(this.loading);
+ return  nav.present(this.loading);
 
 }
 dismiss(){
-  this.loading.dismiss(); 
+  this.loading.dismiss();
 }
 
 
