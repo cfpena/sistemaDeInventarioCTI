@@ -26,6 +26,7 @@ export class ReportesPage {
     reporte = new Reporte();
     IngresosEgresos: IngresoEgreso[];
     Prestamos: Prestamo[];
+    today= new Date().toLocaleDateString();
 
 
     constructor(private navController: NavController,
@@ -33,6 +34,7 @@ export class ReportesPage {
         private service: ReporteService
     ) {
         this.busqueda = this.tiposBusquedas[0]
+        console.log(this.today)
     }
     openMenu() {
         this.menu.open();
@@ -40,6 +42,7 @@ export class ReportesPage {
     crear() {
 
         if (this.reporte.Fecha_Inicial != '' && this.reporte.Fecha_Final != '') {
+          console.log(this.reporte.Fecha_Final)
             if (this.busqueda == 'Resporte Movimientos') {
                 this.service.getReporteInventario(this.reporte, this.navController).then(result => {
                     this.IngresosEgresos = result.json() as IngresoEgreso[]

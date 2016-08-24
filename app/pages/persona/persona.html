@@ -89,18 +89,18 @@
               </div>
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">account_box</i>
-                <input id="nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.Nombre">
-                <label for="nombre">Nombre</label>
+                <input id="nombre" type="text" class="validate"  minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*"[(ngModel)]="personaNueva.Nombre">
+                <label for="nombre" data-error="Nombre vacio o Incorrecto">Nombre</label>
               </div>
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">account_box</i>
-                <input id="apellido" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.Apellido">
-                <label for="apellido">Apellido</label>
+                <input id="apellido" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*" [(ngModel)]="personaNueva.Apellido">
+                <label for="apellido" data-error="Apellido vacio o Incorrecto">Apellido</label>
               </div>
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">my_location</i>
-                <input id="direccion" type="text" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-Z]*" [(ngModel)]="personaNueva.Direccion">
-                <label for="direccion">Direccion</label>
+                <input id="direccion" type="text" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9 ]*" [(ngModel)]="personaNueva.Direccion">
+                <label for="direccion" data-error="Direccion vacia">Direccion</label>
               </div>
 
             </div>
@@ -109,17 +109,17 @@
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">credit_card</i>
                 <input id="matricula" type="text" class="validate" minlength="9" maxlength="9" pattern = "[0-9]*" [(ngModel)]="personaNueva.Matricula">
-                <label for="matricula">Matricula</label>
+                <label for="matricula" data-error="Matricula vacia o Incorrecta">Matricula</label>
               </div>
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">email</i>
-                <input id="correo" type="text" class="validate"  [(ngModel)]="personaNueva.Email">
-                <label for="correo">Correo</label>
+                <input id="correo" type="email" class="validate" maxlength="50"  [(ngModel)]="personaNueva.Email">
+                <label for="correo" data-error="Formato E-mail Incorrecto">Correo</label>
               </div>
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">call</i>
-                <input id="telefono" type="text" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*" [(ngModel)]="personaNueva.Telefono">
-                <label for="telefono">Teléfono</label>
+                <input id="telefono" type="text" class="validate" minlength="7" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaNueva.Telefono">
+                <label for="telefono" data-error="Telefono vacio o Incorrecto">Teléfono</label>
               </div>
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">label_outline</i>
@@ -181,8 +181,8 @@
                 <div class="col l10 m10 s10">
                   <div class="input-field">
                     <i class="material-icons prefix">account_box</i>
-                    <input id="icon_nombre" disabled="disabled" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.Nombre">
-                    <label for="icon_nombre">Nombre</label>
+                    <input id="icon_nombre" disabled="disabled" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*" [(ngModel)]="personaModificar.Nombre">
+                    <label for="icon_nombre" data-error="Nombre vacio o Incorrecto">Nombre</label>
                   </div>
                 </div>
                 <div class="col l2 m2 s2">
@@ -193,8 +193,8 @@
                 <div class="col l10 m10 s10">
                   <div class="input-field">
                     <i class="material-icons prefix">account_box</i>
-                    <input id="icon_apellido" disabled="disabled" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.Apellido">
-                    <label for="icon_apellido">Apellido</label>
+                    <input id="icon_apellido" disabled="disabled" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*" [(ngModel)]="personaModificar.Apellido">
+                    <label for="icon_apellido" data-error="Apellido vacio o Incorrecto">Apellido</label>
                   </div>
                 </div>
                 <div class="col l2 m2 s2">
@@ -205,8 +205,8 @@
                 <div class="col l10 m10 s10">
                   <div class="input-field">
                     <i class="material-icons prefix">my_location</i>
-                    <input id="icon_direccion" disabled="text" type="tel" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-Z]*" [(ngModel)]="personaModificar.Direccion">
-                    <label for="icon_direccion">Direccion</label>
+                    <input id="icon_direccion" disabled="text" type="tel" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9]*" [(ngModel)]="personaModificar.Direccion">
+                    <label for="icon_direccion" data-error="Direccion vacia">Direccion</label>
                   </div>
                 </div>
                 <div class="col l2 m2 s2">
@@ -221,25 +221,33 @@
                 <div class="col l10 m10 s10">
                   <div class="input-field">
                     <i class="material-icons prefix" style="color:#009688">credit_card</i>
-                    <input id="matricula" type="text" class="validate" minlength="9" maxlength="9" pattern = "[0-9]*" [(ngModel)]="personaModificar.Matricula">
-                    <label for="matricula">Matricula</label>
+                    <input id="icon_matricula" disabled="disabled" type="text" class="validate" minlength="9" maxlength="9" pattern = "[0-9]*" [(ngModel)]="personaModificar.Matricula">
+                    <label for="icon_matricula" data-error="Matricula vacia o Incorrecta">Matricula</label>
                   </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix">email</i>
-                    <input id="correo" disabled="disabled" type="text" class="validate"  [(ngModel)]="personaModificar.Email">
-                    <label for="correo">Email</label>
+                  </div>
+                  <div class="col l2 m2 s2">
+                    <a class="button-collapse" onclick="icon_matricula.disabled = false"><i style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
                   </div>
                 </div>
+
+                <div class="row">
+                  <div class="col l10 m10 s10">
+                  <div class="input-field">
+                    <i class="material-icons prefix">email</i>
+                    <input id="icon_correo" disabled="disabled" type="email" class="validate" maxlength="50"  [(ngModel)]="personaModificar.Email">
+                    <label for="icon_correo" data-error="Formato E-mail Incorrecto">Email</label>
+                  </div>
+                  </div>
                 <div class="col l2 m2 s2">
-                  <a class="button-collapse" onclick="icon_descripcion.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                  <a class="button-collapse" onclick="icon_correo.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
                 </div>
               </div>
               <div class="row">
                 <div class="col l10 m10 s10">
                   <div class="input-field">
                     <i class="material-icons prefix">call</i>
-                    <input id="icon_telefono" type="tel" disabled="disabled" class="validate" minlength="10" maxlength="10" pattern = "09[0-9]*"  [(ngModel)]="personaModificar.Telefono">
-                    <label for="icon_telefono">Teléfono</label>
+                    <input id="icon_telefono" type="tel" disabled="disabled" class="validate" minlength="7" maxlength="10" pattern = "[0-9]*"  [(ngModel)]="personaModificar.Telefono">
+                    <label for="icon_telefono" data-error="Telefono vacio o Incorrecto">Teléfono</label>
                   </div>
                 </div>
                 <div class="col l2 m2 s2">

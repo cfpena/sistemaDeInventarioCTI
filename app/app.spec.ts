@@ -11,6 +11,7 @@ import {UsuarioPage} from './pages/usuario/usuario';
 import {PersonaPage} from './pages/persona/persona';
 import {PersonaService} from './pages/persona/persona.service';
 import {InventarioPage} from './pages/inventario/inventario';
+import {InventarioService} from './pages/inventario/inventario.service';
 //import {InventarioService} from './pages/inventario/inventario.service';
 import {KitPage} from './pages/kit/kit';
 import {ItemPage} from './pages/item/item';
@@ -368,21 +369,22 @@ describe('Inventario', () => {
   let usuarioAuth= new UsuarioAuthService(http) //antes var usuarioAuth: UsuarioAuthService
   let itemServ= new ItemService(http,usuarioAuth)
   let personaServ= new PersonaService(http,usuarioAuth) //antes var personaServ: PersonaService
+  let inventarioServ= new InventarioService(http,usuarioAuth)
   let nav: NavController;
   let menu: MenuController;
   beforeEach(function() {
 
-    inventarioPage = new InventarioPage(nav,menu,personaServ,itemServ,http);
+    inventarioPage = new InventarioPage(nav,menu,personaServ,itemServ,inventarioServ,http);
   });
 
   it('listar inventario ingresos', () => {
 
-      expect(inventarioPage.ingresos).toBeTruthy();
+      expect(inventarioPage.listaMovimientoDet).toBeTruthy();
   });
 
   it('listar inventario salidas', () => {
 
-      expect(inventarioPage.salidas).toBeTruthy();
+      expect(inventarioPage.listaMovimientoDet).toBeTruthy();
   });
 
   it('ingresar inventario', () => {

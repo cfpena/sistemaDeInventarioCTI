@@ -6,6 +6,7 @@ import {Url} from '../../url';
 import {UsuarioAuthService} from './usuario.auth.service';
 import {HttpRequest} from '../../httprequest';
 
+
 @Injectable()
 export class UsuarioService {
     url = new Url();
@@ -16,8 +17,9 @@ export class UsuarioService {
           this.httprequest = new HttpRequest(http);
         }
 
+
     getUsuarios(nav: NavController) {
-      console.log('get usuario')
+
       return this.httprequest.get(this.url.base + this.url.usuario,nav).then(result => {
           let usuarios = result.json() as Usuario[];
           return usuarios;
@@ -36,7 +38,6 @@ export class UsuarioService {
             return this.httprequest.delete(usuario.url.toString(),nav)
     }
     llenarTipo(usuario: Usuario,nav: NavController){
-      console.log('llenar tipo')
       return this.httprequest.get(String(usuario.groups[0]),nav).then(tipo=>{
       usuario.groups[0] =  tipo.json() as Group;
     });
@@ -56,7 +57,6 @@ export class UsuarioService {
     }
 
     getTipos(nav: NavController) {
-          console.log('get tipos')
             return this.httprequest.get(this.url.base + this.url.tiposUsuarios, nav).then(result => {
           let tipos = result.json() as Group[];
           return tipos;

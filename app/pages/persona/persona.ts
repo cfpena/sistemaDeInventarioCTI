@@ -19,7 +19,7 @@ export class PersonaPage implements OnInit {
   title: string ='Personas';
   personas: Persona[]=[];
   template: string = 'null';
-  personasTemporal: Persona[]=[];
+
   personasEliminar: Persona[] = [];
   @Input()
   personaNueva = new Persona();
@@ -33,16 +33,15 @@ export class PersonaPage implements OnInit {
   //lista de ids seleccionados por el checkbox
   selected: number[]=[];
   tiposIdentificaciones = ['Tipo de Identificación...', 'cédula', 'Nombre'];
-  Generos = ['Elija un Genero...','Femenino','Masculino'];
-  Tipos = ['Elija un Tipo','Estudiante','Trabajador','Externo']
+  Generos = ['Masculino','Femenino'];
+  Tipos = ['Estudiante','Trabajador','Externo']
   tiposBusquedas = ['cédula', 'Nombre'];
   busqueda={tipo: 'cédula', valor: ''};
 
 
   constructor( private navController:NavController,private menu: MenuController,
     private personaService: PersonaService,
-    private http: Http) {
-      this.personasTemporal=this.personas;
+    private http: Http) { this.personaNueva.Tipo = this.Tipos[0];this.personaNueva.Genero = this.Generos[0];
   }
   //abre el menu
 openMenu(){
@@ -75,32 +74,21 @@ listar() {
 
     let validator = new Validator();
 
-    if (!validator.isValid(this.personaNueva))                                                  this.presentToast('Corrija el formulario');
-    else if (this.personaNueva.CI=='' || this.personaNueva.CI.length < 10)                      this.presentToast('Cedula vacia o Incompleta');
-    else if(this.personaNueva.Nombre=='')                                                       this.presentToast('Nombre vacio o Incorrecto');
-    else if(this.personaNueva.Apellido=='')                                                     this.presentToast('Apellido vacio o Incorrecto');
-    else if(this.personaNueva.Email=='')                                                        this.presentToast('Email vacio o Incorrecto');
-    else if(this.personaNueva.Matricula=='' || this.personaNueva.Matricula.length < 9)          this.presentToast('Matricula vacia o Incorrecta');
-    else if(this.personaNueva.Direccion=='' || this.personaNueva.Direccion.length < 2)          this.presentToast('Direccion vacia');
-    else if(this.personaNueva.Telefono.length!= 10)                                             this.presentToast('Convencional de 10 numeros. Ejm <09....>');
-    else if(this.personaNueva.Genero=='' || this.personaNueva.Genero==this.Generos[0])          this.presentToast('Elija Genero');
-    else if(this.personaNueva.Tipo=='' || this.personaNueva.Tipo==this.Tipos[0])                this.presentToast('Elija Tipo')
+    if (!validator.isValid(this.personaNueva)){
+      this.presentToast('Corrija el formulario');
+      console.log(validator.validate(this.personaNueva));
+
+    }
+
     else{
-    this.personas.push(this.personaNueva);
     let persona = JSON.parse(JSON.stringify(this.personaNueva))
     this.personaService.createPersona(persona,this.navController).then(result => this.listar());
-    let result=this.personaService.createPersona(persona,this.navController).then(result => {this.listar();return true}).catch(err=> {return false});
-
     this.template='null';
     this.count++;
     this.listar();
+console.log(JSON.stringify(this.personaNueva));
     this.personaNueva = new Persona();
-
-    result.then(ok=>{
-      if(ok) return true
-      else return false
-
-    })
+    this.personaNueva.Tipo = this.Tipos[0];this.personaNueva.Genero = this.Generos[0];
 
   }
 }
@@ -110,16 +98,9 @@ listar() {
   //modifica la persona
   modificar(){
     let validator = new Validator();
-    if (!validator.isValid(this.personaModificar))                                              this.presentToast('Corrija el formulario');
-    //else if (this.personaModificar.CI=='' || this.personaModificar.CI.length < 10)              this.presentToast('Cedula vacia o Incompleta');
-    else if(this.personaModificar.Nombre=='')                                                   this.presentToast('Nombre vacio o Incorrecto');
-    else if(this.personaModificar.Apellido=='')                                                 this.presentToast('Apellido vacio o Incorrecto');
-    else if(this.personaModificar.Email=='')                                                    this.presentToast('Email vacio o Incorrecto');
-    else if(this.personaModificar.Matricula=='' || this.personaModificar.Matricula.length < 9)  this.presentToast('Matricula vacia o Incorrecta');
-    else if(this.personaModificar.Direccion=='' || this.personaModificar.Direccion.length < 2)  this.presentToast('Direccion vacia');
-    else if(this.personaModificar.Telefono.length!= 10)                                         this.presentToast('Convencional de 10 numeros. Ejm <09....>');
-    else if(this.personaModificar.Genero=='' || this.personaModificar.Genero==this.Generos[0])  this.presentToast('Elija Genero');
-    else if(this.personaModificar.Tipo=='' || this.personaModificar.Tipo==this.Tipos[0])        this.presentToast('Elija Tipo')
+    if (!validator.isValid(this.personaModificar))
+        this.presentToast('Corrija el formulario');
+
     else{
     this.personaService.updatePersona(this.personaModificar,this.navController).then(result => this.listar());
     this.template='null';
@@ -137,6 +118,8 @@ listar() {
         { this.listar() }).catch(error=> console.log(error))}
     //se deja en blanco la lista a eliminar
     this.personasEliminar= Array<Persona>();
+    console.log(this.personasEliminar);
+
     //se refrescan los datos del servidor
     this.listar();
   }
@@ -144,12 +127,13 @@ listar() {
 //agrega o elimina ids de personas en lista para saber cual ha sido seleccionada
 //funcion que agrega las personas a la lista para eliminarlos luego
 select(persona: Persona) {
-    if (!this.personasEliminar.some(persona => persona == persona)) {
+    if (!this.personasEliminar.some(pers => pers == persona)) {
         this.personasEliminar.push(persona);
     }else {
         let index = this.personasEliminar.findIndex(x => x == persona)
         this.personasEliminar.splice(index, 1)
     };
+    console.log(this.personasEliminar);
 
 }
 

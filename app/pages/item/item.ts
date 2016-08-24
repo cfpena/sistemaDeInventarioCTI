@@ -71,6 +71,7 @@ export class ItemPage implements OnInit {
     }
 
     crear() {
+      console.log(this.itemNuevo)
         let validator = new Validator();
         if (!validator.isValid(this.itemNuevo)) this.presentToast('Corrija el formulario');
         else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 5 || this.itemNuevo.Codigo.length > 10) this.presentToast('Código longitud entre 5 y 10 caracteres');
@@ -99,7 +100,7 @@ export class ItemPage implements OnInit {
         if (!validator.isValid(this.itemModificar)) this.presentToast('Corrija el formulario');
         else if (this.itemModificar.Nombre == '' || this.itemModificar.Nombre.length < 2) this.presentToast('Nombre vacio o pequeño');
         else if (this.itemModificar.Descripcion == '' || this.itemModificar.Descripcion.length < 5) this.presentToast('Descripción vacia o muy pequeño');
-        else if (this.itemModificar.Stock < 1 || this.itemModificar.Stock > 50 || this.itemModificar.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
+      //  else if (this.itemModificar.Stock < 1 || this.itemModificar.Stock > 50 || this.itemModificar.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
             this.itemService.updateItem(this.itemModificar,this.navController).then(result => this.listar());
             this.template = 'null';
