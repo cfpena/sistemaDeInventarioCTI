@@ -81,11 +81,12 @@ export class UsuarioPage implements OnInit {
         if( this.Tipo=='') this.Tipo = this.tipos[0].name.toString()
         let validator = new Validator();
 
-        if (!validator.isValid(this.usuarioNuevo)) this.presentToast('Corrija el formulario');
+        if (!validator.isValid(this.usuarioNuevo))
+        {   console.log(validator.validate(this.usuarioNuevo));
+            this.presentToast('Corrija el formulario');}
         else if (this.credenciales.clave == '') this.presentToast('Clave vacia');
         else if (this.credenciales.clave.length < 6) this.presentToast('Clave menor a 6 caracteres');
         else if (this.credenciales.clave != this.credenciales.clave2) this.presentToast('Claves no coinciden');
-        else if (this.Tipo == '') this.presentToast('Tipo no definido');
         else {
           let load= new Load()
           load.present(this.navController)
