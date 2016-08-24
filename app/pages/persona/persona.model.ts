@@ -1,17 +1,17 @@
 import {Validator} from "validator.ts/Validator";
-import {Contains, IsInt, IsLength, IsEmail, IsAlpha} from "validator.ts/decorator/Validation";
+import {Contains, IsInt, IsLength, IsEmail, IsAlpha, IsAlphanumeric} from "validator.ts/decorator/Validation";
 
 
 export class Persona {
   url: String;
-  CI: string;
-  @IsAlpha() Nombre: string;
-  @IsAlpha() Apellido: string;
+  @IsInt() @IsLength(10, 10) CI: string;
+  @IsAlpha() @IsLength(2, 30) Nombre: string;
+  @IsAlpha() @IsLength(2, 30) Apellido: string;
   @IsEmail() Email: string;
-  Telefono: string;
+  @IsInt() @IsLength(7, 10) Telefono: string;
   Genero: string;
-  Direccion: string;
-  Matricula: string;
+  @IsAlphanumeric() @IsLength(2, 50) Direccion: string;
+  @IsInt() Matricula: string;
   Tipo: string;
 
 
