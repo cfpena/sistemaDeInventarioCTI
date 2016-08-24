@@ -88,24 +88,24 @@ Ionic pages and navigation.
           <div class="input-field">
             <i class="material-icons prefix" style="color:#009688">email</i>
             <input id="icon_codigo" type="email" class="validate" maxlength="50"  [(ngModel)]="usuarioNuevo.Email">
-            <label for="icon_codigo">Email</label>
+            <label for="icon_codigo" data-error="Formato E-mail Incorrecto" >Email</label>
           </div>
           <div class="input-field">
             <i class="material-icons prefix" style="color:#009688">account_box</i>
-            <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*"[(ngModel)]="usuarioNuevo.Nombre">
-            <label for="icon_codigo">Nombre</label>
+            <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*" [(ngModel)]="usuarioNuevo.Nombre">
+            <label for="icon_codigo" data-error="Nombre vacio o Incorrecto">Nombre</label>
           </div>
           <div class="input-field">
             <i class="material-icons prefix" style="color:#009688">account_box</i>
-            <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="usuarioNuevo.Apellido">
-            <label for="icon_codigo">Apellido</label>
+            <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*" [(ngModel)]="usuarioNuevo.Apellido">
+            <label for="icon_codigo" data-error="Apellido vacio o Incorrecto">Apellido</label>
           </div>
         </div>
         <!--segunda fila-->
         <div class="col l6 m6 s12">
           <div class="input-field">
             <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-            <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="Tipo">
+            <select  materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="Tipo">
               <option *ngFor="let tipo of tipos" [value]="tipo.name">{{tipo.name}}</option>
             </select>
           </div>
@@ -154,8 +154,8 @@ Ionic pages and navigation.
                   <div class="col l10 m10 s10">
                     <div class="input-field">
                       <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                      <input id="nombre" disabled="disabled" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="usuarioModificar.Nombre">
-                      <label for="nombre">Nombre</label>
+                      <input id="nombre" disabled="disabled" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*" [(ngModel)]="usuarioModificar.Nombre">
+                      <label for="nombre" data-error="Nombre vacio o Incorrecto">Nombre</label>
                     </div>
                   </div>
                   <div class="col l2 m2 s2">
@@ -166,8 +166,8 @@ Ionic pages and navigation.
                   <div class="col l10 m10 s10">
                     <div class="input-field">
                       <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                      <input id="apellido" disabled="disabled" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="usuarioModificar.Apellido">
-                      <label for="apellido">Apellido</label>
+                      <input id="apellido" disabled="disabled" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*" [(ngModel)]="usuarioModificar.Apellido">
+                      <label for="apellido" data-error="Apellido vacio o Incorrecto" >Apellido</label>
                     </div>
                   </div>
                   <div class="col l2 m2 s2">
