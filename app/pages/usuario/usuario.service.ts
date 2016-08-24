@@ -5,13 +5,12 @@ import { Usuario,Group } from './usuario.model';
 import {Url} from '../../url';
 import {UsuarioAuthService} from './usuario.auth.service';
 import {HttpRequest} from '../../httprequest';
-import {Load} from '../../loading'
+
 
 @Injectable()
 export class UsuarioService {
     url = new Url();
     httprequest:HttpRequest;
-    load: Load
 
     constructor(private http: Http,
         private usuarioAuthService: UsuarioAuthService) {
@@ -20,6 +19,7 @@ export class UsuarioService {
 
 
     getUsuarios(nav: NavController) {
+
       return this.httprequest.get(this.url.base + this.url.usuario,nav).then(result => {
           let usuarios = result.json() as Usuario[];
           return usuarios;
