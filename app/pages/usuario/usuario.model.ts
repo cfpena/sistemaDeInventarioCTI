@@ -14,7 +14,7 @@ export class Usuario {
     @NotEmpty() @IsEmail()                                                        Email: string;
     @Matches(new RegExp("[0-9]*"))                                                Telefono: string;
     Genero: string;
-    groups: Group[];
+    groups: any;
 
 
 constructor( ) {
