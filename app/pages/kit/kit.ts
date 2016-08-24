@@ -237,7 +237,7 @@ kitModificar= new Kit;
     }
   }
 
-  eliminarItem(item: ITEM){
+  /*eliminarItem(item: ITEM){
     if(item.Es_Dispositivo){
     let index=this.itemsAgregados.indexOf(item)
     this.itemsAgregados.splice(index,1)}
@@ -255,8 +255,12 @@ kitModificar= new Kit;
 
       }
     }
-  }
-
+  }*/
+  
+      eliminarItem(item: ITEM){
+        let index=this.itemsAgregados.indexOf(item)
+        this.itemsAgregados.splice(index,1)
+      }
 /*
   seleccionarItem2(item: ITEM){
         console.log(item);
