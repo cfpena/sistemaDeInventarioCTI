@@ -33,7 +33,7 @@ export class PersonaService {
     }
 
     createPersona(persona: Persona,nav: NavController) {
-      return this.httprequest.post(String(persona.url), JSON.stringify({
+      return this.httprequest.post(this.url.base + this.url.persona, JSON.stringify({
                 Nombre: persona.Nombre,
                 Apellido: persona.Apellido,
                 Email: persona.Email,

@@ -24,6 +24,7 @@ export class ITEM {
     this.Marca='';
     this.Modelo='';
     this.Descripcion='';
+    this.Imagen=''
     this.Stock
     this.Es_Dispositivo=false
 
