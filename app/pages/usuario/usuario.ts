@@ -74,7 +74,7 @@ export class UsuarioPage implements OnInit {
             this.usuarioService.llenarTipo(usuario,this.navController)
           }
           load.dismiss() //cuando termina el request, se elimina el loading
-        })
+        }).catch(error=>{this.presentToast(JSON.stringify(error))})
 
     }
     crear() {
