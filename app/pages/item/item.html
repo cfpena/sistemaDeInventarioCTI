@@ -109,31 +109,31 @@
           <div class="col l4 m4 s12">
             <div class="input-field ">
               <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-              <input id="icon_codigo" type="text" class="validate" minlength="5" maxlength="10" [(ngModel)]="itemNuevo.Codigo">
-              <label for="icon_codigo"> *  Código</label>
+              <input id="icon_codigo" type="text" class="validate" minlength="5" maxlength="10" pattern = "[a-zA-Z0-9]*" [(ngModel)]="itemNuevo.Codigo">
+              <label for="icon_codigo" data-error = "Codigo Incompleto"> *  Código</label>
             </div>
             <div class="input-field">
               <i class="material-icons prefix" style="color:#009688" >keyboard_arrow_right</i>
-              <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="15" pattern = "[a-zA-Z]*" [(ngModel)]="itemNuevo.Nombre">
-              <label for="icon_nombre"> *  Nombre</label>
+              <input id="icon_nombre" type="text" class="validate" minlength="2" maxlength="35" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*" [(ngModel)]="itemNuevo.Nombre">
+              <label for="icon_nombre" data-error="Nombre vacío o Incorrecto"> *  Nombre</label>
             </div>
             <div class="input-field ">
               <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-              <input id="icon_marca" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="itemNuevo.Marca" >
-              <label for="icon_marca">   Marca</label>
+              <input id="icon_marca" type="text" class="validate"  minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*" [(ngModel)]="itemNuevo.Marca" >
+              <label for="icon_marca" data-error="Marca vacía o Incorrecta">   Marca</label>
             </div>
             <div class="input-field">
               <i class="material-icons prefix" style="color:#009688" >keyboard_arrow_right</i>
-              <input id="icon_modelo" type="text" class="validate"  minlength="5" maxlength="10" [(ngModel)]="itemNuevo.Modelo">
-              <label for="icon_modelo">   Modelo</label>
+              <input id="icon_modelo" type="text" class="validate"  minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9 ]*" [(ngModel)]="itemNuevo.Modelo">
+              <label for="icon_modelo" data-error="Modelo vacío o Incorrecto">   Modelo</label>
             </div>
           </div>
           <!--segunda columna-->
           <div class="col l4 m4 s12">
             <div class="input-field">
               <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-              <input id="icon_descripcion" type="text" class="validate" minlength="5" maxlength="30" [(ngModel)]="itemNuevo.Descripcion">
-              <label for="icon_descripcion"> *  Descripción</label>
+              <input id="icon_descripcion" type="text" class="validate" minlength="5" maxlength="50" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9 ]*" [(ngModel)]="itemNuevo.Descripcion">
+              <label for="icon_descripcion"data-error="Descripción vacia o Incompleta"> *  Descripción</label>
             </div>
             <div style="padding-top: 9%;">
               <form action="#">
@@ -212,7 +212,7 @@
           <div class="col l4 m4 s12">
             <div class="input-field ">
               <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-              <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" disabled="disabled" [(ngModel)]="itemModificar.Codigo">
+              <input id="icon_codigo" type="text" class="validate" minlength="5" maxlength="10" pattern = "[0-9]*" disabled="disabled" [(ngModel)]="itemModificar.Codigo">
               <label for="icon_codigo"> *  Código</label>
             </div>
 
