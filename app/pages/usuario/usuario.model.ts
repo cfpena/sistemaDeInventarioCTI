@@ -1,6 +1,5 @@
 import {Validator} from "validator.ts/Validator";
 import {Contains, IsInt, IsLength, IsEmail, IsAlpha, IsAlphanumeric, Matches, NotEmpty} from "validator.ts/decorator/Validation";
-
 export class Group{
   name: String;
   url: String;

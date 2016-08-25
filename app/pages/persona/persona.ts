@@ -102,18 +102,18 @@ listar() {
 
     let validator = new Validator();
 
-    if (!validator.isValid(this.personaModificar))
-
-        this.presentToast('Corrija el formulario');
-
-
-
-    else{
+    if (!validator.isValid(this.personaModificar)
+        || this.personaModificar.Nombre=='' || this.personaModificar.Apellido==''){
+      this.presentToast('Corrija el formulario');
+      console.log(this.personaModificar)
       console.log(validator.validate(this.personaModificar));
+
+    }
+    else{
     this.personaService.updatePersona(this.personaModificar,this.navController).then(result => this.listar());
     this.template='null';
     this.listar();
-  }
+    }
 }
 
 
