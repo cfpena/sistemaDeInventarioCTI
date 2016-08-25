@@ -101,11 +101,13 @@ listar() {
   modificar(){
 
     let validator = new Validator();
-    if (!validator.isValid(this.personaModificar)){
+
+    if (!validator.isValid(this.personaModificar))
+
         this.presentToast('Corrija el formulario');
 
 
-}
+
     else{
       console.log(validator.validate(this.personaModificar));
     this.personaService.updatePersona(this.personaModificar,this.navController).then(result => this.listar());

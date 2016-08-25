@@ -109,13 +109,13 @@ export class UsuarioPage implements OnInit {
 
     goModificar(usuario: Usuario) {
             this.usuarioModificar=JSON.parse(JSON.stringify(usuario))
-
             this.template='modificar'
 
     }
     modificar() {
       let load= new Load()
       load.present(this.navController)
+
       let validator = new Validator();
       if (!validator.isValid(this.usuarioModificar)){
           this.presentToast('Corrija el formulario');
@@ -123,6 +123,9 @@ export class UsuarioPage implements OnInit {
 
   }
       else{
+
+      this.usuarioModificar.groups = [this.usuarioModificar.groups[0].url]
+      console.log(JSON.stringify(this.usuarioModificar))
       this.usuarioService.updateUsuario(this.usuarioModificar,this.navController).then(result => {this.listar();load.dismiss()});
       this.template='null'
       this.usuarioModificar = new Usuario();
