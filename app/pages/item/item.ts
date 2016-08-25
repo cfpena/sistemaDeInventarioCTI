@@ -88,7 +88,9 @@ export class ItemPage implements OnInit {
 
     //abre el html de modificar
     goModificar(item: ITEM) {
-        console.log(item)
+      for(var key in item){
+        this.itemModificar[key]= item[key]
+      }
         this.itemModificar = JSON.parse(JSON.stringify(item))
         this.template = 'modificar'
     }
