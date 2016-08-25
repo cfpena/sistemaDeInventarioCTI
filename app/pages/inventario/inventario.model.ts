@@ -1,15 +1,15 @@
 import {Validator} from "validator.ts/Validator";
-import {Contains, IsInt, IsLength, IsEmail, IsAlpha} from "validator.ts/decorator/Validation";
+import {Contains,IsDate, IsInt, IsLength, IsEmail, IsAlpha, Matches, NotEmpty} from "validator.ts/decorator/Validation";
 
 export class Inventario {
-   @IsInt() id: number;
- fecha: string;
-  codigo: string;
+  @IsInt() id: number;
+  @IsDate() fecha: string;
+  @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 30) Codigo: string;
   tipo: string;
-  nombre: string;
-  marca: string;
-  modelo: string;
-  detalle: string;
+  @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 30) Nombre: string;
+  @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 30) Marca: string;
+  @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 30) Modelo: string;
+  @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 50) detalle: string;
   @IsInt() cantidad: number;
   estado: string;
   constructor( ) {
