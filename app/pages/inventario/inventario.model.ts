@@ -4,9 +4,9 @@ import {Contains,IsDate, IsInt, IsLength, IsEmail, IsAlpha, Matches, NotEmpty} f
 
 export class IngresoEgreso {
   url: string;
-  Fecha: string;
+  @IsDate() Fecha: string;
   @IsInt() Cantidad: number;
-  Detalle: string;
+  @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 50) Detalle: string;
   Tipo: string;
   Objeto: any;
   //FacturaIngreso: any;
@@ -23,11 +23,11 @@ export class IngresoEgreso {
 }
 
 export class FacturaIngreso{
-  Acta: string;
-  Proveedor: any;
-  Fecha: string;
+  @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) Acta: string;
+  @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) Proveedor: any;
+  @IsDate() Fecha: string;
   IngresoEgreso: any[];
-  Descripcion: string;
+  @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 50) Descripcion: string;
   url: string;
 
   constructor( ){

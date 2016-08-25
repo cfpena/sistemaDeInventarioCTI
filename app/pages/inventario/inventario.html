@@ -90,7 +90,7 @@ Ionic pages and navigation.
                     <div class="input-field">
                       <i class="material-icons prefix" style="color:#009688">account_box</i>
                       <input id="personaLista" type="text" class="validate filter-input" [(ngModel)]=descripcionProveedor (keyup)=buscarProveedor()>
-                      <label for="personaLista">Persona</label>
+                      <label for="personaLista" data-error="Corrija Persona">Persona</label>
                     </div>
                   </div>
                 </div>
@@ -107,12 +107,12 @@ Ionic pages and navigation.
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
                   <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"  [(ngModel)]="movimientoNuevo.Acta" >
-                  <label for="icon_codigo">No. Acta de Entrega/Recepción</label>
+                  <label for="icon_codigo" data-error="Acta Incorrecta">No. Acta de Entrega/Recepción</label>
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
                   <input  type="date" id="fecha"  [(ngModel)]="movimientoNuevo.Fecha" class="datepicker"  style="padding-top: 16px" >
-                  <label for="fecha" class="active">Fecha</label>
+                  <label for="fecha" class="active" data-error="Fecha no elegida o Incorrecta">Fecha</label>
                   <script> new Datepicker('.datepicker');</script>
                 </div>
                 <div class="input-field ">
