@@ -89,12 +89,12 @@
               </div>
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">account_box</i>
-                <input id="nombre" type="text" class="validate"  minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*"[(ngModel)]="personaNueva.Nombre">
+                <input id="nombre" type="text" class="validate"  minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]+"[(ngModel)]="personaNueva.Nombre">
                 <label for="nombre" data-error="Nombre vacio o Incorrecto">Nombre</label>
               </div>
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">account_box</i>
-                <input id="apellido" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*" [(ngModel)]="personaNueva.Apellido">
+                <input id="apellido" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]+" [(ngModel)]="personaNueva.Apellido">
                 <label for="apellido" data-error="Apellido vacio o Incorrecto">Apellido</label>
               </div>
               <div class="input-field">
