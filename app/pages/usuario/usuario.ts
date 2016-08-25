@@ -92,7 +92,6 @@ export class UsuarioPage implements OnInit {
           load.present(this.navController)
             //se busca el tipo dentro de la lista de tipos por el nombre dado en el select de tipos al crear
             let tipo = this.tipos.find(tipo => this.Tipo == tipo.name);
-            console.log(tipo)
             //se hace un doble parse para obtener el valor de la variable y no la referencia
             //si no se hace esto al moficiar el usuario nuevo, tambien se modifica el usuario viejo
             let usuario = JSON.parse(JSON.stringify(this.usuarioNuevo))
