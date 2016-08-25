@@ -11,9 +11,11 @@ export class HttpRequest {
     url = new Url();
     local: Storage = new Storage(LocalStorage);
     constructor(private http: Http) {}
-    presentToast(text: string, nav: NavController) {
+    presentToast(text: any, nav: NavController) {
         let toast = Toast.create({
-            message: JSON.stringify(text),
+
+
+            message: text.json()['detail'],
             duration: 3000
         });
         nav.present(toast);
@@ -46,21 +48,21 @@ export class HttpRequest {
         return this.getHeaders(nav).then(headers => {
           console.log(headers)
             return this.http.post(url, params, { headers: headers }).toPromise().catch(error => { this.presentToast(error, nav) });
-        }).then(result=>{return result}).catch(error => { this.presentToast(JSON.stringify(error), nav) })
+        }).then(result=>{return result}).catch(error => { this.presentToast(error, nav) })
 
     }
     patch(url: string, params: string, nav: NavController) {
 
         return this.getHeaders(nav).then(headers => {
             return this.http.patch(url, params, { headers: headers }).toPromise().catch(error => { this.presentToast(error, nav) });
-        }).then(result=>{}).catch(error => { this.presentToast(JSON.stringify(error), nav) })
+        }).then(result=>{}).catch(error => { this.presentToast(error, nav) })
 
     }
     delete(url: string, nav: NavController) {
 
         return this.getHeaders(nav).then(headers => {
             return this.http.delete(url, { headers: headers }).toPromise().catch(error => { this.presentToast(error, nav) });
-        }).then(result=>{}).catch(error => { this.presentToast(JSON.stringify(error), nav) })
+        }).then(result=>{}).catch(error => { this.presentToast(error, nav) })
 
     }
 

@@ -101,8 +101,8 @@ listar() {
   modificar(){
 
     let validator = new Validator();
-
-    if (!validator.isValid(this.personaModificar)
+    console.log(validator.validate(this.personaModificar))
+    if (!validator.isValid(this.personaModificar as Persona)
         || this.personaModificar.Nombre=='' || this.personaModificar.Apellido==''){
       this.presentToast('Corrija el formulario');
       console.log(this.personaModificar)
@@ -153,7 +153,9 @@ select(persona: Persona) {
   //llama al html de modificarPersona
     goModificar(persona: Persona) {
       //  console.log(persona)
-              this.personaModificar=JSON.parse(JSON.stringify(persona))
+            for(var key in persona){
+              this.personaModificar[key]= persona[key]
+            }
               this.template='modificar'
       }
 
