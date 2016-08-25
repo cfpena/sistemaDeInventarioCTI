@@ -9,10 +9,10 @@ export class Group{
 export class Usuario {
     url: String;
     @Matches(new RegExp("[0-9]*")) CI: String;
-    @NotEmpty() @Matches(new RegExp("[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*")) @IsLength(2, 30) Nombre: string;
-    @NotEmpty() @Matches(new RegExp("[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*")) @IsLength(2, 30) Apellido: string;
+    @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*$")) @IsLength(2, 30) Nombre: string;
+    @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*$")) @IsLength(2, 30) Apellido: string;
     @NotEmpty() @IsEmail()                                                        Email: string;
-    @Matches(new RegExp("[0-9]*"))                                                Telefono: string;
+    @Matches(new RegExp("^[0-9]*$"))                                                Telefono: string;
     Genero: string;
     groups: any;
 
