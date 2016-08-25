@@ -24,7 +24,7 @@ export class UsuarioPage implements OnInit {
 
     //usuario temporal para mantener los datos para modificar
     @Input()
-    usuarioModificar= new Usuario;
+    usuarioModificar= new Usuario();
     Tipo = '';
     //lista de usuarios seleccionados por el checkbox para eliminar
     usuariosEliminar: Usuario[] = [];
@@ -108,7 +108,9 @@ export class UsuarioPage implements OnInit {
     }
 
     goModificar(usuario: Usuario) {
-            this.usuarioModificar=JSON.parse(JSON.stringify(usuario))
+      for(var key in usuario){
+        this.usuarioModificar[key]= usuario[key]
+      }
             this.template='modificar'
 
     }
