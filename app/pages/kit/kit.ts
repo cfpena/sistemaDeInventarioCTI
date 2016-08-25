@@ -106,6 +106,9 @@ kitModificar= new Kit;
 
   //abre el html de modificar
   goModificar(kit: Kit) {
+    for(var key in kit){
+      this.kitModificar[key]= kit[key]
+    }
           this.kitModificar=JSON.parse(JSON.stringify(kit))
           this.template='modificar'
 
