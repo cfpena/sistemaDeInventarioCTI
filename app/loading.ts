@@ -56,7 +56,7 @@ present(nav: NavController){
 
 }
 dismiss(){
-  this.loading.dismiss();
+  return this.loading.dismiss();
 }
 
 

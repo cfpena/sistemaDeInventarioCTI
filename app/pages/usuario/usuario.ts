@@ -68,12 +68,12 @@ export class UsuarioPage implements OnInit {
     listar() {
       //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
       let load= new Load() //se instancia un load por cada llamada a la funcion
-      load.present(this.navController) //se presenta el loading al usuario
+    //  load.present(this.navController) //se presenta el loading al usuario
       return  this.usuarioService.getUsuarios(this.navController).then(usuarios => { this.usuarios = usuarios; return usuarios }).then(usuarios => {
           for(var usuario of this.usuarios){
             this.usuarioService.llenarTipo(usuario,this.navController)
           }
-          load.dismiss() //cuando termina el request, se elimina el loading
+      //    load.dismiss() //cuando termina el request, se elimina el loading
         })
 
     }
@@ -89,14 +89,14 @@ export class UsuarioPage implements OnInit {
         else if (this.credenciales.clave != this.credenciales.clave2) this.presentToast('Claves no coinciden');
         else {
           let load= new Load()
-          load.present(this.navController)
+        //  load.present(this.navController)
             //se busca el tipo dentro de la lista de tipos por el nombre dado en el select de tipos al crear
             let tipo = this.tipos.find(tipo => this.Tipo == tipo.name);
             //se hace un doble parse para obtener el valor de la variable y no la referencia
             //si no se hace esto al moficiar el usuario nuevo, tambien se modifica el usuario viejo
             let usuario = JSON.parse(JSON.stringify(this.usuarioNuevo))
             usuario['groups'] = [tipo.url]
-            let result=this.usuarioService.createUsuario(usuario, this.credenciales,this.navController).then(result => {this.listar(); load.dismiss()}).catch(err=> {return false});
+            let result=this.usuarioService.createUsuario(usuario, this.credenciales,this.navController).then(result => {this.listar()}).catch(err=> {return false});
             this.template = 'null';
             //se vuelve a dejar en blanco el usuarioNuevo para volverlo  a usar luego
             this.usuarioNuevo = new Usuario();
@@ -114,10 +114,11 @@ export class UsuarioPage implements OnInit {
     }
     modificar() {
       let load= new Load()
-      load.present(this.navController)
+    //  load.present(this.navController)
 
       let validator = new Validator();
-      if (!validator.isValid(this.usuarioModificar)){
+      if (!validator.isValid(this.usuarioModificar)
+      || this.usuarioModificar.Nombre=='' || this.usuarioModificar.Apellido==''){
           this.presentToast('Corrija el formulario');
 
 
@@ -126,7 +127,7 @@ export class UsuarioPage implements OnInit {
 
       this.usuarioModificar.groups = [this.usuarioModificar.groups[0].url]
       console.log(JSON.stringify(this.usuarioModificar))
-      this.usuarioService.updateUsuario(this.usuarioModificar,this.navController).then(result => {this.listar();load.dismiss()});
+      this.usuarioService.updateUsuario(this.usuarioModificar,this.navController).then(result => {this.listar();});
       this.template='null'
       this.usuarioModificar = new Usuario();
 
@@ -135,10 +136,10 @@ export class UsuarioPage implements OnInit {
     }
     eliminar() {
       let load= new Load()
-      load.present(this.navController)
+      //load.present(this.navController)
               for(var usuario of this.usuariosEliminar){
                 this.usuarioService.eliminarUsuario(usuario,this.navController).then(result =>
-                  { this.listar();load.dismiss() }).catch(error=> console.log(error))
+                  { this.listar(); }).catch(error=> console.log(error))
               }
               //se deja en blanco la lista a eliminar
               this.usuariosEliminar= Array<Usuario>();
