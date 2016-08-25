@@ -98,6 +98,7 @@ console.log(JSON.stringify(this.personaNueva));
   //modifica la persona
   modificar(){
     let validator = new Validator();
+        console.log(JSON.stringify(this.personaModificar))
     if (!validator.isValid(this.personaModificar))
         this.presentToast('Corrija el formulario');
 
