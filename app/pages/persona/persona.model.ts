@@ -11,7 +11,7 @@ export class Persona {
   @NotEmpty() @Matches(new RegExp("^[0-9]*$")) @IsLength(7, 10) Telefono: string;
   @NotEmpty() Genero: string;
   @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 50) Direccion: string;
-  @Matches(new RegExp("^[0-9]*$")) Matricula: string;
+  @Matches(new RegExp("^[0-9]*$")) @IsLength(0, 9) Matricula: string;
   Tipo: string;
 
 

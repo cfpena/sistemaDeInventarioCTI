@@ -116,11 +116,19 @@ export class UsuarioPage implements OnInit {
     modificar() {
       let load= new Load()
       load.present(this.navController)
+      let validator = new Validator();
+      if (!validator.isValid(this.usuarioModificar)){
+          this.presentToast('Corrija el formulario');
+
+
+  }
+      else{
       this.usuarioService.updateUsuario(this.usuarioModificar,this.navController).then(result => {this.listar();load.dismiss()});
       this.template='null'
+      this.usuarioModificar = new Usuario();
 
 
-
+      }
     }
     eliminar() {
       let load= new Load()

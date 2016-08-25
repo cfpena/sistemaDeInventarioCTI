@@ -63,9 +63,10 @@ toast.onDismiss(() => {
 
 
 listar() {
+
   //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
   return  this.personaService.getPersonas(this.navController).then(personas => { this.personas = personas; return personas }).then(personas => {
-    })
+      })
 }
 
 //CI: '',Nombre: '', Apellido: "", Email:'',Telefono:"",Genero:''
@@ -81,12 +82,13 @@ listar() {
     }
 
     else{
+
     let persona = JSON.parse(JSON.stringify(this.personaNueva))
     this.personaService.createPersona(persona,this.navController).then(result => this.listar());
     this.template='null';
     this.count++;
     this.listar();
-console.log(JSON.stringify(this.personaNueva));
+//console.log(JSON.stringify(this.personaNueva));
     this.personaNueva = new Persona();
     this.personaNueva.Tipo = this.Tipos[0];this.personaNueva.Genero = this.Generos[0];
 
@@ -97,11 +99,15 @@ console.log(JSON.stringify(this.personaNueva));
 
   //modifica la persona
   modificar(){
+
     let validator = new Validator();
-    if (!validator.isValid(this.personaModificar))
+    if (!validator.isValid(this.personaModificar)){
         this.presentToast('Corrija el formulario');
 
+
+}
     else{
+      console.log(validator.validate(this.personaModificar));
     this.personaService.updatePersona(this.personaModificar,this.navController).then(result => this.listar());
     this.template='null';
     this.listar();
@@ -133,7 +139,7 @@ select(persona: Persona) {
         let index = this.personasEliminar.findIndex(x => x == persona)
         this.personasEliminar.splice(index, 1)
     };
-    console.log(this.personasEliminar);
+  //  console.log(this.personasEliminar);
 
 }
 
@@ -144,7 +150,7 @@ select(persona: Persona) {
 
   //llama al html de modificarPersona
     goModificar(persona: Persona) {
-        console.log(persona)
+      //  console.log(persona)
               this.personaModificar=JSON.parse(JSON.stringify(persona))
               this.template='modificar'
       }
