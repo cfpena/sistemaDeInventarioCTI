@@ -6,7 +6,7 @@ export class IngresoEgreso {
   url: string;
   @IsDate() Fecha: string;
   @IsInt() Cantidad: number;
-  @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 50) Detalle: string;
+  @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(1, 50) Detalle: string;
   Tipo: string;
   Objeto: any;
   //FacturaIngreso: any;
@@ -24,7 +24,8 @@ export class IngresoEgreso {
 
 export class FacturaIngreso{
   @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) Acta: string;
-  @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) Proveedor: any;
+  //@Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) Proveedor: any;
+  Proveedor: any;
   @IsDate() Fecha: string;
   IngresoEgreso: any[];
   @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 50) Descripcion: string;
