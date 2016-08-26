@@ -6,16 +6,14 @@ import {Persona} from '../persona/persona.model';
 
 
 export class Devolucion {
-    url: string;
-    @IsInt() Cantidad: number;
-    Prestamo: string;
-    Detalle: string;
+  url: string;
+  @IsInt() Cantidad: number;
+  Prestamo: any;
+  Detalle: string;
 
-
-constructor( ) {
-  this.Detalle='';
-  this.Cantidad=0;
-
-}
+  constructor( ) {
+    this.Detalle='';
+    this.Cantidad=0;
+  }
 
 }

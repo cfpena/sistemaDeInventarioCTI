@@ -25,27 +25,17 @@ import { Devolucion } from './devolucion.model';
 export class PrestamoPage implements OnInit{
   title: string ='Prestamos';
 
-  Personas: Persona[]=[];
-  ITEMS: ITEM[]=[];
-
   template: string = 'null';
   prestamosTemporal: Prestamo[]=[];
   prestamosEliminar: Prestamo[]=[];
   actaTemporal: Acta[]=[];
   actaEliminar: Acta[]=[];
 
-  items: Array<ITEM>=[]
-  busquedaItem={valor: ''};
-  personas: Array<Persona>=[]
   prestamos:  Array<Prestamo> =[]
   actas:  Array<Acta> =[]
 
 
-  //variable para asignar id incremental para personas locales
-  count=10;
-  //usado para mantener el id del prestamo que se esta modificando o eliminando
-  id=0;
-  //lista de ids seleccionados por el checkbox
+
   selected: number[]=[];
   tiposIdentificaciones = ['cédula', 'Nombre'];
   busqueda={tipo: 'cédula', valor: ''};
@@ -63,12 +53,10 @@ export class PrestamoPage implements OnInit{
 
   listaPrestamos: Prestamo[]=[];
 
-  @Input()
-  prestamoNuevo = new Prestamo();
   @Input() actaNuevo = new Acta();
 
-  @Input()
-  prestamoModificar= new Prestamo;
+  @Input() actaModificar= new Acta();
+
   constructor( private navController:NavController,private menu: MenuController,
     private prestamoService: PrestamoService,
     private itemService: ItemService,
@@ -89,10 +77,12 @@ export class PrestamoPage implements OnInit{
     goNuevoPrestamo(){
       this.template='nuevo_prestamo';
     }
-    goModificar(prestamo: Prestamo) {
-      console.log(prestamo)
-      this.prestamoModificar=JSON.parse(JSON.stringify(prestamo))
-      this.template='modificar'
+
+    goModificarPrestamo(acta: Acta) {
+      console.log(acta)
+      this.actaModificar=JSON.parse(JSON.stringify(acta))
+      this.descripcionPersona = this.actaModificar.Prestador.Nombre + ' ' + this.actaModificar.Prestador.Apellido
+      this.template='modificar_prestamo'
     }
 
     cancelar(){
@@ -110,6 +100,11 @@ export class PrestamoPage implements OnInit{
         else {
           this.actaNuevo.Prestador=this.personaSeleccionada.url;
           this.prestamoService.createActa(this.actaNuevo, this.listaPrestamos,this.navController).then(result => {this.listar_actas()});
+          this.template='null';
+          this.actaNuevo= new Acta();
+          this.listaPrestamos =[];
+          this.descripcionItem='';
+          this.descripcionPersona='';
         }
     }
 
@@ -117,39 +112,25 @@ export class PrestamoPage implements OnInit{
     listar_actas() {
       this.actas =[]
       this.prestamoService.getActas(this.navController).then(actas => { this.actas = actas ; return actas}).then(result=>{
-        console.log("listando actas");
         for(var acta of this.actas){
           this.prestamoService.llenarPrestador(acta,this.navController)
         }
       })
     }
 
-    select(prestamo: Prestamo) {
-      if (!this.prestamosEliminar.some(prestamo => prestamo == prestamo)) {
-        this.prestamosEliminar.push(prestamo);
-      }else {
-        let index = this.prestamosEliminar.findIndex(x => x == prestamo)
-        this.prestamosEliminar.splice(index, 1)
-      };
-
-    }
-
-
     modificar() {
       let validator = new Validator();
-      if (!validator.isValid(this.prestamoModificar)) this.presentToast('Corrija el formulario');
+      if (!validator.isValid(this.actaModificar)) this.presentToast('Corrija el formulario');
 
       else {
-        this.prestamoService.updatePrestamo(this.prestamoModificar,this.navController).then(result => this.listar_actas());
+        //this.prestamoService.updatePrestamo(this.actaModificar,this.navController).then(result => this.listar_actas());
         this.template = 'null';
       }
 
     }
 
     buscarItem(){
-      console.log('buscar item');
       if (this.descripcionItem!==''){
-        console.log('buscar item1');
         this.itemService.getBuscarElemento(this.descripcionItem,this.navController).then(items => { this.listaFiltradaItem = items; return items }).then(items => {
           this.itemService.getBuscarDispositivo(this.descripcionItem,this.navController).then(items => {
             for(var item of items){
@@ -157,33 +138,29 @@ export class PrestamoPage implements OnInit{
             }
           })
         })
+        if (this.listaFiltradaItem.length==0){
+          this.presentToast('El item debe existir en el sistema.');
+          this.descripcionItem='';
+        }
       }else{
         this.listaFiltradaItem=[];
       }
     }
 
     seleccionarItem(item: ITEM){
-      console.log('estoy en seleccionar item');
-      console.log(item);
-      console.log(this.itemSeleccionado);
       this.itemSeleccionado=JSON.parse(JSON.stringify(item));
-      console.log(this.itemSeleccionado);
       this.descripcionItem = this.itemSeleccionado.Codigo +' - '+ this.itemSeleccionado.Nombre;
       this.listaFiltradaItem=[];
       this.estaSeleccionadoItem =true;
-      //this.itemSeleccionado = item;
     }
 
     agregarItem(){
       if (this.itemSeleccionado){
         if (this.itemSeleccionado.Es_Dispositivo){
-          console.log('es dispositivo');
           for(var _i = 0; _i < this.cantidad; _i++){
-            //this.listaMovimientoDet.push({id:0, cantidad: 1, Is_DetalleKit: false, item: this.itemNuevo, serie:''});
             this.listaPrestamos.push({url:'', Cantidad: 1, Fecha:'',  Detalle: '', Objeto: this.itemSeleccionado, Acta: this.actaNuevo});
           }
         }else{
-          console.log('es elemento');
           this.listaPrestamos.push({url:'', Cantidad: this.cantidad, Fecha:'',  Detalle: '', Objeto: this.itemSeleccionado, Acta: this.actaNuevo});
         }
         this.descripcionItem = '';
@@ -199,10 +176,12 @@ export class PrestamoPage implements OnInit{
     }
 
     buscarPersona(){
-      console.log('buscar persona');
       if (this.descripcionPersona!==''){
-        console.log('buscar persona1');
         this.personaService.getBuscar(this.descripcionPersona, this.navController).then(personas => {this.listaFiltradaPersona=personas; return personas})
+        if (this.listaFiltradaPersona.length==0){
+          this.presentToast('No existen datos que coincidan con la busqueda. La persona debe estar creada en el sistema.');
+          this.descripcionPersona='';
+        }
       }else{
         this.listaFiltradaPersona=[];
       }

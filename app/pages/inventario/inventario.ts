@@ -97,7 +97,9 @@ export class InventarioPage implements OnInit{
     crearMovimiento(){
       console.log('voy a crear mov');
       let validator = new Validator();
-      console.log(JSON.stringify(validator.validate(this.movimientoNuevo)));
+      console.log(JSON.stringify(this.movimientoNuevo));
+      console.log(validator.validate(this.movimientoNuevo));
+      //console.log(JSON.stringify(validator.validate(this.movimientoNuevo)));
       if (this.validarMovimiento()){
         this.inventarioService.createMovimiento(this.movimientoNuevo, this.listaMovimientoDet, this.navController)
         this.template='null';
@@ -109,6 +111,8 @@ export class InventarioPage implements OnInit{
 
     validarMovimiento() {
       let validator = new Validator();
+      console.log('voy a valirdar movimiento');
+      console.log(JSON.stringify(this.movimientoNuevo));
       if (!validator.isValid(this.movimientoNuevo)) this.presentToast('ERROR!');
       else if (this.movimientoNuevo.Fecha=='') this.presentToast ('Seleccione la fecha del movimiento');
       else return true
