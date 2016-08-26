@@ -108,7 +108,7 @@ Ionic pages and navigation.
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                  <input  type="date" id="fecha"  [(ngModel)]="movimientoNuevo.Fecha" class="datepicker"  style="padding-top: 16px" >
+                  <input   materialize="pickadate" [materializeParams]="[{format: 'yyyy-mm-dd',selectMonths: true, selectYears: 15}]" id="today" type="date" style="padding-top: 14px" [(ngModel)]="movimientoNuevo.Fecha" >
                   <label for="fecha" class="active" data-error="Fecha no elegida o Incorrecta">Fecha</label>
                   <script> new Datepicker('.datepicker');</script>
                 </div>
@@ -231,7 +231,7 @@ Ionic pages and navigation.
           <div class="card-panel blue-grey lighten-5 ">
             <span class="card-title">Movimiento de Inventario</span>
             <p class="center">
-              <label for="test2" >{{tipoMov}}</label>
+              <label for="test2" >{{descripcionMovimiento}}</label>
             </p>
             <!--<div style="padding-top: 7px"></div>-->
             <!--Cabecera de movimiento-->
