@@ -125,7 +125,7 @@
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">search</i>
                   <input id="item" type="text" class="validate filter-input" minlength="0" maxlength="20" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
-                  <label for="item">Búsqueda de ítems</label>
+                  <label for="item">Ingrese nombre o código para buscar ítem </label>
                   <ul class="dropdown-content active"  style="opacity: 1; display: block;">
                     <li *ngFor="let item of listaFiltradaItem">
                       <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}} </a>
@@ -287,7 +287,7 @@
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">search</i>
                   <input id="item" type="text" class="validate filter-input" minlength="0" maxlength="20" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
-                  <label for="item">Búsqueda de ítems</label>
+                  <label for="item">Ingrese nombre o código para buscar ítem </label>
                   <ul class="dropdown-content active"  style="opacity: 1; display: block;">
                     <li *ngFor="let item of listaFiltradaItem">
                       <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}} </a>

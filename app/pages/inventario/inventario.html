@@ -132,7 +132,7 @@ Ionic pages and navigation.
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">search</i>
                   <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=descripcionItem (keyup)=buscarItem() >
-                  <label for="itemLista">Buscar item/kit</label>
+                  <label for="itemLista">Buscar ítem/kit</label>
                   <ul class="dropdown-content active"  style="opacity: 1; display: block;">
                     <li *ngFor="let item of listaFiltradaItem">
                       <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}}</a>
@@ -291,7 +291,7 @@ Ionic pages and navigation.
               <div class="divider"></div>
               <div class="row">
                 <ul>
-                  <div class="col l6 m7 s6" style="color:#424242; font-size: 65%">
+                  <div class="col l6 m7 s6" style="color:#424242; font-size: 100%">
                     <li id="nombre">Nombre: {{movimiento_det.Objeto.Nombre}}</li>
                     <li id="codigo">Código: {{movimiento_det.Objeto.Codigo}}</li>
                   </div>
