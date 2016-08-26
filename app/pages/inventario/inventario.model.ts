@@ -24,7 +24,8 @@ export class FacturaIngreso{
   //@Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) Proveedor: any;
   Proveedor: any;
   @IsDate() Fecha: string;
-  IngresoEgreso: any[];
+  IngresoEgresoElementos: any[];
+  IngresoEgresoDispositivos: any[];
   @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 50) Descripcion: string;
   url: string;
 
