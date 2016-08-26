@@ -134,10 +134,10 @@
                 </div>
               </div>
               <div class="col l2 m2 s6 offset-s2">
-                <div class="input-field" >
+                <!--<div class="input-field" >
                   <input id="itemCant" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
                   <label for="itemCant" class="active" data-error="Cantidad vacía o Incompleta">Cantidad</label>
-                </div>
+                </div>-->
               </div>
               <div class="col l2 m2 s3">
                 <div class="input-field" >
@@ -152,12 +152,9 @@
               <div class="col l6 m6 s4 ">
                 <h6 class="center">Ítem</h6>
               </div>
-              <div class="col l2 m2 s4 ">
+              <!--<div class="col l2 m2 s4 ">
                 <h6 class="center">Cantidad</h6>
-              </div>
-              <div class="col l2 m2 s4">
-                <h6 class="center">Serie/Mac</h6>
-              </div>
+              </div>-->
             </div>
             <!--lista de items-->
             <div *ngFor = "let item of itemsAgregados">
@@ -169,9 +166,9 @@
                     <li id="codigo">Código: {{item.Codigo}}</li>
                     <li id="cantidad">Cant.: {{item.Stock}}</li>
                   </div>
-                  <div class="col l2 m3 s3">
+                  <!--<div class="col l2 m3 s3">
                     <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center" [(ngModel)]="itemsKits.cantidad" ></li>
-                  </div>
+                  </div>-->
                   <div class="col l2 m2 s2 offset-l1">
                     <li> <a (click)="eliminarItem(item)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a> </li>
                   </div>
@@ -299,10 +296,10 @@
                 </div>
               </div>
               <div class="col l2 m2 s6 offset-s2">
-                <div class="input-field" >
+                <!--<div class="input-field" >
                   <input id="itemCant" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
                   <label for="itemCant" class="active" data-error="Cantidad vacía o Incompleta">Cantidad</label>
-                </div>
+                </div>-->
               </div>
               <div class="col l2 m2 s3">
                 <div class="input-field" >
@@ -312,6 +309,18 @@
                 </div>
               </div>
             </div>
+            <div class="divider"></div>
+            <div class="row" style="color:#424242; font-size: 60%">
+              <div class="col l6 m6 s4 ">
+                <h6 class="center">Ítem</h6>
+              </div>
+              <!--<div class="col l2 m2 s4 ">
+                <h6 class="center">Cantidad</h6>
+              </div>-->
+
+            </div>
+
+
             <!--lista de items-->
             <div *ngFor = "let item of itemsAgregados">
               <div class="divider"></div>
@@ -323,7 +332,6 @@
                     <li id="cantidad">Cant.: {{item.Stock}}</li>
                   </div>
                   <div class="col l2 m3 s3">
-                    <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center" [(ngModel)]="itemsKits.cantidad" ></li>
                   </div>
                   <div class="col l2 m2 s2 offset-l1">
                     <li> <a (click)="eliminarItem(item)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a> </li>
