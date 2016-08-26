@@ -85,4 +85,13 @@ export class ItemService {
             }),nav)
             .then(result => {return result});
     }
+
+    uploadImagen(url: string,file: File,nav: NavController) {
+
+            return this.httprequest.patch(String(url), JSON.stringify(
+            {
+              Imagen: file
+            }),nav)
+            .then(result => {return result});
+    }
 }
