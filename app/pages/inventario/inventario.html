@@ -174,7 +174,7 @@ Ionic pages and navigation.
               </div>
             </div>
 
-            <div *ngFor = "let movimiento_det of movimientoNuevo.IngresoEgreso">
+            <div *ngFor = "let movimiento_det of listaMovimientoDet">
               <div class="divider"></div>
               <div class="row">
                 <ul>
@@ -287,7 +287,28 @@ Ionic pages and navigation.
               </div>
             </div>
 
-            <div *ngFor = "let movimiento_det of movimientoSeleccionado.IngresoEgreso">
+            <div *ngFor = "let movimiento_det of movimientoSeleccionado.IngresoEgresoElementos">
+              <div class="divider"></div>
+              <div class="row">
+                <ul>
+                  <div class="col l6 m7 s6" style="color:#424242; font-size: 65%">
+                    <li id="nombre">Nombre: {{movimiento_det.Objeto.Nombre}}</li>
+                    <li id="codigo">Código: {{movimiento_det.Objeto.Codigo}}</li>
+                  </div>
+                  <div class="col l2 m2 s3">
+                    <li>
+                      <input id="cantidad" type="text" class="validate  center" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.Cantidad" disable="true">
+                    </li>
+                  </div>
+                  <div class="col l4 m3 s3">
+                    <li>
+                      <input id="serie" type="text" class="validate  center" minlength="1" maxlength="30"   [(ngModel)]="movimiento_det.Detalle"  disable="true">
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            </div>
+            <div *ngFor = "let movimiento_det of movimientoSeleccionado.IngresoEgresoDispositivos">
               <div class="divider"></div>
               <div class="row">
                 <ul>
