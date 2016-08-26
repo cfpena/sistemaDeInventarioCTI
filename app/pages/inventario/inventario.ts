@@ -107,6 +107,7 @@ export class InventarioPage implements OnInit{
         this.movimientoNuevo = new FacturaIngreso();
         this.proveedorSeleccionado = new Persona();
         this.descripcionProveedor ='';
+        this.listar();
       }
     }
 
