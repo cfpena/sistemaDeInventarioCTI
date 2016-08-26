@@ -131,6 +131,8 @@ export class InventarioPage implements OnInit{
       for (var movimientodet in listaMovDet){
         this.inventarioService.llenarMovimientoDet(listaMovDet[movimientodet], this.navController).then(result=>{
           this.inventarioService.llenarItem(result.Objeto, this.navController).then(item =>{
+            this.tipoMov = result.Tipo;
+            if (this.tipoMov=='Salida'){this.templateMovimiento='salida_inventario'}
             result.Objeto=item;
             this.movimientoSeleccionado.IngresoEgreso.push(result);
           })
