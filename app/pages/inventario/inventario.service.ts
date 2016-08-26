@@ -7,6 +7,7 @@ import {UsuarioAuthService} from '../usuario/usuario.auth.service';
 import {NavController} from 'ionic-angular';
 import {HttpRequest} from '../../httprequest';
 import {Persona} from '../persona/persona.model';
+import {ITEM} from '../item/item.model';
 
 @Injectable()
 export class InventarioService {
@@ -58,7 +59,14 @@ export class InventarioService {
     llenarMovimientoDet(movimientodet: any,nav: NavController){
       console.log('llenar movimientodet')
       return this.httprequest.get(String(movimientodet),nav).then(movdet=>{
-        movimientodet =  movdet.json() as IngresoEgreso;
+        return movimientodet =  movdet.json() as IngresoEgreso;
+      });
+    }
+
+    llenarItem(item: any,nav: NavController){
+      console.log('llenar item')
+      return this.httprequest.get(String(item),nav).then(movdet=>{
+        return item =  movdet.json() as ITEM;
       });
     }
 

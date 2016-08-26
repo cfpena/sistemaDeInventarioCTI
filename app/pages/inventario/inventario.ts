@@ -42,6 +42,7 @@ export class InventarioPage implements OnInit{
     tipoMov:string='Ingreso';
 
     @Input() movimientoNuevo = new FacturaIngreso();
+    @Input() movimientoSeleccionado = new FacturaIngreso();
     @Input() itemNuevo = new ITEM();
 
     id=0;
@@ -120,14 +121,23 @@ export class InventarioPage implements OnInit{
     }
 
 
-    /*goVerMovimiento(id: string){
+    goVerMovimiento(movimiento: FacturaIngreso){
+      for(var key in movimiento){
+        console.log(key);
+        this.movimientoSeleccionado[key]= movimiento[key]
+      }
+      this.movimientoSeleccionado.IngresoEgreso=[];
+      let listaMovDet= movimiento.IngresoEgreso;
+      for (var movimientodet in listaMovDet){
+        this.inventarioService.llenarMovimientoDet(listaMovDet[movimientodet], this.navController).then(result=>{
+          this.inventarioService.llenarItem(result.Objeto, this.navController).then(item =>{
+            result.Objeto=item;
+            this.movimientoSeleccionado.IngresoEgreso.push(result);
+          })
+        })
+      }
       this.template='ver_movimiento';
-      this.id=parseInt(id);
-      this.movimientoMostrar = JSON.parse(JSON.stringify(this.movimientos.find(movimiento => movimiento.id == this.id)));
-      if (this.movimientoMostrar.tipo_movimiento.id ==1) this.goIngreso();
-      else if (this.movimientoMostrar.tipo_movimiento.id==3) this.goSalida();
-      else this.templateMovimiento ='';
-    }*/
+    }
 
     goIngreso(){
       this.templateMovimiento = 'ingreso_inventario'
@@ -142,16 +152,6 @@ export class InventarioPage implements OnInit{
 
     cancelar(){
       this.template='null';
-    }
-
-    select(id: any){
-      let index: number;
-      index = this.selected.findIndex(num => num == parseInt(id));
-
-      if(index==-1){
-      this.selected.push(parseInt(id));}
-      else{this.selected.splice(index,1)};
-      console.log(this.selected);
     }
 
     buscarProveedor(){
