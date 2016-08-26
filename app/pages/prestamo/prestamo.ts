@@ -92,7 +92,7 @@ export class PrestamoPage implements OnInit{
     crear(){
       console.log('crear')
         let validator = new Validator();
-        if (!validator.isValid(this.actaNuevo)) this.presentToast('Corrija el formulario');
+        if (!validator.isValid(this.actaNuevo)){ this.presentToast('Corrija el formulario');console.log(validator.validate(this.actaNuevo));}
       //  else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
         //else if (this.kitNuevo.Nombre == '') this.presentToast('Nombre vacio');
       //  else if (this.itemNuevo.Descripcion == '') this.presentToast('Descripción vacio');

@@ -49,7 +49,7 @@ export class InventarioPage implements OnInit{
     selected: number[]=[];
     //tipos = ['Elija tipo','ítem','kit'];
     //estados = ['Elija un estado...','disponible','no disponible'];
-    tiposBusquedas = ['Ingreso', 'Salida'];
+    tiposBusquedas = ['Ingreso', 'Egreso'];
     busqueda={tipoB: 'código', valor: ''};
     itemSeleccionado: boolean = false;
 
@@ -126,15 +126,27 @@ export class InventarioPage implements OnInit{
         console.log(key);
         this.movimientoSeleccionado[key]= movimiento[key]
       }
-      this.movimientoSeleccionado.IngresoEgreso=[];
-      let listaMovDet= movimiento.IngresoEgreso;
-      for (var movimientodet in listaMovDet){
-        this.inventarioService.llenarMovimientoDet(listaMovDet[movimientodet], this.navController).then(result=>{
+      this.movimientoSeleccionado.IngresoEgresoDispositivos=[];
+      this.movimientoSeleccionado.IngresoEgresoElementos=[];
+      let listaMovDetD= movimiento.IngresoEgresoDispositivos;
+      let listaMovDetE= movimiento.IngresoEgresoElementos;
+      for (var movimientodet in listaMovDetD){
+        this.inventarioService.llenarMovimientoDet(listaMovDetD[movimientodet], this.navController).then(result=>{
           this.inventarioService.llenarItem(result.Objeto, this.navController).then(item =>{
             this.tipoMov = result.Tipo;
-            if (this.tipoMov=='Salida'){this.templateMovimiento='salida_inventario'}
+            if (this.tipoMov=='Egreso'){this.templateMovimiento='salida_inventario'}
             result.Objeto=item;
-            this.movimientoSeleccionado.IngresoEgreso.push(result);
+            this.movimientoSeleccionado.IngresoEgresoDispositivos.push(result);
+          })
+        })
+      }
+      for (var movimientodet in listaMovDetE){
+        this.inventarioService.llenarMovimientoDet(listaMovDetE[movimientodet], this.navController).then(result=>{
+          this.inventarioService.llenarItem(result.Objeto, this.navController).then(item =>{
+            this.tipoMov = result.Tipo;
+            if (this.tipoMov=='Egreso'){this.templateMovimiento='salida_inventario'}
+            result.Objeto=item;
+            this.movimientoSeleccionado.IngresoEgresoElementos.push(result);
           })
         })
       }
@@ -148,7 +160,7 @@ export class InventarioPage implements OnInit{
 
     goSalida(){
       this.templateMovimiento = 'salida_inventario'
-      this.tipoMov='Salida'
+      this.tipoMov='Egreso'
     }
 
 
@@ -207,12 +219,13 @@ export class InventarioPage implements OnInit{
           console.log('es dispositivo');
           for(var _i = 0; _i < this.cantidad; _i++){
             this.listaMovimientoDet.push({url:'', Fecha:'', Cantidad: 1, Detalle:'', Tipo: this.tipoMov, Objeto: this.itemNuevo});
+
           }
         }else{
           console.log('es elemento');
           this.listaMovimientoDet.push({url:'', Fecha:'', Cantidad: this.cantidad, Detalle:'N/A', Tipo: this.tipoMov, Objeto: this.itemNuevo});
         }
-        this.movimientoNuevo.IngresoEgreso=this.listaMovimientoDet;
+        //this.movimientoNuevo.IngresoEgreso=this.listaMovimientoDet;
         this.itemNuevo = new ITEM();
         this.cantidad=0;
         this.itemSeleccionado = false;

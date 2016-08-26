@@ -14,7 +14,7 @@
           <div materialize>
             <div materialize class="input-field">
               <label for="Fecha" class="active">desde</label>
-              <input   materialize="pickadate" [materializeParams]="[{format: 'yyyy-mm-dd',selectMonths: true, selectYears: 15}]" id="today" type="date" style="padding-top: 14px" [(ngModel)]="reporte.Fecha_Inicial">
+              <input   materialize="pickadate" [materializeParams]="[{format: 'yyyy-mm-dd',selectMonths: true, selectYears: 15}]" id="today" class="datepicker" type="date" style="padding-top: 14px" [(ngModel)]="reporte.Fecha_Inicial">
               <script>
               document.getElementById("today").valueAsDate = new Date()
               </script>
@@ -25,7 +25,7 @@
           <div materialize>
             <div class="input-field">
               <label for="Fecha_vencimiento" class="active" >hasta</label>
-              <input  materialize="pickadate" [materializeParams]="[{format: 'yyyy-mm-dd',selectMonths: true, selectYears: 15}]" id="Fecha_vencimiento" type="text"  style="padding-top: 14px" [(ngModel)]="reporte.Fecha_Final">
+              <input  materialize="pickadate" class="datepicker" [materializeParams]="[{format: 'yyyy-mm-dd',selectMonths: true, selectYears: 15}]" id="Fecha_vencimiento" type="text"  style="padding-top: 14px" [(ngModel)]="reporte.Fecha_Final">
               <script>
               new Datepicker('.datepicker');
               </script>
