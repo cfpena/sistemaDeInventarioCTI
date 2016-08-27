@@ -85,8 +85,10 @@ listar() {
       console.log(validator.validate(this.personaNueva));
 
     }
-    else if (this.usuarioService.CompararEmail(this.personaNueva.Email,this.navController)){
-      this.presentToast('Correo ya usado');
+    else if (this.usuarioService.CompararEmail(this.personaNueva.Email,this.navController).then(result => {return result}))
+    {
+      console.log(result);
+      this.presentToast('Correo ya usado, escoja uno diferente');
     }
     else{
 
