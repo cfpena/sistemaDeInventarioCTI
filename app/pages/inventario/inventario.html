@@ -63,9 +63,6 @@ Ionic pages and navigation.
 </div>
 
 
-
-
-
 <!--layout de ingreso de movimiento a inventario-->
 <div *ngIf="template=='ingresar_movimiento'" style="overflow: scroll;">
   <div id="ingreso_movimiento" class="section" >
@@ -111,7 +108,7 @@ Ionic pages and navigation.
                 </div>
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                  <input  type="date" id="fecha"  [(ngModel)]="movimientoNuevo.Fecha" class="datepicker"  style="padding-top: 16px" >
+                  <input   materialize="pickadate" [materializeParams]="[{format: 'yyyy-mm-dd',selectMonths: true, selectYears: 15}]" id="today" type="date" style="padding-top: 14px" [(ngModel)]="movimientoNuevo.Fecha" >
                   <label for="fecha" class="active" data-error="Fecha no elegida o Incorrecta">Fecha</label>
                   <script> new Datepicker('.datepicker');</script>
                 </div>
@@ -135,7 +132,7 @@ Ionic pages and navigation.
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">search</i>
                   <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=descripcionItem (keyup)=buscarItem() >
-                  <label for="itemLista">Buscar item/kit</label>
+                  <label for="itemLista">Buscar ítem/kit</label>
                   <ul class="dropdown-content active"  style="opacity: 1; display: block;">
                     <li *ngFor="let item of listaFiltradaItem">
                       <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}}</a>
@@ -163,105 +160,185 @@ Ionic pages and navigation.
                 </div>
               </div>
             </div>
-
-            <!--<input  name="colores" type="text" placeholder="Elige un color">
-            <datalist id="items" *ngFor="let item of listaFiltradaItem">
-            <option value="{{item.Codigo}} - {{item.Nombre}}"></option>
-          </datalist>-->
-
-          <!--lista-->
-          <div class="divider"></div>
-          <div class="row" style="color:#424242; font-size: 60%">
-            <div class="col l6 m6 s4 ">
-              <h6 class="center">Ítem</h6>
-            </div>
-            <div class="col l2 m2 s4 ">
-              <h6 class="center">Cantidad</h6>
-            </div>
-            <div class="col l2 m2 s4">
-              <h6 class="center">Serie/Mac</h6>
-            </div>
-          </div>
-
-          <div *ngFor = "let movimiento_det of movimientoNuevo.IngresoEgreso">
+            <!--lista-->
             <div class="divider"></div>
-            <div class="row">
-              <ul>
-                <div class="col l6 m7 s5" style="color:#424242; font-size: 65%">
-                  <li id="nombre">Nombre: {{movimiento_det.Objeto.Nombre}}</li>
-                  <li id="codigo">Código: {{movimiento_det.Objeto.Codigo}}</li>
-                  <li id="cantidad">Cant.: {{movimiento_det.Objeto.Stock}}</li>
-                </div>
-                <div class="col l2 m2 s3">
-                  <li>
-                    <input id="cantidad" type="text" class="validate  center" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.Cantidad" >
-                  </li>
-                </div>
-                <div class="col l3 m3 s3">
-                  <li>
-                    <input id="serie" type="text" class="validate  center" minlength="1" maxlength="30"   [(ngModel)]="movimiento_det.Detalle" >
-                  </li>
-                </div>
-                <div class="col l1 m2 s1">
-                  <li>
-                    <a (click)="eliminarMovimientoDet(movimiento_det)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a>
-                  </li>
-                </div>
-              </ul>
+            <div class="row" style="color:#424242; font-size: 60%">
+              <div class="col l6 m6 s4 ">
+                <h6 class="center">Ítem</h6>
+              </div>
+              <div class="col l2 m2 s4 ">
+                <h6 class="center">Cantidad</h6>
+              </div>
+              <div class="col l2 m2 s4">
+                <h6 class="center">Serie/Mac</h6>
+              </div>
+            </div>
+
+            <div *ngFor = "let movimiento_det of listaMovimientoDet">
+              <div class="divider"></div>
+              <div class="row">
+                <ul>
+                  <div class="col l6 m7 s5" style="color:#424242; font-size: 65%">
+                    <li id="nombre">Nombre: {{movimiento_det.Objeto.Nombre}}</li>
+                    <li id="codigo">Código: {{movimiento_det.Objeto.Codigo}}</li>
+                    <li id="cantidad">Cant.: {{movimiento_det.Objeto.Stock}}</li>
+                  </div>
+                  <div class="col l2 m2 s3">
+                    <li>
+                      <input id="cantidad" type="text" class="validate  center" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.Cantidad" >
+                    </li>
+                  </div>
+                  <div class="col l3 m3 s3">
+                    <li>
+                      <input id="serie" type="text" class="validate  center" minlength="1" maxlength="30"   [(ngModel)]="movimiento_det.Detalle" >
+                    </li>
+                  </div>
+                  <div class="col l1 m2 s1">
+                    <li>
+                      <a (click)="eliminarMovimientoDet(movimiento_det)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card-action">
+              <a (click)="crearMovimiento()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
+                <i class="material-icons right">send</i>
+              </a>
             </div>
           </div>
-          <!--tabla-->
-          <!--
-          <div>
-          <table  materialize class="centered table centered striped" style="font-size: 15px">
-          <thead>
-          <tr>
-          <th data-field="id">Código</th>
-          <th data-field="fecha">Descripción</th>
-          <th data-field="tipo">Cantidad</th>
-          <th data-field="descripcion">Serie/MAC</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor = "let movimiento_det of movimientoNuevo.movimiento_detalle">
-      <td>{{movimiento_det.item.Codigo}}</td>
-      <td>{{movimiento_det.item.Descripcion}}</td>
-      <td>
-      <div class="input-field">
-      <input id="icon_codigo" type="text" class="validate" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.cantidad" >
+        </div>
+      </div>
     </div>
-  </td>
-  <td>
-  <div class="input-field">
-  <input id="icon_codigo" type="text" class="validate" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.serie" >
-</div>
-</td>
-<td>
-<div>
-<a (click)="eliminarItem()" class="btn-floating btn-small waves-effect waves-light red right">
-<i class="material-icons">clear</i>
-</a>
-</div>
-</td>
-</tr>
-</table>
-</div>-->
-<div class="card-action">
-  <a (click)="crearMovimiento()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
-    <i class="material-icons right">send</i>
-  </a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="section">
-  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
-      <i class="material-icons">clear</i>
-    </a>
+  </div>
+  <div class="section">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+        <i class="material-icons">clear</i>
+      </a>
+    </div>
   </div>
 </div>
+
+<!--layout de ver de movimiento a inventario-->
+<div *ngIf="template=='ver_movimiento'" style="overflow: scroll;">
+  <div id="ver_movimiento" class="section" >
+    <div >
+      <!--primer panel-->
+      <div class="row">
+        <div class="col l4 m4 s12">
+          <div class="card-panel blue-grey lighten-5 ">
+            <span class="card-title">Movimiento de Inventario</span>
+            <p class="center">
+              <label for="test2" >{{descripcionMovimiento}}</label>
+            </p>
+            <!--<div style="padding-top: 7px"></div>-->
+            <!--Cabecera de movimiento-->
+            <div class="row" >
+              <div class="col s12 m12 l12" *ngIf="templateMovimiento=='ingreso_inventario'">
+                <div class="row">
+                  <div class="col l12 m12 s12">
+                    <div class="input-field">
+                      <i class="material-icons prefix" style="color:#009688">account_box</i>
+                      <input id="personaLista" type="text" class="validate filter-input" [(ngModel)]=descripcionProveedor >
+                      <label for="personaLista" >Persona</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col s12 m12 l12" >
+                <div class="input-field">
+                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                  <input id="icon_codigo" type="text" class="validate" minlength="10" maxlength="10"  [(ngModel)]="movimientoSeleccionado.Acta" disable="true" >
+                  <label for="icon_codigo" class="active">No. Acta de Entrega/Recepción</label>
+                </div>
+                <div class="input-field">
+                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                  <input  type="date" id="fecha"  [(ngModel)]="movimientoSeleccionado.Fecha" class="datepicker"  style="padding-top: 16px" disable="true">
+                  <label for="fecha" class="active" >Fecha</label>
+                  <script> new Datepicker('.datepicker');</script>
+                </div>
+                <div class="input-field ">
+                  <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                  <textarea id="icon_descripcion" class="materialize-textarea validate" [(ngModel)]="movimientoSeleccionado.Descripcion" disable="true"></textarea>
+                  <label  for="icon_descripcion" class="active">Descripción</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--segundo panel-->
+        <div class="col l8 m8 s12">
+          <div class="card-panel blue-grey lighten-5 ">
+            <span class="card-title">Detalle del movimiento</span>
+            <!--lista-->
+            <div class="divider"></div>
+            <div class="row" style="color:#424242; font-size: 60%">
+              <div class="col l6 m7 s6">
+                <h6 class="center">Ítem</h6>
+              </div>
+              <div class="col l2 m2 s3">
+                <h6 class="center">Cantidad</h6>
+              </div>
+              <div class="col l4 m3 s3">
+                <h6 class="center">Serie/Mac</h6>
+              </div>
+            </div>
+
+            <div *ngFor = "let movimiento_det of movimientoSeleccionado.IngresoEgresoElementos">
+              <div class="divider"></div>
+              <div class="row">
+                <ul>
+                  <div class="col l6 m7 s6" style="color:#424242; font-size: 100%">
+                    <li id="nombre">Nombre: {{movimiento_det.Objeto.Nombre}}</li>
+                    <li id="codigo">Código: {{movimiento_det.Objeto.Codigo}}</li>
+                  </div>
+                  <div class="col l2 m2 s3">
+                    <li>
+                      <input id="cantidad" type="text" class="validate  center" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.Cantidad" disable="true">
+                    </li>
+                  </div>
+                  <div class="col l4 m3 s3">
+                    <li>
+                      <input id="serie" type="text" class="validate  center" minlength="1" maxlength="30"   [(ngModel)]="movimiento_det.Detalle"  disable="true">
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            </div>
+            <div *ngFor = "let movimiento_det of movimientoSeleccionado.IngresoEgresoDispositivos">
+              <div class="divider"></div>
+              <div class="row">
+                <ul>
+                  <div class="col l6 m7 s6" style="color:#424242; font-size: 65%">
+                    <li id="nombre">Nombre: {{movimiento_det.Objeto.Nombre}}</li>
+                    <li id="codigo">Código: {{movimiento_det.Objeto.Codigo}}</li>
+                  </div>
+                  <div class="col l2 m2 s3">
+                    <li>
+                      <input id="cantidad" type="text" class="validate  center" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.Cantidad" disable="true">
+                    </li>
+                  </div>
+                  <div class="col l4 m3 s3">
+                    <li>
+                      <input id="serie" type="text" class="validate  center" minlength="1" maxlength="30"   [(ngModel)]="movimiento_det.Detalle"  disable="true">
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+        <i class="material-icons">clear</i>
+      </a>
+    </div>
+  </div>
 </div>

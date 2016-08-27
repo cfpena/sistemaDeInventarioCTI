@@ -42,13 +42,14 @@ export class InventarioPage implements OnInit{
     tipoMov:string='Ingreso';
 
     @Input() movimientoNuevo = new FacturaIngreso();
+    @Input() movimientoSeleccionado = new FacturaIngreso();
     @Input() itemNuevo = new ITEM();
 
     id=0;
     selected: number[]=[];
     //tipos = ['Elija tipo','ítem','kit'];
     //estados = ['Elija un estado...','disponible','no disponible'];
-    tiposBusquedas = ['Ingreso', 'Salida'];
+    tiposBusquedas = ['Ingreso', 'Egreso'];
     busqueda={tipoB: 'código', valor: ''};
     itemSeleccionado: boolean = false;
 
@@ -106,6 +107,7 @@ export class InventarioPage implements OnInit{
         this.movimientoNuevo = new FacturaIngreso();
         this.proveedorSeleccionado = new Persona();
         this.descripcionProveedor ='';
+        this.listar();
       }
     }
 
@@ -120,14 +122,37 @@ export class InventarioPage implements OnInit{
     }
 
 
-    /*goVerMovimiento(id: string){
+    goVerMovimiento(movimiento: FacturaIngreso){
+      for(var key in movimiento){
+        console.log(key);
+        this.movimientoSeleccionado[key]= movimiento[key]
+      }
+      this.movimientoSeleccionado.IngresoEgresoDispositivos=[];
+      this.movimientoSeleccionado.IngresoEgresoElementos=[];
+      let listaMovDetD= movimiento.IngresoEgresoDispositivos;
+      let listaMovDetE= movimiento.IngresoEgresoElementos;
+      for (var movimientodet in listaMovDetD){
+        this.inventarioService.llenarMovimientoDet(listaMovDetD[movimientodet], this.navController).then(result=>{
+          this.inventarioService.llenarItem(result.Objeto, this.navController).then(item =>{
+            this.tipoMov = result.Tipo;
+            if (this.tipoMov=='Egreso'){this.templateMovimiento='salida_inventario'}
+            result.Objeto=item;
+            this.movimientoSeleccionado.IngresoEgresoDispositivos.push(result);
+          })
+        })
+      }
+      for (var movimientodet in listaMovDetE){
+        this.inventarioService.llenarMovimientoDet(listaMovDetE[movimientodet], this.navController).then(result=>{
+          this.inventarioService.llenarItem(result.Objeto, this.navController).then(item =>{
+            this.tipoMov = result.Tipo;
+            if (this.tipoMov=='Egreso'){this.templateMovimiento='salida_inventario'}
+            result.Objeto=item;
+            this.movimientoSeleccionado.IngresoEgresoElementos.push(result);
+          })
+        })
+      }
       this.template='ver_movimiento';
-      this.id=parseInt(id);
-      this.movimientoMostrar = JSON.parse(JSON.stringify(this.movimientos.find(movimiento => movimiento.id == this.id)));
-      if (this.movimientoMostrar.tipo_movimiento.id ==1) this.goIngreso();
-      else if (this.movimientoMostrar.tipo_movimiento.id==3) this.goSalida();
-      else this.templateMovimiento ='';
-    }*/
+    }
 
     goIngreso(){
       this.templateMovimiento = 'ingreso_inventario'
@@ -136,22 +161,12 @@ export class InventarioPage implements OnInit{
 
     goSalida(){
       this.templateMovimiento = 'salida_inventario'
-      this.tipoMov='Salida'
+      this.tipoMov='Egreso'
     }
 
 
     cancelar(){
       this.template='null';
-    }
-
-    select(id: any){
-      let index: number;
-      index = this.selected.findIndex(num => num == parseInt(id));
-
-      if(index==-1){
-      this.selected.push(parseInt(id));}
-      else{this.selected.splice(index,1)};
-      console.log(this.selected);
     }
 
     buscarProveedor(){
@@ -205,12 +220,13 @@ export class InventarioPage implements OnInit{
           console.log('es dispositivo');
           for(var _i = 0; _i < this.cantidad; _i++){
             this.listaMovimientoDet.push({url:'', Fecha:'', Cantidad: 1, Detalle:'', Tipo: this.tipoMov, Objeto: this.itemNuevo});
+
           }
         }else{
           console.log('es elemento');
           this.listaMovimientoDet.push({url:'', Fecha:'', Cantidad: this.cantidad, Detalle:'N/A', Tipo: this.tipoMov, Objeto: this.itemNuevo});
         }
-        this.movimientoNuevo.IngresoEgreso=this.listaMovimientoDet;
+        //this.movimientoNuevo.IngresoEgreso=this.listaMovimientoDet;
         this.itemNuevo = new ITEM();
         this.cantidad=0;
         this.itemSeleccionado = false;

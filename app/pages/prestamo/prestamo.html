@@ -13,7 +13,7 @@
     <div class="row">
       <div class="col l1 m2 s4 offset-l9 offset-m7 " >
         <div class="input-field">
-          <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipo">
+          <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busquedaPorPersona.valor">
             <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
           </select>
         </div>
@@ -78,17 +78,17 @@
       <!--panel 1-->
       <div class="col l4 m4 s12" >
         <div class="card-panel blue-grey lighten-5 ">
-          <span class="card-title">Prestamo</span>
+          <span class="card-title">Préstamo</span>
           <div style="padding-top: 5%;"></div>
           <div class="row">
             <div class="col l12 m12 s12">
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">account_box</i>
                 <input id="personaLista" type="text" class="validate filter-input" [(ngModel)]=descripcionPersona (keyup)=buscarPersona()>
-                <label for="personaLista">Persona</label>
+                <label for="personaLista">Búsqueda por nombre o cédula de una persona</label>
                 <ul class="dropdown-content active"  style="opacity: 1; display: block;">
                   <li *ngFor="let persona of listaFiltradaPersona">
-                    <a (click)="seleccionarPersona(persona)">{{persona.CI}} - {{persona.Nombre}} {{persona.Apellido}} </a>
+                    <a (click)="seleccionarPersona(persona)">{{persona.Nombre}} {{persona.Apellido}} </a>
                   </li>
                 </ul>
               </div>
@@ -100,14 +100,14 @@
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
                 <input id="noActa" type="text" class="validate filter-input" [(ngModel)]=actaNuevo.Codigo>
-                <label for="noActa">No. Acta</label>
+                <label for="noActa" date-error="Acta no Válida" >No. Acta</label>
               </div>
             </div>
             <div materialize class="col l12 m12 s12">
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">today</i>
                 <label for="Fecha" class="active">Desde</label>
-                <input  id="today" type="date" class="datepicker" style="padding-top: 14px" [(ngModel)]=actaNuevo.Fecha>
+                <input   materialize="pickadate" [materializeParams]="[{format: 'yyyy-mm-dd',selectMonths: true, selectYears: 15}]" id="today" type="date" style="padding-top: 14px" [(ngModel)]=actaNuevo.Fecha>
                 <script>
                 document.getElementById("today").valueAsDate = new Date()
                 </script>
@@ -117,7 +117,7 @@
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">today</i>
                 <label for="Fecha_vencimiento" class="active" >Hasta</label>
-                <input id="Fecha_vencimiento" type="date" class="datepicker" style="padding-top: 14px" [(ngModel)]=actaNuevo.Fecha_vencimiento>
+                <input   materialize="pickadate" [materializeParams]="[{format: 'yyyy-mm-dd',selectMonths: true, selectYears: 15}]" id="today" type="date" style="padding-top: 14px" [(ngModel)]=actaNuevo.Fecha_vencimiento>
                 <script>
                 new Datepicker('.datepicker');
                 </script>
@@ -129,7 +129,7 @@
       <!--segundo panel-->
       <div class="col l8 m8 s12" >
         <div class="card-panel blue-grey lighten-5 ">
-          <span class="card-title">Items Prestados</span>
+          <span class="card-title">Ítems Prestados</span>
           <div style="padding-top: 5%;"></div>
 
           <div class="row">
@@ -226,7 +226,7 @@
       <!--panel 1-->
       <div class="col l4 m4 s12" >
         <div class="card-panel blue-grey lighten-5 ">
-          <span class="card-title">Devolucion de Prestamo</span>
+          <span class="card-title">Devolución de Préstamo</span>
           <div style="padding-top: 5%;"></div>
           <div class="row">
             <div class="col l12 m12 s12">
@@ -250,14 +250,20 @@
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">today</i>
                 <label for="Fecha" class="active">Desde</label>
-                <input  id="today" type="date" class="datepicker" style="padding-top: 14px" [(ngModel)]=actaModificar.Fecha disabled="true">
+                <input   materialize="pickadate" [materializeParams]="[{format: 'yyyy-mm-dd',selectMonths: true, selectYears: 15}]" id="today" type="date" style="padding-top: 14px"  [(ngModel)]=actaModificar.Fecha disabled="true">
+                <script>
+                document.getElementById("today").valueAsDate = new Date()
+                </script>
               </div>
             </div>
             <div materialize class="col l12 m12 s12">
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">today</i>
                 <label for="Fecha_vencimiento" class="active" >Hasta</label>
-                <input id="Fecha_vencimiento" type="date" class="datepicker" style="padding-top: 14px" [(ngModel)]=actaModificar.Fecha_vencimiento disabled="true">
+                <input   materialize="pickadate" [materializeParams]="[{format: 'yyyy-mm-dd',selectMonths: true, selectYears: 15}]" id="today" type="date" style="padding-top: 14px"  [(ngModel)]=actaModificar.Fecha_vencimiento disabled="true">
+                <script>
+                document.getElementById("today").valueAsDate = new Date()
+                </script>
               </div>
             </div>
           </div>
@@ -266,7 +272,7 @@
       <!--segundo panel-->
       <div class="col l8 m8 s12" >
         <div class="card-panel blue-grey lighten-5 ">
-          <span class="card-title">Items Prestados</span>
+          <span class="card-title">Ítems Prestados</span>
           <div style="padding-top: 5%;"></div>
 
           <!--lista-->

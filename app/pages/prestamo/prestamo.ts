@@ -34,7 +34,8 @@ export class PrestamoPage implements OnInit{
   prestamos:  Array<Prestamo> =[]
   actas:  Array<Acta> =[]
 
-
+  tiposBusquedas = ['Nombre', 'Fecha'];
+  busquedaPorPersona = {valor: '' };
 
   selected: number[]=[];
   tiposIdentificaciones = ['cédula', 'Nombre'];
@@ -92,7 +93,7 @@ export class PrestamoPage implements OnInit{
     crear(){
       console.log('crear')
         let validator = new Validator();
-        if (!validator.isValid(this.actaNuevo)) this.presentToast('Corrija el formulario');
+        if (!validator.isValid(this.actaNuevo)){ this.presentToast('Corrija el formulario');console.log(validator.validate(this.actaNuevo));}
       //  else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
         //else if (this.kitNuevo.Nombre == '') this.presentToast('Nombre vacio');
       //  else if (this.itemNuevo.Descripcion == '') this.presentToast('Descripción vacio');
@@ -137,11 +138,13 @@ export class PrestamoPage implements OnInit{
               this.listaFiltradaItem.push(item)
             }
           })
+        }).then(items => {
+          if (this.listaFiltradaItem.length==0){
+            this.presentToast('El item debe existir en el sistema.');
+            this.descripcionItem='';
+          }
         })
-        if (this.listaFiltradaItem.length==0){
-          this.presentToast('El item debe existir en el sistema.');
-          this.descripcionItem='';
-        }
+
       }else{
         this.listaFiltradaItem=[];
       }
@@ -177,15 +180,20 @@ export class PrestamoPage implements OnInit{
 
     buscarPersona(){
       if (this.descripcionPersona!==''){
-        this.personaService.getBuscar(this.descripcionPersona, this.navController).then(personas => {this.listaFiltradaPersona=personas; return personas})
-        if (this.listaFiltradaPersona.length==0){
-          this.presentToast('No existen datos que coincidan con la busqueda. La persona debe estar creada en el sistema.');
-          this.descripcionPersona='';
-        }
+        this.personaService.getBuscar(this.descripcionPersona, this.navController).then(personas => {this.listaFiltradaPersona=personas; return personas}).then(kits => {
+          if (this.listaFiltradaPersona.length==0){
+            this.presentToast('No existen datos que coincidan con la busqueda. La persona debe estar creada en el sistema.');
+            this.descripcionPersona='';
+          }
+        })
+
       }else{
         this.listaFiltradaPersona=[];
       }
     }
+
+
+
 
     seleccionarPersona(persona: Persona){
       this.personaSeleccionada = JSON.parse(JSON.stringify(persona));
@@ -205,6 +213,15 @@ export class PrestamoPage implements OnInit{
         console.log('Dismissed toast');
       });
       this.navController.present(toast);
+    }
+
+    //FUNCION BUSCAR para filtrar en tabla de prestamos principal
+    buscar() {
+      if(this.busquedaPorPersona.valor.trim() != ""){
+      this.personaService.getBuscar(this.busquedaPorPersona.valor,this.navController).then(personas => {
+        this.listaFiltradaPersona = personas
+      });}
+      else{this.listar_actas()}
     }
 
     public ngOnInit() {

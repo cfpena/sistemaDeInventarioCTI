@@ -9,8 +9,6 @@ export class IngresoEgreso {
   @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(1, 50) Detalle: string;
   Tipo: string;
   Objeto: any;
-  //FacturaIngreso: any;
-
 
   constructor( ) {
     this.url='';
@@ -18,7 +16,6 @@ export class IngresoEgreso {
     this.Detalle='';
     this.Tipo='';
     this.Cantidad=0;
-
   }
 }
 
@@ -26,8 +23,11 @@ export class FacturaIngreso{
   @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) Acta: string;
   //@Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) Proveedor: any;
   Proveedor: any;
-  @IsDate() Fecha: string;
-  IngresoEgreso: any[];
+
+  Fecha: string;
+  IngresoEgresoElementos: any[];
+  IngresoEgresoDispositivos: any[];
+
   @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 50) Descripcion: string;
   url: string;
 

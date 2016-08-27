@@ -38,12 +38,12 @@ export class MyApp {
     this.pages = [
       { title: 'Inventario',icon: 'library_books', component: InventarioPage },
       { title: 'Personas',icon: 'people', component: PersonaPage },
-      { title: 'Objetos',icon: 'keyboard_arrow_right', component: ItemPage },
-      { title: 'Kits',icon: 'keyboard_arrow_right', component: KitPage },
-      { title: 'Prestamos',icon: 'swap_horiz', component: PrestamoPage },
+      { title: 'Ítems',icon: 'build', component: ItemPage },
+      { title: 'Kits',icon: 'shopping_basket', component: KitPage },
+      { title: 'Préstamos',icon: 'swap_horiz', component: PrestamoPage },
       { title: 'Reportes',icon: 'insert_drive_file', component: ReportesPage },
       { title: 'Usuarios',icon: 'account_box', component: UsuarioPage },
-      { title: 'Cerrar Sesion',icon: 'power_settings_new', component: LoginPage },
+      { title: 'Cerrar Sesión',icon: 'power_settings_new', component: LoginPage },
 
     ];
 
