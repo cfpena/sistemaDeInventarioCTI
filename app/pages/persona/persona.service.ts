@@ -3,6 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Persona } from './persona.model';
 import {Url} from '../../url';
 import {UsuarioAuthService} from '../usuario/usuario.auth.service';
+import {UsuarioService} from '../usuario/usuario.service';
 import {HttpRequest} from '../../httprequest';
 import {NavController} from 'ionic-angular';
 
@@ -11,7 +12,7 @@ export class PersonaService {
     url = new Url();
     httprequest:HttpRequest;
 
-    constructor(private http: Http,
+    constructor(private http: Http,  private usuarioService: UsuarioService,
         private usuarioAuthService: UsuarioAuthService) {
         this.httprequest = new HttpRequest(http);}
 
