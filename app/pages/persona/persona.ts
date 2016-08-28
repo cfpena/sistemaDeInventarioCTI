@@ -85,9 +85,9 @@ listar() {
       console.log(validator.validate(this.personaNueva));
 
     }
-    else if (this.usuarioService.CompararEmail(this.personaNueva.Email,this.navController).then(result => {return result}))
+    else if (this.compararEmail(this.personaNueva.Email))
     {
-      console.log(result);
+
       this.presentToast('Correo ya usado, escoja uno diferente');
     }
     else{
@@ -103,7 +103,13 @@ listar() {
 
   }
 }
-
+  compararEmail(correo: String){
+    let result=false
+    for(var persona of this.personas){
+      if(persona.Email == correo) result=true
+    }
+    return result
+  }
 
   //modifica la persona
   modificar(){
