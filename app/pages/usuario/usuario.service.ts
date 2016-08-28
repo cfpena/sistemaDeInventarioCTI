@@ -62,4 +62,22 @@ export class UsuarioService {
           return tipos;
         });
     }
+
+    CompararEmail(cadena: String,nav: NavController) {
+      return this.httprequest.get(this.url.base + this.url.usuario,nav).then(result => {
+          let usuarios = result.json() as Usuario[];
+          for(var usuario of usuarios){
+            console.log(usuario.Email);
+            console.log(cadena);
+            if(usuario.Email == cadena){
+              return true}
+          }
+      return false
+      //    load.dismiss() //cuando termina el request, se elimina el loading
+        })
+
+    }
+
+
+
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { NavController, MenuController , Toast } from 'ionic-angular';
 import {Persona} from '../persona/persona.model';
+import {Usuario} from '../usuario/usuario.model';
+import {UsuarioPage} from '../usuario/usuario';
+import {UsuarioService} from '../usuario/usuario.service';
 import {MaterializeDirective} from "../../materialize-directive";
 import {Validator} from "validator.ts/Validator";
 import { Http, Headers } from '@angular/http';
@@ -12,13 +15,14 @@ import {Load} from '../../loading';
 @Component({
   templateUrl: 'build/pages/persona/persona.html',
   directives: [MaterializeDirective],
-  providers: [PersonaService],
+  providers: [PersonaService,UsuarioService],
 })
 
 export class PersonaPage implements OnInit {
   title: string ='Personas';
   personas: Persona[]=[];
   template: string = 'null';
+  usuarios: Usuario[]=[];
 
   personasEliminar: Persona[] = [];
   @Input()
@@ -41,6 +45,7 @@ export class PersonaPage implements OnInit {
 
   constructor( private navController:NavController,private menu: MenuController,
     private personaService: PersonaService,
+    private usuarioService: UsuarioService,
     private http: Http) { this.personaNueva.Tipo = this.Tipos[0];this.personaNueva.Genero = this.Generos[0];
   }
   //abre el menu
@@ -80,7 +85,11 @@ listar() {
       console.log(validator.validate(this.personaNueva));
 
     }
-
+    else if (this.usuarioService.CompararEmail(this.personaNueva.Email,this.navController).then(result => {return result}))
+    {
+      console.log(result);
+      this.presentToast('Correo ya usado, escoja uno diferente');
+    }
     else{
 
     let persona = JSON.parse(JSON.stringify(this.personaNueva))
@@ -94,7 +103,6 @@ listar() {
 
   }
 }
-
 
 
   //modifica la persona
