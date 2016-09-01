@@ -76,9 +76,7 @@ export class ItemPage implements OnInit {
         if (!validator.isValid(this.itemNuevo)){ this.presentToast('Corrija el formulario');}
       //  else if (this.itemNuevo.Stock < 1 || this.itemNuevo.Stock > 50 || this.itemNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
-
-
-
+          this.presentToast('Item creado correctamente');
            let file = Object.create(this.itemNuevo.Imagen)
            this.itemNuevo.Imagen = null
            console.log(JSON.stringify(this.itemNuevo))
@@ -116,6 +114,7 @@ export class ItemPage implements OnInit {
 
       //  else if (this.itemModificar.Stock < 1 || this.itemModificar.Stock > 50 || this.itemModificar.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
+            this.presentToast('Datos modificados correctamente');
             this.itemService.updateItem(this.itemModificar,this.navController).then(result => this.listar());
             this.template = 'null';
         }
@@ -126,7 +125,9 @@ export class ItemPage implements OnInit {
 
         for (var item of this.itemsEliminar) {
             this.itemService.eliminarItem(item,this.navController).then(result =>
-            { this.listar()}).catch(error => console.log(error))
+            { this.listar();
+              this.presentToast('Se ha eliminado con éxito');
+            }).catch(error => console.log(error))
         }
         //se deja en blanco la lista a eliminar
         this.itemsEliminar = Array<ITEM>();

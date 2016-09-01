@@ -91,7 +91,7 @@ listar() {
       this.presentToast('Correo ya usado, escoja uno diferente');
     }
     else{
-
+    this.presentToast('Persona creada correctamente');
     let persona = JSON.parse(JSON.stringify(this.personaNueva))
     this.personaService.createPersona(persona,this.navController).then(result => this.listar());
     this.template='null';
@@ -124,6 +124,7 @@ listar() {
 
     }
     else{
+    this.presentToast('Datos modificados correctamente');
     this.personaService.updatePersona(this.personaModificar,this.navController).then(result => this.listar());
     this.template='null';
     this.listar();
@@ -137,7 +138,9 @@ listar() {
 
     for(var persona of this.personasEliminar){
       this.personaService.eliminarPersona(persona,this.navController).then(result =>
-        { this.listar() }).catch(error=> console.log(error))}
+        { this.listar();
+          this.presentToast('Se ha eliminado con éxito');
+        }).catch(error=> console.log(error))}
     //se deja en blanco la lista a eliminar
     this.personasEliminar= Array<Persona>();
     console.log(this.personasEliminar);

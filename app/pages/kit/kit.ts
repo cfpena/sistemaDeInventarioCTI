@@ -93,7 +93,7 @@ kitModificar= new Kit;
             this.kitNuevo.Dispositivos.push(item.url)
           }
         }
-
+         this.presentToast('Kit creado correctamente');
           let kit = JSON.parse(JSON.stringify(this.kitNuevo))
           console.log(JSON.stringify(kit))
           let result=this.kitService.createKit(kit,this.listakitelementos,this.navController).then(result => {this.listar()}).catch(err=> {return false});
@@ -120,7 +120,7 @@ kitModificar= new Kit;
     console.log(this.kitModificar);
     if(!validator.isValid(this.kitModificar)) this.presentToast('Corrija el formulario');
   else{
-
+    this.presentToast('Datos modificados correctamente');
     this.kitService.updateKit(this.kitModificar,this.navController).then(result => this.listar());
     this.template = 'null';
     this.kitNuevo= new Kit()
@@ -130,7 +130,9 @@ kitModificar= new Kit;
   eliminar(){
     for(var kit of this.kitsEliminar){
       this.kitService.eliminarKit(kit,this.navController).then(result =>
-        { this.listar() }).catch(error=> console.log(error))
+        { this.listar()
+          this.presentToast('Se ha eliminado con éxito');
+        }).catch(error=> console.log(error))
 
     }
     //se deja en blanco la lista a eliminar

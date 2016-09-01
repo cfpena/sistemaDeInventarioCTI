@@ -88,6 +88,7 @@ export class UsuarioPage implements OnInit {
         else if (this.credenciales.clave.length < 6) this.presentToast('Clave menor a 6 caracteres');
         else if (this.credenciales.clave != this.credenciales.clave2) this.presentToast('Claves no coinciden');
         else {
+
           let load= new Load()
         //  load.present(this.navController)
             //se busca el tipo dentro de la lista de tipos por el nombre dado en el select de tipos al crear
@@ -98,6 +99,7 @@ export class UsuarioPage implements OnInit {
             usuario['groups'] = [tipo.url]
             let result=this.usuarioService.createUsuario(usuario, this.credenciales,this.navController).then(result => {this.listar()}).catch(err=> {return false});
             this.template = 'null';
+            this.presentToast('Usuario creado correctamente');
             //se vuelve a dejar en blanco el usuarioNuevo para volverlo  a usar luego
             this.usuarioNuevo = new Usuario();
 
@@ -126,7 +128,7 @@ export class UsuarioPage implements OnInit {
 
   }
       else{
-
+      this.presentToast('Datos modificados correctamente');
       this.usuarioModificar.groups = [this.usuarioModificar.groups[0].url]
       console.log(JSON.stringify(this.usuarioModificar))
       this.usuarioService.updateUsuario(this.usuarioModificar,this.navController).then(result => {this.listar();});
@@ -141,7 +143,9 @@ export class UsuarioPage implements OnInit {
       //load.present(this.navController)
               for(var usuario of this.usuariosEliminar){
                 this.usuarioService.eliminarUsuario(usuario,this.navController).then(result =>
-                  { this.listar(); }).catch(error=> console.log(error))
+                  { this.listar();
+                    this.presentToast('Se ha eliminado con éxito');
+                  }).catch(error=> console.log(error))
               }
               //se deja en blanco la lista a eliminar
               this.usuariosEliminar= Array<Usuario>();
