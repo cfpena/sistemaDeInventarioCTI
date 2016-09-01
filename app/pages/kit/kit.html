@@ -11,15 +11,10 @@
   <div *ngIf="template=='null'">
     <!--Búsqueda por codigo o nombre-->
     <div class="row">
-      <div class="col l1 m2 s4 offset-l9 offset-m7 " >
+        <!--Nueva Búsqueda  dejando solo el input-->
+      <div class="col l3 m4 s12 offset-l9 offset-m8">
         <div class="input-field">
-          <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipo">
-            <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="col l2 m3 s8">
-        <div class="input-field">
+          <i class="material-icons prefix" style="color:#009688">search</i>
           <input (keyup)="buscar()" type="text" id="identificacion" minlength="0" maxlength="20" [(ngModel)]="busqueda.valor">
           <label class="black-text active" for="identificacion" >Búsqueda</label>
         </div>
@@ -47,7 +42,7 @@
           <td>{{kit.Stock}}</td>
           <td>{{kit.Stock_Disponible}}</td>
           <td>
-            <a class="button-collapse" (click)="goModificar(kit)"><i class="material-icons left">visibility</i></a>
+            <a class="button-collapse" (click)="goModificar(kit)"><i  style="cursor: pointer" class="material-icons left">description</i></a>
           </td>
         </tr>
       </tbody>
@@ -75,7 +70,7 @@
   <div id="nuevo_kit" class="section">
     <div class="row ">
       <!--primer panel-->
-      <div class="col l4 m4 s12">
+      <div class="col l4 m5 s12">
         <div class="card-panel blue-grey lighten-5 ">
           <span class="card-title">Nuevo Kit</span>
           <div class="divider"></div>
@@ -113,7 +108,7 @@
         </div>
       </div>
       <!--segundo panel-->
-      <div class="col l8 m8 s12">
+      <div class="col l8 m7 s12">
         <div class="card-panel blue-grey lighten-5 ">
           <span class="card-title">Ítems</span>
           <div class="divider"></div>
@@ -125,7 +120,7 @@
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">search</i>
                   <input id="item" type="text" class="validate filter-input" minlength="0" maxlength="20" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
-                  <label for="item">Ingrese nombre o código para buscar ítem </label>
+                  <label for="item">Nombre o código para buscar un ítem </label>
                   <ul class="dropdown-content active"  style="opacity: 1; display: block;">
                     <li *ngFor="let item of listaFiltradaItem">
                       <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}} </a>
@@ -133,13 +128,13 @@
                   </ul>
                 </div>
               </div>
-              <div class="col l2 m2 s6 offset-s2">
-                <!--<div class="input-field" >
+              <div class="col l2 m3 s6 offset-s2 offset-m1">
+                <div class="input-field" >
                   <input id="itemCant" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
                   <label for="itemCant" class="active" data-error="Cantidad vacía o Incompleta">Cantidad</label>
-                </div>-->
+                </div>
               </div>
-              <div class="col l2 m2 s3">
+              <div class="col l2 m3 s3">
                 <div class="input-field" >
                   <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
                     <i class="material-icons">add</i>
@@ -152,9 +147,9 @@
               <div class="col l6 m6 s4 ">
                 <h6 class="center">Ítem</h6>
               </div>
-              <!--<div class="col l2 m2 s4 ">
+              <div class="col l2 m3 s4 offset-m1">
                 <h6 class="center">Cantidad</h6>
-              </div>-->
+              </div>
             </div>
             <!--lista de items-->
             <div *ngFor = "let item of itemsAgregados">
@@ -166,9 +161,9 @@
                     <li id="codigo">Código: {{item.Codigo}}</li>
                     <li id="cantidad">Cant.: {{item.Stock}}</li>
                   </div>
-                  <!--<div class="col l2 m3 s3">
+                  <div class="col l2 m3 s3">
                     <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center" [(ngModel)]="itemsKits.cantidad" ></li>
-                  </div>-->
+                  </div>
                   <div class="col l2 m2 s2 offset-l1">
                     <li> <a (click)="eliminarItem(item)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a> </li>
                   </div>
@@ -204,7 +199,7 @@
   <div id="modificar_kit"  class="section">
     <div class="row ">
       <!--primer panel-->
-      <div class="col l4 m6 s12">
+      <div class="col l4 m5 s12">
         <div class="card-panel blue-grey lighten-5 ">
           <span class="card-title">Modificar Kit</span>
           <div class="divider"></div>
@@ -276,7 +271,7 @@
 
       <!--segundo panel-->
 
-      <div class="col l8 m8 s12">
+      <div class="col l8 m7 s12">
         <div class="card-panel blue-grey lighten-5 ">
           <span class="card-title">Ítems</span>
           <div class="divider"></div>
@@ -287,7 +282,7 @@
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">search</i>
                   <input id="item" type="text" class="validate filter-input" minlength="0" maxlength="20" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
-                  <label for="item">Ingrese nombre o código para buscar ítem </label>
+                  <label for="item">Nombre o código para buscar un ítem </label>
                   <ul class="dropdown-content active"  style="opacity: 1; display: block;">
                     <li *ngFor="let item of listaFiltradaItem">
                       <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}} </a>
@@ -295,13 +290,13 @@
                   </ul>
                 </div>
               </div>
-              <div class="col l2 m2 s6 offset-s2">
-                <!--<div class="input-field" >
+              <div class="col l2 m3 s6 offset-s2">
+                <div class="input-field" >
                   <input id="itemCant" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
                   <label for="itemCant" class="active" data-error="Cantidad vacía o Incompleta">Cantidad</label>
-                </div>-->
+                </div>
               </div>
-              <div class="col l2 m2 s3">
+              <div class="col l2 m3 s3">
                 <div class="input-field" >
                   <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
                     <i class="material-icons">add</i>
@@ -314,9 +309,9 @@
               <div class="col l6 m6 s4 ">
                 <h6 class="center">Ítem</h6>
               </div>
-              <!--<div class="col l2 m2 s4 ">
+             <div class="col l2 m3 s4 ">
                 <h6 class="center">Cantidad</h6>
-              </div>-->
+              </div>
 
             </div>
 
@@ -332,6 +327,7 @@
                     <li id="cantidad">Cant.: {{item.Stock}}</li>
                   </div>
                   <div class="col l2 m3 s3">
+                    <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center" [(ngModel)]="itemsKits.cantidad" ></li>
                   </div>
                   <div class="col l2 m2 s2 offset-l1">
                     <li> <a (click)="eliminarItem(item)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a> </li>

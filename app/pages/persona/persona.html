@@ -12,15 +12,10 @@
   <div *ngIf="template=='null'">
     <!--Búsqueda por cedula o nombre-->
     <div class="row">
-      <div class="col l1 m2 s4 offset-l9 offset-m7 " >
+        <!--Nueva Búsqueda  dejando solo el input-->
+      <div class="col l3 m4 s12 offset-l9 offset-m8">
         <div class="input-field">
-          <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipo">
-            <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="col l2 m3 s8">
-        <div class="input-field">
+          <i class="material-icons prefix" style="color:#009688">search</i>
           <input (keyup)="buscar()" type="text" id="identificacion" minlength="0" maxlength="20" [(ngModel)]="busqueda.valor">
           <label class="black-text active" for="identificacion">Búsqueda</label>
         </div>
@@ -30,7 +25,7 @@
       <thead>
         <tr>
           <th ></th>
-          <th data-field="id">Identificacion</th>
+          <th data-field="id">Identificación</th>
           <th data-field="nombre">Nombre</th>
           <th data-field="apellido">Apellido</th>
           <th></th>
@@ -49,7 +44,7 @@
           <td>{{persona.Nombre}}</td>
           <td>{{persona.Apellido}}</td>
           <td>
-            <a class="button-collapse" (click)="goModificar(persona)"><i class="material-icons left">visibility</i></a>
+            <a class="button-collapse" (click)="goModificar(persona)"><i  style="cursor: pointer" class="material-icons left">description</i></a>
           </td>
         </tr>
       </tbody>
@@ -85,7 +80,7 @@
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">label_outline</i>
                 <input id="cedula" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaNueva.CI">
-                <label for="cedula" data-error="C vacio o Incorrecto">Cedula</label>
+                <label for="cedula" data-error="C vacio o Incorrecto">Cédula</label>
               </div>
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">account_box</i>
@@ -100,7 +95,7 @@
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">my_location</i>
                 <input id="direccion" type="text" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9 ]*" [(ngModel)]="personaNueva.Direccion">
-                <label for="direccion" data-error="Direccion vacia">Direccion</label>
+                <label for="direccion" data-error="Direccion vacia">Dirección</label>
               </div>
 
             </div>
@@ -109,7 +104,7 @@
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">credit_card</i>
                 <input id="matricula" type="text" class="validate" minlength="9" maxlength="9" pattern = "[0-9]*" [(ngModel)]="personaNueva.Matricula">
-                <label for="matricula" data-error="Matricula vacia o Incorrecta">Matricula</label>
+                <label for="matricula" data-error="Matricula vacia o Incorrecta">Matrícula</label>
               </div>
               <div class="input-field">
                 <i class="material-icons prefix" style="color:#009688">email</i>
@@ -173,7 +168,7 @@
                   <div class="input-field">
                     <i class="material-icons prefix">label_outline</i>
                     <input id="icon_cedula" type="tel" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*"  disabled="disabled"  [(ngModel)]="personaModificar.CI">
-                    <label for="icon_cedula">Cedula</label>
+                    <label for="icon_cedula">Cédula</label>
                   </div>
                 </div>
               </div>
@@ -206,7 +201,7 @@
                   <div class="input-field">
                     <i class="material-icons prefix">my_location</i>
                     <input id="icon_direccion" disabled="text" type="tel" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9]*" [(ngModel)]="personaModificar.Direccion">
-                    <label for="icon_direccion" data-error="Direccion vacia">Direccion</label>
+                    <label for="icon_direccion" data-error="Direccion vacia">Dirección</label>
                   </div>
                 </div>
                 <div class="col l2 m2 s2">
@@ -222,22 +217,22 @@
                   <div class="input-field">
                     <i class="material-icons prefix" style="color:#009688">credit_card</i>
                     <input id="icon_matricula" disabled="disabled" type="text" class="validate" minlength="9" maxlength="9" pattern = "[0-9]*" [(ngModel)]="personaModificar.Matricula">
-                    <label for="icon_matricula" data-error="Matricula vacia o Incorrecta">Matricula</label>
-                  </div>
-                  </div>
-                  <div class="col l2 m2 s2">
-                    <a class="button-collapse" onclick="icon_matricula.disabled = false"><i style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                    <label for="icon_matricula" data-error="Matricula vacia o Incorrecta">Matrícula</label>
                   </div>
                 </div>
+                <div class="col l2 m2 s2">
+                  <a class="button-collapse" onclick="icon_matricula.disabled = false"><i style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                </div>
+              </div>
 
-                <div class="row">
-                  <div class="col l10 m10 s10">
+              <div class="row">
+                <div class="col l10 m10 s10">
                   <div class="input-field">
                     <i class="material-icons prefix">email</i>
                     <input id="icon_correo" disabled="disabled" type="email" class="validate" maxlength="50"  [(ngModel)]="personaModificar.Email">
                     <label for="icon_correo" data-error="Formato E-mail Incorrecto">Email</label>
                   </div>
-                  </div>
+                </div>
                 <div class="col l2 m2 s2">
                   <a class="button-collapse" onclick="icon_correo.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
                 </div>

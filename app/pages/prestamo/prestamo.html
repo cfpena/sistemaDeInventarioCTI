@@ -11,15 +11,10 @@
   <div *ngIf="template=='null'">
     <!--Búsqueda por codigo o nombre-->
     <div class="row">
-      <div class="col l1 m2 s4 offset-l9 offset-m7 " >
+        <!--Nueva Búsqueda  dejando solo el input-->
+      <div class="col l3 m4 s12 offset-l9 offset-m8">
         <div class="input-field">
-          <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busquedaPorPersona.valor">
-            <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="col l2 m3 s8">
-        <div class="input-field">
+          <i class="material-icons prefix" style="color:#009688">search</i>
           <input  type="text" id="identificacion"  minlength="0" maxlength="20" [(ngModel)]="busqueda.valor">
           <label class="black-text active" for="identificacion">Búsqueda</label>
         </div>
@@ -49,7 +44,7 @@
           <td>{{acta.Fecha}}</td>
           <td>{{acta.Fecha_vencimiento}}</td>
           <td>
-            <a (click)="goModificarPrestamo(acta)" class="button-collapse"><i class="material-icons left">visibility</i></a>
+            <a (click)="goModificarPrestamo(acta)" class="button-collapse"><i  style="cursor: pointer" class="material-icons left">description</i></a>
           </td>
         </tr>
       </tbody>

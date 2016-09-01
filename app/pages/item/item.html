@@ -9,15 +9,10 @@
   <div *ngIf="template=='null'">
     <!--Búsqueda por codigo o nombre-->
     <div class="row">
-      <div class="col l1 m2 s4 offset-l9 offset-m7 " >
+        <!--Nueva Búsqueda  dejando solo el input-->
+      <div class="col l3 m4 s12 offset-l9 offset-m8">
         <div class="input-field">
-          <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda.tipo">
-            <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda" >{{tiposBusqueda}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="col l2 m3 s8">
-        <div class="input-field">
+          <i class="material-icons prefix" style="color:#009688">search</i>
           <input (keyup)="buscar()" type="text" id="identificacion"  minlength="0" maxlength="20" [(ngModel)]="busqueda.valor">
           <label class="black-text active" for="identificacion">Búsqueda</label>
         </div>
@@ -55,7 +50,7 @@
           <td>{{item.Stock_Disponible}}</td>
           <td>
 
-            <a class="button-collapse" (click)="goModificar(item)"><i class="material-icons left">visibility</i></a>
+            <a class="button-collapse" (click)="goModificar(item)"><i style="cursor: pointer" class="material-icons left">description</i></a>
           </td>
         </tr>
       </tbody>
@@ -145,7 +140,7 @@
               </form>
             </div>
             <div style="padding-top: 7%;">
-              
+
             </div>
           </div>
           <!--tercera columna-->
@@ -195,7 +190,7 @@
   </div>
 </div>
 
-<!-- Layout para Modificar KIT-->
+<!-- Layout para Modificar item-->
 <div *ngIf="template=='modificar'" style="overflow: scroll;">
   <!--modificar item-->
   <div id="modificar_item" class="section" >
@@ -271,13 +266,7 @@
                 </p>
               </form>
             </div>
-            <div style="padding-top: 7%;">
-              <div class="input-field" >
-                <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                <input id="icon_cantidad" type="text" class="validate"  minlength="1" maxlength="2" pattern = "[0-9]*" disabled=”disabled” [(ngModel)]="itemModificar.Stock" >
-                <label for="icon_cantidad" data-error="Cantidad vacía o Incompleta">Cantidad</label>
-              </div>
-            </div>
+  
           </div>
           <!--tercera columna-->
           <div class="col l4 m4 s12" >

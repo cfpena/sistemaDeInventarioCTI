@@ -201,18 +201,7 @@ kitModificar= new Kit;
     this.estaSeleccionadoItem =true;
     //this.itemSeleccionado = item;
   }
-/*
-  agregarItem(){
-    if(item.Es_Dispositivo)
-    this.itemsAgregados.push(item)
-    else{
-      let kitelemento= new KITELEMENTO()
-      kitelemento.cantidad = this.cantidad
-      kitelemento.Elemento = item.url
-      this.listakitelementos.push(kitelemento)
-      this.itemsAgregados.push(item)
-    }
-  }*/
+
 
   agregarItem(){
     console.log(this.itemsAgregados)
@@ -235,78 +224,11 @@ kitModificar= new Kit;
     }
   }
 
-  /*eliminarItem(item: ITEM){
-    if(item.Es_Dispositivo){
-    let index=this.itemsAgregados.indexOf(item)
-    this.itemsAgregados.splice(index,1)}
-    else{
-      let index=-1
-      for (let kitelemto of this.listakitelementos){
-        if(kitelemto.Elemento==item.url) {
-          index = this.listakitelementos.indexOf(kitelemto)
-          break;
-        }
 
-      }
-      if(index!=-1){
-        this.listakitelementos.splice(index,1)
-
-      }
-    }
-  }*/
-  
       eliminarItem(item: ITEM){
         let index=this.itemsAgregados.indexOf(item)
         this.itemsAgregados.splice(index,1)
       }
-/*
-  seleccionarItem2(item: ITEM){
-        console.log(item);
-        console.log(this.itemNuevo);
-        this.itemNuevo=JSON.parse(JSON.stringify(item));
-        console.log(this.itemNuevo);
-        this.descripcionItem = this.itemNuevo.Codigo +' - '+ this.itemNuevo.Nombre;
-        this.listaFiltradaItem=[];
-        this.itemSeleccionado =true;
-        //this.itemSeleccionado = item;
-      }
-
-      listarItems() {
-        //las promesas retornan promesas por lo tanto el resultado se debe tratar como una promesa, con el then y catch
-          this.itemService.getElementos(this.navController).then(items => { this.items = items; return items }).then(result=>{
-            this.itemService.getDispositivos(this.navController).then(items => {
-              for(var item of items){
-                this.items.push(item)
-              }
-            })
-          })
-          return this.items
-      }
-
-      buscarItem2(){
-        console.log('buscar item');
-        this.listarItems();
-        let itemsFiltro: ITEM[];
-        let busquedaItem = this.descripcionItem;
-        let elementoEncontrado: string;
-
-        if (busquedaItem!==''){
-          console.log('buscar item1');
-          itemsFiltro = this.items.filter(function (item){
-            console.log(busquedaItem);
-            if (item.Codigo.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0 ||  item.Nombre.toLowerCase().indexOf(busquedaItem.toLowerCase())>=0){
-              elementoEncontrado= item.Codigo+" - "+item.Nombre;
-              console.log(elementoEncontrado);
-              return true;
-            }
-            return false;
-          }.bind(this));
-          this.listaFiltradaItem = itemsFiltro;
-        }else{
-          this.listaFiltradaItem =[];
-        }
-      }
-*/
 
     //retrasa la carga de la pagina 100 ms
     public ngOnInit() {
