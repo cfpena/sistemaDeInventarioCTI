@@ -12,7 +12,7 @@
   <div *ngIf="template=='null'">
     <!--Búsqueda por cedula o nombre-->
     <div class="row">
-        <!--Nueva Búsqueda  dejando solo el input-->
+      <!--Nueva Búsqueda  dejando solo el input-->
       <div class="col l3 m4 s12 offset-l9 offset-m8">
         <div class="input-field">
           <i class="material-icons prefix" style="color:#009688">search</i>
@@ -77,64 +77,94 @@
           <div class="row" style="padding-top: 10px">
             <div class="col s12 m6 l6">
               <!--primera columna-->
-              <div class="input-field">
-                <i class="material-icons prefix" style="color:#009688">label_outline</i>
-                <input id="cedula" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaNueva.CI">
-                <label for="cedula" data-error="C vacio o Incorrecto">Cédula</label>
+              <div class="row">
+                <div class="input-field col l11 m11 s11">
+                  <i class="material-icons prefix" style="color:#009688">label_outline</i>
+                  <input id="cedula" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaNueva.CI">
+                  <label for="cedula" data-error="C vacio o Incorrecto">Cédula</label>
+                </div>
+                <div class="col l1 m1 s1">
+                  <h6 id="obligatorio" style="color:red; padding-top: 40px">*</h6>
+                </div>
               </div>
-              <div class="input-field">
-                <i class="material-icons prefix" style="color:#009688">account_box</i>
-                <input id="nombre" type="text" class="validate"  minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]+"[(ngModel)]="personaNueva.Nombre">
-                <label for="nombre" data-error="Nombre vacio o Incorrecto">Nombre</label>
+              <div class="row">
+                <div class="input-field col l11 m11 s11">
+                  <i class="material-icons prefix" style="color:#009688">account_box</i>
+                  <input id="nombre" type="text" class="validate"  minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]+"[(ngModel)]="personaNueva.Nombre">
+                  <label for="nombre" data-error="Nombre vacio o Incorrecto">Nombre</label>
+                </div>
+                <div class="col l1 m1 s1">
+                  <h6 id="obligatorio" style="color:red; padding-top: 40px">*</h6>
+                </div>
               </div>
-              <div class="input-field">
-                <i class="material-icons prefix" style="color:#009688">account_box</i>
-                <input id="apellido" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]+" [(ngModel)]="personaNueva.Apellido">
-                <label for="apellido" data-error="Apellido vacio o Incorrecto">Apellido</label>
+              <div class="row">
+                <div class="input-field col l11 m11 s11">
+                  <i class="material-icons prefix" style="color:#009688">account_box</i>
+                  <input id="apellido" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]+" [(ngModel)]="personaNueva.Apellido">
+                  <label for="apellido" data-error="Apellido vacio o Incorrecto">Apellido</label>
+                </div>
+                <div class="col l1 m1 s1">
+                  <h6 id="obligatorio" style="color:red; padding-top: 40px">*</h6>
+                </div>
               </div>
-              <div class="input-field">
-                <i class="material-icons prefix" style="color:#009688">my_location</i>
-                <input id="direccion" type="text" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9 ]*" [(ngModel)]="personaNueva.Direccion">
-                <label for="direccion" data-error="Direccion vacia">Dirección</label>
+              <div class="row">
+                <div class="input-field col l11 m11 s11">
+                  <i class="material-icons prefix" style="color:#009688">my_location</i>
+                  <input id="direccion" type="text" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9 ]*" [(ngModel)]="personaNueva.Direccion">
+                  <label for="direccion" data-error="Direccion vacia">Dirección</label>
+                </div>
+                <div class="col l1 m1 s1">
+                  <h6 id="obligatorio" style="color:red; padding-top: 40px">*</h6>
+                </div>
               </div>
-
             </div>
             <div class="col s12 m6 l6">
               <!--segunda columna-->
-              <div class="input-field">
-                <i class="material-icons prefix" style="color:#009688">credit_card</i>
-                <input id="matricula" type="text" class="validate" minlength="9" maxlength="9" pattern = "[0-9]*" [(ngModel)]="personaNueva.Matricula">
-                <label for="matricula" data-error="Matricula vacia o Incorrecta">Matrícula</label>
+              <div class="row">
+                <div class="input-field col l11 m11 s11">
+                  <i class="material-icons prefix" style="color:#009688">credit_card</i>
+                  <input id="matricula" type="text" class="validate" minlength="9" maxlength="9" pattern = "[0-9]*" [(ngModel)]="personaNueva.Matricula">
+                  <label for="matricula" data-error="Matricula vacia o Incorrecta">Matrícula</label>
+                </div>
               </div>
-              <div class="input-field">
-                <i class="material-icons prefix" style="color:#009688">email</i>
-                <input id="correo" type="email" class="validate" maxlength="50"  [(ngModel)]="personaNueva.Email">
-                <label for="correo" data-error="Formato E-mail Incorrecto">Correo</label>
+              <div class="row">
+                <div class="input-field col l11 m11 s11">
+                  <i class="material-icons prefix" style="color:#009688">email</i>
+                  <input id="correo" type="email" class="validate" maxlength="50"  [(ngModel)]="personaNueva.Email">
+                  <label for="correo" data-error="Formato E-mail Incorrecto">Correo</label>
+                </div>
+                <div class="col l1 m1 s1">
+                  <h6 id="obligatorio" style="color:red;padding-top: 40px">*</h6>
+                </div>
               </div>
-              <div class="input-field">
-                <i class="material-icons prefix" style="color:#009688">call</i>
-                <input id="telefono" type="text" class="validate" minlength="7" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaNueva.Telefono">
-                <label for="telefono" data-error="Telefono vacio o Incorrecto">Teléfono</label>
+              <div class="row">
+                <div class="input-field col l11 m11 s11">
+                  <i class="material-icons prefix" style="color:#009688">call</i>
+                  <input id="telefono" type="text" class="validate" minlength="7" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaNueva.Telefono">
+                </div>
+                <div class="col l1 m1 s1">
+                  <h6 id="obligatorio" style="color:red; padding-top: 40px">*</h6>
+                </div>
               </div>
-              <div class="input-field">
+                <div class="input-field col l11 m11 s11">
                 <i class="material-icons prefix" style="color:#009688">label_outline</i>
                 <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaNueva.Genero">
                   <option *ngFor="let Genero of Generos" [value]="Genero">{{Genero}}</option>
                 </select>
               </div>
-              <div class="input-field">
+                <div class="input-field col l11 m11 s11">
                 <i class="material-icons prefix" style="color:#009688">supervisor_account</i>
                 <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaNueva.Tipo">
                   <option *ngFor="let Tipo of Tipos" [value]="Tipo">{{Tipo}}</option>
                 </select>
               </div>
             </div>
-
             <div class="card-action">
               <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
                 <i class="material-icons right">send</i>
               </a>
             </div>
+            <!--<label style="color:black;">(*) campos obligatorios </label>-->
           </div>
           <!--</form>-->
         </div>

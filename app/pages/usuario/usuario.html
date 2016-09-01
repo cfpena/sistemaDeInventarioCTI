@@ -24,188 +24,214 @@ Ionic pages and navigation.
 
 <!--tabla de usuarios-->
 <ion-content>
-<div *ngIf="template=='null'">
-  <!--Búsqueda por codigo o nombre-->
-  <div class="row">
+  <div *ngIf="template=='null'">
+    <!--Búsqueda por codigo o nombre-->
+    <div class="row">
       <!--Nueva Búsqueda  dejando solo el input-->
-    <div class="col l3 m4 s12 offset-l9 offset-m8">
-      <div class="input-field">
-        <i class="material-icons prefix" style="color:#009688">search</i>
-        <input (keyup)="buscar()" type="text" id="identificacion" minlength="0" maxlength="20"  [(ngModel)]="busqueda.valor">
-        <label class="black-text active" for="identificacion">Búsqueda</label>
+      <div class="col l3 m4 s12 offset-l9 offset-m8">
+        <div class="input-field">
+          <i class="material-icons prefix" style="color:#009688">search</i>
+          <input (keyup)="buscar()" type="text" id="identificacion" minlength="0" maxlength="20"  [(ngModel)]="busqueda.valor">
+          <label class="black-text active" for="identificacion">Búsqueda</label>
+        </div>
       </div>
+    </div>
+
+    <table materialize class="centered table centered striped" style="font-size: 15px">
+      <thead>
+        <tr>
+          <th ></th>
+          <th data-field="id">Nombre</th>
+          <th data-field="name">Email</th>
+          <th data-field="lastname">Tipo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- angular 2 for -->
+        <tr *ngFor="let usuario of usuarios">
+          <td>
+            <!-- evento change y atributo por defecto checked false, se agrega como id el id del usuario
+            para luego saber que checkbox le pertenece a cada usuario-->
+            <input   (change)="select(usuario)" id={{usuario.url}} type="checkbox" class="filled-in"/>
+            <label  attr.for="{{usuario.url}}"></label>
+          </td>
+          <td>{{usuario.Nombre + ' ' + usuario.Apellido}}</td>
+          <td>{{usuario.Email}}</td>
+          <td>{{usuario.groups[0].name}}</td>
+          <td>
+            <a class="button-collapse" (click)="goModificar(usuario)"><i  style="cursor: pointer" class="material-icons left">description</i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!--Boton flotante de opciones add, edit, delete-->
+  <!-- if de angular, valida si se debe mostrar o no segun la variable template -->
+  <div *ngIf="template=='null'">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a class="btn-floating btn-large orange darken-1">
+        <i class="large material-icons">settings</i>
+      </a>
+      <ul>
+        <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
+        <li><a (click)="goCrearUsuario()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
+      </ul>
     </div>
   </div>
 
-  <table materialize class="centered table centered striped" style="font-size: 15px">
-    <thead>
-      <tr>
-        <th ></th>
-        <th data-field="id">Nombre</th>
-        <th data-field="name">Email</th>
-        <th data-field="lastname">Tipo</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- angular 2 for -->
-      <tr *ngFor="let usuario of usuarios">
-        <td>
-          <!-- evento change y atributo por defecto checked false, se agrega como id el id del usuario
-          para luego saber que checkbox le pertenece a cada usuario-->
-          <input   (change)="select(usuario)" id={{usuario.url}} type="checkbox" class="filled-in"/>
-          <label  attr.for="{{usuario.url}}"></label>
-        </td>
-        <td>{{usuario.Nombre + ' ' + usuario.Apellido}}</td>
-        <td>{{usuario.Email}}</td>
-        <td>{{usuario.groups[0].name}}</td>
-        <td>
-          <a class="button-collapse" (click)="goModificar(usuario)"><i  style="cursor: pointer" class="material-icons left">description</i></a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div *ngIf="template=='crear'" >
+    <div class="container" style="position: relative; bottom: -50px;">
+      <div class="card-panel blue-grey lighten-5 black-text" >
+        <span class="card-title ">Nuevo Usuario</span>
+        <div class="row">
+          <!--primera fila-->
+          <div class="col l6 m6 s12">
+            <div class="row">
+              <div class="input-field col l11 m11 s11">
+                <i class="material-icons prefix" style="color:#009688">email</i>
+                <input id="icon_codigo" type="email" class="validate" maxlength="50"  [(ngModel)]="usuarioNuevo.Email">
+                <label for="icon_codigo" data-error="Formato E-mail Incorrecto" >Email</label>
+              </div>
+              <div class="col l1 m1 s1">
+                <h6 id="obligatorio" style="color:red;padding-top: 40px">*</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col l11 m11 s11">
+                <i class="material-icons prefix" style="color:#009688">account_box</i>
+                <input id="icon_codigo" type="text" class="validate"  minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*" [(ngModel)]="usuarioNuevo.Nombre">
+                <label for="icon_codigo" data-error="Nombre vacio o Incorrecto">Nombre</label>
+              </div>
+              <div class="col l1 m1 s1">
+                <h6 id="obligatorio" style="color:red;padding-top: 40px">*</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col l11 m11 s11">
+                <i class="material-icons prefix" style="color:#009688">account_box</i>
+                <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*" [(ngModel)]="usuarioNuevo.Apellido">
+                <label for="icon_codigo" data-error="Apellido vacio o Incorrecto">Apellido</label>
+              </div>
+              <div class="col l1 m1 s1">
+                <h6 id="obligatorio" style="color:red;padding-top: 40px">*</h6>
+              </div>
+            </div>
 
-<!--Boton flotante de opciones add, edit, delete-->
-<!-- if de angular, valida si se debe mostrar o no segun la variable template -->
-<div *ngIf="template=='null'">
-  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large orange darken-1">
-      <i class="large material-icons">settings</i>
-    </a>
-    <ul>
-      <li><a (click)="eliminar()" class="btn-floating red"><i class="material-icons">delete</i></a></li>
-      <li><a (click)="goCrearUsuario()" class="btn-floating blue"><i class="material-icons">add</i></a></li>
-    </ul>
-  </div>
-</div>
-
-<div *ngIf="template=='crear'" >
-  <div class="container" style="position: relative; bottom: -50px;">
-    <div class="card-panel blue-grey lighten-5 black-text" >
-      <span class="card-title ">Nuevo Usuario</span>
-      <div class="row">
-        <!--primera fila-->
-        <div class="col l6 m6 s12">
-          <div class="input-field">
-            <i class="material-icons prefix" style="color:#009688">email</i>
-            <input id="icon_codigo" type="email" class="validate" maxlength="50"  [(ngModel)]="usuarioNuevo.Email">
-            <label for="icon_codigo" data-error="Formato E-mail Incorrecto" >Email</label>
           </div>
-          <div class="input-field">
-            <i class="material-icons prefix" style="color:#009688">account_box</i>
-            <input id="icon_codigo" type="text" class="validate"  minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*" [(ngModel)]="usuarioNuevo.Nombre">
-            <label for="icon_codigo" data-error="Nombre vacio o Incorrecto">Nombre</label>
-          </div>
-          <div class="input-field">
-            <i class="material-icons prefix" style="color:#009688">account_box</i>
-            <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*" [(ngModel)]="usuarioNuevo.Apellido">
-            <label for="icon_codigo" data-error="Apellido vacio o Incorrecto">Apellido</label>
+          <!--segunda fila-->
+          <div class="col l6 m6 s12">
+            <div class="input-field">
+              <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+              <select  materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="Tipo">
+                <option *ngFor="let tipo of tipos" [value]="tipo.name">{{tipo.name}}</option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="input-field col l11 m11 s11" style="padding-top: 18px">
+                <i class="material-icons prefix" style="color:#009688">vpn_key</i>
+                <input id="icon_codigo" type="password" class="activate"  [(ngModel)]="credenciales.clave">
+                <label for="icon_codigo">Contraseña</label>
+              </div>
+              <div class="col l1 m1 s1">
+                <h6 id="obligatorio" style="color:red;padding-top: 58px">*</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col l11 m11 s11" style="padding-top: 18px">
+                <i class="material-icons prefix" style="color:#009688">vpn_key</i>
+                <input id="repclave" type="password" class="activate"  [(ngModel)]="credenciales.clave2">
+                <label for="repclave">Repetir contraseña</label>
+              </div>
+              <div class="col l1 m1 s1">
+                <h6 id="obligatorio" style="color:red;padding-top: 58px">*</h6>
+              </div>
+            </div>
           </div>
         </div>
-        <!--segunda fila-->
-        <div class="col l6 m6 s12">
-          <div class="input-field">
-            <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-            <select  materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="Tipo">
-              <option *ngFor="let tipo of tipos" [value]="tipo.name">{{tipo.name}}</option>
-            </select>
-          </div>
-          <div class="input-field" style="padding-top: 18px">
-            <i class="material-icons prefix" style="color:#009688">vpn_key</i>
-            <input id="icon_codigo" type="password" class="activate"  [(ngModel)]="credenciales.clave">
-            <label for="icon_codigo">Contraseña</label>
-          </div>
-          <div class="input-field">
-            <i class="material-icons prefix" style="color:#009688">vpn_key</i>
-            <input id="repclave" type="password" class="activate"  [(ngModel)]="credenciales.clave2">
-            <label for="repclave">Repetir contraseña</label>
-          </div>
+        <div class="card-action">
+          <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
+            <i class="material-icons right">send</i>
+          </a>
         </div>
       </div>
-      <div class="card-action">
-        <a (click)="crear()" class="btn waves-effect waves-light center"  style="font-size: 17px">Crear
-          <i class="material-icons right">send</i>
+    </div>
+    <!--boton para cancelar-->
+    <div class="section">
+      <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+          <i class="material-icons">clear</i>
         </a>
       </div>
     </div>
   </div>
-  <!--boton para cancelar-->
-  <div class="section">
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
-        <i class="material-icons">clear</i>
-      </a>
-    </div>
-  </div>
-</div>
-<ion-content>
+  <ion-content>
 
 
-<div *ngIf="template=='modificar'">
-  <!--modificar user-->
-  <div id="nuevo_item" class="section">
-    <div class="container" style="padding-top: 50px">
-      <div class="row">
-        <form class="col s12 m12 l12 ">
+    <div *ngIf="template=='modificar'">
+      <!--modificar user-->
+      <div id="nuevo_item" class="section">
+        <div class="container" style="padding-top: 50px">
           <div class="row">
-            <!--primera ventana-->
-            <div class="col s12 m6 l6 offset-l3 offset-m3">
-              <div class="card-panel blue-grey lighten-5 black-text" >
-                <span class="card-title ">Modificar Usuario</span>
-                <div class="row">
-                  <div class="col l10 m10 s10">
-                    <div class="input-field">
-                      <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                      <input id="nombre" disabled="disabled" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*" [(ngModel)]="usuarioModificar.Nombre">
-                      <label for="nombre" data-error="Nombre vacio o Incorrecto">Nombre</label>
+            <form class="col s12 m12 l12 ">
+              <div class="row">
+                <!--primera ventana-->
+                <div class="col s12 m6 l6 offset-l3 offset-m3">
+                  <div class="card-panel blue-grey lighten-5 black-text" >
+                    <span class="card-title ">Modificar Usuario</span>
+                    <div class="row">
+                      <div class="col l10 m10 s10">
+                        <div class="input-field">
+                          <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                          <input id="nombre" disabled="disabled" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*" [(ngModel)]="usuarioModificar.Nombre">
+                          <label for="nombre" data-error="Nombre vacio o Incorrecto">Nombre</label>
+                        </div>
+                      </div>
+                      <div class="col l2 m2 s2">
+                        <a class="button-collapse" onclick="nombre.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col l10 m10 s10">
+                        <div class="input-field">
+                          <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                          <input id="apellido" disabled="disabled" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*" [(ngModel)]="usuarioModificar.Apellido">
+                          <label for="apellido" data-error="Apellido vacio o Incorrecto" >Apellido</label>
+                        </div>
+                      </div>
+                      <div class="col l2 m2 s2">
+                        <a class="button-collapse" onclick="apellido.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col l11 m11 s11">
+                        <div class="input-field">
+                          <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
+                          <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="usuarioModificar.groups[0].name" >
+                            <option *ngFor="let tipo of tipos" [value]="tipo.name" selected="usuarioModificar.groups[0].name">{{tipo.name}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-action">
+                      <a (click)="modificar()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
+                        <i class="material-icons right">send</i>
+                      </a>
                     </div>
                   </div>
-                  <div class="col l2 m2 s2">
-                    <a class="button-collapse" onclick="nombre.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col l10 m10 s10">
-                    <div class="input-field">
-                      <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                      <input id="apellido" disabled="disabled" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]*" [(ngModel)]="usuarioModificar.Apellido">
-                      <label for="apellido" data-error="Apellido vacio o Incorrecto" >Apellido</label>
-                    </div>
-                  </div>
-                  <div class="col l2 m2 s2">
-                    <a class="button-collapse" onclick="apellido.disabled = false"><i  style="padding-top: 40px" class="material-icons left">mode_edit</i></a>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col l11 m11 s11">
-                    <div class="input-field">
-                      <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                      <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="usuarioModificar.groups[0].name" >
-                        <option *ngFor="let tipo of tipos" [value]="tipo.name" selected="usuarioModificar.groups[0].name">{{tipo.name}}</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-action">
-                  <a (click)="modificar()" class="btn waves-effect waves-light center"  style="font-size: 17px">Guardar
-                    <i class="material-icons right">send</i>
-                  </a>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
-        </form>
+        </div>
+      </div>
+      <!--boton para cancelar-->
+      <div class="section">
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+          <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
+            <i class="material-icons">clear</i>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-  <!--boton para cancelar-->
-  <div class="section">
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a (click)="cancelar()" class="btn-floating btn-large waves-effect waves-light red right">
-        <i class="material-icons">clear</i>
-      </a>
-    </div>
-  </div>
-</div>
