@@ -93,10 +93,12 @@ kitModificar= new Kit;
             this.kitNuevo.Dispositivos.push(item.url)
           }
         }
-         this.presentToast('Kit creado correctamente');
+
           let kit = JSON.parse(JSON.stringify(this.kitNuevo))
           console.log(JSON.stringify(kit))
-          let result=this.kitService.createKit(kit,this.listakitelementos,this.navController).then(result => {this.listar()}).catch(err=> {return false});
+          let result=this.kitService.createKit(kit,this.listakitelementos,this.navController).then(result => {this.listar();
+          this.presentToast('Kit creado correctamente');
+        }).catch(err=> {return false});
           this.template = 'null';
           this.kitNuevo = new Kit();
       }

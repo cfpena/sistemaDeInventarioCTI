@@ -91,12 +91,14 @@ listar() {
       this.presentToast('Correo ya usado, escoja uno diferente');
     }
     else{
-    this.presentToast('Persona creada correctamente');
+
     let persona = JSON.parse(JSON.stringify(this.personaNueva))
     this.personaService.createPersona(persona,this.navController).then(result => this.listar());
+    this.presentToast('Persona creada correctamente');
     this.template='null';
     this.count++;
     this.listar();
+
 //console.log(JSON.stringify(this.personaNueva));
     this.personaNueva = new Persona();
     this.personaNueva.Tipo = this.Tipos[0];this.personaNueva.Genero = this.Generos[0];

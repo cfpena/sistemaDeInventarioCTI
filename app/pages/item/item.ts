@@ -76,7 +76,7 @@ export class ItemPage implements OnInit {
         if (!validator.isValid(this.itemNuevo)){ this.presentToast('Corrija el formulario');}
       //  else if (this.itemNuevo.Stock < 1 || this.itemNuevo.Stock > 50 || this.itemNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
-          this.presentToast('Item creado correctamente');
+
            let file = Object.create(this.itemNuevo.Imagen)
            this.itemNuevo.Imagen = null
            console.log(JSON.stringify(this.itemNuevo))
@@ -84,7 +84,9 @@ export class ItemPage implements OnInit {
             this.itemService.createItem(item,this.navController).then(result => {
               let r = result.json() as ITEM
               this.itemService.uploadImagen(r.url,this.itemNuevo.Imagen,this.navController)
-              this.listar()});
+              this.listar();
+              this.presentToast('item creado correctamente');
+            });
             this.template = 'null';
             this.itemNuevo = new ITEM();
         }
