@@ -21,7 +21,7 @@ import {Prestamo} from '../prestamo/prestamo.model';
 })
 export class ReportesPage {
     title: string = 'Reportes';
-    tiposBusquedas = ['Resporte Movimientos', 'Reporte Préstamos'];
+    tiposBusquedas = ['Movimientos', 'Préstamos', 'Existencias'];
     busqueda = '';
     reporte = new Reporte();
     IngresosEgresos: IngresoEgreso[];

@@ -152,6 +152,7 @@ export class ItemPage implements OnInit {
     }
 
     cancelar() {
+        this.itemNuevo = new ITEM();
         this.template = 'null';
     }
 

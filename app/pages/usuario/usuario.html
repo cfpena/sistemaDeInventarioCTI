@@ -131,7 +131,7 @@ Ionic pages and navigation.
             <div class="row">
               <div class="input-field col l11 m11 s11" style="padding-top: 18px">
                 <i class="material-icons prefix" style="color:#009688">vpn_key</i>
-                <input id="icon_codigo" type="password" class="activate"  [(ngModel)]="credenciales.clave">
+                <input onclick="Materialize.toast('Contraseña mínimo 6 caracteres', 4000)"  id="icon_codigo" type="password" class="activate"  [(ngModel)]="credenciales.clave">
                 <label for="icon_codigo">Contraseña</label>
               </div>
               <div class="col l1 m1 s1">

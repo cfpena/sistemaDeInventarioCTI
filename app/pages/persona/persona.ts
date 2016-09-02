@@ -181,6 +181,7 @@ select(persona: Persona) {
 
   //cierra html y regresa a la lista por defecto
   cancelar(){
+    this.personaNueva = new Persona();
     this.template='null';
   }
 

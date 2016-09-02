@@ -169,6 +169,7 @@ export class UsuarioPage implements OnInit {
         this.template = 'crear';
     }
     cancelar() {
+        this.usuarioNuevo = new Usuario();
         this.template = 'null';
     }
     //funcion para realizar la busqueda

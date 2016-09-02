@@ -81,7 +81,7 @@
                 <div class="input-field col l11 m11 s11">
                   <i class="material-icons prefix" style="color:#009688">label_outline</i>
                   <input id="cedula" type="text" class="validate" minlength="10" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaNueva.CI">
-                  <label for="cedula" data-error="C vacio o Incorrecto">Cédula</label>
+                  <label for="cedula" data-error="C.I. vacío o Incorrecto">Cédula</label>
                 </div>
                 <div class="col l1 m1 s1">
                   <h6 id="obligatorio" style="color:red; padding-top: 40px">*</h6>
@@ -91,7 +91,7 @@
                 <div class="input-field col l11 m11 s11">
                   <i class="material-icons prefix" style="color:#009688">account_box</i>
                   <input id="nombre" type="text" class="validate"  minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]+"[(ngModel)]="personaNueva.Nombre">
-                  <label for="nombre" data-error="Nombre vacio o Incorrecto">Nombre</label>
+                  <label for="nombre" data-error="Nombre vacío o Incorrecto">Nombre</label>
                 </div>
                 <div class="col l1 m1 s1">
                   <h6 id="obligatorio" style="color:red; padding-top: 40px">*</h6>
@@ -101,7 +101,7 @@
                 <div class="input-field col l11 m11 s11">
                   <i class="material-icons prefix" style="color:#009688">account_box</i>
                   <input id="apellido" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s ]+" [(ngModel)]="personaNueva.Apellido">
-                  <label for="apellido" data-error="Apellido vacio o Incorrecto">Apellido</label>
+                  <label for="apellido" data-error="Apellido vacío o Incorrecto">Apellido</label>
                 </div>
                 <div class="col l1 m1 s1">
                   <h6 id="obligatorio" style="color:red; padding-top: 40px">*</h6>
@@ -111,7 +111,7 @@
                 <div class="input-field col l11 m11 s11">
                   <i class="material-icons prefix" style="color:#009688">my_location</i>
                   <input id="direccion" type="text" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9 ]*" [(ngModel)]="personaNueva.Direccion">
-                  <label for="direccion" data-error="Direccion vacia">Dirección</label>
+                  <label for="direccion" data-error="Dirección vacía">Dirección</label>
                 </div>
                 <div class="col l1 m1 s1">
                   <h6 id="obligatorio" style="color:red; padding-top: 40px">*</h6>
@@ -124,7 +124,7 @@
                 <div class="input-field col l11 m11 s11">
                   <i class="material-icons prefix" style="color:#009688">credit_card</i>
                   <input id="matricula" type="text" class="validate" minlength="9" maxlength="9" pattern = "[0-9]*" [(ngModel)]="personaNueva.Matricula">
-                  <label for="matricula" data-error="Matricula vacia o Incorrecta">Matrícula</label>
+                  <label for="matricula" data-error="Matricula vacía o Incorrecta">Matrícula</label>
                 </div>
               </div>
               <div class="row">
@@ -140,8 +140,8 @@
               <div class="row">
                 <div class="input-field col l11 m11 s11">
                   <i class="material-icons prefix" style="color:#009688">call</i>
-                  <input id="telefono" type="text" class="validate" minlength="7" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaNueva.Telefono">
-                  <label for="telefono" data-error="Formato Teléfono Incorrecto">Correo</label>
+                  <input onclick="Materialize.toast('Formato: 0999999999 - 2999999 - 042999999', 5000)" id="telefono" type="text" class="validate" minlength="7" maxlength="10" pattern = "[0-9]*" [(ngModel)]="personaNueva.Telefono">
+                  <label for="telefono" data-error="Formato Teléfono Incorrecto">Teléfono</label>
                 </div>
                 <div class="col l1 m1 s1">
                   <h6 id="obligatorio" style="color:red; padding-top: 40px">*</h6>
@@ -208,7 +208,7 @@
                   <div class="input-field">
                     <i class="material-icons prefix">account_box</i>
                     <input id="icon_nombre" disabled="disabled" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*" [(ngModel)]="personaModificar.Nombre">
-                    <label for="icon_nombre" data-error="Nombre vacio o Incorrecto">Nombre</label>
+                    <label for="icon_nombre" data-error="Nombre vacío o Incorrecto">Nombre</label>
                   </div>
                 </div>
                 <div class="col l2 m2 s2">
@@ -220,7 +220,7 @@
                   <div class="input-field">
                     <i class="material-icons prefix">account_box</i>
                     <input id="icon_apellido" disabled="disabled" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*" [(ngModel)]="personaModificar.Apellido">
-                    <label for="icon_apellido" data-error="Apellido vacio o Incorrecto">Apellido</label>
+                    <label for="icon_apellido" data-error="Apellido vacío o Incorrecto">Apellido</label>
                   </div>
                 </div>
                 <div class="col l2 m2 s2">
@@ -232,7 +232,7 @@
                   <div class="input-field">
                     <i class="material-icons prefix">my_location</i>
                     <input id="icon_direccion" disabled="text" type="tel" class="validate" minlength="2" maxlength="50" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9]*" [(ngModel)]="personaModificar.Direccion">
-                    <label for="icon_direccion" data-error="Direccion vacia">Dirección</label>
+                    <label for="icon_direccion" data-error="Dirección vacía">Dirección</label>
                   </div>
                 </div>
                 <div class="col l2 m2 s2">
@@ -248,7 +248,7 @@
                   <div class="input-field">
                     <i class="material-icons prefix" style="color:#009688">credit_card</i>
                     <input id="icon_matricula" disabled="disabled" type="text" class="validate" minlength="9" maxlength="9" pattern = "[0-9]*" [(ngModel)]="personaModificar.Matricula">
-                    <label for="icon_matricula" data-error="Matricula vacia o Incorrecta">Matrícula</label>
+                    <label for="icon_matricula" data-error="Matricula vacía o Incorrecta">Matrícula</label>
                   </div>
                 </div>
                 <div class="col l2 m2 s2">
@@ -273,7 +273,7 @@
                   <div class="input-field">
                     <i class="material-icons prefix">call</i>
                     <input id="icon_telefono" type="tel" disabled="disabled" class="validate" minlength="7" maxlength="10" pattern = "[0-9]*"  [(ngModel)]="personaModificar.Telefono">
-                    <label for="icon_telefono" data-error="Telefono vacio o Incorrecto">Teléfono</label>
+                    <label for="icon_telefono" data-error="Teléfono vacío o Incorrecto">Teléfono</label>
                   </div>
                 </div>
                 <div class="col l2 m2 s2">

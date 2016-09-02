@@ -99,8 +99,17 @@ kitModificar= new Kit;
           let result=this.kitService.createKit(kit,this.listakitelementos,this.navController).then(result => {this.listar();
           this.presentToast('Kit creado correctamente');
         }).catch(err=> {return false});
-          this.template = 'null';
-          this.kitNuevo = new Kit();
+        this.kitNuevo = new Kit();
+        this.descripcionItem='';
+        this.cantidad=0;
+        this.itemSeleccionado = new ITEM();
+        this.estaSeleccionadoItem = false;
+        this.listaFiltradaItem=[];
+        this.listakitelementos=[];
+        this.itemsAgregados=[]
+        this.template = 'null';
+
+
       }
 
   }
@@ -116,7 +125,7 @@ kitModificar= new Kit;
 
   }
 
-  //modifica el usario
+
   modificar(){
     let validator = new Validator();
     console.log(this.kitModificar);
@@ -126,6 +135,8 @@ kitModificar= new Kit;
     this.kitService.updateKit(this.kitModificar,this.navController).then(result => this.listar());
     this.template = 'null';
     this.kitNuevo= new Kit()
+    this.itemSeleccionado = new ITEM();
+    this.cantidad=0;
   }
   }
 
@@ -157,7 +168,15 @@ kitModificar= new Kit;
   }
 
   cancelar(){
+    this.kitNuevo = new Kit();
+    this.itemSeleccionado = new ITEM();
+    this.descripcionItem='';
+    this.cantidad=0;
+    this.listaFiltradaItem=[];
+    this.listakitelementos=[];
+    this.itemsAgregados=[]
     this.template='null';
+
   }
 
 //Busqueda de Kits en la tabla principal
@@ -204,6 +223,7 @@ kitModificar= new Kit;
     }
     this.estaSeleccionadoItem =true;
     //this.itemSeleccionado = item;
+
   }
 
 

@@ -87,6 +87,9 @@ export class PrestamoPage implements OnInit{
     }
 
     cancelar(){
+      this.listaPrestamos =[];
+      this.descripcionItem='';
+      this.descripcionPersona='';
       this.template='null';
     }
 
