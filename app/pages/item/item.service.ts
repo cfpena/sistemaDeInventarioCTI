@@ -67,6 +67,7 @@ export class ItemService {
 
     createItem(item: ITEM,nav: NavController) {
       let url = this.url.base
+      item.Imagen=null
       url+= item.Es_Dispositivo ? this.url.dispositivo:this.url.elemento
           return this.httprequest.post(url, JSON.stringify(item),nav)
     }
