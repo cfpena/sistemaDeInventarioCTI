@@ -6,11 +6,12 @@ export class Url {
   persona ='api/prestador/';
   prestamo ='api/prestamos/';
   elemento ='api/elementos/';
+  item = 'api/items/';
   acta ='api/actas/';
   devolucion ='api/devoluciones/';
   dispositivo = 'api/dispositivos/';
   kit ='api/kits/';
-  kitelemento='api/kitelemento/';
+  kitDetalle='api/kitdetalle/';
   token = 'api-token-auth/';
   verifyToken= 'api-token-verify/';
   tiposUsuarios = 'api/grupos/';
