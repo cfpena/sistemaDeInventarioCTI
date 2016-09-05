@@ -36,18 +36,17 @@ export class InventarioService {
         movimiento = result.json() as FacturaIngreso
         for(let movimientodet of listaMovimientoDet){
           movimientodet.Cantidad = Number(movimientodet.Cantidad)
+          movimientodet.Item = movimientodet.Item.url
+          console.log(JSON.stringify(movimientodet))
+          this.httprequest.post(this.url.base + this.url.movimientoDetalle,JSON.stringify(movimientodet),nav).then (result=>{
+            let movdet = result.json() as IngresoEgreso
+            console.log(JSON.stringify(movdet))
+            movimiento.IngresoEgreso.push(movdet.url)
+            console.log(JSON.stringify(movimiento));
+            return this.httprequest.patch(String(movimiento.url), JSON.stringify(movimiento),nav)
+            .then(result => {return result});
+          })
 
-            movimientodet.Item = movimientodet.Item.url
-            console.log(JSON.stringify(movimientodet))
-            this.httprequest.post(this.url.base + this.url.movimientoDetalle,JSON.stringify(movimientodet),nav).then (result=>{
-              let movdet = result.json() as IngresoEgreso
-              console.log(JSON.stringify(movdet))
-              movimiento.IngresoEgreso.push(movdet.url)
-              console.log(JSON.stringify(movimiento));
-              return this.httprequest.patch(String(movimiento.url), JSON.stringify(movimiento),nav)
-              .then(result => {return result});
-            })
-          
 
         }
       })

@@ -2,82 +2,84 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import {Url} from '../../url';
 import {Kit} from './kit.model';
+import {KitDetalle} from './kit.model';
 import {ITEM} from '../item/item.model';
 import {UsuarioAuthService} from '../usuario/usuario.auth.service';
 import {HttpRequest} from '../../httprequest';
 import {NavController} from 'ionic-angular';
-import {KITELEMENTO} from './kitelemento.model';
 
 @Injectable()
 export class KitService {
-    url = new Url();
-    httprequest:HttpRequest;
+  url = new Url();
+  httprequest:HttpRequest;
 
-    constructor(private http: Http,
-        private usuarioAuthService: UsuarioAuthService) {
-          this.httprequest = new HttpRequest(http);
-        }
+  constructor(private http: Http,
+    private usuarioAuthService: UsuarioAuthService) {
+      this.httprequest = new HttpRequest(http);
+    }
 
-        getKits(nav: NavController) {
-          return this.httprequest.get(this.url.base + this.url.kit,nav).then(result => {
-              let kits = result.json() as Kit[];
-              return kits;
-            })
-        }
+    getKits(nav: NavController) {
+      return this.httprequest.get(this.url.base + this.url.kit,nav).then(result => {
+        let kits = result.json() as Kit[];
+        return kits;
+      })
+    }
 
     getBuscar(cadena: String, nav: NavController) {
-    return this.httprequest.get(this.url.base + this.url.kit + this.url.buscar + cadena,nav)
-    .then(result => {
-      let kits = result.json() as Kit[];
-      return kits;
+      return this.httprequest.get(this.url.base + this.url.kit + this.url.buscar + cadena,nav)
+      .then(result => {
+        let kits = result.json() as Kit[];
+        return kits;
 
-        }).catch(error=>{
-          console.log(error)
-        });
+      }).catch(error=>{
+        console.log(error)
+      });
     }
 
     eliminarKit(kit: Kit, nav: NavController) {
-            //return this.httprequest.delete(String(kit.url),nav)
-            return this.httprequest.delete(kit.url.toString(),nav)
+      //return this.httprequest.delete(String(kit.url),nav)
+      return this.httprequest.delete(kit.url.toString(),nav)
     }
 
 
-    /*
-    createKit(kit: Kit,nav: NavController) {
-          return this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav)
-    }*/
+  createKit(kit: Kit,nav: NavController) {
+    return this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav)
+  }
 
-    createKit(kit: Kit,lista: KITELEMENTO[],nav: NavController) {
-    //  this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav):
-      //this.httprequest.post(this.url.base + this.url.kitelemento, JSON.stringify(kit),nav)
+  createKitCompleto(kit: Kit,lista: KitDetalle[],nav: NavController) {
+    kit.KitDetalle =[];
+    return this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav).then(result=>{
+      let kit = result.json() as Kit
+      for(let kitdet of lista){
+        kitdet.Cantidad = Number(kitdet.Cantidad)
+        kitdet.Item = kitdet.Item.url
+        console.log(JSON.stringify(kitdet))
+        this.httprequest.post(this.url.base + this.url.kitelemento,JSON.stringify(kitdet),nav).then(result =>{
+          let kitdetalle = result.json() as KitDetalle
+          kit.KitDetalle.push(kitdetalle)
+          return this.httprequest.patch(String(kit.url),JSON.stringify(kit), nav).then(result => {return result});
+        })
+      }
+    })
 
-      return this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav).then(result=>{
-          let kit = result.json() as Kit
-          for(let kitelemento of lista){
-            kitelemento.Kit=kit.url
-            console.log(JSON.stringify(kitelemento))
-            this.httprequest.post(this.url.base + this.url.kitelemento,JSON.stringify(kitelemento),nav)
-          }
-      })
-
-    }
+  }
 
 
-    updateKit(kit: Kit, nav: NavController) {
-      let json=JSON.stringify(
+  updateKit(kit: Kit, nav: NavController) {
+    let json=JSON.stringify(
       {
         Nombre: kit.Nombre,
         Marca: kit.Marca,
         Modelo: kit.Modelo,
         Descripcion: kit.Descripcion,
-        Dispositivos: kit.Dispositivos
+        KitDetalle: kit.KitDetalle
 
       })
-            return this.httprequest.patch(String(kit.url),json ,nav)
-            .then(result => {return result});
+      return this.httprequest.patch(String(kit.url),json ,nav)
+      .then(result => {return result});
     }
 
 
 
 
-}
+  }

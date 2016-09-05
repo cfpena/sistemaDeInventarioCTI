@@ -186,13 +186,7 @@ export class InventarioPage implements OnInit{
       console.log('buscar item');
       if (this.descripcionItem!==''){
         console.log('buscar item1');
-        this.itemService.getBuscarElemento(this.descripcionItem,this.navController).then(items => { this.listaFiltradaItem = items; return items }).then(items => {
-          this.itemService.getBuscarDispositivo(this.descripcionItem,this.navController).then(items => {
-            for(var item of items){
-              this.listaFiltradaItem.push(item)
-            }
-          })
-        })
+        this.itemService.getBuscarItem(this.descripcionItem,this.navController).then(items => { this.listaFiltradaItem = items; return items })
       }else{
         this.listaFiltradaItem=[];
       }

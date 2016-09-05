@@ -20,42 +20,28 @@ export class KitPage implements OnInit{
   title: string ='Kits';
   template: string = 'null';
   kits: Array<Kit>=[]
-  items: Array<ITEM>=[]
-  kitsTemporal: Kit[] = [];
-  kitsEliminar: Kit[] = [];
-  count=10;
-  id=0;
-  selected: number[]=[];
-  tiposBusquedas = ['código', 'nombre'];
-  busqueda={tipo: 'código', valor: ''};
-  itemsBusquedas = ['código', 'nombre'];
-  busquedaItem={valor: ''};
-  itemsKits: ITEM[] = [];
-  templateItem: string='null';
-  cantidad=0;
 
+  busqueda: string='';
+  kitsEliminar: Kit[] = [];
+
+  templateItem: string='null';
 
   descripcionItem: string ='';
   itemSeleccionado= new ITEM();
   estaSeleccionadoItem: boolean=false;
   listaFiltradaItem: ITEM[]=[];
+  cantidad=0;
 
   listaDetalleKit: KitDetalle[]=[];
 
-  itemsAgregados=[]
-
-  @Input()
-  kitNuevo = new Kit();
-  @Input()
-  kitModificar= new Kit;
-
-  @Input() itemNuevo = new ITEM();
+  @Input()  kitNuevo = new Kit();
+  @Input()  kitModificar= new Kit;
 
   constructor(private navController:NavController,private menu: MenuController,
     private kitService: KitService,
     private itemService: ItemService,
     private http: Http) {
-      this.kitsTemporal=this.kits;
+
     }
 
     openMenu(){
@@ -108,7 +94,6 @@ export class KitPage implements OnInit{
     this.estaSeleccionadoItem = false;
     this.listaFiltradaItem=[];
     this.listaDetalleKit=[];
-    this.itemsAgregados=[]
     this.template = 'null';
   }
 
@@ -172,15 +157,14 @@ eliminar(){
     this.cantidad=0;
     this.listaFiltradaItem=[];
     this.listaDetalleKit=[];
-    this.itemsAgregados=[]
     this.template='null';
 
   }
 
   //Busqueda de Kits en la tabla principal
   buscar() {
-    if (this.busqueda.valor.trim() != "") {
-      this.kitService.getBuscar(this.busqueda.valor,this.navController).then(kits => { this.kits = kits; return kits }).then(kits => {
+    if (this.busqueda.trim() != "") {
+      this.kitService.getBuscar(this.busqueda,this.navController).then(kits => { this.kits = kits; return kits }).then(kits => {
       })
     }
     else { this.listar() }
@@ -191,7 +175,15 @@ eliminar(){
     console.log("buscar item");
     if (this.descripcionItem.trim()!= "") {
       console.log("buscar item2");
-      this.itemService.getBuscarItem(this.descripcionItem,this.navController).then(items => { this.listaFiltradaItem = items; return items })
+      this.itemService.getBuscarItem(this.descripcionItem,this.navController).then(items => {
+        this.listaFiltradaItem = items;
+        return items;
+      }).then(items => {
+      if (this.listaFiltradaItem.length==0){
+        this.presentToast('El item debe existir en el sistema.');
+        this.descripcionItem='';
+      }
+    })
     }
     else {
       this.listaFiltradaItem=[];
@@ -199,50 +191,30 @@ eliminar(){
     }
   }
 
-
   seleccionarItem(item: ITEM){
-    console.log(item);
     this.itemSeleccionado=JSON.parse(JSON.stringify(item));
-    console.log(this.itemNuevo);
     this.descripcionItem = this.itemSeleccionado.Codigo +' - '+ this.itemSeleccionado.Nombre;
     this.listaFiltradaItem=[];
-    if (item.Es_Dispositivo){
-      this.templateItem='Dispositivo';
-      this.cantidad=1;
-    }else{
-      this.templateItem='Elemento';
-    }
     this.estaSeleccionadoItem =true;
-    //this.itemSeleccionado = item;
-
   }
 
-
   agregarItem(){
-    console.log(this.itemsAgregados)
     console.log(this.listaDetalleKit)
-
     if (this.itemSeleccionado){
-      if (this.itemSeleccionado.Es_Dispositivo){
-        console.log('es dispositivo');
-        this.itemsAgregados.push(this.itemSeleccionado)
-      }else{
-        let kitdet= new KitDetalle()
-        kitdet.cantidad = this.cantidad
-        kitdet.Item = this.itemSeleccionado.url
-        this.listaDetalleKit.push(kitdet)
-        this.itemsAgregados.push(this.itemSeleccionado)
-      }
+      console.log('es agregar item seleccionado');
+      let kitdet= new KitDetalle()
+      kitdet.cantidad = this.cantidad
+      kitdet.Item = this.itemSeleccionado
+      this.listaDetalleKit.push(kitdet)
       this.itemSeleccionado = new ITEM();
       this.cantidad=0;
       this.estaSeleccionadoItem = false;
     }
   }
 
-
-  eliminarItem(item: ITEM){
-    let index=this.itemsAgregados.indexOf(item)
-    this.itemsAgregados.splice(index,1)
+  eliminarItem(kitdetalle: KitDetalle){
+    let index=this.listaDetalleKit.indexOf(kitdetalle)
+    this.listaDetalleKit.splice(index,1)
   }
 
   //retrasa la carga de la pagina 100 ms

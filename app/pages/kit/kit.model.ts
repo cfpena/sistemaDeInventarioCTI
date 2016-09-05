@@ -32,11 +32,11 @@ export class Kit {
 }
 
 export class KitDetalle {
-  @IsInt() cantidad: number;
+  @IsInt() Cantidad: number;
   Item: any;
 
   constructor( ) {
-    this.cantidad=0;
+    this.Cantidad=0;
   }
 }
 

@@ -139,19 +139,14 @@ constructor( private navController:NavController,private menu: MenuController,
 
   buscarItem(){
     if (this.descripcionItem!==''){
-      this.itemService.getBuscarElemento(this.descripcionItem,this.navController).then(items => { this.listaFiltradaItem = items; return items }).then(items => {
-        this.itemService.getBuscarDispositivo(this.descripcionItem,this.navController).then(items => {
-          for(var item of items){
-            this.listaFiltradaItem.push(item)
-          }
-        })
-      }).then(items => {
+      this.itemService.getBuscarItem(this.descripcionItem,this.navController).then(items => {
+        this.listaFiltradaItem = items;
+        return items; }).then(items => {
         if (this.listaFiltradaItem.length==0){
           this.presentToast('El item debe existir en el sistema.');
           this.descripcionItem='';
         }
       })
-
     }else{
       this.listaFiltradaItem=[];
     }
