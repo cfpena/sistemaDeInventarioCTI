@@ -168,17 +168,16 @@
               </div>
             </div>
             <!--lista de items-->
-            <div *ngFor = "let item of itemsAgregados">
+            <div *ngFor = "let kitdet of listaDetalleKit">
               <div class="divider"></div>
               <div class="row">
                 <ul>
                   <div class="col l6 m7 s7" style="color:#424242; font-size: 65%">
-                    <li id="nombre">Nombre: {{item.Nombre}}</li>
-                    <li id="codigo">Código: {{item.Codigo}}</li>
-                    <li id="cantidad">Cant.: {{item.Stock}}</li>
+                    <li id="nombre">Nombre: {{kitdet.Item.Nombre}}</li>
+                    <li id="codigo">Código: {{kitdet.Item.Codigo}}</li>
                   </div>
                   <div class="col l2 m3 s3">
-                    <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center" [(ngModel)]="itemsKits.cantidad" ></li>
+                    <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center" [(ngModel)]="kitdet.Cantidad" ></li>
                   </div>
                   <div class="col l2 m2 s2 offset-l1">
                     <li> <a (click)="eliminarItem(item)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a> </li>
@@ -204,11 +203,6 @@
     </div>
   </div>
 </div>
-
-
-
-
-
 
 <!--cMODIFICAR KIT  NUEVO-->
 <div *ngIf="template=='modificar'"  style="overflow: scroll;">
@@ -286,40 +280,12 @@
       </div>
 
       <!--segundo panel-->
-
       <div class="col l8 m7 s12">
         <div class="card-panel blue-grey lighten-5 ">
           <span class="card-title">Ítems</span>
           <div class="divider"></div>
           <div style="padding-top: 7%;"></div>
           <div class="row">
-            <div class="row">
-              <div class="col l6 m6 s12">
-                <div class="input-field">
-                  <i class="material-icons prefix" style="color:#009688">search</i>
-                  <input id="item" type="text" class="validate filter-input" minlength="0" maxlength="20" [(ngModel)]=descripcionItem (keyup)=buscarItem()>
-                  <label for="item" class="active">Nombre o código para buscar un ítem </label>
-                  <ul class="dropdown-content active"  style="opacity: 1; display: block;">
-                    <li *ngFor="let item of listaFiltradaItem">
-                      <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}} </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col l2 m3 s6 offset-s2">
-                <div class="input-field" >
-                  <input id="itemCant" type="text" class="validate filter-input" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
-                  <label for="itemCant" class="active" data-error="Cantidad vacía o Incompleta">Cantidad</label>
-                </div>
-              </div>
-              <div class="col l2 m3 s3">
-                <div class="input-field" >
-                  <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
-                    <i class="material-icons">add</i>
-                  </a>
-                </div>
-              </div>
-            </div>
             <div class="divider"></div>
             <div class="row" style="color:#424242; font-size: 60%">
               <div class="col l6 m6 s4 ">
@@ -328,25 +294,18 @@
               <div class="col l2 m3 s4 ">
                 <h6 class="center">Cantidad</h6>
               </div>
-
             </div>
-
-
             <!--lista de items-->
-            <div *ngFor = "let item of itemsAgregados">
+            <div *ngFor = "let kitdet of listaDetalleKit">
               <div class="divider"></div>
               <div class="row">
                 <ul>
                   <div class="col l6 m7 s7" style="color:#424242; font-size: 65%">
-                    <li id="nombre">Nombre: {{item.Nombre}}</li>
-                    <li id="codigo">Código: {{item.Codigo}}</li>
-                    <li id="cantidad">Cant.: {{item.Stock}}</li>
+                    <li id="nombre">Nombre: {{kitdet.Item.Nombre}}</li>
+                    <li id="codigo">Código: {{kitdet.Item.Codigo}}</li>
                   </div>
                   <div class="col l2 m3 s3">
-                    <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center" [(ngModel)]="itemsKits.cantidad" ></li>
-                  </div>
-                  <div class="col l2 m2 s2 offset-l1">
-                    <li> <a (click)="eliminarItem(item)" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons ">clear</i> </a> </li>
+                    <li> <input placeholder="cantidad" id="cantidad" type="text" class="validate center" [(ngModel)]="kitdet.Cantidad" disabled="true"></li>
                   </div>
                 </ul>
               </div>

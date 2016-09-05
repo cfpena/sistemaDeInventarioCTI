@@ -36,17 +36,31 @@ export class KitService {
       });
     }
 
+    llenarKitDetalle(kitdet: any,nav: NavController){
+      console.log('llenar kitdet')
+      return this.httprequest.get(String(kitdet),nav).then(result=>{
+        return kitdet =  result.json() as KitDetalle;
+      });
+    }
+
+    llenarItem(item: any,nav: NavController){
+      console.log('llenar item')
+      return this.httprequest.get(String(item),nav).then(movdet=>{
+        return item =  movdet.json() as ITEM;
+      });
+    }
+
     eliminarKit(kit: Kit, nav: NavController) {
       //return this.httprequest.delete(String(kit.url),nav)
       return this.httprequest.delete(kit.url.toString(),nav)
     }
 
 
-  createKit(kit: Kit,nav: NavController) {
+/*  createKit(kit: Kit,nav: NavController) {
     return this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav)
-  }
+  }*/
 
-  createKitCompleto(kit: Kit,lista: KitDetalle[],nav: NavController) {
+  createKit(kit: Kit,lista: KitDetalle[],nav: NavController) {
     kit.KitDetalle =[];
     return this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav).then(result=>{
       let kit = result.json() as Kit
@@ -54,7 +68,7 @@ export class KitService {
         kitdet.Cantidad = Number(kitdet.Cantidad)
         kitdet.Item = kitdet.Item.url
         console.log(JSON.stringify(kitdet))
-        this.httprequest.post(this.url.base + this.url.kitelemento,JSON.stringify(kitdet),nav).then(result =>{
+        this.httprequest.post(this.url.base + this.url.kitDetalle,JSON.stringify(kitdet),nav).then(result =>{
           let kitdetalle = result.json() as KitDetalle
           kit.KitDetalle.push(kitdetalle)
           return this.httprequest.patch(String(kit.url),JSON.stringify(kit), nav).then(result => {return result});

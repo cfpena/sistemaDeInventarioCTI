@@ -85,6 +85,7 @@ export class KitPage implements OnInit{
     let kit = JSON.parse(JSON.stringify(this.kitNuevo))
     console.log(JSON.stringify(kit))
     let result=this.kitService.createKit(kit,this.listaDetalleKit,this.navController).then(result => {this.listar();
+    //let result=this.kitService.createKit(kit,this.navController).then(result => {this.listar();
       this.presentToast('Kit creado correctamente');
     }).catch(err=> {return false});
     this.kitNuevo = new Kit();
@@ -103,9 +104,19 @@ goModificar(kit: Kit) {
   for(var key in kit){
     this.kitModificar[key]= kit[key]
   }
-  this.kitModificar=JSON.parse(JSON.stringify(kit))
+  this.kitModificar=JSON.parse(JSON.stringify(kit));
+  this.kitModificar.KitDetalle=[];
+  let listaKitDet = kit.KitDetalle;
+  for (var kitdet of listaKitDet){
+    this.kitService.llenarKitDetalle(kitdet, this.navController).then(result=>{
+      this.kitService.llenarItem(result.Item, this.navController).then(item =>{
+        result.Item=item;
+        this.kitModificar.KitDetalle.push(result);
+      })
+    })
+  }
+  this.listaDetalleKit=this.kitModificar.KitDetalle
   this.template='modificar'
-
 }
 
 
@@ -201,13 +212,13 @@ eliminar(){
   agregarItem(){
     console.log(this.listaDetalleKit)
     if (this.itemSeleccionado){
-      console.log('es agregar item seleccionado');
       let kitdet= new KitDetalle()
-      kitdet.cantidad = this.cantidad
+      kitdet.Cantidad = this.cantidad
       kitdet.Item = this.itemSeleccionado
       this.listaDetalleKit.push(kitdet)
       this.itemSeleccionado = new ITEM();
       this.cantidad=0;
+      this.descripcionItem='';
       this.estaSeleccionadoItem = false;
     }
   }
