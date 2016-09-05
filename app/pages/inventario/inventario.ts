@@ -110,6 +110,7 @@ export class InventarioPage implements OnInit{
         this.movimientoNuevo = new FacturaIngreso();
         this.proveedorSeleccionado = new Persona();
         this.descripcionProveedor ='';
+        this.listaMovimientoDet=[];
         this.listar();
       }
     }
@@ -159,6 +160,8 @@ export class InventarioPage implements OnInit{
 
 
     cancelar(){
+      this.listaMovimientoDet=[];
+      this.listar();
       this.template='null';
     }
 
