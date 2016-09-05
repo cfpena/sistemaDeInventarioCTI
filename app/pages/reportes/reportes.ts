@@ -43,7 +43,7 @@ export class ReportesPage {
 
         if (this.reporte.Fecha_Inicial != '' && this.reporte.Fecha_Final != '') {
           console.log(this.reporte.Fecha_Final)
-            if (this.busqueda == 'Resporte Movimientos') {
+            if (this.busqueda == 'Movimientos') {
                 this.service.getReporteInventario(this.reporte, this.navController).then(result => {
                     this.IngresosEgresos = result.json() as IngresoEgreso[]
                     for (let ingresoEgreso of this.IngresosEgresos) {
@@ -53,12 +53,12 @@ export class ReportesPage {
                     }
 
                 })
-            }else if(this.busqueda == 'Reporte Préstamos'){
+            }else if(this.busqueda == 'Préstamos'){
               this.service.getReportePrestamo(this.reporte, this.navController).then(result => {
                   this.Prestamos = result.json() as Prestamo[]
                   for (let prestamo of this.Prestamos) {
-                      this.service.httprequest.get(String(prestamo.Objeto), this.navController).then(result => {
-                          prestamo.Objeto = result.json() as ITEM
+                      this.service.httprequest.get(String(prestamo.Item), this.navController).then(result => {
+                          prestamo.Item = result.json() as ITEM
                       })
                       this.service.httprequest.get(String(prestamo.Acta), this.navController).then(result => {
                           prestamo.Acta = result.json()['Codigo']
