@@ -15,22 +15,29 @@ export class Kit {
   Imagen: any;
   Es_Dispositivo: boolean;
   Proveedor: any;
-  //Items: string[];
+  KitDetalle: any[];
 
-
-
-constructor() {
-  this.url='';
-  this.Codigo='';
-  this.CodigoEspol='';
-  this.CodigoSenecyt='';
-  this.Nombre='';
-  this.Marca='';
-  this.Modelo='';
-  this.Serie='';
-  this.Descripcion='';
-  this.Es_Dispositivo=false;
-  //this.Items =[]
-
+  constructor() {
+    this.url='';
+    this.Codigo='';
+    this.CodigoEspol='';
+    this.CodigoSenecyt='';
+    this.Nombre='';
+    this.Marca='';
+    this.Modelo='';
+    this.Serie='';
+    this.Descripcion='';
+    this.Es_Dispositivo=false;
+  }
 }
+
+export class KitDetalle {
+  @IsInt() cantidad: number;
+  Item: any;
+
+  constructor( ) {
+    this.cantidad=0;
+  }
 }
+
+//nik: Porfavorcito crear el modelo para DetalleKit y agregar a Kit una lista de DetalleKit

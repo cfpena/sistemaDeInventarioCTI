@@ -4,10 +4,9 @@ import {ITEM} from '../item/item.model';
 import {Kit} from '../kit/kit.model';
 
 
-export class KITELEMENTO {
+export class KitItem {
   @IsInt() cantidad: number;
-  Elemento: string;
-  Kit: string;
+  Item: any;
 
   constructor( ) {
     this.cantidad=0;

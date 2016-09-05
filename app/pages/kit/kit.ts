@@ -4,7 +4,7 @@ import {ITEM} from '../item/item.model';
 import {MaterializeDirective} from "../../materialize-directive";
 import {Validator} from "validator.ts/Validator";
 import {Kit} from '../kit/kit.model';
-import {KITELEMENTO} from '../kit/kitelemento.model';
+import {KitDetalle} from '../kit/kit.model';
 import {Url} from '../../url'
 import {Http, Headers} from '@angular/http';
 import {KitService} from './kit.service';
@@ -15,123 +15,119 @@ import {ItemService} from '../item/item.service';
   directives: [MaterializeDirective],
   providers: [KitService,ItemService],
 })
+
 export class KitPage implements OnInit{
-title: string ='Kits';
-template: string = 'null';
-kits: Array<Kit>=[]
-items: Array<ITEM>=[]
-kitsTemporal: Kit[] = [];
-kitsEliminar: Kit[] = [];
-count=10;
-id=0;
-selected: number[]=[];
-tiposBusquedas = ['código', 'nombre'];
-busqueda={tipo: 'código', valor: ''};
-itemsBusquedas = ['código', 'nombre'];
-busquedaItem={valor: ''};
-itemsKits: ITEM[] = [];
-templateItem: string='null';
-cantidad=0;
+  title: string ='Kits';
+  template: string = 'null';
+  kits: Array<Kit>=[]
+  items: Array<ITEM>=[]
+  kitsTemporal: Kit[] = [];
+  kitsEliminar: Kit[] = [];
+  count=10;
+  id=0;
+  selected: number[]=[];
+  tiposBusquedas = ['código', 'nombre'];
+  busqueda={tipo: 'código', valor: ''};
+  itemsBusquedas = ['código', 'nombre'];
+  busquedaItem={valor: ''};
+  itemsKits: ITEM[] = [];
+  templateItem: string='null';
+  cantidad=0;
 
 
-descripcionItem: string ='';
-itemSeleccionado= new ITEM();
-estaSeleccionadoItem: boolean=false;
-listaFiltradaItem: ITEM[]=[];
+  descripcionItem: string ='';
+  itemSeleccionado= new ITEM();
+  estaSeleccionadoItem: boolean=false;
+  listaFiltradaItem: ITEM[]=[];
 
-listakitelementos: KITELEMENTO[]=[];
+  listaDetalleKit: KitDetalle[]=[];
 
-itemsAgregados=[]
+  itemsAgregados=[]
 
-@Input()
-kitNuevo = new Kit();
-@Input()
-kitModificar= new Kit;
+  @Input()
+  kitNuevo = new Kit();
+  @Input()
+  kitModificar= new Kit;
 
-@Input() itemNuevo = new ITEM();
+  @Input() itemNuevo = new ITEM();
 
   constructor(private navController:NavController,private menu: MenuController,
     private kitService: KitService,
     private itemService: ItemService,
     private http: Http) {
-    this.kitsTemporal=this.kits;
-  }
+      this.kitsTemporal=this.kits;
+    }
 
-  openMenu(){
-    this.menu.open();
-  }
+    openMenu(){
+      this.menu.open();
+    }
 
-  presentToast(text: string) {
-  let toast = Toast.create({
-    message: text,
-    duration: 3000
-  });
-
-  toast.onDismiss(() => {
-    console.log('Dismissed toast');
-  });
-    this.navController.present(toast);
-  }
+    presentToast(text: string) {
+      let toast = Toast.create({
+        message: text,
+        duration: 3000
+      });
+      toast.onDismiss(() => {
+        console.log('Dismissed toast');
+      });
+      this.navController.present(toast);
+    }
 
     //funcion listar que lista todos los kits creados
     listar() {
       this.kits =[]
       return  this.kitService.getKits(this.navController).then(kits => { this.kits = kits ; return kits  }).then(result=>{
-            console.log("listando kits");
-          })
+        console.log("listando kits");
+      })
     }
 
-  //crea un kit
-  crear() {
-    console.log('crear')
+    //crea un kit
+    crear() {
+      console.log('crear')
       let validator = new Validator();
       if (!validator.isValid(this.kitNuevo)) this.presentToast('Corrija el formulario');
       else {
         /*for(let item of this.itemsAgregados){
-          if(item.Es_Dispositivo){
-            console.log(item)
-            this.kitNuevo.Items.push(item.url)
-          }
-        }*/
-        //nik: no permite ingresar items al kit
-        //this.kitNuevo.Items=this.itemsAgregados;
-
-          let kit = JSON.parse(JSON.stringify(this.kitNuevo))
-          console.log(JSON.stringify(kit))
-          let result=this.kitService.createKit(kit,this.listakitelementos,this.navController).then(result => {this.listar();
-          this.presentToast('Kit creado correctamente');
-        }).catch(err=> {return false});
-        this.kitNuevo = new Kit();
-        this.descripcionItem='';
-        this.cantidad=0;
-        this.itemSeleccionado = new ITEM();
-        this.estaSeleccionadoItem = false;
-        this.listaFiltradaItem=[];
-        this.listakitelementos=[];
-        this.itemsAgregados=[]
-        this.template = 'null';
-
-
+        if(item.Es_Dispositivo){
+        console.log(item)
+        this.kitNuevo.Items.push(item.url)
       }
+    }*/
+    //nik: no permite ingresar items al kit
+    //this.kitNuevo.Items=this.itemsAgregados;
 
+    let kit = JSON.parse(JSON.stringify(this.kitNuevo))
+    console.log(JSON.stringify(kit))
+    let result=this.kitService.createKit(kit,this.listaDetalleKit,this.navController).then(result => {this.listar();
+      this.presentToast('Kit creado correctamente');
+    }).catch(err=> {return false});
+    this.kitNuevo = new Kit();
+    this.descripcionItem='';
+    this.cantidad=0;
+    this.itemSeleccionado = new ITEM();
+    this.estaSeleccionadoItem = false;
+    this.listaFiltradaItem=[];
+    this.listaDetalleKit=[];
+    this.itemsAgregados=[]
+    this.template = 'null';
   }
 
+}
 
-  //abre el html de modificar
-  goModificar(kit: Kit) {
-    for(var key in kit){
-      this.kitModificar[key]= kit[key]
-    }
-          this.kitModificar=JSON.parse(JSON.stringify(kit))
-          this.template='modificar'
-
+goModificar(kit: Kit) {
+  for(var key in kit){
+    this.kitModificar[key]= kit[key]
   }
+  this.kitModificar=JSON.parse(JSON.stringify(kit))
+  this.template='modificar'
+
+}
 
 
-  modificar(){
-    let validator = new Validator();
-    console.log(this.kitModificar);
-    if(!validator.isValid(this.kitModificar)) this.presentToast('Corrija el formulario');
+modificar(){
+  let validator = new Validator();
+  console.log(this.kitModificar);
+  if(!validator.isValid(this.kitModificar)) this.presentToast('Corrija el formulario');
   else{
     this.presentToast('Datos modificados correctamente');
     this.kitService.updateKit(this.kitModificar,this.navController).then(result => this.listar());
@@ -140,14 +136,14 @@ kitModificar= new Kit;
     this.itemSeleccionado = new ITEM();
     this.cantidad=0;
   }
-  }
+}
 
-  eliminar(){
-    for(var kit of this.kitsEliminar){
-      this.kitService.eliminarKit(kit,this.navController).then(result =>
-        { this.listar()
-          this.presentToast('Se ha eliminado con éxito');
-        }).catch(error=> console.log(error))
+eliminar(){
+  for(var kit of this.kitsEliminar){
+    this.kitService.eliminarKit(kit,this.navController).then(result =>
+      { this.listar()
+        this.presentToast('Se ha eliminado con éxito');
+      }).catch(error=> console.log(error))
 
     }
     //se deja en blanco la lista a eliminar
@@ -158,10 +154,10 @@ kitModificar= new Kit;
 
   select(kit: Kit){
     if (!this.kitsEliminar.some(kit => kit == kit)) {
-        this.kitsEliminar.push(kit);
+      this.kitsEliminar.push(kit);
     }else {
-        let index = this.kitsEliminar.findIndex(x => x == kit)
-        this.kitsEliminar.splice(index, 1)
+      let index = this.kitsEliminar.findIndex(x => x == kit)
+      this.kitsEliminar.splice(index, 1)
     };
   }
 
@@ -175,39 +171,32 @@ kitModificar= new Kit;
     this.descripcionItem='';
     this.cantidad=0;
     this.listaFiltradaItem=[];
-    this.listakitelementos=[];
+    this.listaDetalleKit=[];
     this.itemsAgregados=[]
     this.template='null';
 
   }
 
-//Busqueda de Kits en la tabla principal
+  //Busqueda de Kits en la tabla principal
   buscar() {
-      if (this.busqueda.valor.trim() != "") {
-          this.kitService.getBuscar(this.busqueda.valor,this.navController).then(kits => { this.kits = kits; return kits }).then(kits => {
-          })
-      }
-      else { this.listar() }
+    if (this.busqueda.valor.trim() != "") {
+      this.kitService.getBuscar(this.busqueda.valor,this.navController).then(kits => { this.kits = kits; return kits }).then(kits => {
+      })
+    }
+    else { this.listar() }
   }
 
-//Busqueda de item para agregar al kit
+  //Busqueda de item para agregar al kit
   buscarItem() {
     console.log("buscar item");
-      if (this.descripcionItem.trim()!= "") {
-        console.log("buscar item2");
-          this.itemService.getBuscarElemento(this.descripcionItem,this.navController).then(items => { this.listaFiltradaItem = items; return items }).then(items => {
-            this.itemService.getBuscarDispositivo(this.descripcionItem,this.navController).then(items => {
-              for(var item of items){
-                this.listaFiltradaItem.push(item)
-                console.log("busca")
-              }
-            })
-          })
-      }
-      else {
-        this.listaFiltradaItem=[];
-        console.log("vacio");
-      }
+    if (this.descripcionItem.trim()!= "") {
+      console.log("buscar item2");
+      this.itemService.getBuscarItem(this.descripcionItem,this.navController).then(items => { this.listaFiltradaItem = items; return items })
+    }
+    else {
+      this.listaFiltradaItem=[];
+      console.log("vacio");
+    }
   }
 
 
@@ -231,17 +220,17 @@ kitModificar= new Kit;
 
   agregarItem(){
     console.log(this.itemsAgregados)
-    console.log(this.listakitelementos)
+    console.log(this.listaDetalleKit)
 
     if (this.itemSeleccionado){
       if (this.itemSeleccionado.Es_Dispositivo){
         console.log('es dispositivo');
         this.itemsAgregados.push(this.itemSeleccionado)
       }else{
-        let kitelemento= new KITELEMENTO()
-        kitelemento.cantidad = this.cantidad
-        kitelemento.Elemento = this.itemSeleccionado.url
-        this.listakitelementos.push(kitelemento)
+        let kitdet= new KitDetalle()
+        kitdet.cantidad = this.cantidad
+        kitdet.Item = this.itemSeleccionado.url
+        this.listaDetalleKit.push(kitdet)
         this.itemsAgregados.push(this.itemSeleccionado)
       }
       this.itemSeleccionado = new ITEM();
@@ -251,14 +240,14 @@ kitModificar= new Kit;
   }
 
 
-      eliminarItem(item: ITEM){
-        let index=this.itemsAgregados.indexOf(item)
-        this.itemsAgregados.splice(index,1)
-      }
+  eliminarItem(item: ITEM){
+    let index=this.itemsAgregados.indexOf(item)
+    this.itemsAgregados.splice(index,1)
+  }
 
-    //retrasa la carga de la pagina 100 ms
-    public ngOnInit() {
-          this.listar();
+  //retrasa la carga de la pagina 100 ms
+  public ngOnInit() {
+    this.listar();
   }
 
 }
