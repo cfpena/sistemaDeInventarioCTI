@@ -81,7 +81,7 @@ export class PrestamoPage implements OnInit{
       this.descripcionPersona='';
       this.template='null';
     }
-    
+
     crear(){
       console.log('crear')
       console.log (this.actaNuevo)
@@ -152,17 +152,33 @@ export class PrestamoPage implements OnInit{
 
     agregarItem(){
       if (this.itemSeleccionado){
-        if (this.itemSeleccionado.Es_Dispositivo){
-          for(var _i = 0; _i < this.cantidad; _i++){
-            this.listaPrestamos.push({url:'', Cantidad: 1, Fecha:'',  Detalle: '', Item: this.itemSeleccionado, Acta: this.actaNuevo});
-          }
+        let cant=0;
+        if(Number(this.itemSeleccionado.Stock_Disponible) < Number(this.cantidad)){
+          console.log('egreso y mayor que stock disponible');
+          this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
         }else{
-          this.listaPrestamos.push({url:'', Cantidad: this.cantidad, Fecha:'',  Detalle: '', Item: this.itemSeleccionado, Acta: this.actaNuevo});
+          for (var prestamo of this.listaPrestamos){
+            if (prestamo.Item.url = this.itemSeleccionado.url){
+              cant+=Number(prestamo.Cantidad);
+            }
+          }
+          if(Number(this.itemSeleccionado.Stock_Disponible) < (Number(this.cantidad) +cant)){
+            console.log('egreso y mayor que stock disponible');
+            this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
+          }else{
+            if (this.itemSeleccionado.Es_Dispositivo){
+              for(var _i = 0; _i < this.cantidad; _i++){
+                this.listaPrestamos.push({url:'', Cantidad: 1, Fecha:'',  Detalle: '', Item: this.itemSeleccionado, Acta: this.actaNuevo});
+              }
+            }else{
+              this.listaPrestamos.push({url:'', Cantidad: this.cantidad, Fecha:'',  Detalle: '', Item: this.itemSeleccionado, Acta: this.actaNuevo});
+            }
+            this.descripcionItem = '';
+            this.itemSeleccionado = new ITEM();
+            this.cantidad=0;
+            this.estaSeleccionadoItem = false;
+          }
         }
-        this.descripcionItem = '';
-        this.itemSeleccionado = new ITEM();
-        this.cantidad=0;
-        this.estaSeleccionadoItem = false;
       }
     }
 
