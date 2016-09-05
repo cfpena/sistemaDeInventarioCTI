@@ -151,6 +151,10 @@ export class UsuarioPage implements OnInit {
               //se deja en blanco la lista a eliminar
               this.usuariosEliminar= Array<Usuario>();
               //se refrescan los datos del servidor
+              console.log(this.usuariosEliminar);
+
+              //se refrescan los datos del servidor
+              this.listar();
 
     }
 

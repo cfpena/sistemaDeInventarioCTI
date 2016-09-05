@@ -22,7 +22,4 @@ export class ReporteService {
       return this.httprequest.post(this.url.base + this.url.reportePrestamo,JSON.stringify(reporte),nav)
 
     }
-
-
-
 }
