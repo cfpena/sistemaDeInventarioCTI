@@ -72,6 +72,22 @@ export class PrestamoPage implements OnInit{
       console.log(acta)
       this.actaModificar=JSON.parse(JSON.stringify(acta))
       this.descripcionPersona = this.actaModificar.Prestador.Nombre + ' ' + this.actaModificar.Prestador.Apellido
+      this.prestamoService.getPrestamos(this.navController).then(prestamos =>{
+        console.log('prestamos')
+        console.log(prestamos)
+        for (var prestamo of prestamos){
+          this.prestamoService.llenarItem(prestamo, this.navController).then(result =>{
+            //prestamo.Item=item;
+            console.log('prestamo acta')
+            console.log(result)
+            console.log('acta')
+            console.log(acta)
+            if (result.Acta==acta.url){
+              this.listaPrestamos.push(result);
+            }
+          })
+        }
+      })
       this.template='modificar_prestamo'
     }
 
@@ -112,15 +128,13 @@ export class PrestamoPage implements OnInit{
       })
     }
 
-    modificar() {
-      let validator = new Validator();
-      if (!validator.isValid(this.actaModificar)) this.presentToast('Corrija el formulario');
-
-      else {
-        //this.prestamoService.updatePrestamo(this.actaModificar,this.navController).then(result => this.listar_actas());
-        this.template = 'null';
-      }
-
+    devolver(){
+      this.prestamoService.createDevolucion(this.listaPrestamos, this.navController)
+      this.presentToast('Prestamo devuelto')
+      this.listaPrestamos =[];
+      this.descripcionItem='';
+      this.descripcionPersona='';
+      this.template = 'null';
     }
 
     buscarItem(){
@@ -200,9 +214,6 @@ export class PrestamoPage implements OnInit{
         this.listaFiltradaPersona=[];
       }
     }
-
-
-
 
     seleccionarPersona(persona: Persona){
       this.personaSeleccionada = JSON.parse(JSON.stringify(persona));

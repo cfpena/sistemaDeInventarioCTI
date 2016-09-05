@@ -1,6 +1,7 @@
 import { Injectable }     from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Prestamo } from './prestamo.model';
+import {ITEM} from '../item/item.model';
 import { Acta } from './acta.model';
 import { Devolucion } from './devolucion.model';
 import {Url} from '../../url';
@@ -46,6 +47,16 @@ export class PrestamoService {
       })
     }
 
+    createDevolucion (listaPrestamos: Prestamo[], nav:NavController){
+      let devolucion;
+      for(let prestamo of listaPrestamos){
+        devolucion = new Devolucion();
+        devolucion.Cantidad=Number(prestamo.Cantidad)
+        devolucion.Prestamo=prestamo.url
+        this.httprequest.post(this.url.base+this.url.devolucion,JSON.stringify(devolucion),nav)
+      }
+    }
+
     llenarPrestador(acta: Acta,nav: NavController){
       console.log('llenar prestador')
       return this.httprequest.get(String(acta.Prestador),nav).then(prestador=>{
@@ -59,6 +70,14 @@ export class PrestamoService {
         let prestamos = result.json() as Prestamo[];
         return prestamos;
       })
+    }
+
+    llenarItem(prestamo: any,nav: NavController){
+      console.log('llenar item')
+      return this.httprequest.get(String(prestamo.Item),nav).then(result=>{
+        prestamo.Item =  result.json() as ITEM;
+        return prestamo;
+      });
     }
 
     getBuscar(cadena: String, nav: NavController) {
