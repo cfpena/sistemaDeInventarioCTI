@@ -10,12 +10,14 @@ import { Http, Headers } from '@angular/http';
 import {InventarioService} from '../inventario/inventario.service';
 import {PersonaService} from '../persona/persona.service';
 import {ItemService } from '../item/item.service';
+import {UsuarioService } from '../usuario/usuario.service';
+
 
 
 @Component({
   templateUrl: 'build/pages/inventario/inventario.html',
   directives: [MaterializeDirective],
-  providers: [PersonaService, ItemService, InventarioService],
+  providers: [PersonaService, ItemService, InventarioService, UsuarioService],
 })
 
 
@@ -55,6 +57,7 @@ export class InventarioPage implements OnInit{
 
     constructor( private navController:NavController,private menu: MenuController,
       private personaService: PersonaService, private itemService: ItemService, private inventarioService: InventarioService,
+      private usuarioService: UsuarioService,
       private http: Http){
         //this.inventarioTemporal=this.inventarios;
         //this.listarProveedores();
@@ -127,30 +130,20 @@ export class InventarioPage implements OnInit{
         console.log(key);
         this.movimientoSeleccionado[key]= movimiento[key]
       }
-      this.movimientoSeleccionado.IngresoEgresoDispositivos=[];
-      this.movimientoSeleccionado.IngresoEgresoElementos=[];
-      let listaMovDetD= movimiento.IngresoEgresoDispositivos;
-      let listaMovDetE= movimiento.IngresoEgresoElementos;
-      for (var movimientodet in listaMovDetD){
-        this.inventarioService.llenarMovimientoDet(listaMovDetD[movimientodet], this.navController).then(result=>{
-          this.inventarioService.llenarItem(result.Objeto, this.navController).then(item =>{
+      this.movimientoSeleccionado.IngresoEgreso=[];
+      let listaMovDet= movimiento.IngresoEgreso;
+      for (var movimientodet in listaMovDet){
+        console.log('listando items')
+        this.inventarioService.llenarMovimientoDet(listaMovDet[movimientodet], this.navController).then(result=>{
+          this.inventarioService.llenarItem(result.Item, this.navController).then(item =>{
             this.tipoMov = result.Tipo;
             if (this.tipoMov=='Egreso'){this.templateMovimiento='salida_inventario'}
-            result.Objeto=item;
-            this.movimientoSeleccionado.IngresoEgresoDispositivos.push(result);
+            result.Item=item;
+            this.movimientoSeleccionado.IngresoEgreso.push(result);
           })
         })
       }
-      for (var movimientodet in listaMovDetE){
-        this.inventarioService.llenarMovimientoDet(listaMovDetE[movimientodet], this.navController).then(result=>{
-          this.inventarioService.llenarItem(result.Objeto, this.navController).then(item =>{
-            this.tipoMov = result.Tipo;
-            if (this.tipoMov=='Egreso'){this.templateMovimiento='salida_inventario'}
-            result.Objeto=item;
-            this.movimientoSeleccionado.IngresoEgresoElementos.push(result);
-          })
-        })
-      }
+      console.log(this.movimientoSeleccionado)
       this.template='ver_movimiento';
     }
 
@@ -219,12 +212,12 @@ export class InventarioPage implements OnInit{
         if (this.itemNuevo.Es_Dispositivo){
           console.log('es dispositivo');
           for(var _i = 0; _i < this.cantidad; _i++){
-            this.listaMovimientoDet.push({url:'', Fecha:'', Cantidad: 1, Detalle:'', Tipo: this.tipoMov, Objeto: this.itemNuevo});
+            this.listaMovimientoDet.push({url:'', Fecha:'', Cantidad: 1, Detalle:'', Tipo: this.tipoMov, Item: this.itemNuevo});
 
           }
         }else{
           console.log('es elemento');
-          this.listaMovimientoDet.push({url:'', Fecha:'', Cantidad: this.cantidad, Detalle:'N/A', Tipo: this.tipoMov, Objeto: this.itemNuevo});
+          this.listaMovimientoDet.push({url:'', Fecha:'', Cantidad: this.cantidad, Detalle:'N/A', Tipo: this.tipoMov, Item: this.itemNuevo});
         }
         //this.movimientoNuevo.IngresoEgreso=this.listaMovimientoDet;
         this.itemNuevo = new ITEM();

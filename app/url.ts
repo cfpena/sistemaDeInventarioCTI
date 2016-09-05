@@ -18,8 +18,7 @@ export class Url {
   buscar = '?search='
   reporteInventario = 'api/reporteinventario/'
   reportePrestamo = 'api/reporteprestamo/'
-  movimientoDetalleElemento ='api/ingresosegresoselementos/'
-  movimientoDetalleDispositivo ='api/ingresosegresosdispositivos/'
+  movimientoDetalle ='api/ingresosegreso/'
   movimiento = 'api/facturaingreso/'
 
 

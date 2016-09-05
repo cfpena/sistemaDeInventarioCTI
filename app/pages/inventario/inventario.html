@@ -179,9 +179,9 @@ Ionic pages and navigation.
               <div class="row">
                 <ul>
                   <div class="col l6 m7 s5" style="color:#424242; font-size: 65%">
-                    <li id="nombre">Nombre: {{movimiento_det.Objeto.Nombre}}</li>
-                    <li id="codigo">Código: {{movimiento_det.Objeto.Codigo}}</li>
-                    <li id="cantidad">Cant.: {{movimiento_det.Objeto.Stock}}</li>
+                    <li id="nombre">Nombre: {{movimiento_det.Item.Nombre}}</li>
+                    <li id="codigo">Código: {{movimiento_det.Item.Codigo}}</li>
+                    <li id="cantidad">Cant.: {{movimiento_det.Item.Stock}}</li>
                   </div>
                   <div class="col l2 m2 s3">
                     <li>
@@ -287,34 +287,13 @@ Ionic pages and navigation.
               </div>
             </div>
 
-            <div *ngFor = "let movimiento_det of movimientoSeleccionado.IngresoEgresoElementos">
+            <div *ngFor = "let movimiento_det of movimientoSeleccionado.IngresoEgreso">
               <div class="divider"></div>
               <div class="row">
                 <ul>
                   <div class="col l6 m7 s6" style="color:#424242; font-size: 100%">
-                    <li id="nombre">Nombre: {{movimiento_det.Objeto.Nombre}}</li>
-                    <li id="codigo">Código: {{movimiento_det.Objeto.Codigo}}</li>
-                  </div>
-                  <div class="col l2 m2 s3">
-                    <li>
-                      <input id="cantidad" type="text" class="validate  center" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="movimiento_det.Cantidad" disable="true">
-                    </li>
-                  </div>
-                  <div class="col l4 m3 s3">
-                    <li>
-                      <input id="serie" type="text" class="validate  center" minlength="1" maxlength="30"   [(ngModel)]="movimiento_det.Detalle"  disable="true">
-                    </li>
-                  </div>
-                </ul>
-              </div>
-            </div>
-            <div *ngFor = "let movimiento_det of movimientoSeleccionado.IngresoEgresoDispositivos">
-              <div class="divider"></div>
-              <div class="row">
-                <ul>
-                  <div class="col l6 m7 s6" style="color:#424242; font-size: 65%">
-                    <li id="nombre">Nombre: {{movimiento_det.Objeto.Nombre}}</li>
-                    <li id="codigo">Código: {{movimiento_det.Objeto.Codigo}}</li>
+                    <li id="nombre">Nombre: {{movimiento_det.Item.Nombre}}</li>
+                    <li id="codigo">Código: {{movimiento_det.Item.Codigo}}</li>
                   </div>
                   <div class="col l2 m2 s3">
                     <li>

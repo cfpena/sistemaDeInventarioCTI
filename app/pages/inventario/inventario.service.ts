@@ -29,36 +29,25 @@ export class InventarioService {
 
     createMovimiento (movimiento: FacturaIngreso, listaMovimientoDet: IngresoEgreso[], nav: NavController){
       //movimiento.IngresoEgreso=['http://162.243.83.72/api/ingresosegresos/46/']//quitar este elemento cuando ya acepte listas vacias
-      movimiento.IngresoEgresoElementos=[];
-      movimiento.IngresoEgresoDispositivos=[];
+      movimiento.IngresoEgreso=[];
       console.log(JSON.stringify(movimiento));
       return this.httprequest.post(this.url.base + this.url.movimiento, JSON.stringify(movimiento),nav).then(result=>{
         console.log('cree movimiento')
         movimiento = result.json() as FacturaIngreso
         for(let movimientodet of listaMovimientoDet){
           movimientodet.Cantidad = Number(movimientodet.Cantidad)
-          if (movimientodet.Objeto.Es_Dispositivo){
-            movimientodet.Objeto = movimientodet.Objeto.url
+
+            movimientodet.Item = movimientodet.Item.url
             console.log(JSON.stringify(movimientodet))
-            this.httprequest.post(this.url.base + this.url.movimientoDetalleDispositivo,JSON.stringify(movimientodet),nav).then (result=>{
-              let movdet = result.json() as IngresoEgreso
-              movimiento.IngresoEgresoDispositivos.push(movdet.url)
-              console.log(JSON.stringify(movimiento));
-              return this.httprequest.patch(String(movimiento.url), JSON.stringify(movimiento),nav)
-              .then(result => {return result});
-            })
-          }else{
-            movimientodet.Objeto = movimientodet.Objeto.url
-            console.log(JSON.stringify(movimientodet))
-            this.httprequest.post(this.url.base + this.url.movimientoDetalleElemento,JSON.stringify(movimientodet),nav).then (result=>{
+            this.httprequest.post(this.url.base + this.url.movimientoDetalle,JSON.stringify(movimientodet),nav).then (result=>{
               let movdet = result.json() as IngresoEgreso
               console.log(JSON.stringify(movdet))
-              movimiento.IngresoEgresoElementos.push(movdet.url)
+              movimiento.IngresoEgreso.push(movdet.url)
               console.log(JSON.stringify(movimiento));
               return this.httprequest.patch(String(movimiento.url), JSON.stringify(movimiento),nav)
               .then(result => {return result});
             })
-          }
+          
 
         }
       })
