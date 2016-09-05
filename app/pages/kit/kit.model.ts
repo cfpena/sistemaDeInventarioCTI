@@ -10,23 +10,27 @@ export class Kit {
   @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 30) Nombre: string;
   @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(0, 30) Marca: string;
   @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(0, 30) Modelo: string;
+  @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(0, 30) Serie: string;
   @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 50) Descripcion: string;
   Imagen: any;
-  Elementos: string[];
-  Dispositivos: string[];
+  Es_Dispositivo: boolean;
+  Proveedor: any;
+  //Items: string[];
 
 
 
 constructor() {
+  this.url='';
   this.Codigo='';
   this.CodigoEspol='';
   this.CodigoSenecyt='';
   this.Nombre='';
   this.Marca='';
   this.Modelo='';
+  this.Serie='';
   this.Descripcion='';
-  this.Dispositivos =[]
-  this.Elementos=[]
+  this.Es_Dispositivo=false;
+  //this.Items =[]
 
 }
 }

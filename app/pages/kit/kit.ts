@@ -87,12 +87,14 @@ kitModificar= new Kit;
       let validator = new Validator();
       if (!validator.isValid(this.kitNuevo)) this.presentToast('Corrija el formulario');
       else {
-        for(let item of this.itemsAgregados){
+        /*for(let item of this.itemsAgregados){
           if(item.Es_Dispositivo){
             console.log(item)
-            this.kitNuevo.Dispositivos.push(item.url)
+            this.kitNuevo.Items.push(item.url)
           }
-        }
+        }*/
+        //nik: no permite ingresar items al kit
+        //this.kitNuevo.Items=this.itemsAgregados;
 
           let kit = JSON.parse(JSON.stringify(this.kitNuevo))
           console.log(JSON.stringify(kit))
