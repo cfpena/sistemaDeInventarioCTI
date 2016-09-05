@@ -22,46 +22,46 @@ import {UsuarioService } from '../usuario/usuario.service';
 
 
 export class InventarioPage implements OnInit{
-    title: string ='Inventario';
+  title: string ='Inventario';
 
-    template: string = 'null';
-    templateMovimiento: string ='ingreso_inventario'
-    templateItem: string='null';
+  template: string = 'null';
+  templateMovimiento: string ='ingreso_inventario'
+  templateItem: string='null';
 
-    movimientos: FacturaIngreso[]=[];
+  movimientos: FacturaIngreso[]=[];
 
-    descripcionProveedor: string ='';
-    listaFiltradaProveedor: Persona[] =[];
-    proveedorSeleccionado= new Persona();
-    estaSeleccionadoProveedor: boolean=false;
+  descripcionProveedor: string ='';
+  listaFiltradaProveedor: Persona[] =[];
+  proveedorSeleccionado= new Persona();
+  estaSeleccionadoProveedor: boolean=false;
 
-    descripcionItem: string ='';
-    listaFiltradaItem: ITEM[];
+  descripcionItem: string ='';
+  listaFiltradaItem: ITEM[];
 
-    listaMovimientoDet: IngresoEgreso[]=[];
-    cantidad=0;
-    serie: string='';
-    tipoMov:string='Ingreso';
+  listaMovimientoDet: IngresoEgreso[]=[];
+  cantidad=0;
+  serie: string='';
+  tipoMov:string='Ingreso';
 
-    @Input() movimientoNuevo = new FacturaIngreso();
-    @Input() movimientoSeleccionado = new FacturaIngreso();
-    @Input() itemNuevo = new ITEM();
+  @Input() movimientoNuevo = new FacturaIngreso();
+  @Input() movimientoSeleccionado = new FacturaIngreso();
+  @Input() itemNuevo = new ITEM();
 
-    id=0;
-    selected: number[]=[];
-    //tipos = ['Elija tipo','ítem','kit'];
-    //estados = ['Elija un estado...','disponible','no disponible'];
-    tiposBusquedas = ['Ingreso', 'Egreso'];
-    busqueda={tipoB: 'código', valor: ''};
-    itemSeleccionado: boolean = false;
+  id=0;
+  selected: number[]=[];
+  //tipos = ['Elija tipo','ítem','kit'];
+  //estados = ['Elija un estado...','disponible','no disponible'];
+  tiposBusquedas = ['Ingreso', 'Egreso'];
+  busqueda={tipoB: 'código', valor: ''};
+  itemSeleccionado: boolean = false;
 
-    constructor( private navController:NavController,private menu: MenuController,
-      private personaService: PersonaService, private itemService: ItemService, private inventarioService: InventarioService,
-      private usuarioService: UsuarioService,
-      private http: Http){
-        //this.inventarioTemporal=this.inventarios;
-        //this.listarProveedores();
-        //this.listarItems();
+  constructor( private navController:NavController,private menu: MenuController,
+    private personaService: PersonaService, private itemService: ItemService, private inventarioService: InventarioService,
+    private usuarioService: UsuarioService,
+    private http: Http){
+      //this.inventarioTemporal=this.inventarios;
+      //this.listarProveedores();
+      //this.listarItems();
     }
 
     openMenu(){
@@ -69,13 +69,13 @@ export class InventarioPage implements OnInit{
     }
 
     presentToast(text: string) {
-    let toast = Toast.create({
-      message: text,
-      duration: 3000
-    });
-    toast.onDismiss(() => {
-      console.log('Dismissed toast');
-    });
+      let toast = Toast.create({
+        message: text,
+        duration: 3000
+      });
+      toast.onDismiss(() => {
+        console.log('Dismissed toast');
+      });
       this.navController.present(toast);
     }
 
@@ -212,21 +212,39 @@ export class InventarioPage implements OnInit{
 
     agregarItem(){
       if (this.itemSeleccionado){
-        if (this.itemNuevo.Es_Dispositivo){
-          console.log('es dispositivo');
-          for(var _i = 0; _i < this.cantidad; _i++){
-            this.listaMovimientoDet.push({url:'', Fecha:'', Cantidad: 1, Detalle:'', Tipo: this.tipoMov, Item: this.itemNuevo});
-
-          }
+        let cant=0;
+        if(Number(this.itemNuevo.Stock_Disponible) < Number(this.cantidad) && this.tipoMov =='Egreso'){
+          console.log('egreso y mayor que stock disponible');
+          this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
         }else{
-          console.log('es elemento');
-          this.listaMovimientoDet.push({url:'', Fecha:'', Cantidad: this.cantidad, Detalle:'N/A', Tipo: this.tipoMov, Item: this.itemNuevo});
+          console.log ('verificar si existe')
+          for (var movdet of this.listaMovimientoDet){
+            if (movdet.Item.url = this.itemNuevo.url){
+              cant+=Number(movdet.Cantidad);
+            }
+          }
+          if(Number(this.itemNuevo.Stock_Disponible) < (Number(this.cantidad) +cant)
+          && this.tipoMov =='Egreso'){
+            console.log('egreso y mayor que stock disponible');
+            this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
+          }else{
+            if (this.itemNuevo.Es_Dispositivo){
+              console.log('es dispositivo');
+              for(var _i = 0; _i < this.cantidad; _i++){
+                this.listaMovimientoDet.push({url:'', Fecha:'', Cantidad: 1, Detalle:'', Tipo: this.tipoMov, Item: this.itemNuevo});
+
+              }
+            }else{
+              console.log('es elemento');
+              this.listaMovimientoDet.push({url:'', Fecha:'', Cantidad: this.cantidad, Detalle:'N/A', Tipo: this.tipoMov, Item: this.itemNuevo});
+            }
+            //this.movimientoNuevo.IngresoEgreso=this.listaMovimientoDet;
+            this.itemNuevo = new ITEM();
+            this.cantidad=0;
+            this.itemSeleccionado = false;
+            this.descripcionItem='';
+          }
         }
-        //this.movimientoNuevo.IngresoEgreso=this.listaMovimientoDet;
-        this.itemNuevo = new ITEM();
-        this.cantidad=0;
-        this.itemSeleccionado = false;
-        this.descripcionItem='';
       }
     }
 
@@ -241,4 +259,4 @@ export class InventarioPage implements OnInit{
       },100);
       this.listar();
     }
-}
+  }
