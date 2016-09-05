@@ -10,6 +10,7 @@ export class Url {
   devolucion ='api/devoluciones/';
   dispositivo = 'api/dispositivos/';
   kit ='api/kits/';
+  item ='api/items/';
   kitelemento='api/kitelemento/';
   token = 'api-token-auth/';
   verifyToken= 'api-token-verify/';

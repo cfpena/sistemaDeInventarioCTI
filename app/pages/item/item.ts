@@ -121,11 +121,15 @@ export class ItemPage implements OnInit {
         }
         //se deja en blanco la lista a eliminar
         this.itemsEliminar = Array<ITEM>();
+        console.log(this.itemsEliminar);
+
+        //se refrescan los datos del servidor
+        this.listar();
     }
 
 
     select(item: ITEM) {
-        if (!this.itemsEliminar.some(item => item == item)) {
+        if (!this.itemsEliminar.some(it => it == item)) {
             this.itemsEliminar.push(item);
         } else {
             let index = this.itemsEliminar.findIndex(x => x == item)
