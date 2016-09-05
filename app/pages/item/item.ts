@@ -59,28 +59,22 @@ export class ItemPage implements OnInit {
 
     listar() {
       this.items =[]
-      return  this.itemService.getElementos(this.navController).then(items => { this.items = items; return items }).then(result=>{
-          this.itemService.getDispositivos(this.navController).then(items => {
-            for(var item of items){
-              this.items.push(item)
-            }
-          })
-        })
+      return  this.itemService.getItems(this.navController).then(items => { this.items = items; return items })
     }
 
     crear() {
-
         let validator = new Validator();
         console.log(validator.validate(this.itemNuevo))
         this.itemNuevo.Stock=0;
         if (!validator.isValid(this.itemNuevo)){ this.presentToast('Corrija el formulario');}
       //  else if (this.itemNuevo.Stock < 1 || this.itemNuevo.Stock > 50 || this.itemNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
-
            console.log(JSON.stringify(this.itemNuevo))
-            let item = JSON.parse(JSON.stringify(this.itemNuevo))
-            this.itemService.createItem(item,this.navController).then(result => {
+            //let item = JSON.parse(JSON.stringify(this.itemNuevo))
+            console.log('guardar item')
+            this.itemService.createItem(this.itemNuevo,this.navController).then(result => {
               let r = result.json() as ITEM
+              console.log('guarde item')
               //this.itemService.uploadImagen(r.url,this.itemNuevo.Imagen,this.navController)
               this.listar();
               this.presentToast('item creado correctamente');
@@ -88,8 +82,8 @@ export class ItemPage implements OnInit {
             this.template = 'null';
             this.itemNuevo = new ITEM();
         }
-
     }
+
     fileChangeEvent(fileInput: any){
         var file =fileInput.target.files[0];
         var formatData = new FormData();
@@ -97,7 +91,6 @@ export class ItemPage implements OnInit {
         this.itemNuevo.Imagen = formatData
         console.log(this.itemNuevo.Imagen)
     }
-
 
     //abre el html de modificar
     goModificar(item: ITEM) {
@@ -111,18 +104,15 @@ export class ItemPage implements OnInit {
     modificar() {
         let validator = new Validator();
         if (!validator.isValid(this.itemModificar)) this.presentToast('Corrija el formulario');
-
       //  else if (this.itemModificar.Stock < 1 || this.itemModificar.Stock > 50 || this.itemModificar.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
             this.presentToast('Datos modificados correctamente');
             this.itemService.updateItem(this.itemModificar,this.navController).then(result => this.listar());
             this.template = 'null';
         }
-
     }
 
     eliminar() {
-
         for (var item of this.itemsEliminar) {
             this.itemService.eliminarItem(item,this.navController).then(result =>
             { this.listar();
@@ -131,7 +121,6 @@ export class ItemPage implements OnInit {
         }
         //se deja en blanco la lista a eliminar
         this.itemsEliminar = Array<ITEM>();
-
     }
 
 
@@ -142,7 +131,6 @@ export class ItemPage implements OnInit {
             let index = this.itemsEliminar.findIndex(x => x == item)
             this.itemsEliminar.splice(index, 1)
         };
-
     }
 
     goCrearItem() {
@@ -157,14 +145,7 @@ export class ItemPage implements OnInit {
 
     buscar() {
         if (this.busqueda.valor.trim() != "") {
-            this.itemService.getBuscarElemento(this.busqueda.valor,this.navController).then(items => { this.items = items; return items }).then(items => {
-              this.itemService.getBuscarDispositivo(this.busqueda.valor,this.navController).then(items => {
-                for(var item of items){
-                  this.items.push(item)
-                }
-              })
-
-            })
+            this.itemService.getBuscarItem(this.busqueda.valor,this.navController).then(items => { this.items = items; return items })
         }
         else { this.listar() }
     }

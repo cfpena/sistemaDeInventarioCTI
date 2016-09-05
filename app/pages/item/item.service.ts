@@ -18,26 +18,15 @@ export class ItemService {
           this.httprequest = new HttpRequest(http);
         }
 
-    getElementos(nav: NavController) {
-      return this.httprequest.get(this.url.base + this.url.elemento,nav).then(result => {
+    getItems(nav: NavController) {
+      return this.httprequest.get(this.url.base + this.url.item,nav).then(result => {
           let items = result.json() as ITEM[];
           return items;
         })
     }
 
-    getDispositivos(nav: NavController) {
-      return this.httprequest.get(this.url.base + this.url.dispositivo,nav).then(result => {
-          let items = result.json() as ITEM[];
-          for(var item of items){
-            item.Es_Dispositivo=true;
-          }
-          return items;
-        })
-    }
-
-    getBuscarElemento(cadena: String,nav: NavController) {
-
-    return this.httprequest.get(this.url.base + this.url.elemento + this.url.buscar + cadena,nav)
+    getBuscarItem(cadena: String,nav: NavController) {
+    return this.httprequest.get(this.url.base + this.url.item + this.url.buscar + cadena,nav)
     .then(result => {
           let items = result.json() as ITEM[];
           return items;
@@ -46,35 +35,19 @@ export class ItemService {
           console.log(error)
         });
     }
-    getBuscarDispositivo(cadena: String,nav: NavController) {
 
-            return this.httprequest.get(this.url.base + this.url.dispositivo + this.url.buscar + cadena,nav)
-            .then(result => {
-          let items = result.json() as ITEM[];
-          for(let item of items){
-            item.Es_Dispositivo=true
-          }
-          return items;
-
-        }).catch(error=>{
-          console.log(error)
-        });
-    }
     eliminarItem(item: ITEM,nav: NavController) {
-
-            return this.httprequest.delete(String(item.url),nav)
+      return this.httprequest.delete(String(item.url),nav)
     }
 
     createItem(item: ITEM,nav: NavController) {
       let url = this.url.base
       item.Imagen=null
-      url+= item.Es_Dispositivo ? this.url.dispositivo:this.url.elemento
-          return this.httprequest.post(url, JSON.stringify(item),nav)
+      url+= this.url.item
+      return this.httprequest.post(url, JSON.stringify(item),nav)
     }
 
-
     updateItem(item: ITEM,nav: NavController) {
-
             return this.httprequest.patch(String(item.url), JSON.stringify(
             {
               Nombre: item.Nombre,
@@ -88,11 +61,9 @@ export class ItemService {
     }
 
     uploadImagen(url: string,file: File,nav: NavController) {
-
             return this.httprequest.patch(String(url), JSON.stringify(
             {
               Imagen: file
-            }),nav)
-            .then(result => {return result});
+            }),nav).then(result => {return result});
     }
 }
