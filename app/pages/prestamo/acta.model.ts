@@ -5,9 +5,16 @@ import {Kit} from '../kit/kit.model';
 import {Persona} from '../persona/persona.model';
 
 export class Acta {
-    url: String;
-    Prestador: any;
-     Fecha_vencimiento: String;
-     Fecha: String;
-    @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(0, 30) Codigo: String;
+  url: String;
+  Prestador: any;
+  Fecha_vencimiento: String;
+  Fecha: String;
+  @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(0, 30) Codigo: String;
+
+  constructor( ) {
+    this.url='';
+    this.Fecha_vencimiento='';
+    this.Fecha='';
+    this.Codigo='';
+  }
 }

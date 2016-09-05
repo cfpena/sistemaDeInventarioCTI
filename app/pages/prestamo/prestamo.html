@@ -140,6 +140,12 @@
                 </ul>
               </div>
             </div>
+            <div class="col l2 m2 s4 ">
+              <div class="input-field">
+                <input id="itemStock" type="text" class="validate filter-input  center" [(ngModel)]=itemSeleccionado.Stock_Disponible disabled="true">
+                <label class="active" for="itemStock">Stock Disponible</label>
+              </div>
+            </div>
             <div class="col l2 m2 s7  offset-s2">
               <div class="input-field" >
                 <input id="itemCant" type="text" class="validate filter-input center" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
@@ -173,19 +179,35 @@
             <div class="row">
               <ul>
                 <div class="col l6 m7 s5" style="color:#424242; font-size: 65%">
-                  <li id="nombre">Nombre: {{prestamo.Objeto.Nombre}}</li>
-                  <li id="codigo">Código: {{prestamo.Objeto.Codigo}}</li>
-                  <li id="cantidad">Cant.: {{prestamo.Objeto.Stock}}</li>
+                  <li id="nombre">Nombre: {{prestamo.Item.Nombre}}</li>
+                  <li id="codigo">Código: {{prestamo.Item.Codigo}}</li>
+                  <li id="cantidad">Cant.: {{prestamo.Item.Stock_Disponible}}</li>
                 </div>
-                <div class="col l2 m2 s3">
-                  <li>
-                    <input id="cantidad" type="text" class="validate center" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="prestamo.Cantidad" >
-                  </li>
+                <div *ngIf="prestamo.Item.Es_Dispositivo">
+                  <div class="col l2 m2 s3">
+                    <li>
+                      <input id="cantidad" type="text" class="validate  center" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="prestamo.Cantidad" disabled="true">
+                    </li>
+                  </div>
+                  <div class="col l3 m3 s3">
+                    <li>
+                      <input id="serie" type="text" class="validate  center" minlength="1" maxlength="30"   [(ngModel)]="prestamo.Detalle" >
+                    </li>
+                  </div>
+
                 </div>
-                <div class="col l3 m3 s3">
-                  <li>
-                    <input id="serie" type="text" class="validate" minlength="1" maxlength="30"   [(ngModel)]="prestamo.Detalle" >
-                  </li>
+                <div *ngIf="!prestamo.Item.Es_Dispositivo">
+                  <div class="col l2 m2 s3">
+                    <li>
+                      <input id="cantidad" type="text" class="validate  center" minlength="1" maxlength="2" pattern = "[0-9]*"  [(ngModel)]="prestamo.Cantidad" >
+                    </li>
+                  </div>
+                  <div class="col l3 m3 s3">
+                    <li>
+                      <input id="serie" type="text" class="validate  center" minlength="1" maxlength="30"   [(ngModel)]="prestamo.Detalle" disabled="true">
+                    </li>
+                  </div>
+
                 </div>
                 <div class="col l1 m2 s1">
                   <li>

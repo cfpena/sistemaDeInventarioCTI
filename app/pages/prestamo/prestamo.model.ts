@@ -9,8 +9,8 @@ export class Prestamo {
     url: String;
     @IsInt() Cantidad: number;
     Acta: any;
-     Fecha: String;
-    Objeto: any;
+    Fecha: String;
+    Item: any;
     @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(0, 50) Detalle: String;
 
 

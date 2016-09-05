@@ -12,6 +12,7 @@ import {Url} from '../../url';
 import { Http, Headers } from '@angular/http';
 import {ItemService} from '../item/item.service';
 import {PersonaService} from '../persona/persona.service';
+import {UsuarioService} from '../usuario/usuario.service';
 import { Validator } from "validator.ts/Validator";
 import { Acta } from './acta.model';
 import { Devolucion } from './devolucion.model';
@@ -19,27 +20,17 @@ import { Devolucion } from './devolucion.model';
 @Component({
   templateUrl: 'build/pages/prestamo/prestamo.html',
   directives: [MaterializeDirective],
-  providers: [PrestamoService, ,ItemService, PersonaService],
+  providers: [PrestamoService, ,ItemService, PersonaService, UsuarioService],
 
 })
 export class PrestamoPage implements OnInit{
   title: string ='Prestamos';
 
   template: string = 'null';
-  prestamosTemporal: Prestamo[]=[];
-  prestamosEliminar: Prestamo[]=[];
-  actaTemporal: Acta[]=[];
-  actaEliminar: Acta[]=[];
-
-  prestamos:  Array<Prestamo> =[]
   actas:  Array<Acta> =[]
 
   tiposBusquedas = ['Nombre', 'Fecha'];
-  busquedaPorPersona = {valor: '' };
-
-  selected: number[]=[];
-  tiposIdentificaciones = ['cédula', 'Nombre'];
-  busqueda={tipo: 'cédula', valor: ''};
+  busqueda={tipo: 'Nombre', valor: ''};
 
   estaSeleccionadaPersona=false;
   descripcionPersona: string ='';
@@ -59,11 +50,9 @@ export class PrestamoPage implements OnInit{
   @Input() actaModificar= new Acta();
 
   constructor( private navController:NavController,private menu: MenuController,
-    private prestamoService: PrestamoService,
-    private itemService: ItemService,
-    private personaService: PersonaService,
+    private prestamoService: PrestamoService, private itemService: ItemService,
+    private personaService: PersonaService, private usuarioService: UsuarioService,
     private http: Http) {
-      this.prestamosTemporal=this.prestamos;
     }
 
     openMenu(){
@@ -92,24 +81,25 @@ export class PrestamoPage implements OnInit{
       this.descripcionPersona='';
       this.template='null';
     }
-
+    
     crear(){
       console.log('crear')
-        let validator = new Validator();
-        if (!validator.isValid(this.actaNuevo)){ this.presentToast('Corrija el formulario');console.log(validator.validate(this.actaNuevo));}
+      console.log (this.actaNuevo)
+      let validator = new Validator();
+      if (!validator.isValid(this.actaNuevo)){ this.presentToast('Corrija el formulario');console.log(validator.validate(this.actaNuevo));}
       //  else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
-        //else if (this.kitNuevo.Nombre == '') this.presentToast('Nombre vacio');
+      //else if (this.kitNuevo.Nombre == '') this.presentToast('Nombre vacio');
       //  else if (this.itemNuevo.Descripcion == '') this.presentToast('Descripción vacio');
-        //else if (this.kitNuevo.Stock < 1 || this.kitNuevo.Stock > 50 || this.kitNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
-        else {
-          this.actaNuevo.Prestador=this.personaSeleccionada.url;
-          this.prestamoService.createActa(this.actaNuevo, this.listaPrestamos,this.navController).then(result => {this.listar_actas()});
-          this.template='null';
-          this.actaNuevo= new Acta();
-          this.listaPrestamos =[];
-          this.descripcionItem='';
-          this.descripcionPersona='';
-        }
+      //else if (this.kitNuevo.Stock < 1 || this.kitNuevo.Stock > 50 || this.kitNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
+      else {
+        this.actaNuevo.Prestador=this.personaSeleccionada.url;
+        this.prestamoService.createActa(this.actaNuevo, this.listaPrestamos,this.navController).then(result => {this.listar_actas()});
+        this.template='null';
+        this.actaNuevo= new Acta();
+        this.listaPrestamos =[];
+        this.descripcionItem='';
+        this.descripcionPersona='';
+      }
     }
 
     //funcion listar que lista todos los kits creados
@@ -164,10 +154,10 @@ export class PrestamoPage implements OnInit{
       if (this.itemSeleccionado){
         if (this.itemSeleccionado.Es_Dispositivo){
           for(var _i = 0; _i < this.cantidad; _i++){
-            this.listaPrestamos.push({url:'', Cantidad: 1, Fecha:'',  Detalle: '', Objeto: this.itemSeleccionado, Acta: this.actaNuevo});
+            this.listaPrestamos.push({url:'', Cantidad: 1, Fecha:'',  Detalle: '', Item: this.itemSeleccionado, Acta: this.actaNuevo});
           }
         }else{
-          this.listaPrestamos.push({url:'', Cantidad: this.cantidad, Fecha:'',  Detalle: '', Objeto: this.itemSeleccionado, Acta: this.actaNuevo});
+          this.listaPrestamos.push({url:'', Cantidad: this.cantidad, Fecha:'',  Detalle: '', Item: this.itemSeleccionado, Acta: this.actaNuevo});
         }
         this.descripcionItem = '';
         this.itemSeleccionado = new ITEM();
@@ -220,17 +210,17 @@ export class PrestamoPage implements OnInit{
 
     //FUNCION BUSCAR para filtrar en tabla de prestamos principal
     buscar() {
-      if(this.busquedaPorPersona.valor.trim() != ""){
-      this.personaService.getBuscar(this.busquedaPorPersona.valor,this.navController).then(personas => {
-        this.listaFiltradaPersona = personas
-      });}
-      else{this.listar_actas()}
+      if(this.busqueda.valor.trim() != ""){
+        this.personaService.getBuscar(this.busqueda.valor,this.navController).then(personas => {
+          this.listaFiltradaPersona = personas
+        });}
+        else{this.listar_actas()}
+      }
+
+      public ngOnInit() {
+        this.listar_actas();
+      }
+
+
+
     }
-
-    public ngOnInit() {
-      this.listar_actas();
-   }
-
-
-
-  }

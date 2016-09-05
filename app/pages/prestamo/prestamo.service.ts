@@ -32,12 +32,14 @@ export class PrestamoService {
     }
 
     createActa(acta: Acta, listaPrestamo: Prestamo[], nav:NavController){
+      console.log('voy a crear acta')
+      console.log(acta)
       return this.httprequest.post(this.url.base + this.url.acta, JSON.stringify(acta),nav).then(result=>{
           let acta = result.json() as Acta
           for(let prestamo of listaPrestamo){
             prestamo.Cantidad = Number(prestamo.Cantidad)
             prestamo.Acta = acta.url
-            prestamo.Objeto=prestamo.Objeto.url
+            prestamo.Item=prestamo.Item.url
             console.log(JSON.stringify(prestamo))
             this.httprequest.post(this.url.base + this.url.prestamo,JSON.stringify(prestamo),nav)
           }
