@@ -49,9 +49,12 @@ export class ReportesPage {
                     for (let ingresoEgreso of this.IngresosEgresos) {
                         this.service.httprequest.get(String(ingresoEgreso.Objeto), this.navController).then(result => {
                             ingresoEgreso.Objeto = result.json() as ITEM
+
                         })
                     }
 
+                }).then(()=>{
+                  console.log(this.IngresosEgresos)
                 })
             }else if(this.busqueda == 'Préstamos'){
               this.service.getReportePrestamo(this.reporte, this.navController).then(result => {

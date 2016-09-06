@@ -56,7 +56,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="busqueda=='Resporte Movimientos'">
+    <div *ngIf="busqueda=='Movimientos'">
     <table  materialize class="centered table centered striped" style="font-size: 15px">
       <thead>
         <tr>
@@ -79,18 +79,16 @@
             <label  attr.for="{{usuario.url}}"></label>-->
           </td>
           <td>{{ingresoEgreso.Fecha}}</td>
-          <td>{{ingresoEgreso.Objeto.Nombre}}</td>
+          <td>{{ingresoEgreso.Objeto}}</td>
           <td>{{ingresoEgreso.Cantidad}}</td>
           <td>{{ingresoEgreso.Tipo}}</td>
           <td>{{ingresoEgreso.Detalle}}</td>
-          <td>
-            <a class="button-collapse" (click)="goModificar(usuario)"><i class="material-icons left">visibility</i></a>
-          </td>
+
         </tr>
       </tbody>
     </table>
   </div>
-  <div *ngIf="busqueda=='Reporte Préstamos'">
+  <div *ngIf="busqueda=='Préstamos'">
   <table  materialize class="centered table centered striped" style="font-size: 15px">
     <thead>
       <tr>
@@ -105,21 +103,19 @@
     </thead>
     <tbody>
       <!-- angular 2 for -->
-      <tr *ngFor="let prestamo of Prestamos">
+      <tr *ngFor="let Prestamo of Prestamos">
         <td>
           <!-- evento change y atributo por defecto checked false, se agrega como id el id del usuario
           para luego saber que checkbox le pertenece a cada usuario
           <input   (change)="select(usuario)" id={{usuario.url}} type="checkbox" class="filled-in"/>
           <label  attr.for="{{usuario.url}}"></label>-->
         </td>
-        <td>{{prestamo.Fecha}}</td>
-        <td>{{prestamo.Acta}}</td>
-        <td>{{prestamo.Objeto.Nombre}}</td>
-        <td>{{prestamo.Cantidad}}</td>
-        <td>{{prestamo.Detalle}}</td>
-        <td>
-          <a class="button-collapse" (click)="goModificar(usuario)"><i class="material-icons left">visibility</i></a>
-        </td>
+        <td>{{Prestamo.Fecha}}</td>
+        <td>{{Prestamo.Acta}}</td>
+        <td>{{Prestamo.Item.Nombre}}</td>
+        <td>{{Prestamo.Cantidad}}</td>
+        <td>{{Prestamo.Detalle}}</td>
+
       </tr>
     </tbody>
   </table>

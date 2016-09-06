@@ -11,12 +11,9 @@ export class Url {
   devolucion ='api/devoluciones/';
   dispositivo = 'api/dispositivos/';
   kit ='api/kits/';
-<<<<<<< HEAD
-  kitDetalle='api/kitdetalle/';
-=======
-  item ='api/items/';
+
   kitelemento='api/kitelemento/';
->>>>>>> b7448e72e51fb1bf1253793330cf94516388b003
+
   token = 'api-token-auth/';
   verifyToken= 'api-token-verify/';
   tiposUsuarios = 'api/grupos/';
