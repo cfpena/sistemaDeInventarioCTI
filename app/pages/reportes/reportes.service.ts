@@ -4,6 +4,7 @@ import {NavController} from 'ionic-angular';
 import {Url} from '../../url';
 import {HttpRequest} from '../../httprequest';
 import {Reporte} from './reportes.model';
+import {ITEM} from '../item/item.model';
 
 @Injectable()
 export class ReporteService {
@@ -22,4 +23,11 @@ export class ReporteService {
       return this.httprequest.post(this.url.base + this.url.reportePrestamo,JSON.stringify(reporte),nav)
 
     }
+
+    getReporteExistencia(reporte: Reporte,nav: NavController){
+      return this.httprequest.get(this.url.base + this.url.reporteExistencia,nav).then(result => {
+          let existencias = result.json() as ITEM[];
+          return existencias;
+        })
+}
 }

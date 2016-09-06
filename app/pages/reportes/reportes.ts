@@ -27,6 +27,7 @@ export class ReportesPage {
     IngresosEgresos: IngresoEgreso[];
     Prestamos: Prestamo[];
     today= new Date().toLocaleDateString();
+    Existencias:  Array<ITEM> =[]
 
 
     constructor(private navController: NavController,
@@ -73,9 +74,22 @@ export class ReportesPage {
               })
 
             }
+
+
         }
-    }
+
+    else if(this.busqueda == 'Existencias'){
+
+      this.service.getReporteExistencia(this.reporte, this.navController).then(Existencias => { this.Existencias = Existencias; return Existencias }).then(Existencias => {
 
 
+        
 
+      }).then(()=>{
+        console.log(this.Existencias)
+      })
+
+
+}
+}
 }

@@ -79,7 +79,7 @@
             <label  attr.for="{{usuario.url}}"></label>-->
           </td>
           <td>{{ingresoEgreso.Fecha}}</td>
-          <td>{{ingresoEgreso.Objeto}}</td>
+          <td>{{ingresoEgreso.Item.Nombre}}</td>
           <td>{{ingresoEgreso.Cantidad}}</td>
           <td>{{ingresoEgreso.Tipo}}</td>
           <td>{{ingresoEgreso.Detalle}}</td>
@@ -120,6 +120,38 @@
     </tbody>
   </table>
 </div>
+<div *ngIf="busqueda=='Existencias'">
+<table  materialize class="centered table centered striped" style="font-size: 15px">
+  <thead>
+    <tr>
+      <th></th>
+      <th data-field="id">Código</th>
+      <th data-field="nombre">Nombre</th>
+      <th data-field="cantidad">Cantidad</th>
+      <th data-field="cantidad">Disponible</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- angular 2 for -->
+    <tr *ngFor="let existencia of Existencias">
+      <td>
+        <!-- evento change y atributo por defecto checked false, se agrega como id el id del usuario
+        para luego saber que checkbox le pertenece a cada usuario
+        <input   (change)="select(usuario)" id={{usuario.url}} type="checkbox" class="filled-in"/>
+        <label  attr.for="{{usuario.url}}"></label>-->
+      </td>
+
+      <td>{{existencia.Codigo}}</td>
+      <td>{{existencia.Nombre}}</td>
+      <td>{{existencia.Stock}}</td>
+      <td>{{existencia.Stock_Disponible}}</td>
+
+    </tr>
+  </tbody>
+</table>
+</div>
+
 </div>
 </div>
 </ion-content>
