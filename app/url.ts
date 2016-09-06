@@ -12,7 +12,7 @@ export class Url {
   dispositivo = 'api/dispositivos/';
   kit ='api/kits/';
 
-  kitelemento='api/kitelemento/';
+  kitDetalle='api/kitdetalle/';
 
   token = 'api-token-auth/';
   verifyToken= 'api-token-verify/';

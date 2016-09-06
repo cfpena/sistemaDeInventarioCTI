@@ -7,7 +7,7 @@ import { Reporte } from './reportes.model'
 import { ReporteService } from './reportes.service'
 import { IngresoEgreso } from './ingresoegreso.model';
 import { ITEM } from '../item/item.model';
-import {Prestamo} from '../prestamo/prestamo.model';
+import {Prestamo} from '../prestamo/prestamo.model'
 /*
   Generated class for the ReportesPage page.
 
@@ -47,8 +47,8 @@ export class ReportesPage {
                 this.service.getReporteInventario(this.reporte, this.navController).then(result => {
                     this.IngresosEgresos = result.json() as IngresoEgreso[]
                     for (let ingresoEgreso of this.IngresosEgresos) {
-                        this.service.httprequest.get(String(ingresoEgreso.Objeto), this.navController).then(result => {
-                            ingresoEgreso.Objeto = result.json() as ITEM
+                        this.service.httprequest.get(String(ingresoEgreso.Item), this.navController).then(result => {
+                            ingresoEgreso.Item = result.json() as ITEM
 
                         })
                     }
