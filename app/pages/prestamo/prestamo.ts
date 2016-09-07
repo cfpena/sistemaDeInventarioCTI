@@ -66,6 +66,7 @@ constructor( private navController:NavController,private menu: MenuController,
 
   goNuevoPrestamo(){
     this.template='nuevo_prestamo';
+    this.generarActa();
   }
 
   goModificarPrestamo(acta: Acta) {
@@ -229,6 +230,28 @@ constructor( private navController:NavController,private menu: MenuController,
     });
     this.navController.present(toast);
   }
+
+  generarActa(){
+    var hoy = new Date();
+    var dd = hoy.getDate();
+    var mm = hoy.getMonth()+1; //hoy es 0!
+    var yyyy = hoy.getFullYear();
+
+    console.log("dia "+ dd);
+    console.log("mes "+ mm);
+    console.log("año "+ yyyy);
+    var codigoAnterior;
+    let nuevoCodigo;
+
+this.prestamoService.getUltimaActa(this.navController).then(codigoAnterior => {
+ console.log("Codigo anterior " + codigoAnterior);
+ codigoAnterior = codigoAnterior + 1;
+ nuevoCodigo = codigoAnterior;
+ console.log("Codigo nuevo" + nuevoCodigo);
+ this.actaNuevo.Codigo= yyyy+""+mm+""+dd+""+ nuevoCodigo.toString();
+});
+
+}
 
   //FUNCION BUSCAR para filtrar en tabla de prestamos principal
   buscar() {
