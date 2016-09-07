@@ -81,8 +81,8 @@
               <div class="row">
                 <div class="input-field col l11 m11 s11">
                   <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                  <input id="icon_codigo" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9 ]*" [(ngModel)]="kitNuevo.Codigo" >
-                  <label for="icon_codigo" data-error="Código vacío o Incorrecto">Código</label>
+                  <input id="icon_codigo" style="font-weight: bold;" disabled="disabled" type="text" class="validate" minlength="2" maxlength="30" pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9 ]*" [(ngModel)]="kitNuevo.Codigo" >
+                  <label for="icon_codigo" class="active" data-error="Código vacío o Incorrecto">Código</label>
                 </div>
               </div>
               <div class="row">

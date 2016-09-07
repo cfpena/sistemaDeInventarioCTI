@@ -141,7 +141,22 @@ eliminar(){
     };
   }
 
+  //generar codigo para el siguiente item
+  generarCodigoKit(){
+     var codigoAnterior;
+     let nuevoCodigo;
+     //getUltimoCodItem : retorna el ultimo codigo para sumarle 1 para el nuevoC
+     this.kitService.getUltimoCodKit(this.navController).then(codigoAnterior => {
+      console.log("Codigo anterior " + codigoAnterior);
+      codigoAnterior = codigoAnterior + 1;
+      nuevoCodigo = codigoAnterior;
+      console.log("Codigo nuevo" + nuevoCodigo);
+      this.kitNuevo.Codigo= nuevoCodigo.toString();
+   });
+  }
+
   goCrearKit(){
+    this.generarCodigoKit();
     this.template='crear';
   }
 

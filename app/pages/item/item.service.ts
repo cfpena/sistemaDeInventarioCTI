@@ -47,6 +47,22 @@ export class ItemService {
       return this.httprequest.post(url, JSON.stringify(item),nav)
     }
 
+    //obtener el codigo del ultimo item creado
+    getUltimoCodItem(nav: NavController) {
+      return this.httprequest.get(this.url.base + this.url.item,nav).then(result => {
+          let items = result.json() as ITEM[];
+          if (items.length == 0){
+            return 0;
+          }else{
+            for (var item of items){
+              item.Codigo;
+            }
+          return parseInt(item.Codigo);
+        }
+        })
+    }
+
+
     updateItem(item: ITEM,nav: NavController) {
             return this.httprequest.patch(String(item.url), JSON.stringify(
             {
