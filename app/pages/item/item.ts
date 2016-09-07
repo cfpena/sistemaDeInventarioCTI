@@ -34,13 +34,15 @@ export class ItemPage implements OnInit {
     tiposBusquedas = ['código', 'Nombre'];
     busqueda = { tipo: 'codigo', valor: '' };
     tiposFotos = ['archivo', 'cámara'];
-    foto = { tipo: 'camara', valor: '' };
+    foto = { name: '', data: '' };
     constructor(private navController: NavController, private menu: MenuController,
         private itemService: ItemService,
         private http: Http) {
         this.itemsTemporal = this.items;
+
+
     }
-    //abre el menu
+
     openMenu() {
         this.menu.open();
     }
@@ -69,9 +71,12 @@ export class ItemPage implements OnInit {
         if (!validator.isValid(this.itemNuevo)){ this.presentToast('Corrija el formulario');}
       //  else if (this.itemNuevo.Stock < 1 || this.itemNuevo.Stock > 50 || this.itemNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
-           console.log(JSON.stringify(this.itemNuevo))
+
             //let item = JSON.parse(JSON.stringify(this.itemNuevo))
-            console.log('guardar item')
+            console.log(this.foto)
+            this.itemNuevo.Imagen = this.foto
+            console.log(JSON.stringify(this.itemNuevo))
+
             this.itemService.createItem(this.itemNuevo,this.navController).then(result => {
               let r = result.json() as ITEM
               console.log('guarde item')
@@ -84,12 +89,61 @@ export class ItemPage implements OnInit {
         }
     }
 
-    fileChangeEvent(fileInput: any){
-        var file =fileInput.target.files[0];
-        var formatData = new FormData();
-        formatData.append(file.name,file)
-        this.itemNuevo.Imagen = formatData
-        console.log(this.itemNuevo.Imagen)
+    fileChange(input: any){
+          // Create an img element and add the image file data to it
+          var img = document.createElement("img");
+          img.src = window.URL.createObjectURL(input.files[0]);
+
+          // Create a FileReader
+          // Create a FileReader
+           var reader: any, target: EventTarget;
+           reader = new FileReader();
+
+          // Add an event listener to deal with the file when the reader is complete
+          reader.addEventListener("load", (event) => {
+              // Get the event.target.result from the reader (base64 of the image)
+              img.src = event.target.result;
+
+              // Resize the image
+              var resized_img = this.resize(img);
+
+              // Push the img src (base64 string) into our array that we display in our html template
+              this.foto.name=input.files[0].name
+              this.foto.data=resized_img
+
+          }, false);
+
+          reader.readAsDataURL(input.files[0]);
+    }
+    resize (img, MAX_WIDTH:number = 300, MAX_HEIGHT:number = 300){
+        var canvas = document.createElement("canvas");
+
+        console.log("Size Before: " + img.src.length + " bytes");
+
+        var width = img.width;
+        var height = img.height;
+
+        if (width > height) {
+            if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+            }
+        } else {
+            if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+            }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        var ctx = canvas.getContext("2d");
+
+        ctx.drawImage(img, 0, 0, width, height);
+
+        var dataUrl = canvas.toDataURL('image/jpeg');
+        // IMPORTANT: 'jpeg' NOT 'jpg'
+        console.log("Size After:  " + dataUrl.length  + " bytes");
+        return dataUrl
     }
 
     //abre el html de modificar
