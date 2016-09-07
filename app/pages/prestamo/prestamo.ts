@@ -44,6 +44,7 @@ listaFiltradaItem: ITEM[]=[];
 cantidad=0;
 
 listaPrestamos: Prestamo[]=[];
+prestamoEliminar: Prestamo[]=[];
 
 @Input() actaNuevo = new Acta();
 
@@ -192,9 +193,21 @@ constructor( private navController:NavController,private menu: MenuController,
     }
   }
 
-  eliminarPrestamo(prestamo: Prestamo){
-    let index=this.listaPrestamos.indexOf(prestamo)
-    this.listaPrestamos.splice(index,1)
+  //elimina una o mas personas
+  eliminar() {
+
+      for (var prestamo of this.prestamoEliminar) {
+          this.prestamoService.eliminarPrestamo(prestamo, this.navController).then(result => {
+              this.listar_actas();
+              this.presentToast('Se ha eliminado con éxito');
+          }).catch(error => console.log(error))
+      }
+      //se deja en blanco la lista a eliminar
+      this.prestamoEliminar = Array<Prestamo>();
+      console.log(this.prestamoEliminar);
+
+      //se refrescan los datos del servidor
+      this.listar_actas();
   }
 
   buscarPersona(){
@@ -216,6 +229,17 @@ constructor( private navController:NavController,private menu: MenuController,
     this.descripcionPersona = this.personaSeleccionada.Nombre + ' ' +this.personaSeleccionada.Apellido;
     this.estaSeleccionadaPersona=true;
     this.listaFiltradaPersona=[];
+  }
+
+  select(prestamo: Prestamo) {
+      if (!this.prestamoEliminar.some(pres => pres == prestamo)) {
+          this.prestamoEliminar.push(prestamo);
+      } else {
+          let index = this.prestamoEliminar.findIndex(x => x == prestamo)
+          this.prestamoEliminar.splice(index, 1)
+      };
+      //  console.log(this.personasEliminar);
+
   }
 
 
