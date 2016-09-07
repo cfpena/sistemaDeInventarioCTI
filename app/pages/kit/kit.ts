@@ -73,18 +73,10 @@ export class KitPage implements OnInit{
       let validator = new Validator();
       if (!validator.isValid(this.kitNuevo)) this.presentToast('Corrija el formulario');
       else {
-        /*for(let item of this.itemsAgregados){
-        if(item.Es_Dispositivo){
-        console.log(item)
-        this.kitNuevo.Items.push(item.url)
-      }
-    }*/
-    //nik: no permite ingresar items al kit
-    //this.kitNuevo.Items=this.itemsAgregados;
+        this.kitNuevo.KitDetalle = this.listaDetalleKit
 
     let kit = JSON.parse(JSON.stringify(this.kitNuevo))
-    console.log(JSON.stringify(kit))
-    let result=this.kitService.createKit(kit,this.listaDetalleKit,this.navController).then(result => {this.listar();
+    let result=this.kitService.createKit(kit,this.navController).then(result => {this.listar();
     //let result=this.kitService.createKit(kit,this.navController).then(result => {this.listar();
       this.presentToast('Kit creado correctamente');
     }).catch(err=> {return false});
@@ -103,17 +95,6 @@ export class KitPage implements OnInit{
 goModificar(kit: Kit) {
   for(var key in kit){
     this.kitModificar[key]= kit[key]
-  }
-  this.kitModificar=JSON.parse(JSON.stringify(kit));
-  this.kitModificar.KitDetalle=[];
-  let listaKitDet = kit.KitDetalle;
-  for (var kitdet of listaKitDet){
-    this.kitService.llenarKitDetalle(kitdet, this.navController).then(result=>{
-      this.kitService.llenarItem(result.Item, this.navController).then(item =>{
-        result.Item=item;
-        this.kitModificar.KitDetalle.push(result);
-      })
-    })
   }
   this.listaDetalleKit=this.kitModificar.KitDetalle
   this.template='modificar'
@@ -135,9 +116,12 @@ modificar(){
 }
 
 eliminar(){
+  console.log(this.kitsEliminar)
   for(var kit of this.kitsEliminar){
     this.kitService.eliminarKit(kit,this.navController).then(result =>
-      { this.listar()
+
+      { console.log(result)
+         this.listar()
         this.presentToast('Se ha eliminado con éxito');
       }).catch(error=> console.log(error))
 
@@ -149,7 +133,7 @@ eliminar(){
   }
 
   select(kit: Kit){
-    if (!this.kitsEliminar.some(kit => kit == kit)) {
+    if (!this.kitsEliminar.some(result => result == kit)) {
       this.kitsEliminar.push(kit);
     }else {
       let index = this.kitsEliminar.findIndex(x => x == kit)
@@ -214,7 +198,7 @@ eliminar(){
     if (this.itemSeleccionado){
       let kitdet= new KitDetalle()
       kitdet.Cantidad = this.cantidad
-      kitdet.Item = this.itemSeleccionado
+      kitdet.Item = this.itemSeleccionado.url
       this.listaDetalleKit.push(kitdet)
       this.itemSeleccionado = new ITEM();
       this.cantidad=0;

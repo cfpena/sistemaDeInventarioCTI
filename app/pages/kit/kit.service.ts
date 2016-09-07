@@ -60,20 +60,11 @@ export class KitService {
     return this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav)
   }*/
 
-  createKit(kit: Kit,lista: KitDetalle[],nav: NavController) {
-    kit.KitDetalle =[];
+  createKit(kit: Kit,nav: NavController) {
+    console.log(JSON.stringify(kit))
     return this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav).then(result=>{
       let kit = result.json() as Kit
-      for(let kitdet of lista){
-        kitdet.Cantidad = Number(kitdet.Cantidad)
-        kitdet.Item = kitdet.Item.url
-        console.log(JSON.stringify(kitdet))
-        this.httprequest.post(this.url.base + this.url.kitDetalle,JSON.stringify(kitdet),nav).then(result =>{
-          let kitdetalle = result.json() as KitDetalle
-          kit.KitDetalle.push(kitdetalle)
-          return this.httprequest.patch(String(kit.url),JSON.stringify(kit), nav).then(result => {return result});
-        })
-      }
+      return kit
     })
 
   }

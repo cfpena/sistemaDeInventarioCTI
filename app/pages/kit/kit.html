@@ -34,8 +34,8 @@
       <tbody>
         <tr *ngFor = "let kit of kits">
           <td>
-            <input (change)="select(kit)" id={{kit.Codigo}} type="checkbox" class="filled-in"/>
-            <label attr.for="{{kit.Codigo}}"></label>
+            <input (change)="select(kit)" id={{kit.url}} type="checkbox" class="filled-in"/>
+            <label attr.for="{{kit.url}}"></label>
           </td>
           <td>{{kit.Codigo}}</td>
           <td>{{kit.Nombre}}</td>
