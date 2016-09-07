@@ -42,8 +42,8 @@ export class ItemService {
 
     createItem(item: ITEM,nav: NavController) {
       let url = this.url.base
-      item.Imagen=null
-      url+= this.url.item
+      url+= this.url.itemupload
+      console.log(JSON.stringify(item))
       return this.httprequest.post(url, JSON.stringify(item),nav)
     }
 

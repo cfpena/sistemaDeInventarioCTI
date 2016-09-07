@@ -74,9 +74,9 @@ export class ItemPage implements OnInit {
 
             //let item = JSON.parse(JSON.stringify(this.itemNuevo))
             console.log(this.foto)
+            if(this.foto.name!='')
             this.itemNuevo.Imagen = this.foto
-            console.log(JSON.stringify(this.itemNuevo))
-
+            else this.itemNuevo.Imagen=null
             this.itemService.createItem(this.itemNuevo,this.navController).then(result => {
               let r = result.json() as ITEM
               console.log('guarde item')
@@ -86,6 +86,7 @@ export class ItemPage implements OnInit {
             });
             this.template = 'null';
             this.itemNuevo = new ITEM();
+            this.foto = { name: '', data: '' };
         }
     }
 
