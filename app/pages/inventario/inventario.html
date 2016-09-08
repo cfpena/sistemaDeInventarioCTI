@@ -126,20 +126,31 @@ Ionic pages and navigation.
           <div class="card-panel blue-grey lighten-5 ">
             <span class="card-title">Detalle del movimiento</span>
             <div style="padding-top: 5%;"></div>
-
+            <p class="center">
+              <input class="with-gap" name="group2" type="radio" id="item" checked="checked" (click)="goEsItem()"/>
+              <label for="item">Buscar ítem</label>
+              <input class="with-gap" name="group2" type="radio" id="kit" (click)="goEsKit()" />
+              <label for="kit">Buscar kit</label>
+            </p>
             <div class="row">
               <div class="col l6 m6 s12">
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">search</i>
                   <input id="itemLista" type="text" class="validate filter-input" [(ngModel)]=descripcionItem (keyup)=buscarItem() >
-                  <label for="itemLista">Buscar ítem/kit</label>
+                  <label for="itemLista">Busqueda</label>
                   <ul class="dropdown-content active"  style="opacity: 1; display: block;">
                     <li *ngFor="let item of listaFiltradaItem">
                       <a (click)="seleccionarItem(item)">{{item.Codigo}} - {{item.Nombre}}</a>
                     </li>
                   </ul>
+                  <ul class="dropdown-content active"  style="opacity: 1; display: block;">
+                    <li *ngFor="let kit of listaFiltradaKit">
+                      <a (click)="seleccionarKit(kit)">{{kit.Codigo}} - {{kit.Nombre}}</a>
+                    </li>
+                  </ul>
                 </div>
               </div>
+
               <div class="col l2 m2 s4 ">
                 <div class="input-field">
                   <input id="itemStock" type="text" class="validate filter-input  center" [(ngModel)]=itemNuevo.Stock disabled="true">
