@@ -96,8 +96,20 @@ goModificar(kit: Kit) {
   for(var key in kit){
     this.kitModificar[key]= kit[key]
   }
+
   this.listaDetalleKit=this.kitModificar.KitDetalle
+  var kitdetalle: KitDetalle[]=[]
+  for(var detalle of this.listaDetalleKit){
+    this.kitService.llenarItem(detalle.Item,this.navController).then(result=>{
+      let det= new KitDetalle
+      det.Cantidad=detalle.Cantidad
+      det.Item=result
+      kitdetalle.push(det)
+      })
+  }
+  this.listaDetalleKit=kitdetalle
   this.template='modificar'
+
 }
 
 
@@ -113,6 +125,7 @@ modificar(){
     this.itemSeleccionado = new ITEM();
     this.cantidad=0;
   }
+  this.listaDetalleKit=[]
 }
 
 eliminar(){

@@ -57,7 +57,30 @@ export class ReportesPage {
                     }
                 })
             }
+             else if (this.busqueda == 'Préstamos') {
+              this.service.getReportePrestamopdf(this.reporte, this.navController).then(result => {
+                  var reader = new FileReader();
+                  var blob = new Blob([result['_body']], { type: 'application/pdf' });
+                  reader.readAsDataURL(blob)
+
+                  reader.onloadend = function(e) {
+                      window.open(reader.result, "pdf");
+                  }
+              })
         }
+      }
+      if (this.busqueda == 'Existencias') {
+        this.service.getReporteExistenciapdf(this.reporte, this.navController).then(result => {
+            var reader = new FileReader();
+            var blob = new Blob([result['_body']], { type: 'application/pdf' });
+            reader.readAsDataURL(blob)
+
+            reader.onloadend = function(e) {
+                window.open(reader.result, "pdf");
+            }
+        })
+
+      }
     }
 
     crear() {
@@ -98,7 +121,7 @@ export class ReportesPage {
 
         }
 
-        else if (this.busqueda == 'Existencias') {
+         if (this.busqueda == 'Existencias') {
 
             this.service.getReporteExistencia(this.reporte, this.navController).then(Existencias => { this.Existencias = Existencias; return Existencias }).then(Existencias => {
 

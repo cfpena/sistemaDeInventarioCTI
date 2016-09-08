@@ -23,8 +23,10 @@ export class Url {
   buscar = '?search='
   reporteInventariopdf = 'api/reporteinventariopdf/'
   reporteInventario = 'api/reporteinventario/'
+  reportePrestamopdf = 'api/reporteprestamopdf/'
   reportePrestamo = 'api/reporteprestamo/'
-  reporteExistencia = 'api/reporteexistencias/'
+  reporteExistenciapdf = 'api/reporteexistenciapdf/'
+  reporteExistencia = 'api/reporteexistencia/'
   movimientoDetalle ='api/ingresosegresos/'
   movimiento = 'api/facturaingreso/'
 

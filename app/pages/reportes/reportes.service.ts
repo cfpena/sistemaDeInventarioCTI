@@ -24,8 +24,13 @@ export class ReporteService {
       return this.httprequest.post(this.url.base + this.url.reporteInventariopdf,JSON.stringify(reporte),nav)
 
     }
+
     getReportePrestamo(reporte: Reporte,nav: NavController){
       return this.httprequest.post(this.url.base + this.url.reportePrestamo,JSON.stringify(reporte),nav)
+
+    }
+    getReportePrestamopdf(reporte: Reporte,nav: NavController){
+      return this.httprequest.post(this.url.base + this.url.reportePrestamopdf,JSON.stringify(reporte),nav)
 
     }
 
@@ -34,5 +39,8 @@ export class ReporteService {
           let existencias = result.json() as ITEM[];
           return existencias;
         })
+}
+getReporteExistenciapdf(reporte: Reporte,nav: NavController){
+  return this.httprequest.get(this.url.base + this.url.reporteExistenciapdf,nav)
 }
 }
