@@ -1,14 +1,13 @@
 import {Headers} from '@angular/http';
 export class Url {
-  //base ='http://162.243.83.72/';
-  base= 'http://localhost:8000/'
+  base ='http://162.243.83.72/';
+  //base= 'http://localhost:8000/'
   usuario ='api/usuarios/';
   persona ='api/prestador/';
   prestamo ='api/prestamos/';
   elemento ='api/elementos/';
   item = 'api/items/';
   itemupload = 'api/itemupload/';
-
   acta ='api/actas/';
   devolucion ='api/devoluciones/';
   dispositivo = 'api/dispositivos/';
