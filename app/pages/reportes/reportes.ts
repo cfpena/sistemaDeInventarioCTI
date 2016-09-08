@@ -7,7 +7,7 @@ import { Reporte } from './reportes.model'
 import { ReporteService } from './reportes.service'
 import { IngresoEgreso } from './ingresoegreso.model';
 import { ITEM } from '../item/item.model';
-import {Prestamo} from '../prestamo/prestamo.model'
+import { Prestamo } from '../prestamo/prestamo.model'
 /*
   Generated class for the ReportesPage page.
 
@@ -26,8 +26,8 @@ export class ReportesPage {
     reporte = new Reporte();
     IngresosEgresos: IngresoEgreso[];
     Prestamos: Prestamo[];
-    today= new Date().toLocaleDateString();
-    Existencias:  Array<ITEM> =[]
+    today = new Date().toLocaleDateString();
+    Existencias: Array<ITEM> = []
 
 
     constructor(private navController: NavController,
@@ -40,10 +40,30 @@ export class ReportesPage {
     openMenu() {
         this.menu.open();
     }
+
+
+    pdf() {
+
+        if (this.reporte.Fecha_Inicial != '' && this.reporte.Fecha_Final != '') {
+            console.log(this.reporte.Fecha_Final)
+            if (this.busqueda == 'Movimientos') {
+                this.service.getReporteInventariopdf(this.reporte, this.navController).then(result => {
+                    var reader = new FileReader();
+                    var blob = new Blob([result['_body']], { type: 'application/pdf' });
+                    reader.readAsDataURL(blob)
+
+                    reader.onloadend = function(e) {
+                        window.open(reader.result, "pdf");
+                    }
+                })
+            }
+        }
+    }
+
     crear() {
 
         if (this.reporte.Fecha_Inicial != '' && this.reporte.Fecha_Final != '') {
-          console.log(this.reporte.Fecha_Final)
+            console.log(this.reporte.Fecha_Final)
             if (this.busqueda == 'Movimientos') {
                 this.service.getReporteInventario(this.reporte, this.navController).then(result => {
                     this.IngresosEgresos = result.json() as IngresoEgreso[]
@@ -54,42 +74,42 @@ export class ReportesPage {
                         })
                     }
 
-                }).then(()=>{
-                  console.log(this.IngresosEgresos)
+                }).then(() => {
+                    console.log(this.IngresosEgresos)
                 })
-            }else if(this.busqueda == 'Préstamos'){
-              this.service.getReportePrestamo(this.reporte, this.navController).then(result => {
-                  this.Prestamos = result.json() as Prestamo[]
-                  for (let prestamo of this.Prestamos) {
-                      this.service.httprequest.get(String(prestamo.Item), this.navController).then(result => {
-                          prestamo.Item = result.json() as ITEM
-                      })
-                      this.service.httprequest.get(String(prestamo.Acta), this.navController).then(result => {
-                          prestamo.Acta = result.json()['Codigo']
-                      })
-                  }
+            } else if (this.busqueda == 'Préstamos') {
+                this.service.getReportePrestamo(this.reporte, this.navController).then(result => {
+                    this.Prestamos = result.json() as Prestamo[]
+                    for (let prestamo of this.Prestamos) {
+                        this.service.httprequest.get(String(prestamo.Item), this.navController).then(result => {
+                            prestamo.Item = result.json() as ITEM
+                        })
+                        this.service.httprequest.get(String(prestamo.Acta), this.navController).then(result => {
+                            prestamo.Acta = result.json()['Codigo']
+                        })
+                    }
 
-              }).then(()=>{
-                console.log(this.Prestamos)
-              })
+                }).then(() => {
+                    console.log(this.Prestamos)
+                })
 
             }
 
 
         }
 
-    else if(this.busqueda == 'Existencias'){
+        else if (this.busqueda == 'Existencias') {
 
-      this.service.getReporteExistencia(this.reporte, this.navController).then(Existencias => { this.Existencias = Existencias; return Existencias }).then(Existencias => {
-
-
-        
-
-      }).then(()=>{
-        console.log(this.Existencias)
-      })
+            this.service.getReporteExistencia(this.reporte, this.navController).then(Existencias => { this.Existencias = Existencias; return Existencias }).then(Existencias => {
 
 
-}
-}
+
+
+            }).then(() => {
+                console.log(this.Existencias)
+            })
+
+
+        }
+    }
 }
