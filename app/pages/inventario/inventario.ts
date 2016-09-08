@@ -219,7 +219,7 @@ export class InventarioPage implements OnInit{
           }
           if(Number(this.itemNuevo.Stock_Disponible) < (Number(this.cantidad) +cant)
           && this.tipoMov =='Egreso'){
-            console.log('egreso y mayor que stock disponible');
+            console.log('egreso es mayor que stock disponible');
             this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
           }else{
             if (this.itemNuevo.Es_Dispositivo){

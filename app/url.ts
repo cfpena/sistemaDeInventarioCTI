@@ -24,7 +24,7 @@ export class Url {
   reporteInventario = 'api/reporteinventario/'
   reportePrestamo = 'api/reporteprestamo/'
   reporteExistencia = 'api/reporteexistencias/'
-  movimientoDetalle ='api/ingresosegreso/'
+  movimientoDetalle ='api/ingresosegresos/'
   movimiento = 'api/facturaingreso/'
 
 
