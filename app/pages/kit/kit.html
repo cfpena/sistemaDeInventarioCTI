@@ -73,7 +73,6 @@
       <div class="col l4 m5 s12">
         <div class="card-panel blue-grey lighten-5 ">
           <span class="card-title">Nuevo Kit</span>
-          <div class="divider"></div>
           <div style="padding-top: 7%;"></div>
           <div class="row">
             <!--primera columna-->
@@ -212,7 +211,6 @@
       <div class="col l4 m5 s12">
         <div class="card-panel blue-grey lighten-5 ">
           <span class="card-title">Modificar Kit</span>
-          <div class="divider"></div>
           <div style="padding-top: 7%;"></div>
           <div class="row">
             <!--primera columna-->
@@ -221,8 +219,8 @@
                 <div class="col l10 m10 s10">
                   <div class="input-field ">
                     <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                    <input id="icon_codigo" disabled="disabled" type="text" class="validate"    >
-                    <label for="icon_codigo" data-error="Código vacío o Incorrecto">Código</label>
+                    <input id="icon_codigo" style="font-weight: bold;" disabled="disabled" type="text" class="validate" [(ngModel)]="kitModificar.Codigo">
+                    <label for="icon_codigo" data-error="Código vacío o Incorrecto"  class="active validate">Código</label>
                   </div>
                 </div>
               </div>
@@ -283,10 +281,8 @@
       <div class="col l8 m7 s12">
         <div class="card-panel blue-grey lighten-5 ">
           <span class="card-title">Ítems</span>
-          <div class="divider"></div>
-          <div style="padding-top: 7%;"></div>
+          <div style="padding-top: 4%;"></div>
           <div class="row">
-            <div class="divider"></div>
             <div class="row" style="color:#424242; font-size: 60%">
               <div class="col l6 m6 s4 ">
                 <h6 class="center">Ítem</h6>
