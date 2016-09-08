@@ -140,19 +140,19 @@
               </ul>
             </div>
           </div>
-          <div class="col l2 m2 s4 ">
+          <div class="col l2 m2 s11 offset-s1">
             <div class="input-field">
               <input id="itemStock" type="text" class="validate filter-input  center" [(ngModel)]=itemSeleccionado.Stock_Disponible disabled="true">
               <label class="active" for="itemStock">Stock Disponible</label>
             </div>
           </div>
-          <div class="col l2 m2 s7  offset-s2">
+          <div class="col l2 m2 s7 offset-s1">
             <div class="input-field" >
               <input id="itemCant" type="text" class="validate filter-input center" [(ngModel)]=cantidad minlength="1" maxlength="2" pattern = "[0-9]*" >
               <label for="itemCant" class="active">Cantidad</label>
             </div>
           </div>
-          <div class="col l1 m1 s2 offset-s1 offset-l1 offset-m1">
+          <div class="col l1 m1 s2 offset-s1 offset-l1 offset-m1 offset-s2">
             <div class="input-field col s6 m12 l2" >
               <a (click)="agregarItem()" class="btn-floating btn-small waves-effect waves-light green right">
                 <i class="material-icons">add</i>
