@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild,OnInit} from '@angular/core';
 import {App, ionicBootstrap, Platform, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {LoginPage} from './pages/login/login';
@@ -24,7 +24,7 @@ import {Storage, LocalStorage} from 'ionic-angular';
   providers: [UsuarioAuthService],
   directives: [MaterializeDirective],
 })
-export class MyApp {
+export class MyApp implements OnInit {
   @ViewChild(Nav) nav: Nav;
   local: Storage = new Storage(LocalStorage);
   rootPage: any = LoginPage;
@@ -33,6 +33,7 @@ export class MyApp {
 
   constructor(private platform: Platform,
               private usuarioAuthService: UsuarioAuthService) {
+
     this.initializeApp();
         // used for an example of ngFor and navigation
     this.pages = [
@@ -53,14 +54,22 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      StatusBar.styleDefault();
+      if(this.platform.is('android')){
+        this.nav.setRoot(PrincipalPage);
+      }
+      console.log(this.platform.platforms)
     });
+
+
+
 
   }
 
   openPage(page) {
     this.nav.setRoot(page.component);
     if(page.component == LoginPage) this.usuarioAuthService.logout();
+  }
+  ngOnInit() {
   }
 }
 

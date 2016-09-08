@@ -1,7 +1,7 @@
 import {Headers} from '@angular/http';
 export class Url {
-  base ='http://162.243.83.72/';
-  //base= 'http://localhost:8000/'
+  //base ='http://162.243.83.72/';
+  base= 'http://localhost:8000/'
   usuario ='api/usuarios/';
   persona ='api/prestador/';
   prestamo ='api/prestamos/';
@@ -29,6 +29,7 @@ export class Url {
   reporteExistencia = 'api/reporteexistencia/'
   movimientoDetalle ='api/ingresosegresos/'
   movimiento = 'api/facturaingreso/'
+  apk='media/sictiandroid.apk'
 
 
 }
