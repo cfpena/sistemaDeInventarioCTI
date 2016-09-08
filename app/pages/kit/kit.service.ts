@@ -69,6 +69,20 @@ export class KitService {
 
   }
 
+  //obtener el codigo del ultimo item creado
+  getUltimoCodKit(nav: NavController) {
+    return this.httprequest.get(this.url.base + this.url.kit, nav).then(result => {
+        let kits = result.json() as Kit[];
+        if (kits.length == 0){
+          return 8000;
+        }else{
+          for (var kit of kits){
+            kit.Codigo;
+          }
+        return parseInt(kit.Codigo);
+      }
+      })
+  }
 
   updateKit(kit: Kit, nav: NavController) {
     let json=JSON.stringify(

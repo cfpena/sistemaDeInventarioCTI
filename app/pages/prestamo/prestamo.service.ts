@@ -46,6 +46,20 @@ constructor(private http: Http,
         }
     })
   }
+  //obtener el último codigo de actas
+  getUltimaActa(nav: NavController) {
+    return this.httprequest.get(this.url.base + this.url.acta, nav).then(result => {
+      let actas = result.json() as Acta[];
+      if (actas.length == 0){
+        return 0;
+      }else{
+        for (var acta of actas){
+          acta.Codigo;
+        }
+      return parseInt(acta.Codigo);
+    }
+    })
+  }
 
   createDevolucion (listaPrestamos: Prestamo[], nav:NavController){
     let devolucion;

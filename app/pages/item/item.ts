@@ -192,8 +192,32 @@ export class ItemPage implements OnInit {
         };
     }
 
+  //generar codigo para el siguiente item
+    generarCodigoItem(){
+       var codigoAnterior;
+       let nuevoCodigo;
+       //getUltimoCodItem : retorna el ultimo codigo para sumarle 1 para el nuevoC
+       this.itemService.getUltimoCodItem(this.navController).then(codigoAnterior => {
+        console.log("Codigo anterior " + codigoAnterior);
+        codigoAnterior = codigoAnterior + 1;
+        nuevoCodigo = codigoAnterior;
+        console.log("Codigo nuevo" + nuevoCodigo);
+        if(nuevoCodigo > 0 && nuevoCodigo < 10){
+          this.itemNuevo.Codigo= "000" + nuevoCodigo.toString(); // 1 - 9
+        }else if(nuevoCodigo >= 10 && nuevoCodigo < 100){
+          this.itemNuevo.Codigo= "00" + nuevoCodigo.toString(); //10 - 99
+        }else if(nuevoCodigo >= 100 && nuevoCodigo < 1000){
+          this.itemNuevo.Codigo= "0" + nuevoCodigo.toString();  //100 - 999
+        }else if(nuevoCodigo >= 1000 && nuevoCodigo < 8001){
+          this.itemNuevo.Codigo= nuevoCodigo.toString();  //1000 - 8000
+        }
+     });
+    }
+
+
     goCrearItem() {
         this.template = 'crear';
+        this.generarCodigoItem();
     }
 
     cancelar() {

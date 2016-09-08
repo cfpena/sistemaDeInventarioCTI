@@ -9,12 +9,12 @@ export class Acta {
   Prestador: any;
   Fecha_vencimiento: String;
   Fecha: String;
-  @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(0, 30) Codigo: String;
+  @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(0, 30) Codigo: string;
 
   constructor( ) {
     this.url='';
     this.Fecha_vencimiento='';
     this.Fecha='';
-    this.Codigo='';
+    this.Codigo ='';
   }
 }

@@ -44,6 +44,7 @@ listaFiltradaItem: ITEM[]=[];
 cantidad=0;
 
 listaPrestamos: Prestamo[]=[];
+prestamoEliminar: Prestamo[]=[];
 
 @Input() actaNuevo = new Acta();
 
@@ -66,6 +67,7 @@ constructor( private navController:NavController,private menu: MenuController,
 
   goNuevoPrestamo(){
     this.template='nuevo_prestamo';
+    this.generarActa();
   }
 
   goModificarPrestamo(acta: Acta) {
@@ -191,9 +193,21 @@ constructor( private navController:NavController,private menu: MenuController,
     }
   }
 
-  eliminarPrestamo(prestamo: Prestamo){
-    let index=this.listaPrestamos.indexOf(prestamo)
-    this.listaPrestamos.splice(index,1)
+  //elimina una o mas personas
+  eliminar() {
+
+      for (var prestamo of this.prestamoEliminar) {
+          this.prestamoService.eliminarPrestamo(prestamo, this.navController).then(result => {
+              this.listar_actas();
+              this.presentToast('Se ha eliminado con éxito');
+          }).catch(error => console.log(error))
+      }
+      //se deja en blanco la lista a eliminar
+      this.prestamoEliminar = Array<Prestamo>();
+      console.log(this.prestamoEliminar);
+
+      //se refrescan los datos del servidor
+      this.listar_actas();
   }
 
   buscarPersona(){
@@ -217,6 +231,17 @@ constructor( private navController:NavController,private menu: MenuController,
     this.listaFiltradaPersona=[];
   }
 
+  select(prestamo: Prestamo) {
+      if (!this.prestamoEliminar.some(pres => pres == prestamo)) {
+          this.prestamoEliminar.push(prestamo);
+      } else {
+          let index = this.prestamoEliminar.findIndex(x => x == prestamo)
+          this.prestamoEliminar.splice(index, 1)
+      };
+      //  console.log(this.personasEliminar);
+
+  }
+
 
   presentToast(text: string) {
     let toast = Toast.create({
@@ -229,6 +254,28 @@ constructor( private navController:NavController,private menu: MenuController,
     });
     this.navController.present(toast);
   }
+
+  generarActa(){
+    var hoy = new Date();
+    var dd = hoy.getDate();
+    var mm = hoy.getMonth()+1; //hoy es 0!
+    var yyyy = hoy.getFullYear();
+
+    console.log("dia "+ dd);
+    console.log("mes "+ mm);
+    console.log("año "+ yyyy);
+    var codigoAnterior;
+    let nuevoCodigo;
+
+this.prestamoService.getUltimaActa(this.navController).then(codigoAnterior => {
+ console.log("Codigo anterior " + codigoAnterior);
+ codigoAnterior = codigoAnterior + 1;
+ nuevoCodigo = codigoAnterior;
+ console.log("Codigo nuevo" + nuevoCodigo);
+ this.actaNuevo.Codigo= yyyy+""+mm+""+dd+""+ nuevoCodigo.toString();
+});
+
+}
 
   //FUNCION BUSCAR para filtrar en tabla de prestamos principal
   buscar() {
