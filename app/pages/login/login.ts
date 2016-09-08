@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController,Toast} from 'ionic-angular';
 import {PrincipalPage} from '../principal/principal';
+import {InventarioPage} from '../inventario/inventario';
 import {Usuario} from '../usuario/usuario.model';
 import {UsuarioAuthService} from '../usuario/usuario.auth.service';
 import {Storage, LocalStorage} from 'ionic-angular';
@@ -52,15 +53,28 @@ export class LoginPage implements OnInit {
 
     authSuccess(data) {
         console.log(data.json().token)
-        this.nav.setRoot(PrincipalPage);
+        this.nav.setRoot(InventarioPage);
         this.errores.auth = null;
         this.local.setJson('auth',{token: data.json().token});
+        this.presentToast("Acceso exitoso")
 
     }
     ngOnInit() {
         this.usuarioAuthService.isAuthenticated().then(result => {
-            if (result) this.nav.setRoot(PrincipalPage);
+            if (result) this.nav.setRoot(InventarioPage);
         });
+    }
+
+    presentToast(text: string) {
+        let toast = Toast.create({
+            message: text,
+            duration: 3000
+        });
+
+        toast.onDismiss(() => {
+            console.log('Dismissed toast');
+        });
+        this.nav.present(toast);
     }
 
 
