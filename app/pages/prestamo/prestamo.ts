@@ -255,24 +255,35 @@ constructor( private navController:NavController,private menu: MenuController,
     this.navController.present(toast);
   }
 
+  //función que genera el codigo del acta para
+  //cada
   generarActa(){
     var hoy = new Date();
     var dd = hoy.getDate();
-    var mm = hoy.getMonth()+1; //hoy es 0!
+    var mm = hoy.getMonth()+1;
     var yyyy = hoy.getFullYear();
-
     console.log("dia "+ dd);
     console.log("mes "+ mm);
     console.log("año "+ yyyy);
     var codigoAnterior;
     let nuevoCodigo;
+    let dia, mes;
 
 this.prestamoService.getUltimaActa(this.navController).then(codigoAnterior => {
  console.log("Codigo anterior " + codigoAnterior);
  codigoAnterior = codigoAnterior + 1;
  nuevoCodigo = codigoAnterior;
  console.log("Codigo nuevo" + nuevoCodigo);
- this.actaNuevo.Codigo= yyyy+""+mm+""+dd+""+ nuevoCodigo.toString();
+if(nuevoCodigo > 0 && nuevoCodigo < 10){
+  this.actaNuevo.Codigo = yyyy + "" + mm + "" + dd + "" + "-" + "000" + nuevoCodigo.toString(); // 1 - 9
+}else if(nuevoCodigo >= 10 && nuevoCodigo < 100){
+  this.actaNuevo.Codigo = yyyy + "" + mm + "" + dd + "" + "-" + "00" + nuevoCodigo.toString(); //10 - 99
+}else if(nuevoCodigo >= 100 && nuevoCodigo < 1000){
+  this.actaNuevo.Codigo = yyyy + "" + mm + "" + dd + "" + "-" + "0" + nuevoCodigo.toString();  //100 - 999
+}else if(nuevoCodigo >= 1000 && nuevoCodigo < 8001){
+  this.actaNuevo.Codigo = yyyy + "" + mm + "" + dd + "" + "-" + nuevoCodigo.toString();  //1000 - 8000
+}
+
 });
 
 }

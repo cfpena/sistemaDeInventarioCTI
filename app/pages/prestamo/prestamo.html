@@ -80,7 +80,7 @@
             <div class="input-field">
               <i class="material-icons prefix" style="color:#009688">account_box</i>
               <input id="personaLista" type="text" class="validate filter-input" [(ngModel)]=descripcionPersona (keyup)=buscarPersona()>
-              <label for="personaLista">Búsqueda por nombre o cédula de una persona</label>
+              <label for="personaLista">Nombre o cédula de persona</label>
               <ul class="dropdown-content active"  style="opacity: 1; display: block;">
                 <li *ngFor="let persona of listaFiltradaPersona">
                   <a (click)="seleccionarPersona(persona)">{{persona.Nombre}} {{persona.Apellido}} </a>
@@ -94,8 +94,8 @@
           <div class="col l12 m12 s12">
             <div class="input-field">
               <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-              <input id="noActa" type="text" class="validate filter-input" [(ngModel)]=actaNuevo.Codigo>
-              <label for="noActa" date-error="Acta no Válida" >No. Acta</label>
+              <input id="noActa" type="text" disabled="disabled" class="validate filter-input" [(ngModel)]=actaNuevo.Codigo>
+              <label for="noActa" date-error="Acta no Válida" class="active">No. Acta</label>
             </div>
           </div>
           <div materialize class="col l12 m12 s12">
@@ -259,8 +259,8 @@
           <div class="col l12 m12 s12">
             <div class="input-field">
               <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-              <input id="noActa" type="text" class="validate filter-input" [(ngModel)]=actaModificar.Codigo disabled="true">
-              <label for="noActa">No. Acta</label>
+              <input id="noActa" type="text" class="validate filter-input" disabled="true" [(ngModel)]=actaModificar.Codigo >
+              <label for="noActa" class="active">No. Acta</label>
             </div>
           </div>
           <div materialize class="col l12 m12 s12">
