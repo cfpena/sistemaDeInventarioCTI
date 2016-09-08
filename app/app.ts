@@ -54,10 +54,10 @@ export class MyApp implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      if(this.platform.is('android')){
+      if(this.platform.is('mobileweb')){
         this.nav.setRoot(PrincipalPage);
       }
-      console.log(this.platform.platforms)
+      console.log(this.platform.is('mobileweb'))
     });
 
 
