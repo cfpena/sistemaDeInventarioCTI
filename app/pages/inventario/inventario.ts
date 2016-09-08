@@ -6,10 +6,12 @@ import {Persona} from '../persona/persona.model';
 import {FacturaIngreso} from '../inventario/inventario.model';
 import {IngresoEgreso} from '../inventario/inventario.model';
 import {ITEM} from '../item/item.model';
+import {Kit} from '../kit/kit.model';
 import { Http, Headers } from '@angular/http';
 import {InventarioService} from '../inventario/inventario.service';
 import {PersonaService} from '../persona/persona.service';
 import {ItemService } from '../item/item.service';
+import {KitService } from '../kit/kit.service';
 import {UsuarioService } from '../usuario/usuario.service';
 
 
@@ -17,7 +19,7 @@ import {UsuarioService } from '../usuario/usuario.service';
 @Component({
   templateUrl: 'build/pages/inventario/inventario.html',
   directives: [MaterializeDirective],
-  providers: [PersonaService, ItemService, InventarioService, UsuarioService],
+  providers: [PersonaService, ItemService, InventarioService, UsuarioService, KitService],
 })
 
 
@@ -35,8 +37,12 @@ export class InventarioPage implements OnInit{
   proveedorSeleccionado= new Persona();
   estaSeleccionadoProveedor: boolean=false;
 
+  esKit: boolean=false;
   descripcionItem: string ='';
   listaFiltradaItem: ITEM[];
+  listaFiltradaKit: Kit[];
+  kitSeleccionado =new Kit();
+  kitEstaSeleccionado: boolean=false;
 
   listaMovimientoDet: IngresoEgreso[]=[];
   cantidad=0;
@@ -57,7 +63,7 @@ export class InventarioPage implements OnInit{
 
   constructor( private navController:NavController,private menu: MenuController,
     private personaService: PersonaService, private itemService: ItemService, private inventarioService: InventarioService,
-    private usuarioService: UsuarioService,
+    private usuarioService: UsuarioService, private kitService: KitService,
     private http: Http){
       //this.inventarioTemporal=this.inventarios;
       //this.listarProveedores();
@@ -158,6 +164,13 @@ export class InventarioPage implements OnInit{
       this.tipoMov='Egreso'
     }
 
+    goEsItem(){
+      this.esKit=false;
+    }
+
+    goEsKit(){
+      this.esKit=true;
+    }
 
     cancelar(){
       this.listaMovimientoDet=[];
@@ -185,8 +198,13 @@ export class InventarioPage implements OnInit{
     buscarItem(){
       console.log('buscar item');
       if (this.descripcionItem!==''){
-        console.log('buscar item1');
-        this.itemService.getBuscarItem(this.descripcionItem,this.navController).then(items => { this.listaFiltradaItem = items; return items })
+        console.log('buscar item/kit');
+        if (this.esKit){
+          this.kitService.getBuscar(this.descripcionItem,this.navController).then(kits => { this.listaFiltradaKit = kits; return kits })
+        }else{
+          this.itemService.getBuscarItem(this.descripcionItem,this.navController).then(items => { this.listaFiltradaItem = items; return items })
+        }
+
       }else{
         this.listaFiltradaItem=[];
       }
@@ -201,7 +219,17 @@ export class InventarioPage implements OnInit{
       this.descripcionItem = this.itemNuevo.Codigo +' - '+ this.itemNuevo.Nombre;
       this.listaFiltradaItem=[];
       this.itemSeleccionado =true;
-      //this.itemSeleccionado = item;
+    }
+
+    seleccionarKit(kit: Kit){
+      console.log('estoy en seleccionar kit');
+      console.log(kit);
+      console.log(this.kitSeleccionado);
+      this.kitSeleccionado=JSON.parse(JSON.stringify(kit));
+      console.log(this.kitSeleccionado);
+      this.descripcionItem = this.kitSeleccionado.Codigo +' - '+ this.kitSeleccionado.Nombre;
+      this.listaFiltradaKit=[];
+      this.kitEstaSeleccionado =true;
     }
 
     agregarItem(){
@@ -229,10 +257,8 @@ export class InventarioPage implements OnInit{
 
               }
             }else{
-              console.log('es elemento');
               this.listaMovimientoDet.push({url:'', Fecha:'', Cantidad: this.cantidad, Detalle:'N/A', Tipo: this.tipoMov, Item: this.itemNuevo});
             }
-            //this.movimientoNuevo.IngresoEgreso=this.listaMovimientoDet;
             this.itemNuevo = new ITEM();
             this.cantidad=0;
             this.itemSeleccionado = false;
@@ -240,6 +266,51 @@ export class InventarioPage implements OnInit{
           }
         }
       }
+      if (this.esKit){
+        this.agregarKit();
+      }
+    }
+
+    agregarKit(){
+      if (this.kitEstaSeleccionado){
+        let cant=0;
+        let stockNoDisponible=false;
+        //verificar si hay en stock
+        console.log(this.kitSeleccionado)
+        console.log('verifico si es egreso y hay stock')
+        if(this.tipoMov =='Egreso'){
+          for(var kitdetalle of this.kitSeleccionado.KitDetalle){
+            if(Number(kitdetalle.Item.Stock_Disponible) < Number(this.cantidad)){
+              stockNoDisponible=true
+            }else{
+              for (var movdet of this.listaMovimientoDet){
+                if (movdet.Item.url = kitdetalle.Item.url){
+                  cant+=Number(movdet.Cantidad);
+                }
+              }
+              if(Number(kitdetalle.Item.Stock_Disponible) < (Number(this.cantidad) +cant)){
+                console.log('egreso es mayor que stock disponible');
+                stockNoDisponible=true;
+              }
+            }
+          }
+
+        }
+        if (!stockNoDisponible){
+          let cantidadKit = this.cantidad
+          for(var kitdetalle of this.kitSeleccionado.KitDetalle){
+            this.cantidad = this.cantidad*kitdetalle.cantidad
+            this.itemNuevo = kitdetalle.Item
+            this.agregarItem()
+          }
+
+          this.kitSeleccionado = new Kit();
+          this.cantidad=0;
+          this.kitEstaSeleccionado = false;
+          this.descripcionItem='';
+        }
+      }
+
     }
 
     eliminarMovimientoDet(movimientoDet: IngresoEgreso){

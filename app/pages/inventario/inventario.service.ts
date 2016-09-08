@@ -47,7 +47,6 @@ export class InventarioService {
             .then(result => {return result});
           })
 
-
         }
       })
     }
