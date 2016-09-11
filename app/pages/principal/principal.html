@@ -1,20 +1,26 @@
-<main>
-
-
-
-  <div id="contenedor_principal" class="">
+<main  style="height: 100%" class="blue-grey lighten-5" >
+  <div id="contenedor_principal">
     <div class="section">
-
-
-        <!-- SI DESEA USAR LA APLICACION MOVIL LALALALA -->
-
-        <!-- BOTON PAR DESCARGAR LA APLIACION MOVIL-->
-        <!-- BOTON PARA CONTINUAR-->
-        <a href={{apk}}> decargar</a>
-        <a (click)="continuar()">continuar</a>
-
-
-
+      <div class="row" style="padding-top: 50%;">
+        <div class="container">
+          <div class="col s11 offset-s1 ">
+            <h2 style="font-family:Monaco,Georgia,Times,serif; font-style: italic; letter-spacing: 1px; font-size: 24px; text-align: center; color:gray" >Descargar aplicación móvil para ios, Androd, Windows </h2>
+          </div>
+        </div>
+      </div>
+      <h5 style="text-align: center;">
+        <a href={{apk}} class="btn-floating btn-large waves-effect waves-light teal">
+          <i class="material-icons">get_app</i>
+        </a>
+      </h5>
     </div>
-</div>
+  </div>
+  <!--boton para cancelar-->
+  <div class="section">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a (click)="continuar()" class="btn-floating btn-large waves-effect waves-light orange darken-1 right">
+        <i class="material-icons">forward</i>
+      </a>
+    </div>
+  </div>
 </main>

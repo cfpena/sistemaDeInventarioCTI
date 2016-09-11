@@ -8,7 +8,6 @@ export class Url {
   elemento ='api/elementos/';
   item = 'api/items/';
   itemupload = 'api/itemupload/';
-
   acta ='api/actas/';
   devolucion ='api/devoluciones/';
   dispositivo = 'api/dispositivos/';

@@ -235,6 +235,7 @@ export class InventarioPage implements OnInit{
     agregarItem(){
       if (this.itemSeleccionado){
         let cant=0;
+        console.log(this.cantidad)
         if(Number(this.itemNuevo.Stock_Disponible) < Number(this.cantidad) && this.tipoMov =='Egreso'){
           console.log('egreso y mayor que stock disponible');
           this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
@@ -297,18 +298,22 @@ export class InventarioPage implements OnInit{
 
         }
         if (!stockNoDisponible){
-          let cantidadKit = this.cantidad
+          let cantidadKit = Number(this.cantidad)
+          console.log(cantidadKit)
           for(var kitdetalle of this.kitSeleccionado.KitDetalle){
-            this.cantidad = this.cantidad*kitdetalle.cantidad
-            this.itemNuevo = kitdetalle.Item
-            this.agregarItem()
+            console.log(kitdetalle.Cantidad)
+            this.kitService.llenarItem(kitdetalle.Item, this.navController).then (result =>{
+              this.itemSeleccionado=true;
+              this.kitEstaSeleccionado = false;
+              this.cantidad = cantidadKit*kitdetalle.Cantidad
+              this.itemNuevo = result
+              this.agregarItem()
+            })
           }
-
-          this.kitSeleccionado = new Kit();
-          this.cantidad=0;
-          this.kitEstaSeleccionado = false;
-          this.descripcionItem='';
         }
+        this.kitSeleccionado = new Kit();
+        this.cantidad=0;
+        this.descripcionItem='';
       }
 
     }
