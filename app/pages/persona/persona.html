@@ -69,11 +69,26 @@
 <div *ngIf="template=='crear'" style="overflow: scroll;">
   <!--nueva persona-->
   <div id="nuevo_persona" class="section">
-    <div class="container" style="padding-top: 50px">
+    <!--<div class="container" style="padding-top: 50px">-->
+    <div class="container">
       <div class="row">
         <!--<form class="col s12 m12 l12 ">-->
         <div class="card-panel blue-grey lighten-5">
-          <span>Nueva Persona</span>
+          <div class="row">
+            <div class="col l8 s12 m8">
+              <span>Nueva Persona</span>
+            </div>
+            <div class="col l4 s12 m4 grey lighten-2" style="font-size: 13px">
+              <div class="row">
+                <div class="col l2 m3 s2 center">
+                  <span style="color:red">(*)</span>
+                </div>
+                <div class="col l6 m7 s6">
+                  <span>Campos obligatorios</span>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="row" style="padding-top: 10px">
             <div class="col s12 m6 l6">
               <!--primera columna-->
@@ -147,13 +162,13 @@
                   <h6 id="obligatorio" style="color:red; padding-top: 40px">*</h6>
                 </div>
               </div>
-                <div class="input-field col l11 m11 s11">
+              <div class="input-field col l11 m11 s11">
                 <i class="material-icons prefix" style="color:#009688">label_outline</i>
                 <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaNueva.Genero">
                   <option *ngFor="let Genero of Generos" [value]="Genero">{{Genero}}</option>
                 </select>
               </div>
-                <div class="input-field col l11 m11 s11">
+              <div class="input-field col l11 m11 s11">
                 <i class="material-icons prefix" style="color:#009688">supervisor_account</i>
                 <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="personaNueva.Tipo">
                   <option *ngFor="let Tipo of Tipos" [value]="Tipo">{{Tipo}}</option>
