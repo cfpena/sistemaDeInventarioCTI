@@ -146,7 +146,7 @@ constructor( private navController:NavController,private menu: MenuController,
         this.listaFiltradaItem = items;
         return items; }).then(items => {
         if (this.listaFiltradaItem.length==0){
-          this.presentToast('El item debe existir en el sistema.');
+          this.presentToast('No existe un ítem para agregar');
           this.descripcionItem='';
         }
       })
@@ -165,6 +165,7 @@ constructor( private navController:NavController,private menu: MenuController,
   agregarItem(){
     if (this.itemSeleccionado){
       let cant=0;
+        if((this.descripcionItem)  != ""){
       if(Number(this.itemSeleccionado.Stock_Disponible) < Number(this.cantidad)){
         //console.log('egreso y mayor que stock disponible');
         this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
@@ -191,7 +192,10 @@ constructor( private navController:NavController,private menu: MenuController,
           this.estaSeleccionadoItem = false;
         }
       }
+    }else{
+        this.presentToast('No existe ítem para agregar');
     }
+  }
   }
 
 

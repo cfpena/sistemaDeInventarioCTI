@@ -90,12 +90,12 @@ export class InventarioPage implements OnInit{
       this.inventarioService.getMovimientos(this.navController).then(movimientos => { this.movimientos = movimientos ; return movimientos}).then(result=>{
         //console.log("listando movimientos");
         for(var movimiento of this.movimientos){
-          console.log(movimiento.Proveedor)
+          //console.log(movimiento.Proveedor)
           if (movimiento.Proveedor!=null){
             //console.log('no es null')
             this.inventarioService.llenarProveedor(movimiento,this.navController)
           }
-          //for (var )
+
         }
       })
     }
@@ -178,6 +178,9 @@ export class InventarioPage implements OnInit{
       this.listaMovimientoDet=[];
       this.listar();
       this.template='null';
+      this.movimientoNuevo = new FacturaIngreso();
+      this.descripcionProveedor ='';
+      this.listaMovimientoDet=[];
     }
 
     buscarProveedor(){
