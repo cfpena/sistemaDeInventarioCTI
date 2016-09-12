@@ -35,7 +35,7 @@ export class ReportesPage {
         private service: ReporteService
     ) {
         this.busqueda = this.tiposBusquedas[0]
-        console.log(this.today)
+        //console.log(this.today)
     }
     openMenu() {
         this.menu.open();
@@ -45,7 +45,7 @@ export class ReportesPage {
     pdf() {
 
         if (this.reporte.Fecha_Inicial != '' && this.reporte.Fecha_Final != '') {
-            console.log(this.reporte.Fecha_Final)
+            //console.log(this.reporte.Fecha_Final)
             if (this.busqueda == 'Movimientos') {
                 this.service.getReporteInventariopdf(this.reporte, this.navController).then(result => {
                     var reader = new FileReader();
@@ -86,7 +86,7 @@ export class ReportesPage {
     crear() {
 
         if (this.reporte.Fecha_Inicial != '' && this.reporte.Fecha_Final != '') {
-            console.log(this.reporte.Fecha_Final)
+            //console.log(this.reporte.Fecha_Final)
             if (this.busqueda == 'Movimientos') {
                 this.service.getReporteInventario(this.reporte, this.navController).then(result => {
                     this.IngresosEgresos = result.json() as IngresoEgreso[]
@@ -98,7 +98,7 @@ export class ReportesPage {
                     }
 
                 }).then(() => {
-                    console.log(this.IngresosEgresos)
+                    //console.log(this.IngresosEgresos)
                 })
             } else if (this.busqueda == 'Préstamos') {
                 this.service.getReportePrestamo(this.reporte, this.navController).then(result => {

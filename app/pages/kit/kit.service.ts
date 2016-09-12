@@ -37,14 +37,12 @@ export class KitService {
     }
 
     llenarKitDetalle(kitdet: any,nav: NavController){
-      console.log('llenar kitdet')
       return this.httprequest.get(String(kitdet),nav).then(result=>{
         return kitdet =  result.json() as KitDetalle;
       });
     }
 
     llenarItem(item: any,nav: NavController){
-      console.log('llenar item')
       return this.httprequest.get(String(item),nav).then(movdet=>{
         return item =  movdet.json() as ITEM;
       });
@@ -61,7 +59,6 @@ export class KitService {
   }*/
 
   createKit(kit: Kit,nav: NavController) {
-    console.log(JSON.stringify(kit))
     return this.httprequest.post(this.url.base + this.url.kit, JSON.stringify(kit),nav).then(result=>{
       let kit = result.json() as Kit
       return kit

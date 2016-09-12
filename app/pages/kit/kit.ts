@@ -197,22 +197,21 @@ export class KitPage implements OnInit{
 
       //Busqueda de item para agregar al kit
       buscarItem() {
-        console.log("buscar item");
+
         if (this.descripcionItem.trim()!= "") {
-          console.log("buscar item2");
+
           this.itemService.getBuscarItem(this.descripcionItem,this.navController).then(items => {
             this.listaFiltradaItem = items;
             return items;
           }).then(items => {
             if (this.listaFiltradaItem.length==0){
-              this.presentToast('El item debe existir en el sistema.');
+              this.presentToast('No existe un ítem para agregar');
               this.descripcionItem='';
             }
           })
         }
         else {
           this.listaFiltradaItem=[];
-          console.log("vacio");
         }
       }
 
@@ -226,6 +225,7 @@ export class KitPage implements OnInit{
       agregarItem(){
         console.log(this.listaDetalleKit)
         if (this.itemSeleccionado){
+          if((this.descripcionItem)  != ""){
           let kitdet= new KitDetalle()
           kitdet.Cantidad = this.cantidad
           kitdet.Item = this.itemSeleccionado
@@ -234,6 +234,9 @@ export class KitPage implements OnInit{
           this.cantidad=0;
           this.descripcionItem='';
           this.estaSeleccionadoItem = false;
+        }else{
+            this.presentToast('No existe ítem para agregar');
+        }
         }
       }
 
