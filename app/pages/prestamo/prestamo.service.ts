@@ -28,20 +28,20 @@ constructor(private http: Http,
   }
 
   createActa1(acta: Acta, nav:NavController){
-    console.log (acta)
+    //console.log (acta)
     return this.httprequest.post(this.url.base + this.url.acta, JSON.stringify(acta),nav).then(result => {return result});
   }
 
   createActa(acta: Acta, listaPrestamo: Prestamo[], nav:NavController){
-    console.log('voy a crear acta')
-    console.log(acta)
+    //console.log('voy a crear acta')
+    //console.log(acta)
     return this.httprequest.post(this.url.base + this.url.acta, JSON.stringify(acta),nav).then(result=>{
         let acta = result.json() as Acta
         for(let prestamo of listaPrestamo){
           prestamo.Cantidad = Number(prestamo.Cantidad)
           prestamo.Acta = acta.url
           prestamo.Item=prestamo.Item.url
-          console.log(JSON.stringify(prestamo))
+          //console.log(JSON.stringify(prestamo))
           this.httprequest.post(this.url.base + this.url.prestamo,JSON.stringify(prestamo),nav)
         }
     })
@@ -72,7 +72,7 @@ constructor(private http: Http,
   }
 
   llenarPrestador(acta: Acta,nav: NavController){
-    console.log('llenar prestador')
+    //console.log('llenar prestador')
     return this.httprequest.get(String(acta.Prestador),nav).then(prestador=>{
       acta.Prestador =  prestador.json() as Persona;
     });
@@ -87,7 +87,7 @@ constructor(private http: Http,
   }
 
   llenarItem(prestamo: any,nav: NavController){
-    console.log('llenar item')
+    //console.log('llenar item')
     return this.httprequest.get(String(prestamo.Item),nav).then(result=>{
       prestamo.Item =  result.json() as ITEM;
       return prestamo;

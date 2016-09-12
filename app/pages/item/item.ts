@@ -66,20 +66,17 @@ export class ItemPage implements OnInit {
 
     crear() {
         let validator = new Validator();
-        console.log(validator.validate(this.itemNuevo))
         this.itemNuevo.Stock=0;
         if (!validator.isValid(this.itemNuevo)){ this.presentToast('Corrija el formulario');}
       //  else if (this.itemNuevo.Stock < 1 || this.itemNuevo.Stock > 50 || this.itemNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
 
             //let item = JSON.parse(JSON.stringify(this.itemNuevo))
-            console.log(this.foto)
             if(this.foto.name!='')
             this.itemNuevo.Imagen = this.foto
             else this.itemNuevo.Imagen=null
             this.itemService.createItem(this.itemNuevo,this.navController).then(result => {
               let r = result.json() as ITEM
-              console.log('guarde item')
               //this.itemService.uploadImagen(r.url,this.itemNuevo.Imagen,this.navController)
               this.listar();
               this.presentToast('item creado correctamente');
@@ -176,8 +173,6 @@ export class ItemPage implements OnInit {
         }
         //se deja en blanco la lista a eliminar
         this.itemsEliminar = Array<ITEM>();
-        console.log(this.itemsEliminar);
-
         //se refrescan los datos del servidor
         this.listar();
     }
@@ -198,10 +193,8 @@ export class ItemPage implements OnInit {
        let nuevoCodigo;
        //getUltimoCodItem : retorna el ultimo codigo para sumarle 1 para el nuevoC
        this.itemService.getUltimoCodItem(this.navController).then(codigoAnterior => {
-        console.log("Codigo anterior " + codigoAnterior);
         codigoAnterior = codigoAnterior + 1;
         nuevoCodigo = codigoAnterior;
-        console.log("Codigo nuevo" + nuevoCodigo);
         if(nuevoCodigo > 0 && nuevoCodigo < 10){
           this.itemNuevo.Codigo= "000" + nuevoCodigo.toString(); // 1 - 9
         }else if(nuevoCodigo >= 10 && nuevoCodigo < 100){

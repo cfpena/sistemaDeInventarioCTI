@@ -33,21 +33,21 @@
             </div>
           </div>
         </div>
-        <div class="col l4 m4 s9" style="padding-top: 12px">
+        <div class="col l4 m12 s12" style="padding-top: 12px">
           <div class="input-field">
             <select materialize="material_select" [materializeSelectOptions]="selectOptions" [(ngModel)]="busqueda">
               <option *ngFor="let tiposBusqueda of tiposBusquedas" [value]="tiposBusqueda">{{tiposBusqueda}}</option>
             </select>
           </div>
         </div>
-        <div class="col l2 m2 s2">
+        <div class="col l2 m6 s6">
           <div class="right" style="padding-top: 25%;">
             <a  (click)="crear()" class="btn waves-effect waves-light"  style="font-size: 13px">Crear
               <i class="material-icons right">send</i>
             </a>
           </div>
         </div>
-        <div class="col l2 m2 s2">
+        <div class="col l2 m6 s6">
           <div class="right" style="padding-top: 25%;">
             <a  (click)="pdf()" class="btn waves-effect waves-light"  style="font-size: 13px">PDF
               <i class="material-icons right">send</i>

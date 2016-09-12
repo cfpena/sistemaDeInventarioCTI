@@ -67,23 +67,24 @@ constructor( private navController:NavController,private menu: MenuController,
 
   goNuevoPrestamo(){
     this.template='nuevo_prestamo';
+    this.itemSeleccionado.Stock_Disponible=0;
     this.generarActa();
   }
 
   goModificarPrestamo(acta: Acta) {
-    console.log(acta)
+    //console.log(acta)
     this.actaModificar=JSON.parse(JSON.stringify(acta))
     this.descripcionPersona = this.actaModificar.Prestador.Nombre + ' ' + this.actaModificar.Prestador.Apellido
     this.prestamoService.getPrestamos(this.navController).then(prestamos =>{
-      console.log('prestamos')
-      console.log(prestamos)
+      //console.log('prestamos')
+      //console.log(prestamos)
       for (var prestamo of prestamos){
         this.prestamoService.llenarItem(prestamo, this.navController).then(result =>{
           //prestamo.Item=item;
-          console.log('prestamo acta')
-          console.log(result)
-          console.log('acta')
-          console.log(acta)
+          //console.log('prestamo acta')
+          //console.log(result)
+          //console.log('acta')
+          //console.log(acta)
           if (result.Acta==acta.url){
             this.listaPrestamos.push(result);
           }
@@ -101,8 +102,8 @@ constructor( private navController:NavController,private menu: MenuController,
   }
 
   crear(){
-    console.log('crear')
-    console.log (this.actaNuevo)
+    //console.log('crear')
+    //console.log (this.actaNuevo)
     let validator = new Validator();
     if (!validator.isValid(this.actaNuevo)){ this.presentToast('Corrija el formulario');console.log(validator.validate(this.actaNuevo));}
     //  else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
@@ -145,7 +146,7 @@ constructor( private navController:NavController,private menu: MenuController,
         this.listaFiltradaItem = items;
         return items; }).then(items => {
         if (this.listaFiltradaItem.length==0){
-          this.presentToast('El item debe existir en el sistema.');
+          this.presentToast('No existe un ítem para agregar');
           this.descripcionItem='';
         }
       })
@@ -164,8 +165,9 @@ constructor( private navController:NavController,private menu: MenuController,
   agregarItem(){
     if (this.itemSeleccionado){
       let cant=0;
+        if((this.descripcionItem)  != ""){
       if(Number(this.itemSeleccionado.Stock_Disponible) < Number(this.cantidad)){
-        console.log('egreso y mayor que stock disponible');
+        //console.log('egreso y mayor que stock disponible');
         this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
       }else{
         for (var prestamo of this.listaPrestamos){
@@ -174,7 +176,7 @@ constructor( private navController:NavController,private menu: MenuController,
           }
         }
         if(Number(this.itemSeleccionado.Stock_Disponible) < (Number(this.cantidad) +cant)){
-          console.log('egreso y mayor que stock disponible');
+          //console.log('egreso y mayor que stock disponible');
           this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
         }else{
           if (this.itemSeleccionado.Es_Dispositivo){
@@ -190,8 +192,12 @@ constructor( private navController:NavController,private menu: MenuController,
           this.estaSeleccionadoItem = false;
         }
       }
+    }else{
+        this.presentToast('No existe ítem para agregar');
     }
   }
+  }
+
 
   //elimina una o mas personas
   eliminar() {
@@ -204,11 +210,17 @@ constructor( private navController:NavController,private menu: MenuController,
       }
       //se deja en blanco la lista a eliminar
       this.prestamoEliminar = Array<Prestamo>();
-      console.log(this.prestamoEliminar);
+      //console.log(this.prestamoEliminar);
 
       //se refrescan los datos del servidor
       this.listar_actas();
   }
+
+  eliminarPrestamo(prestamo: Prestamo){
+    let index=this.listaPrestamos.indexOf(prestamo)
+    this.listaPrestamos.splice(index,1)
+  }
+
 
   buscarPersona(){
     if (this.descripcionPersona!==''){
@@ -262,18 +274,13 @@ constructor( private navController:NavController,private menu: MenuController,
     var dd = hoy.getDate();
     var mm = hoy.getMonth()+1;
     var yyyy = hoy.getFullYear();
-    console.log("dia "+ dd);
-    console.log("mes "+ mm);
-    console.log("año "+ yyyy);
     var codigoAnterior;
     let nuevoCodigo;
     let dia, mes;
 
 this.prestamoService.getUltimaActa(this.navController).then(codigoAnterior => {
- console.log("Codigo anterior " + codigoAnterior);
  codigoAnterior = codigoAnterior + 1;
  nuevoCodigo = codigoAnterior;
- console.log("Codigo nuevo" + nuevoCodigo);
 if(nuevoCodigo > 0 && nuevoCodigo < 10){
   this.actaNuevo.Codigo = yyyy + "" + mm + "" + dd + "" + "-" + "000" + nuevoCodigo.toString(); // 1 - 9
 }else if(nuevoCodigo >= 10 && nuevoCodigo < 100){
