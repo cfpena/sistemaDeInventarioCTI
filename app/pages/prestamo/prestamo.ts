@@ -67,6 +67,7 @@ constructor( private navController:NavController,private menu: MenuController,
 
   goNuevoPrestamo(){
     this.template='nuevo_prestamo';
+    this.itemSeleccionado.Stock_Disponible=0;
     this.generarActa();
   }
 
@@ -193,6 +194,7 @@ constructor( private navController:NavController,private menu: MenuController,
     }
   }
 
+
   //elimina una o mas personas
   eliminar() {
 
@@ -209,6 +211,12 @@ constructor( private navController:NavController,private menu: MenuController,
       //se refrescan los datos del servidor
       this.listar_actas();
   }
+
+  eliminarPrestamo(prestamo: Prestamo){
+    let index=this.listaPrestamos.indexOf(prestamo)
+    this.listaPrestamos.splice(index,1)
+  }
+
 
   buscarPersona(){
     if (this.descripcionPersona!==''){

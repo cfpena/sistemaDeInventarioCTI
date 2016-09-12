@@ -102,6 +102,8 @@ export class InventarioPage implements OnInit{
 
     goIngresarMovimiento(){
       this.template='ingresar_movimiento';
+      this.itemNuevo.Stock=0;
+
     }
 
     crearMovimiento(){

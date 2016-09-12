@@ -84,7 +84,21 @@ Ionic pages and navigation.
   <div *ngIf="template=='crear'" >
     <div class="container" style="position: relative; bottom: -50px;">
       <div class="card-panel blue-grey lighten-5 black-text" >
-        <span class="card-title ">Nuevo Usuario</span>
+        <div class="row">
+          <div class="col l8 s12 m8">
+              <span class="card-title ">Nuevo Usuario</span>
+          </div>
+          <div class="col l4 s12 m4 grey lighten-2" style="font-size: 13px">
+            <div class="row">
+              <div class="col l2 m3 s2 center">
+                <span style="color:red">(*)</span>
+              </div>
+              <div class="col l6 m7 s6">
+                <span>Campos obligatorios</span>
+              </div>
+            </div>
+          </div>
+        </div>  
         <div class="row">
           <!--primera fila-->
           <div class="col l6 m6 s12">
