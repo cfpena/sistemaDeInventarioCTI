@@ -110,8 +110,10 @@ export class InventarioPage implements OnInit{
       //console.log('voy a crear mov');
       let validator = new Validator();
       //console.log(JSON.stringify(this.movimientoNuevo));
-      //console.log(validator.validate(this.movimientoNuevo));
+
       //console.log(JSON.stringify(validator.validate(this.movimientoNuevo)));
+      this.movimientoNuevo.Proveedor = this.proveedorSeleccionado.url;
+      console.log(this.movimientoNuevo);
       if (this.validarMovimiento()){
         this.inventarioService.createMovimiento(this.movimientoNuevo, this.listaMovimientoDet, this.navController)
         this.template='null';

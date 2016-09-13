@@ -1,4 +1,4 @@
-import {Headers} from '@angular/http';
+ import {Headers} from '@angular/http';
 export class Url {
   base ='http://162.243.83.72/';
   //base= 'http://localhost:8000/'
