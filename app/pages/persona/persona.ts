@@ -79,13 +79,11 @@ export class PersonaPage implements OnInit {
     //crea una persona nueva
     crear() {
         this.compararEmail(this.personaNueva.Email).then(result => {
-            console.log(result)
             if (!result) {
                 let validator = new Validator();
 
                 if (!validator.isValid(this.personaNueva)) {
                     this.presentToast('Corrija el formulario');
-                    console.log(validator.validate(this.personaNueva));
 
                 }
 
@@ -130,12 +128,9 @@ export class PersonaPage implements OnInit {
     modificar() {
 
         let validator = new Validator();
-        console.log(validator.validate(this.personaModificar))
         if (!validator.isValid(this.personaModificar as Persona)
             || this.personaModificar.Nombre == '' || this.personaModificar.Apellido == '') {
             this.presentToast('Corrija el formulario');
-            console.log(this.personaModificar)
-            console.log(validator.validate(this.personaModificar));
 
         }
         else {
@@ -159,8 +154,6 @@ export class PersonaPage implements OnInit {
         }
         //se deja en blanco la lista a eliminar
         this.personasEliminar = Array<Persona>();
-        console.log(this.personasEliminar);
-
         //se refrescan los datos del servidor
         this.listar();
     }

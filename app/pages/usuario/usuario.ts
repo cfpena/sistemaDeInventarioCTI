@@ -82,7 +82,7 @@ export class UsuarioPage implements OnInit {
         let validator = new Validator();
 
         if (!validator.isValid(this.usuarioNuevo))
-        {   console.log(validator.validate(this.usuarioNuevo));
+        {
             this.presentToast('Corrija el formulario');}
         else if (this.credenciales.clave == '') this.presentToast('Clave vacia');
         else if (this.credenciales.clave.length < 6) this.presentToast('Clave menor a 6 caracteres');
@@ -131,7 +131,6 @@ export class UsuarioPage implements OnInit {
       else{
       this.presentToast('Datos modificados correctamente');
       this.usuarioModificar.groups = [this.usuarioModificar.groups[0].url]
-      console.log(JSON.stringify(this.usuarioModificar))
       this.usuarioService.updateUsuario(this.usuarioModificar,this.navController).then(result => {this.listar();});
       this.template='null'
       this.usuarioModificar = new Usuario();
@@ -151,9 +150,7 @@ export class UsuarioPage implements OnInit {
               //se deja en blanco la lista a eliminar
               this.usuariosEliminar= Array<Usuario>();
               //se refrescan los datos del servidor
-              console.log(this.usuariosEliminar);
-
-              //se refrescan los datos del servidor
+             //se refrescan los datos del servidor
               this.listar();
 
     }

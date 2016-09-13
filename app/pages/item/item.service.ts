@@ -43,7 +43,7 @@ export class ItemService {
     createItem(item: ITEM,nav: NavController) {
       let url = this.url.base
       url+= this.url.itemupload
-      console.log(JSON.stringify(item))
+      //console.log(JSON.stringify(item))
       return this.httprequest.post(url, JSON.stringify(item),nav)
     }
 

@@ -88,14 +88,14 @@ export class InventarioPage implements OnInit{
     listar() {
       this.movimientos =[]
       this.inventarioService.getMovimientos(this.navController).then(movimientos => { this.movimientos = movimientos ; return movimientos}).then(result=>{
-        console.log("listando movimientos");
+        //console.log("listando movimientos");
         for(var movimiento of this.movimientos){
-          console.log(movimiento.Proveedor)
+          //console.log(movimiento.Proveedor)
           if (movimiento.Proveedor!=null){
-            console.log('no es null')
+            //console.log('no es null')
             this.inventarioService.llenarProveedor(movimiento,this.navController)
           }
-          //for (var )
+
         }
       })
     }
@@ -107,11 +107,13 @@ export class InventarioPage implements OnInit{
     }
 
     crearMovimiento(){
-      console.log('voy a crear mov');
+      //console.log('voy a crear mov');
       let validator = new Validator();
-      console.log(JSON.stringify(this.movimientoNuevo));
-      console.log(validator.validate(this.movimientoNuevo));
+      //console.log(JSON.stringify(this.movimientoNuevo));
+
       //console.log(JSON.stringify(validator.validate(this.movimientoNuevo)));
+      this.movimientoNuevo.Proveedor = this.proveedorSeleccionado.url;
+      console.log(this.movimientoNuevo);
       if (this.validarMovimiento()){
         this.inventarioService.createMovimiento(this.movimientoNuevo, this.listaMovimientoDet, this.navController)
         this.template='null';
@@ -125,8 +127,8 @@ export class InventarioPage implements OnInit{
 
     validarMovimiento() {
       let validator = new Validator();
-      console.log('voy a valirdar movimiento');
-      console.log(JSON.stringify(this.movimientoNuevo));
+      //console.log('voy a valirdar movimiento');
+      //console.log(JSON.stringify(this.movimientoNuevo));
       if (!validator.isValid(this.movimientoNuevo)) this.presentToast('ERROR!');
       else if (this.movimientoNuevo.Fecha=='') this.presentToast ('Seleccione la fecha del movimiento');
       else return true
@@ -136,13 +138,13 @@ export class InventarioPage implements OnInit{
 
     goVerMovimiento(movimiento: FacturaIngreso){
       for(var key in movimiento){
-        console.log(key);
+        //console.log(key);
         this.movimientoSeleccionado[key]= movimiento[key]
       }
       this.movimientoSeleccionado.IngresoEgreso=[];
       let listaMovDet= movimiento.IngresoEgreso;
       for (var movimientodet in listaMovDet){
-        console.log('listando items')
+        //console.log('listando items')
         this.inventarioService.llenarMovimientoDet(listaMovDet[movimientodet], this.navController).then(result=>{
           this.inventarioService.llenarItem(result.Item, this.navController).then(item =>{
             this.tipoMov = result.Tipo;
@@ -152,7 +154,7 @@ export class InventarioPage implements OnInit{
           })
         })
       }
-      console.log(this.movimientoSeleccionado)
+      //console.log(this.movimientoSeleccionado)
       this.template='ver_movimiento';
     }
 
@@ -178,12 +180,15 @@ export class InventarioPage implements OnInit{
       this.listaMovimientoDet=[];
       this.listar();
       this.template='null';
+      this.movimientoNuevo = new FacturaIngreso();
+      this.descripcionProveedor ='';
+      this.listaMovimientoDet=[];
     }
 
     buscarProveedor(){
-      console.log('buscar persona');
+      //console.log('buscar persona');
       if (this.descripcionProveedor!==''){
-        console.log('buscar persona1');
+        //console.log('buscar persona1');
         this.personaService.getBuscar(this.descripcionProveedor, this.navController).then(personas => {this.listaFiltradaProveedor=personas; return personas})
       }else{
         this.listaFiltradaProveedor=[];
@@ -198,9 +203,8 @@ export class InventarioPage implements OnInit{
     }
 
     buscarItem(){
-      console.log('buscar item');
       if (this.descripcionItem!==''){
-        console.log('buscar item/kit');
+        //console.log('buscar item/kit');
         if (this.esKit){
           this.kitService.getBuscar(this.descripcionItem,this.navController).then(kits => { this.listaFiltradaKit = kits; return kits })
         }else{
@@ -213,22 +217,14 @@ export class InventarioPage implements OnInit{
     }
 
     seleccionarItem(item: ITEM){
-      console.log('estoy en seleccionar item');
-      console.log(item);
-      console.log(this.itemNuevo);
       this.itemNuevo=JSON.parse(JSON.stringify(item));
-      console.log(this.itemNuevo);
       this.descripcionItem = this.itemNuevo.Codigo +' - '+ this.itemNuevo.Nombre;
       this.listaFiltradaItem=[];
       this.itemSeleccionado =true;
     }
 
     seleccionarKit(kit: Kit){
-      console.log('estoy en seleccionar kit');
-      console.log(kit);
-      console.log(this.kitSeleccionado);
       this.kitSeleccionado=JSON.parse(JSON.stringify(kit));
-      console.log(this.kitSeleccionado);
       this.descripcionItem = this.kitSeleccionado.Codigo +' - '+ this.kitSeleccionado.Nombre;
       this.listaFiltradaKit=[];
       this.kitEstaSeleccionado =true;
@@ -237,12 +233,13 @@ export class InventarioPage implements OnInit{
     agregarItem(){
       if (this.itemSeleccionado){
         let cant=0;
-        console.log(this.cantidad)
+        //console.log(this.cantidad)
         if(Number(this.itemNuevo.Stock_Disponible) < Number(this.cantidad) && this.tipoMov =='Egreso'){
-          console.log('egreso y mayor que stock disponible');
+          //console.log('egreso y mayor que stock disponible');
           this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
         }else{
-          console.log ('verificar si existe')
+          //console.log ('verificar si existe')
+          //console.log ('click')
           for (var movdet of this.listaMovimientoDet){
             if (movdet.Item.url = this.itemNuevo.url){
               cant+=Number(movdet.Cantidad);
@@ -250,11 +247,11 @@ export class InventarioPage implements OnInit{
           }
           if(Number(this.itemNuevo.Stock_Disponible) < (Number(this.cantidad) +cant)
           && this.tipoMov =='Egreso'){
-            console.log('egreso es mayor que stock disponible');
+            //console.log('egreso es mayor que stock disponible');
             this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
           }else{
             if (this.itemNuevo.Es_Dispositivo){
-              console.log('es dispositivo');
+              //console.log('es dispositivo');
               for(var _i = 0; _i < this.cantidad; _i++){
                 this.listaMovimientoDet.push({url:'', Fecha:'', Cantidad: 1, Detalle:'', Tipo: this.tipoMov, Item: this.itemNuevo});
 
@@ -268,6 +265,8 @@ export class InventarioPage implements OnInit{
             this.descripcionItem='';
           }
         }
+      }else{
+        this.presentToast('No existe ítem para agregar');
       }
       if (this.esKit){
         this.agregarKit();
@@ -279,8 +278,8 @@ export class InventarioPage implements OnInit{
         let cant=0;
         let stockNoDisponible=false;
         //verificar si hay en stock
-        console.log(this.kitSeleccionado)
-        console.log('verifico si es egreso y hay stock')
+        //console.log(this.kitSeleccionado)
+        //console.log('verifico si es egreso y hay stock')
         if(this.tipoMov =='Egreso'){
           for(var kitdetalle of this.kitSeleccionado.KitDetalle){
             if(Number(kitdetalle.Item.Stock_Disponible) < Number(this.cantidad)){
@@ -292,7 +291,7 @@ export class InventarioPage implements OnInit{
                 }
               }
               if(Number(kitdetalle.Item.Stock_Disponible) < (Number(this.cantidad) +cant)){
-                console.log('egreso es mayor que stock disponible');
+                //console.log('egreso es mayor que stock disponible');
                 stockNoDisponible=true;
               }
             }
@@ -301,9 +300,9 @@ export class InventarioPage implements OnInit{
         }
         if (!stockNoDisponible){
           let cantidadKit = Number(this.cantidad)
-          console.log(cantidadKit)
+          //console.log(cantidadKit)
           for(var kitdetalle of this.kitSeleccionado.KitDetalle){
-            console.log(kitdetalle.Cantidad)
+            //console.log(kitdetalle.Cantidad)
             this.kitService.llenarItem(kitdetalle.Item, this.navController).then (result =>{
               this.itemSeleccionado=true;
               this.kitEstaSeleccionado = false;

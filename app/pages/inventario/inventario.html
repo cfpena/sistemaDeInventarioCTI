@@ -82,16 +82,10 @@ Ionic pages and navigation.
             <!--Cabecera de movimiento-->
             <div class="row" >
               <div class="col s12 m12 l12" *ngIf="templateMovimiento=='ingreso_inventario'">
-                <div class="row">
-                  <div class="col l12 m12 s12">
-                    <div class="input-field">
-                      <i class="material-icons prefix" style="color:#009688">account_box</i>
-                      <input id="personaLista" type="text" class="validate filter-input" [(ngModel)]=descripcionProveedor (keyup)=buscarProveedor()>
-                      <label for="personaLista" data-error="Corrija Persona">Persona</label>
-                    </div>
-                  </div>
-                </div>
-                <div>
+                <div class="input-field">
+                  <i class="material-icons prefix" style="color:#009688">account_box</i>
+                  <input id="personaLista" type="text" class="validate filter-input" [(ngModel)]=descripcionProveedor (keyup)=buscarProveedor()>
+                  <label for="personaLista" data-error="Corrija Persona">Persona</label>
                   <ul class="dropdown-content active"  style="opacity: 1; display: block;">
                     <li *ngFor="let persona of listaFiltradaProveedor">
                       <a (click)="seleccionarProveedor(persona)">{{persona.Nombre}} {{persona.Apellido}} </a>
@@ -99,7 +93,6 @@ Ionic pages and navigation.
                   </ul>
                 </div>
               </div>
-
               <div class="col s12 m12 l12" >
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
@@ -272,7 +265,7 @@ Ionic pages and navigation.
                     <div class="input-field">
                       <i class="material-icons prefix" style="color:#009688">account_box</i>
                       <input id="personaLista" type="text" class="validate filter-input" [(ngModel)]=descripcionProveedor >
-                      <label for="personaLista" >Persona</label>
+                      <label for="personaLista" class="active">Persona</label>
                     </div>
                   </div>
                 </div>
@@ -304,7 +297,6 @@ Ionic pages and navigation.
           <div class="card-panel blue-grey lighten-5 ">
             <span class="card-title">Detalle del movimiento</span>
             <!--lista-->
-            <div class="divider"></div>
             <div class="row" style="color:#424242; font-size: 60%">
               <div class="col l6 m7 s6">
                 <h6 class="center">Ítem</h6>
