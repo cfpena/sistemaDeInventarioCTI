@@ -21,10 +21,11 @@ export class KitPage implements OnInit{
   template: string = 'null';
   kits: Array<Kit>=[]
 
-  busqueda: string='';
+
   kitsEliminar: Kit[] = [];
 
   templateItem: string='null';
+  busqueda = { tipo: 'codigo', valor: '' };
 
   descripcionItem: string ='';
   itemSeleccionado= new ITEM();
@@ -188,8 +189,8 @@ export class KitPage implements OnInit{
 
       //Busqueda de Kits en la tabla principal
       buscar() {
-        if (this.busqueda.trim() != "") {
-          this.kitService.getBuscar(this.busqueda,this.navController).then(kits => { this.kits = kits; return kits }).then(kits => {
+        if (this.busqueda.valor.trim() != "") {
+          this.kitService.getBuscar(this.busqueda.valor,this.navController).then(kits => { this.kits = kits; return kits }).then(kits => {
           })
         }
         else { this.listar() }
