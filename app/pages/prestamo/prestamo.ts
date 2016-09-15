@@ -84,9 +84,10 @@ constructor( private navController:NavController,private menu: MenuController,
           //console.log('prestamo acta')
           //console.log(result)
           //console.log('acta')
-          //console.log(acta)
+          //console.log(prestamo)
           if (result.Acta==acta.url){
             this.listaPrestamos.push(result);
+
           }
         })
       }
@@ -111,6 +112,7 @@ constructor( private navController:NavController,private menu: MenuController,
     //  else if (this.itemNuevo.Descripcion == '') this.presentToast('Descripción vacio');
     //else if (this.kitNuevo.Stock < 1 || this.kitNuevo.Stock > 50 || this.kitNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
     else {
+      console.log(this.listaPrestamos);
       this.actaNuevo.Prestador=this.personaSeleccionada.url;
       this.prestamoService.createActa(this.actaNuevo, this.listaPrestamos,this.navController).then(result => {this.listar_actas()});
       this.template='null';
@@ -171,7 +173,7 @@ constructor( private navController:NavController,private menu: MenuController,
         this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
       }else{
         for (var prestamo of this.listaPrestamos){
-          if (prestamo.Item.url = this.itemSeleccionado.url){
+          if (prestamo.Item.url == this.itemSeleccionado.url){
             cant+=Number(prestamo.Cantidad);
           }
         }
@@ -195,6 +197,7 @@ constructor( private navController:NavController,private menu: MenuController,
     }else{
         this.presentToast('No existe ítem para agregar');
     }
+    console.log(this.listaPrestamos);
   }
   }
 
