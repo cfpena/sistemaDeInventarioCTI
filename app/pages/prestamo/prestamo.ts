@@ -84,9 +84,10 @@ constructor( private navController:NavController,private menu: MenuController,
           //console.log('prestamo acta')
           //console.log(result)
           //console.log('acta')
-          //console.log(acta)
+          //console.log(prestamo)
           if (result.Acta==acta.url){
             this.listaPrestamos.push(result);
+
           }
         })
       }
@@ -111,6 +112,7 @@ constructor( private navController:NavController,private menu: MenuController,
     //  else if (this.itemNuevo.Descripcion == '') this.presentToast('Descripción vacio');
     //else if (this.kitNuevo.Stock < 1 || this.kitNuevo.Stock > 50 || this.kitNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
     else {
+      console.log(this.listaPrestamos);
       this.actaNuevo.Prestador=this.personaSeleccionada.url;
       this.prestamoService.createActa(this.actaNuevo, this.listaPrestamos,this.navController).then(result => {this.listar_actas()});
       this.template='null';
@@ -171,7 +173,7 @@ constructor( private navController:NavController,private menu: MenuController,
         this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
       }else{
         for (var prestamo of this.listaPrestamos){
-          if (prestamo.Item.url = this.itemSeleccionado.url){
+          if (prestamo.Item.url == this.itemSeleccionado.url){
             cant+=Number(prestamo.Cantidad);
           }
         }
@@ -195,6 +197,7 @@ constructor( private navController:NavController,private menu: MenuController,
     }else{
         this.presentToast('No existe ítem para agregar');
     }
+    console.log(this.listaPrestamos);
   }
   }
 
@@ -268,32 +271,37 @@ constructor( private navController:NavController,private menu: MenuController,
   }
 
   //función que genera el codigo del acta para
-  //cada
-  generarActa(){
-    var hoy = new Date();
-    var dd = hoy.getDate();
-    var mm = hoy.getMonth()+1;
-    var yyyy = hoy.getFullYear();
-    var codigoAnterior;
-    let nuevoCodigo;
-    let dia, mes;
+   //cada
+   generarActa(){
+     var hoy = new Date();
+     var dd = hoy.getDate();
+     var mm = hoy.getMonth()+1;
+     var yyyy = hoy.getFullYear();
+     var codigoAnterior;
+     let nuevoCodigo;
+     let dia, mes;
 
-this.prestamoService.getUltimaActa(this.navController).then(codigoAnterior => {
- codigoAnterior = codigoAnterior + 1;
- nuevoCodigo = codigoAnterior;
-if(nuevoCodigo > 0 && nuevoCodigo < 10){
-  this.actaNuevo.Codigo = yyyy + "" + mm + "" + dd + "" + "-" + "000" + nuevoCodigo.toString(); // 1 - 9
-}else if(nuevoCodigo >= 10 && nuevoCodigo < 100){
-  this.actaNuevo.Codigo = yyyy + "" + mm + "" + dd + "" + "-" + "00" + nuevoCodigo.toString(); //10 - 99
-}else if(nuevoCodigo >= 100 && nuevoCodigo < 1000){
-  this.actaNuevo.Codigo = yyyy + "" + mm + "" + dd + "" + "-" + "0" + nuevoCodigo.toString();  //100 - 999
-}else if(nuevoCodigo >= 1000 && nuevoCodigo < 8001){
-  this.actaNuevo.Codigo = yyyy + "" + mm + "" + dd + "" + "-" + nuevoCodigo.toString();  //1000 - 8000
-}
+  this.prestamoService.getUltimaActa(this.navController).then(codigoAnterior => {
+  console.log("recibo ",codigoAnterior);
+  codigoAnterior = codigoAnterior + 1;
+  console.log("sumado 1 ",codigoAnterior)
+  //console.log(codigoAnterior)
+  nuevoCodigo = codigoAnterior;
+  console.log("nuevo ", nuevoCodigo)
 
-});
+ if(nuevoCodigo > 0 && nuevoCodigo < 10){
+   this.actaNuevo.Codigo = yyyy + "" + mm + "" + dd + "" + "-" + "000" + nuevoCodigo.toString(); // 1 - 9
+ }else if(nuevoCodigo >= 10 && nuevoCodigo < 100){
+   this.actaNuevo.Codigo = yyyy + "" + mm + "" + dd + "" + "-" + "00" + nuevoCodigo.toString(); //10 - 99
+ }else if(nuevoCodigo >= 100 && nuevoCodigo < 1000){
+   this.actaNuevo.Codigo = yyyy + "" + mm + "" + dd + "" + "-" + "0" + nuevoCodigo.toString();  //100 - 999
+ }else if(nuevoCodigo >= 1000 && nuevoCodigo < 8001){
+   this.actaNuevo.Codigo = yyyy + "" + mm + "" + dd + "" + "-" + nuevoCodigo.toString();  //1000 - 8000
+ }
 
-}
+ });
+
+ }
 
   //FUNCION BUSCAR para filtrar en tabla de prestamos principal
   buscar() {
