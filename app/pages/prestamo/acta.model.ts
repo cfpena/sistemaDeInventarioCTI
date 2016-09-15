@@ -9,6 +9,7 @@ export class Acta {
   Prestador: any;
   Fecha_vencimiento: String;
   Fecha: String;
+  Devuelto: boolean;
   @IsLength(0, 30) Codigo: string;
 
   constructor( ) {

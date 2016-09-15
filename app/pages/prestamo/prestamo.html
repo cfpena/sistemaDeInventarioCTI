@@ -25,9 +25,9 @@
       <tr>
         <th></th>
         <th data-field="Nombre">Nombre</th>
-        <th data-field="Cantidad">cantidad</th>
         <th data-field="fecha_inicial">fecha ini.</th>
         <th data-field="fecha_devuelto">fecha fin.</th>
+        <th data-field="devuelto">Devuelto</th>
         <th></th>
       </tr>
     </thead>
@@ -40,9 +40,12 @@
           <label attr.for="{{acta.url}}"></label>
         </td>
         <td>{{acta.Prestador.Nombre}} {{acta.Prestador.Apellido}}</td>
-        <td>{{acta.Cantidad}}</td>
         <td>{{acta.Fecha}}</td>
         <td>{{acta.Fecha_vencimiento}}</td>
+        <td>
+          <a *ngIf = "acta.Devuelto" class="button-collapse"><i  style="cursor: pointer" class="material-icons">done</i></a>
+        </td>
+
         <td>
           <a (click)="goModificarPrestamo(acta)" class="button-collapse"><i  style="cursor: pointer" class="material-icons left">description</i></a>
         </td>
