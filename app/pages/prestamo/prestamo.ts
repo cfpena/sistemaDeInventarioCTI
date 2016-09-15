@@ -168,7 +168,9 @@ constructor( private navController:NavController,private menu: MenuController,
     if (this.itemSeleccionado){
       let cant=0;
         if((this.descripcionItem)  != ""){
-      if(Number(this.itemSeleccionado.Stock_Disponible) < Number(this.cantidad)){
+          if(Number(this.cantidad)==0){
+            this.presentToast('El item no puede ser agregado. La cantidad debe ser mayor a 0.');
+          }else if(Number(this.itemSeleccionado.Stock_Disponible) < Number(this.cantidad)){
         //console.log('egreso y mayor que stock disponible');
         this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
       }else{
