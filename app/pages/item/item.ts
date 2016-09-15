@@ -34,7 +34,7 @@ export class ItemPage implements OnInit {
     selected: number[] = [];
     tiposBusquedas = ['código', 'Nombre'];
     busqueda = { tipo: 'codigo', valor: '' };
-    tiposFotos = ['archivo', 'cámara'];
+    tiposFotos = ['archivo'];
     tipoFotoSeleccionado='archivo'
     foto = { name: '', data: '' };
 
@@ -45,6 +45,9 @@ export class ItemPage implements OnInit {
           if(!this.platform.is('mobile')){
               this.tiposFotos = ['archivo'];
 
+          }
+          else {
+              this.tiposFotos = ['cámara'];
           }
         this.itemsTemporal = this.items;
 
@@ -95,7 +98,6 @@ export class ItemPage implements OnInit {
         }
     }
     camara(){
-      console.log(this.tipoFotoSeleccionado)
     Camera.getPicture({
         destinationType: Camera.DestinationType.DATA_URL,
         targetWidth: 300,
