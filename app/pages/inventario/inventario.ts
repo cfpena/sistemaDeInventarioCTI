@@ -113,7 +113,7 @@ export class InventarioPage implements OnInit{
 
       //console.log(JSON.stringify(validator.validate(this.movimientoNuevo)));
       this.movimientoNuevo.Proveedor = this.proveedorSeleccionado.url;
-      console.log(this.movimientoNuevo);
+      console.log(JSON.stringify(this.movimientoNuevo));
       if (this.validarMovimiento()){
         this.inventarioService.createMovimiento(this.movimientoNuevo, this.listaMovimientoDet, this.navController)
         this.template='null';

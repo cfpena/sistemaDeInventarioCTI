@@ -61,7 +61,8 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
-    "cordova-plugin-crosswalk-webview"
+    "cordova-plugin-crosswalk-webview",
+    "cordova-plugin-camera"
   ],
   "scripts": {
     "karma": "gulp --gulpfile test/gulpfile.ts --cwd ./ karma-debug",

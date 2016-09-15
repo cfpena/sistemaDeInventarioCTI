@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { NavController, MenuController, Toast, Modal } from 'ionic-angular';
+import { NavController, MenuController, Toast, Modal,Platform } from 'ionic-angular';
 import { ITEM } from './item.model';
 import { MaterializeDirective } from "../../materialize-directive";
 import { Validator } from "validator.ts/Validator";
 import { Url } from '../../url'
 import { Http, Headers } from '@angular/http';
 import { ItemService } from './item.service';
+import {Camera} from 'ionic-native';
 
 
 /*
@@ -34,10 +35,17 @@ export class ItemPage implements OnInit {
     tiposBusquedas = ['código', 'Nombre'];
     busqueda = { tipo: 'codigo', valor: '' };
     tiposFotos = ['archivo', 'cámara'];
+    tipoFotoSeleccionado='archivo'
     foto = { name: '', data: '' };
+
     constructor(private navController: NavController, private menu: MenuController,
         private itemService: ItemService,
+        private platform: Platform,
         private http: Http) {
+          if(!this.platform.is('mobile')){
+              this.tiposFotos = ['archivo'];
+
+          }
         this.itemsTemporal = this.items;
 
 
@@ -86,9 +94,24 @@ export class ItemPage implements OnInit {
             this.foto = { name: '', data: '' };
         }
     }
+    camara(){
+      console.log(this.tipoFotoSeleccionado)
+    Camera.getPicture({
+        destinationType: Camera.DestinationType.DATA_URL,
+        targetWidth: 300,
+        targetHeight: 300
+    }).then((imageData) => {
+      // imageData is a base64 encoded string
+      this.foto.name = new Date().toDateString();
+        this.foto.data = "data:image/jpeg;base64," + imageData;
+    }, (err) => {
+        console.log(err);
+    });
+    }
 
     fileChange(input: any){
           // Create an img element and add the image file data to it
+            console.log(this.tipoFotoSeleccionado)
           var img = document.createElement("img");
           img.src = window.URL.createObjectURL(input.files[0]);
 
