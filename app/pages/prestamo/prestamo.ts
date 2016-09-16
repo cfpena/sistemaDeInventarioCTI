@@ -133,7 +133,8 @@ constructor( private navController:NavController,private menu: MenuController,
     })
   }
 
-  devolver(){
+  devolver(acta : Acta){
+    acta.Devuelto =true;
     this.prestamoService.createDevolucion(this.listaPrestamos, this.navController)
     this.presentToast('Prestamo devuelto')
     this.listaPrestamos =[];

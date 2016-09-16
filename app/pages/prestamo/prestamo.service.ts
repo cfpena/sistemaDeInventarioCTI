@@ -74,6 +74,11 @@ constructor(private http: Http,
     }
   }
 
+  verificarDevolucion (acta: Acta, nav:NavController){
+
+      this.httprequest.post(this.url.base+this.url.devuelto,JSON.stringify(devuelto),nav)
+    }
+
   llenarPrestador(acta: Acta,nav: NavController){
     //console.log('llenar prestador')
     return this.httprequest.get(String(acta.Prestador),nav).then(prestador=>{

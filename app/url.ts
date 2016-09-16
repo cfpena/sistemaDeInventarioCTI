@@ -10,6 +10,7 @@ export class Url {
   itemupload = 'api/itemupload/';
   acta ='api/actas/';
   devolucion ='api/devoluciones/';
+  devuelto ='api/devuelto/';
   dispositivo = 'api/dispositivos/';
   kit ='api/kits/';
 
