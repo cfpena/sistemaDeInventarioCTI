@@ -43,7 +43,7 @@
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="FadeSplashScreenDuration" value="3000" />
-    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreen" value="src/images/splash.png" />
     <preference name="CrosswalkAnimatable" value="true" />
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />

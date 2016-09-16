@@ -17,5 +17,6 @@ export class Acta {
     this.Fecha_vencimiento='';
     this.Fecha='';
     this.Codigo ='';
+    this.Devuelto=false;
   }
 }

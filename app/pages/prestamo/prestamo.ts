@@ -129,18 +129,19 @@ constructor( private navController:NavController,private menu: MenuController,
     this.prestamoService.getActas(this.navController).then(actas => { this.actas = actas ; return actas}).then(result=>{
       for(var acta of this.actas){
         this.prestamoService.llenarPrestador(acta,this.navController)
+        this.prestamoService.llenarDevuelto(acta,this.navController)
       }
     })
   }
 
   devolver(acta : Acta){
-    acta.Devuelto =true;
     this.prestamoService.createDevolucion(this.listaPrestamos, this.navController)
     this.presentToast('Prestamo devuelto')
     this.listaPrestamos =[];
     this.descripcionItem='';
     this.descripcionPersona='';
     this.template = 'null';
+    this.listar_actas();
   }
 
   buscarItem(){

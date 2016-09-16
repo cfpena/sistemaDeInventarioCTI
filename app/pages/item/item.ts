@@ -112,8 +112,6 @@ export class ItemPage implements OnInit {
     }
 
     fileChange(input: any){
-          // Create an img element and add the image file data to it
-            console.log(this.tipoFotoSeleccionado)
           var img = document.createElement("img");
           img.src = window.URL.createObjectURL(input.files[0]);
 

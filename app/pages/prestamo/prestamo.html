@@ -43,7 +43,9 @@
         <td>{{acta.Fecha}}</td>
         <td>{{acta.Fecha_vencimiento}}</td>
         <td>
-          <a *ngIf = "acta.Devuelto" class="button-collapse"><i  style="cursor: pointer" class="material-icons">done</i></a>
+          <a *ngIf = "acta.Devuelto==true" class="button-collapse"><i  style="cursor: pointer" class="material-icons">done</i></a>
+          <a *ngIf = "acta.Devuelto==false" class="button-collapse"><i  style="cursor: pointer" class="material-icons">clear</i></a>
+
         </td>
 
         <td>

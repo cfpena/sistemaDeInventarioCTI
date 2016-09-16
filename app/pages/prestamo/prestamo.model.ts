@@ -14,6 +14,7 @@ export class Prestamo {
     @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(0, 50) Detalle: String;
 
 
+
 constructor( ) {
   this.Detalle='';
   this.Fecha='';

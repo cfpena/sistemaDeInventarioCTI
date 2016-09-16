@@ -27,6 +27,16 @@ constructor(private http: Http,
     })
   }
 
+  llenarDevuelto(acta: Acta,nav: NavController){
+      this.httprequest.post(this.url.base + this.url.devuelto,JSON.stringify({Acta: acta.url}),nav).then(result=>{
+        console.log(result.json())
+        acta.Devuelto=result.json();
+      })
+
+
+
+  }
+
   createActa1(acta: Acta, nav:NavController){
     //console.log (acta)
     return this.httprequest.post(this.url.base + this.url.acta, JSON.stringify(acta),nav).then(result => {return result});
@@ -74,10 +84,6 @@ constructor(private http: Http,
     }
   }
 
-  verificarDevolucion (acta: Acta, nav:NavController){
-
-      this.httprequest.post(this.url.base+this.url.devuelto,JSON.stringify(devuelto),nav)
-    }
 
   llenarPrestador(acta: Acta,nav: NavController){
     //console.log('llenar prestador')
