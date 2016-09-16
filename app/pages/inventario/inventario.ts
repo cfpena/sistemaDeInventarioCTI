@@ -233,8 +233,10 @@ export class InventarioPage implements OnInit{
     agregarItem(){
       if (this.itemSeleccionado){
         let cant=0;
-        //console.log(this.cantidad)
-        if(Number(this.itemNuevo.Stock_Disponible) < Number(this.cantidad) && this.tipoMov =='Egreso'){
+        console.log(this.cantidad)
+        if(Number(this.cantidad)==0){
+          this.presentToast('El item no puede ser agregado. La cantidad debe ser mayor a 0.');
+        }else if(Number(this.itemNuevo.Stock_Disponible) < Number(this.cantidad) && this.tipoMov =='Egreso'){
           //console.log('egreso y mayor que stock disponible');
           this.presentToast('El item no puede ser agregado. El Stock Disponible es menor que la cantidad.');
         }else{
@@ -280,7 +282,9 @@ export class InventarioPage implements OnInit{
         //verificar si hay en stock
         //console.log(this.kitSeleccionado)
         //console.log('verifico si es egreso y hay stock')
-        if(this.tipoMov =='Egreso'){
+        if(Number(this.cantidad)==0){
+          this.presentToast('El kit no puede ser agregado. La cantidad debe ser mayor a 0.');
+        }else if(this.tipoMov =='Egreso'){
           for(var kitdetalle of this.kitSeleccionado.KitDetalle){
             if(Number(kitdetalle.Item.Stock_Disponible) < Number(this.cantidad)){
               stockNoDisponible=true
