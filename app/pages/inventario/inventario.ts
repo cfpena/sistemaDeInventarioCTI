@@ -189,7 +189,14 @@ export class InventarioPage implements OnInit{
       //console.log('buscar persona');
       if (this.descripcionProveedor!==''){
         //console.log('buscar persona1');
-        this.personaService.getBuscar(this.descripcionProveedor, this.navController).then(personas => {this.listaFiltradaProveedor=personas; return personas})
+        this.personaService.getBuscar(this.descripcionProveedor, this.navController).then(personas => {
+          this.listaFiltradaProveedor=personas;
+          return personas}).then(kits => {
+            if (this.listaFiltradaProveedor.length==0){
+              this.presentToast('No existen datos que coincidan con la busqueda. La persona debe estar creada en el sistema.');
+              this.listaFiltradaProveedor=[];
+            }
+          })
       }else{
         this.listaFiltradaProveedor=[];
       }
@@ -206,9 +213,23 @@ export class InventarioPage implements OnInit{
       if (this.descripcionItem!==''){
         //console.log('buscar item/kit');
         if (this.esKit){
-          this.kitService.getBuscar(this.descripcionItem,this.navController).then(kits => { this.listaFiltradaKit = kits; return kits })
+          this.kitService.getBuscar(this.descripcionItem,this.navController).then(kits => {
+            this.listaFiltradaKit = kits;
+            return kits; }).then(kits => {
+            if (this.listaFiltradaKit.length==0){
+              this.presentToast('No existe un kit para agregar');
+              this.descripcionItem='';
+            }
+          })
         }else{
-          this.itemService.getBuscarItem(this.descripcionItem,this.navController).then(items => { this.listaFiltradaItem = items; return items })
+          this.itemService.getBuscarItem(this.descripcionItem,this.navController).then(items => {
+            this.listaFiltradaItem = items;
+            return items; }).then(items => {
+            if (this.listaFiltradaItem.length==0){
+              this.presentToast('No existe un ítem para agregar');
+              this.descripcionItem='';
+            }
+          })
         }
 
       }else{
