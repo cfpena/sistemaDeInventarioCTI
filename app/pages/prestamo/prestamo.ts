@@ -104,7 +104,7 @@ constructor( private navController:NavController,private menu: MenuController,
 
   crear(){
     //console.log('crear')
-    //console.log (this.actaNuevo)
+    console.log (this.actaNuevo)
     let validator = new Validator();
     if (!validator.isValid(this.actaNuevo)){ this.presentToast('Corrija el formulario');console.log(validator.validate(this.actaNuevo));}
     //  else if (this.itemNuevo.Codigo == '' || this.itemNuevo.Codigo.length < 10) this.presentToast('Código debe tener 10 dígitos');
@@ -134,7 +134,7 @@ constructor( private navController:NavController,private menu: MenuController,
     })
   }
 
-  devolver(acta : Acta){
+  devolver(){
     this.prestamoService.createDevolucion(this.listaPrestamos, this.navController)
     this.presentToast('Prestamo devuelto')
     this.listaPrestamos =[];

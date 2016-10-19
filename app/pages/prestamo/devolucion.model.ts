@@ -9,7 +9,7 @@ export class Devolucion {
   url: string;
   @IsInt() Cantidad: number;
   Prestamo: any;
-  @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(0, 50) Detalle: string;
+  @IsLength(0, 50) Detalle: string;
 
   constructor( ) {
     this.Detalle='';

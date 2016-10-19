@@ -10,13 +10,12 @@ export class Acta {
   Fecha_vencimiento: String;
   Fecha: String;
   Devuelto: boolean;
-  @IsLength(0, 30) Codigo: string;
+  Codigo: string;
 
   constructor( ) {
     this.url='';
     this.Fecha_vencimiento='';
     this.Fecha='';
-    this.Codigo ='';
     this.Devuelto=false;
   }
 }

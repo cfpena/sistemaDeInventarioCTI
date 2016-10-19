@@ -11,7 +11,7 @@ export class Prestamo {
     Acta: any;
     Fecha: String;
     Item: any;
-    @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(0, 50) Detalle: String;
+    @IsLength(0, 50) Detalle: String;
 
 
 
