@@ -6,7 +6,7 @@ export class IngresoEgreso {
   url: string;
   @IsDate() Fecha: string;
   @IsInt() Cantidad: number;
-  @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(0, 50) Detalle: string;
+  @IsLength(0, 200) Detalle: string;
   Tipo: string;
   Item: any;
 
@@ -20,14 +20,14 @@ export class IngresoEgreso {
 }
 
 export class FacturaIngreso{
-  @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) Acta: string;
+  @NotEmpty() Acta: string;
   //@Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) Proveedor: any;
   Proveedor: any;
 
   Fecha: string;
   IngresoEgreso: any[];
 
-  @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 50) Descripcion: string;
+  @NotEmpty()  @IsLength(2, 50) Descripcion: string;
   url: string;
 
   constructor( ){

@@ -64,10 +64,6 @@
     "cordova-plugin-crosswalk-webview",
     "cordova-plugin-camera"
   ],
-  "scripts": {
-    "karma": "gulp --gulpfile test/gulpfile.ts --cwd ./ karma-debug",
-    "postinstall": "typings install && cp test/karma-static/*.html node_modules/karma/static",
-    "test": "gulp --gulpfile test/gulpfile.ts --cwd ./ unit-test"
-  },
+
   "cordovaPlatforms": []
 }

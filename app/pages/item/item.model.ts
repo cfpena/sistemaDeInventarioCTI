@@ -12,7 +12,7 @@ export class ITEM {
   @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 30) Nombre: string;
   @IsLength(0, 30) Marca: string;
   @IsLength(0, 30) Modelo: string;
-  @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 50) Descripcion: string;
+  @NotEmpty() @IsLength(2, 150) Descripcion: string;
   Imagen: any;
   Es_Dispositivo: boolean
 

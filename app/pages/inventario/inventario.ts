@@ -129,7 +129,7 @@ export class InventarioPage implements OnInit{
       let validator = new Validator();
       //console.log('voy a valirdar movimiento');
       //console.log(JSON.stringify(this.movimientoNuevo));
-      if (!validator.isValid(this.movimientoNuevo)) this.presentToast('ERROR!');
+      if (!validator.isValid(this.movimientoNuevo)) this.presentToast('Compruebe si ha realizado un movimiento válido y haber llenado los datos');
       else if (this.movimientoNuevo.Fecha=='') this.presentToast ('Seleccione la fecha del movimiento');
       else return true
       return false
@@ -347,6 +347,7 @@ export class InventarioPage implements OnInit{
     eliminarMovimientoDet(movimientoDet: IngresoEgreso){
       let index=this.listaMovimientoDet.indexOf(movimientoDet)
       this.listaMovimientoDet.splice(index,1)
+      this.listar();
     }
 
     //retrasa la carga de la pagina 100 ms

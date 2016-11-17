@@ -156,7 +156,7 @@
             <div class="row">
               <div class="input-field col l11 m10 s11">
               <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-              <textarea id="icon_descripcion" class="materialize-textarea validate" minlength="5" maxlength="100"  pattern = "[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*" [(ngModel)]="itemNuevo.Descripcion" ></textarea>
+              <textarea id="icon_descripcion" class="materialize-textarea validate" minlength="5" maxlength="150"   [(ngModel)]="itemNuevo.Descripcion" ></textarea>
               <label for="icon_descripcion"data-error="Descripción vacía o Incompleta">Descripción</label>
             </div>
             <div class="col l1 m1 s1">
@@ -279,7 +279,7 @@
               <div class="col l10 m10 s10">
                 <div class="input-field">
                   <i class="material-icons prefix" style="color:#009688">keyboard_arrow_right</i>
-                  <textarea id="icon_descripcion" class="materialize-textarea" minlength="5" maxlength="100" disabled="disabled" [(ngModel)]="itemModificar.Descripcion" ></textarea>
+                  <textarea id="icon_descripcion" class="materialize-textarea" minlength="5" maxlength="150" disabled="disabled" [(ngModel)]="itemModificar.Descripcion" ></textarea>
                   <label for="icon_descripcion" data-error="Descripción vacía o Incompleta">Descripción</label>
                 </div>
               </div>
