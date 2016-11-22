@@ -109,10 +109,10 @@ constructor(private http: Http,
   }
 
   getBuscar(cadena: String, nav: NavController) {
-    return this.httprequest.get(this.url.base + this.url.prestamo + this.url.buscar + cadena,nav)
+    return this.httprequest.get(this.url.base + this.url.acta + this.url.buscar + cadena,nav)
     .then(result => {
-      let prestamos = result.json() as Prestamo[];
-      return prestamos;
+      let actas = result.json() as Acta[];
+      return actas;
 
     }).catch(error=>{
       console.log(error)

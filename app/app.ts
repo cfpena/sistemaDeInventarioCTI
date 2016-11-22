@@ -1,17 +1,17 @@
 import {Component, ViewChild,OnInit} from '@angular/core';
 import {App, ionicBootstrap, Platform, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
-import {LoginPage} from './pages/login/login';
-import {PrincipalPage}  from './pages/principal/principal';
-import {PersonaPage} from './pages/persona/persona';
-import {ItemPage} from './pages/item/item';
-import {InventarioPage} from './pages/inventario/inventario';
-import {KitPage} from './pages/kit/kit';
-import {PrestamoPage} from './pages/prestamo/prestamo';
-import {ReportesPage} from './pages/reportes/reportes';
-import {UsuarioPage} from './pages/usuario/usuario';
-import {UsuarioAuthService} from './pages/usuario/usuario.auth.service';
-import {MaterializeDirective} from "./materialize-directive";
+import {LoginPage} from './/pages//login//login';
+import {PrincipalPage}  from './/pages//principal//principal';
+import {PersonaPage} from './/pages//persona//persona';
+import {ItemPage} from './/pages//item//item';
+import {InventarioPage} from './/pages//inventario//inventario';
+import {KitPage} from './/pages//kit//kit';
+import {PrestamoPage} from './/pages//prestamo//prestamo';
+import {ReportesPage} from './/pages//reportes//reportes';
+import {UsuarioPage} from './/pages//usuario//usuario';
+import {UsuarioAuthService} from './/pages//usuario//usuario.auth.service';
+import {MaterializeDirective} from ".//materialize-directive";
 import {Storage, LocalStorage} from 'ionic-angular';
 
 
@@ -20,7 +20,7 @@ import {Storage, LocalStorage} from 'ionic-angular';
 
 
 @Component({
-  templateUrl: 'build/app.html',
+  templateUrl: 'build//app.html',
   providers: [UsuarioAuthService],
   directives: [MaterializeDirective],
 })
@@ -35,7 +35,7 @@ export class MyApp implements OnInit {
               private usuarioAuthService: UsuarioAuthService) {
 
     this.initializeApp();
-        // used for an example of ngFor and navigation
+        //// used for an example of ngFor and navigation
     this.pages = [
       { title: 'Inventario',icon: 'library_books', component: InventarioPage },
       { title: 'Personas',icon: 'people', component: PersonaPage },

@@ -126,7 +126,8 @@ export class PersonaPage implements OnInit {
 
     //modifica la persona
     modificar() {
-
+      this.compararEmail(this.personaModificar.Email).then(result => {
+          if (!result) {
         let validator = new Validator();
         if (!validator.isValid(this.personaModificar as Persona)
             || this.personaModificar.Nombre == '' || this.personaModificar.Apellido == '') {
@@ -140,6 +141,10 @@ export class PersonaPage implements OnInit {
             this.listar();
         }
     }
+    else this.presentToast('Correo ya usado, escoja uno diferente');
+})
+
+}
 
 
 

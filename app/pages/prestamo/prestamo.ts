@@ -123,16 +123,7 @@ constructor( private navController:NavController,private menu: MenuController,
     }
   }
 
-  //funcion listar que lista todos los kits creados
-  listar_actas() {
-    this.actas =[]
-    this.prestamoService.getActas(this.navController).then(actas => { this.actas = actas ; return actas}).then(result=>{
-      for(var acta of this.actas){
-        this.prestamoService.llenarPrestador(acta,this.navController)
-        this.prestamoService.llenarDevuelto(acta,this.navController)
-      }
-    })
-  }
+
 
   devolver(){
     this.prestamoService.createDevolucion(this.listaPrestamos, this.navController)
@@ -306,16 +297,30 @@ constructor( private navController:NavController,private menu: MenuController,
  });
 
  }
-
+ //funcion listar que lista todos los kits creados
+ listar_actas() {
+   this.actas =[]
+   this.prestamoService.getActas(this.navController).then(actas => { this.actas = actas ; return actas}).then(result=>{
+     for(var acta of this.actas){
+       this.prestamoService.llenarPrestador(acta,this.navController)
+       this.prestamoService.llenarDevuelto(acta,this.navController)
+     }
+   })
+ }
   //FUNCION BUSCAR para filtrar en tabla de prestamos principal
   buscar() {
     if(this.busqueda.valor.trim() != ""){
-      this.personaService.getBuscar(this.busqueda.valor,this.navController).then(personas => {
-        this.listaFiltradaPersona = personas
-      });}
-      else{this.listar_actas()}
-    }
+      this.prestamoService.getBuscar(this.busqueda.valor,this.navController).then(actas => {this.actas = actas; return  actas}).then(result=>{
+          for(var acta of this.actas){
+            this.prestamoService.llenarPrestador(acta,this.navController)
+            this.prestamoService.llenarDevuelto(acta,this.navController)
+          }
+        })
 
+
+    }
+else{this.listar_actas()}
+}
     public ngOnInit() {
       this.listar_actas();
     }

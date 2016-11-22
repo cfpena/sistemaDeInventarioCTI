@@ -72,7 +72,7 @@ export class KitPage implements OnInit{
     crear() {
       console.log('crear')
       let validator = new Validator();
-      if (!validator.isValid(this.kitNuevo)) this.presentToast('Corrija el formulario');
+      if (!validator.isValid(this.kitNuevo)) this.presentToast('Corrija el formulario / verifique si ingresó items al kit');
       else {
         this.kitNuevo.KitDetalle = this.listaDetalleKit
         let kit = JSON.parse(JSON.stringify(this.kitNuevo))

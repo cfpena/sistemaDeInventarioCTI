@@ -6,13 +6,13 @@ export class ITEM {
   url: string;
   @IsInt() Stock: number;
   Stock_Disponible: number;
-  @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 30) Codigo: string;
-   @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(0, 30) CodigoEspol: string;
-   @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(0, 30) CodigoSenecyt: string;
-  @NotEmpty() @Matches(new RegExp("^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s ]*$")) @IsLength(2, 30) Nombre: string;
+  @NotEmpty()  @IsLength(2, 30) Codigo: string;
+  @IsLength(0, 30) CodigoEspol: string;
+  @IsLength(0, 30) CodigoSenecyt: string;
+  @NotEmpty() @IsLength(2, 30) Nombre: string;
   @IsLength(0, 30) Marca: string;
   @IsLength(0, 30) Modelo: string;
-  @NotEmpty() @IsLength(2, 150) Descripcion: string;
+  @NotEmpty() @IsLength(1, 150) Descripcion: string;
   Imagen: any;
   Es_Dispositivo: boolean
 
