@@ -2,7 +2,7 @@
 export class Url {
   //base ='http://162.243.83.72/';
   //base= 'http://localhost:8000/'
-  base='http://recursos.cti.espol.edu.ec:8000/'
+  base='https://recursos.cti.espol.edu.ec:8000/'
   usuario ='api/usuarios/';
   persona ='api/prestador/';
   prestamo ='api/prestamos/';

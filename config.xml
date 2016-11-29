@@ -60,4 +60,8 @@
     <plugin name="cordova-plugin-statusbar" spec="~2.1.3" />
     <plugin name="cordova-plugin-splashscreen" spec="~3.2.2" />
     <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
+    <feature name="InAppBrowser">
+  <param name="ios-package" value="CDVInAppBrowser" />
+  <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+</feature>
 </widget>
