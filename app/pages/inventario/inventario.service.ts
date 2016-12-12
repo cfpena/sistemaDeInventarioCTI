@@ -34,7 +34,9 @@ export class InventarioService {
       return this.httprequest.post(this.url.base + this.url.movimiento, JSON.stringify(movimiento),nav).then(result=>{
         console.log('cree movimiento')
         movimiento = result.json() as FacturaIngreso
+        console.log(JSON.stringify(listaMovimientoDet))
         for(let movimientodet of listaMovimientoDet){
+          console.log(JSON.stringify(movimientodet))
           movimientodet.Cantidad = Number(movimientodet.Cantidad)
           movimientodet.Item = movimientodet.Item.url
           console.log(JSON.stringify(movimientodet))

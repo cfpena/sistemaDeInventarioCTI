@@ -264,7 +264,7 @@ export class InventarioPage implements OnInit{
           //console.log ('verificar si existe')
           //console.log ('click')
           for (var movdet of this.listaMovimientoDet){
-            if (movdet.Item.url = this.itemNuevo.url){
+            if (movdet.Item.url == this.itemNuevo.url){
               cant+=Number(movdet.Cantidad);
             }
           }
