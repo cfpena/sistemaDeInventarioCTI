@@ -43,7 +43,7 @@ Ionic pages and navigation.
           <th ></th>
           <th data-field="id">Nombre</th>
           <th data-field="name">Email</th>
-          <th data-field="lastname">Tipo</th>
+          <th data-field="lastname">Modificar</th>
           <th></th>
         </tr>
       </thead>
@@ -58,7 +58,7 @@ Ionic pages and navigation.
           </td>
           <td>{{usuario.Nombre + ' ' + usuario.Apellido}}</td>
           <td>{{usuario.Email}}</td>
-          <td>{{usuario.groups[0].name}}</td>
+
           <td>
             <a class="button-collapse" (click)="goModificar(usuario)"><i  style="cursor: pointer" class="material-icons left">description</i></a>
           </td>

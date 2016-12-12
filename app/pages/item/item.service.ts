@@ -71,7 +71,8 @@ export class ItemService {
               Modelo: item.Modelo,
               CodigoEspol: item.CodigoEspol,
               CodigoSenecyt: item.CodigoSenecyt,
-              Descripcion: item.Descripcion
+              Descripcion: item.Descripcion,
+              Imagen: item.Imagen
             }),nav)
             .then(result => {return result});
     }

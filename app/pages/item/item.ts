@@ -85,7 +85,9 @@ export class ItemPage implements OnInit {
             //let item = JSON.parse(JSON.stringify(this.itemNuevo))
             if(this.foto.name!='')
             this.itemNuevo.Imagen = this.foto
+
             else this.itemNuevo.Imagen=null
+            console.log(this.itemNuevo.Imagen)
             this.itemService.createItem(this.itemNuevo,this.navController).then(result => {
               let r = result.json() as ITEM
               //this.itemService.uploadImagen(r.url,this.itemNuevo.Imagen,this.navController)
@@ -181,9 +183,19 @@ export class ItemPage implements OnInit {
         if (!validator.isValid(this.itemModificar)) this.presentToast('Corrija el formulario');
       //  else if (this.itemModificar.Stock < 1 || this.itemModificar.Stock > 50 || this.itemModificar.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
-            this.presentToast('Datos modificados correctamente');
-            this.itemService.updateItem(this.itemModificar,this.navController).then(result => this.listar());
-            this.template = 'null';
+          if(this.foto.name!='')
+          this.itemModificar.Imagen = this.foto
+          //else this.itemModificar.Imagen=null
+          console.log(this.itemModificar.Imagen)
+          this.itemService.updateItem(this.itemModificar,this.navController).then(result => {
+            //let rr = result.json() as ITEM
+            //this.itemService.uploadImagen(this.itemModificar.url,this.itemModificar.Imagen,this.navController)
+            this.listar();
+            this.presentToast('item modificado correctamente');
+          });
+          this.template = 'null';
+          this.itemModificar = new ITEM();
+          this.foto = { name: '', data: '' };
         }
     }
 

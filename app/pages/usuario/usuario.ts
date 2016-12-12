@@ -70,9 +70,7 @@ export class UsuarioPage implements OnInit {
       let load= new Load() //se instancia un load por cada llamada a la funcion
     //  load.present(this.navController) //se presenta el loading al usuario
       return  this.usuarioService.getUsuarios(this.navController).then(usuarios => { this.usuarios = usuarios; return usuarios }).then(usuarios => {
-          for(var usuario of this.usuarios){
-            this.usuarioService.llenarTipo(usuario,this.navController)
-          }
+          
       //    load.dismiss() //cuando termina el request, se elimina el loading
         })
 

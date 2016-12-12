@@ -7,9 +7,9 @@ import {UsuarioAuthService} from '../usuario/usuario.auth.service';
 import {Storage, LocalStorage} from 'ionic-angular';
 import {Http, Headers} from '@angular/http';
 import {FORM_DIRECTIVES} from '@angular/common';
-import {JwtHelper} from 'angular2-jwt';
 import 'rxjs/add/operator/map';
 import {Url} from '../../url';
+import { AuthHttp, JwtHelper, tokenNotExpired } from 'angular2-jwt';
 @Component({
     templateUrl: 'build/pages/login/login.html',
     providers: [UsuarioAuthService],
@@ -42,7 +42,8 @@ export class LoginPage implements OnInit {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       headers.append('Accept','application/json')
-        this.http.post(this.url.base + this.url.token, JSON.stringify({username: this.usuario.usuario,password: this.usuario.clave }), { headers: headers })
+        this.http.post(this.url.base + this.url.token,
+          JSON.stringify({username: this.usuario.usuario,password: this.usuario.clave }), { headers: headers })
             .map(res => res)
             .subscribe(
             data => this.authSuccess(data),
@@ -78,5 +79,50 @@ export class LoginPage implements OnInit {
     }
 
 
+
+}
+
+declare var Auth0Lock;
+
+@Component({
+  selector: 'app',
+  template: `
+    <h1>Welcome to Angular2 with Auth0</h1>
+    <button *ngIf="!loggedIn()" (click)="login()">Login</button>
+    <button *ngIf="loggedIn()" (click)="logout()">Logout</button>
+  `
+})
+
+export class AuthApp {
+
+  lock = new Auth0Lock('YOUR_CLIENT_ID', 'YOUR_AUTH0_DOMAIN');
+
+  constructor() {}
+
+  login() {
+    var hash = this.lock.parseHash();
+    if (hash) {
+      if (hash.error)
+        console.log('There was an error logging in', hash.error);
+      else
+        this.lock.getProfile(hash.id_token, function(err, profile) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          localStorage.setItem('profile', JSON.stringify(profile));
+          localStorage.setItem('id_token', hash.id_token);
+        });
+    }
+  }
+
+  logout() {
+    localStorage.removeItem('profile');
+    localStorage.removeItem('id_token');
+  }
+
+  loggedIn() {
+    return tokenNotExpired();
+  }
 
 }

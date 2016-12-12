@@ -14,7 +14,7 @@ import {UsuarioAuthService} from './/pages//usuario//usuario.auth.service';
 import {MaterializeDirective} from ".//materialize-directive";
 import {Storage, LocalStorage} from 'ionic-angular';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
-import {Auth} from './pages/cti/auth.service';
+
 import {provide} from '@angular/core';
 import {Http} from '@angular/http'
 
@@ -34,7 +34,7 @@ export class MyApp implements OnInit {
   pages: Array<{title: string, icon: string,component: any}>
 
   constructor(private platform: Platform,
-              private usuarioAuthService: UsuarioAuthService, private auth: Auth) {
+              private usuarioAuthService: UsuarioAuthService) {
 
     this.initializeApp();
         //// used for an example of ngFor and navigation
