@@ -31,6 +31,7 @@ export class Url {
   movimientoDetalle ='api/ingresosegresos/'
   movimiento = 'api/facturaingreso/'
   apk='media/sictiandroid.apk'
+  media="media/items/"
 
 
 }

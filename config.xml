@@ -41,8 +41,8 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
-    <preference name="SplashScreenDelay" value="3000" />
-    <preference name="FadeSplashScreenDuration" value="3000" />
+    <preference name="SplashScreenDelay" value="0" />
+    <preference name="FadeSplashScreenDuration" value="0" />
     <preference name="SplashScreen" value="src/images/splash.png" />
     <preference name="CrosswalkAnimatable" value="true" />
     <feature name="StatusBar">

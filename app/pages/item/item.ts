@@ -34,7 +34,7 @@ export class ItemPage implements OnInit {
     selected: number[] = [];
     tiposBusquedas = ['código', 'Nombre'];
     busqueda = { tipo: 'codigo', valor: '' };
-    tiposFotos = ['archivo'];
+    tiposFotos = ['archivo','cámara'];
     tipoFotoSeleccionado='archivo'
     foto = { name: '', data: '' };
 
@@ -47,7 +47,7 @@ export class ItemPage implements OnInit {
 
           }
           else {
-              this.tiposFotos = ['cámara'];
+              this.tiposFotos = ['archivo'];
           }
         this.itemsTemporal = this.items;
 
@@ -76,6 +76,7 @@ export class ItemPage implements OnInit {
     }
 
     crear() {
+
         let validator = new Validator();
         this.itemNuevo.Stock=0;
         if (!validator.isValid(this.itemNuevo)){ this.presentToast('Corrija el formulario');}
@@ -89,7 +90,7 @@ export class ItemPage implements OnInit {
             else this.itemNuevo.Imagen=null
             console.log(this.itemNuevo.Imagen)
             this.itemService.createItem(this.itemNuevo,this.navController).then(result => {
-              let r = result.json() as ITEM
+              //let r = result.json() as ITEM
               //this.itemService.uploadImagen(r.url,this.itemNuevo.Imagen,this.navController)
               this.listar();
               this.presentToast('item creado correctamente');
@@ -99,20 +100,59 @@ export class ItemPage implements OnInit {
             this.foto = { name: '', data: '' };
         }
     }
-    camara(){
+
+    /*camara(){
     Camera.getPicture({
         destinationType: Camera.DestinationType.DATA_URL,
-        targetWidth: 300,
-        targetHeight: 300
+        sourceType:	Camera.PictureSourceType.PHOTOLIBRARY,
+        encodingType: Camera.EncodingType.JPEG,
+        mediaType: Camera.MediaType.PICTURE,
+        targetWidth: 512,
+      targetHeight: 512,
+      quality: 50,
+
+        saveToPhotoAlbum: true,
+
     }).then((imageData) => {
       // imageData is a base64 encoded string
       this.foto.name = new Date().toDateString();
-        this.foto.data = "data:image/jpeg;base64," + imageData;
+      this.foto.data = "data:image/jpeg;base64," + imageData;
+
+      console.log(this.foto.name)
+      console.log(this.foto.data)
+
     }, (err) => {
         console.log(err);
-    });
-    }
 
+    });
+
+    }
+    clearCache() {
+    Camera.cleanup();
+}
+*/
+openGallery (): void {
+  let cameraOptions = {
+    sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+    destinationType: Camera.DestinationType.DATA_URL,
+    quality: 100,
+    targetWidth: 1000,
+    targetHeight: 1000,
+    encodingType: Camera.EncodingType.JPEG,
+    correctOrientation: true
+  }
+
+  Camera.getPicture(cameraOptions)
+    .then((imageData) => {
+      // imageData is a base64 encoded string
+      this.foto.name = new Date().toDateString();
+      this.foto.data = "data:image/jpeg;base64," + imageData;
+
+    }, (err) => {
+        console.log(err);
+
+    });
+}
     fileChange(input: any){
           var img = document.createElement("img");
           img.src = window.URL.createObjectURL(input.files[0]);
@@ -246,6 +286,8 @@ export class ItemPage implements OnInit {
     goCrearItem() {
         this.template = 'crear';
         this.generarCodigoItem();
+        Camera.cleanup();
+        console.log(Camera.cleanup());
     }
 
     cancelar() {

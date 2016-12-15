@@ -72,12 +72,12 @@ export class ItemService {
               CodigoEspol: item.CodigoEspol,
               CodigoSenecyt: item.CodigoSenecyt,
               Descripcion: item.Descripcion,
-              Imagen: item.Imagen
             }),nav)
             .then(result => {return result});
     }
 
     uploadImagen(url: string,file: File,nav: NavController) {
+
             return this.httprequest.patch(String(url), JSON.stringify(
             {
               Imagen: file
