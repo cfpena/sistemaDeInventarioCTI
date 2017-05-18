@@ -74,11 +74,18 @@ export class ItemPage implements OnInit {
       this.items =[]
       return  this.itemService.getItems(this.navController).then(items => { this.items = items; return items })
     }
+    goCrearItem() {
+        this.template = 'crear';
+        this.generarCodigoItem();
+        Camera.cleanup();
+        console.log(Camera.cleanup());
+    }
 
     crear() {
-
+      console.log(this.itemNuevo.Codigo);
         let validator = new Validator();
         this.itemNuevo.Stock=0;
+        this.itemNuevo.Stock_Disponible=0;
         if (!validator.isValid(this.itemNuevo)){ this.presentToast('Corrija el formulario');}
       //  else if (this.itemNuevo.Stock < 1 || this.itemNuevo.Stock > 50 || this.itemNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {
@@ -283,12 +290,6 @@ openGallery (): void {
     }
 
 
-    goCrearItem() {
-        this.template = 'crear';
-        this.generarCodigoItem();
-        Camera.cleanup();
-        console.log(Camera.cleanup());
-    }
 
     cancelar() {
         this.itemNuevo = new ITEM();

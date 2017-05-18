@@ -70,7 +70,7 @@ export class UsuarioPage implements OnInit {
       let load= new Load() //se instancia un load por cada llamada a la funcion
     //  load.present(this.navController) //se presenta el loading al usuario
       return  this.usuarioService.getUsuarios(this.navController).then(usuarios => { this.usuarios = usuarios; return usuarios }).then(usuarios => {
-          
+          console.log(usuarios);
       //    load.dismiss() //cuando termina el request, se elimina el loading
         })
 
@@ -91,6 +91,7 @@ export class UsuarioPage implements OnInit {
         //  load.present(this.navController)
             //se busca el tipo dentro de la lista de tipos por el nombre dado en el select de tipos al crear
             let tipo = this.tipos.find(tipo => this.Tipo == tipo.name);
+            console.log(tipo)
             //se hace un doble parse para obtener el valor de la variable y no la referencia
             //si no se hace esto al moficiar el usuario nuevo, tambien se modifica el usuario viejo
             let usuario = JSON.parse(JSON.stringify(this.usuarioNuevo))

@@ -22,7 +22,7 @@ export class InventarioService {
     //Obtiene todos los movimientos de inventario
     getMovimientos(nav: NavController) {
       return this.httprequest.get(this.url.base + this.url.movimiento, nav).then(result => {
-        let movimientos = result.json() as FacturaIngreso[];
+        let movimientos = result.json().results as FacturaIngreso[];
         return movimientos;
       })
     }

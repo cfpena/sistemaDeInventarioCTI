@@ -21,7 +21,7 @@ export class UsuarioService {
     getUsuarios(nav: NavController) {
 
       return this.httprequest.get(this.url.base + this.url.usuario,nav).then(result => {
-          let usuarios = result.json() as Usuario[];
+          let usuarios = result.json().results as Usuario[];
           return usuarios;
         })
     }
@@ -52,13 +52,13 @@ export class UsuarioService {
     updateUsuario(usuario: Usuario,nav: NavController) {
 
     return this.httprequest.patch(String(usuario.url),
-     JSON.stringify({Nombre: usuario.Nombre,Apellido: usuario.Apellido}),nav)
+     JSON.stringify({Nombre: usuario.Nombre,Apellido: usuario.Apellido, Group:usuario.groups[0]}),nav)
      .then(result => {return result});
     }
 
     getTipos(nav: NavController) {
             return this.httprequest.get(this.url.base + this.url.tiposUsuarios, nav).then(result => {
-          let tipos = result.json() as Group[];
+          let tipos = result.json().results as Group[];
           return tipos;
         });
     }

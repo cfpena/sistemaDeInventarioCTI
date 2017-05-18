@@ -20,7 +20,8 @@ export class ItemService {
 
     getItems(nav: NavController) {
       return this.httprequest.get(this.url.base + this.url.item,nav).then(result => {
-          let items = result.json() as ITEM[];
+          let items = result.json().results as ITEM[];
+          console.log(items);
           return items;
         })
     }
@@ -28,7 +29,7 @@ export class ItemService {
     getBuscarItem(cadena: String,nav: NavController) {
     return this.httprequest.get(this.url.base + this.url.item + this.url.buscar + cadena,nav)
     .then(result => {
-          let items = result.json() as ITEM[];
+          let items = result.json().results as ITEM[];
           return items;
 
         }).catch(error=>{
@@ -43,20 +44,23 @@ export class ItemService {
     createItem(item: ITEM,nav: NavController) {
       let url = this.url.base
       url+= this.url.itemupload
-      //console.log(JSON.stringify(item))
-      return this.httprequest.post(url, JSON.stringify(item),nav)
-    }
+      console.log(JSON.stringify(item))
+      return this.httprequest.post(url, JSON.stringify({item}),nav)
+    .then(result => {return result});
+   }
+
 
     //obtener el codigo del ultimo item creado
     getUltimoCodItem(nav: NavController) {
       return this.httprequest.get(this.url.base + this.url.item,nav).then(result => {
-          let items = result.json() as ITEM[];
+          let items = result.json().results as ITEM[];
           if (items.length == 0){
             return 0;
           }else{
             for (var item of items){
               item.Codigo;
             }
+            console.log(item.Codigo)
           return parseInt(item.Codigo);
         }
         })

@@ -22,7 +22,7 @@ constructor(private http: Http,
 
   getActas(nav: NavController) {
     return this.httprequest.get(this.url.base + this.url.acta, nav).then(result => {
-      let actas = result.json() as Acta[];
+      let actas = result.json().results as Acta[];
       return actas;
     })
   }

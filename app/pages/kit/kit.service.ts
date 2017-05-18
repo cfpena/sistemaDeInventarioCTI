@@ -20,7 +20,7 @@ export class KitService {
 
     getKits(nav: NavController) {
       return this.httprequest.get(this.url.base + this.url.kit,nav).then(result => {
-        let kits = result.json() as Kit[];
+        let kits = result.json().results as Kit[];
         return kits;
       })
     }
