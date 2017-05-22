@@ -86,6 +86,7 @@ export class ItemPage implements OnInit {
         let validator = new Validator();
         this.itemNuevo.Stock=0;
         this.itemNuevo.Stock_Disponible=0;
+        this.itemNuevo.QR_Code=null;
         if (!validator.isValid(this.itemNuevo)){ this.presentToast('Corrija el formulario');}
       //  else if (this.itemNuevo.Stock < 1 || this.itemNuevo.Stock > 50 || this.itemNuevo.Stock == 0) this.presentToast('Cantidad mínima 1 máximo 50');
         else {

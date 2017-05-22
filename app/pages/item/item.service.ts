@@ -73,9 +73,10 @@ export class ItemService {
               Nombre: item.Nombre,
               Marca: item.Marca,
               Modelo: item.Modelo,
-              CodigoEspol: item.CodigoEspol,
-              CodigoSenecyt: item.CodigoSenecyt,
+              identificaciones: item.identificaciones,
+              proveedores: item.proveedores,
               Descripcion: item.Descripcion,
+              QR_Code:item.QR_Code,
             }),nav)
             .then(result => {return result});
     }
